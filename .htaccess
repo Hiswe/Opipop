@@ -1,0 +1,13 @@
+SetEnv magic_quotes_gpc 1
+SetEnv magic_quotes_runtime 0
+SetEnv magic_quotes_sybase 0
+SetEnv REGISTER_GLOBALS 0
+
+#AddHandler php5-script .php
+
+RewriteEngine on
+
+#RewriteCond %{HTTP_HOST} ^.*aaaaaaaaaaa\.org [NC]
+#RewriteCond %{HTTP_HOST} !^www\.aaaaaaaaaaa.org [NC]
+#RewriteRule ^(.*)  http://www.aaaaaaaaaaa.org/$1 [L,R]
+
