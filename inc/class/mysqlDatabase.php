@@ -62,13 +62,13 @@
 							$results[$n] = $row;
 						}
 
-						return array ('result' => $results, 'total' => mysql_num_rows ($rs), 'sorted' => $n);
+						return array ('data' => $results, 'total' => mysql_num_rows ($rs), 'sorted' => $n);
 					}
 
 					mysql_free_result ($rs);
 				}
 
-				return array ('result' => array (), 'total' => 0, 'sorted' => 0);
+				return array ('data' => array (), 'total' => 0, 'sorted' => 0);
 			}
 
 			return false;

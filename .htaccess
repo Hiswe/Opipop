@@ -11,3 +11,5 @@ RewriteEngine on
 #RewriteCond %{HTTP_HOST} !^www\.aaaaaaaaaaa.org [NC]
 #RewriteRule ^(.*)  http://www.aaaaaaaaaaa.org/$1 [L,R]
 
+RewriteRule ^login$ index.php?page=login [L]
+
