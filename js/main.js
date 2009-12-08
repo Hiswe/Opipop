@@ -57,6 +57,41 @@ function login_init()
 {
 }
 
+function login_submit()
+{
+    var login = $('login_login').value.stripScripts().stripTags().strip();
+    var password = $('login_password').value.stripScripts().stripTags().strip();
+
+    if (login.blank() || password.blank())
+    {
+        alert('You must fill all the form\'s field to login !');
+        return;
+    }
+    else
+    {
+        var params = $H(
+        {
+            login: login,
+            password: password
+        });
+
+        new Ajax.Request (ROOT_PATH + 'remote/login_submit.php',
+        {
+            parameters: params.toQueryString(),
+            onSuccess: function(xhr)
+            {
+                if (xhr.responseText == '1')
+                {
+                    window.location = ROOT_PATH;
+                }
+                else
+                {
+                    alert('Error: wrond login or password');
+                }
+            }
+        });
+    }
+}
 
 ///////////////////
 // REGISTER
@@ -183,6 +218,20 @@ function register_submit()
     }
     else
     {
+        var params = $H(
+        {
+            login: login,
+            email: email,
+            password: password
+        });
 
+        new Ajax.Request (ROOT_PATH + 'remote/register_submit.php',
+        {
+            parameters: params.toQueryString(),
+            onSuccess: function(xhr)
+            {
+                window.location = ROOT_PATH + 'login/confirm';
+            }
+        });
     }
 }

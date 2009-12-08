@@ -12,4 +12,5 @@ RewriteEngine on
 #RewriteRule ^(.*)  http://www.aaaaaaaaaaa.org/$1 [L,R]
 
 RewriteRule ^login$ index.php?page=login [L]
+RewriteRule ^login/confirm$ index.php?page=login_confirm [L,QSA]
 

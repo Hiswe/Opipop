@@ -20,6 +20,8 @@
 	include ROOT_DIR.'inc/class/templateEngine.php';
 	include ROOT_DIR.'inc/class/mysqlDatabase.php';
 
+    session_start();
+
 	$page = (isOk($_GET['page'])) ? $_GET['page'] : 'homepage';
 
 	$db = new mysqlDatabase();

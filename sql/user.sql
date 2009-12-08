@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2009 at 11:15 PM
+-- Generation Time: Dec 08, 2009 at 12:05 AM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.0
 
@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `valided` binary(1) NOT NULL default '0',
   `login` varchar(32) collate utf8_unicode_ci NOT NULL,
   `password` varchar(32) collate utf8_unicode_ci NOT NULL,
+  `key` varchar(32) collate utf8_unicode_ci NOT NULL,
   `email` varchar(320) collate utf8_unicode_ci NOT NULL,
   `register_date` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`)

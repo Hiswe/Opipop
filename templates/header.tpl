@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>BACKOFFICE</title>
+    <title>{PAGE_TITLE}</title>
 
     <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
 
@@ -13,3 +13,7 @@
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/main.js?{VERSION}"></script>
 </head>
 <body>
+
+    <div id="main">
+        <a href="{ROOT_PATH}">You Survey</a>
+
