@@ -6,12 +6,13 @@
 
     $key = md5(rand(0, 1000) + microtime());
 
-    $id = $db->insert('INSERT INTO `user` (`login`, `email`, `password`, `key`) VALUES
+    $id = $db->insert('INSERT INTO `user` (`login`, `email`, `password`, `key`, `register_date`) VALUES
     (
         "' . $_POST['login'] . '",
         "' . $_POST['email'] . '",
         "' . md5($_POST['password']) . '",
-        "' . $key . '"
+        "' . $key . '",
+		"' . time() . '"
     )');
 
 

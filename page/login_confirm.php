@@ -1,28 +1,43 @@
 <?php
 
-if (isOk($_SESSION['user']))
+if (isOk($_GET['u']) && isOk($_GET['k']))
 {
-	$tpl->assignSection('confirm_ok');
-}
-else if (isOk($_GET['u']) && isOk($_GET['k']))
-{
-	$result = $db->select('SELECT `key`, `valided` FROM `user` WHERE `id`="' . $_GET['u'] . '"');
+    if (isOk($_SESSION['user'][$_GET['u']]))
+    {
+        $tpl->assignSection('confirm_ok');
+    }
+    else
+    {
+        $result = $db->select
+        ('
+            SELECT `valided`,`login`,`email`,`register_date`
+            FROM `user`
+            WHERE `id`="' . $_GET['u'] . '" AND `key`="' . $_GET['k'] . '"
+        ');
 
-	if ($result['total'] != 0 && $result['data'][0]['key'] == $_GET['k'])
-	{
-		if ($result['data'][0]['valided'] == 0)
-		{
-			$db->update('UPDATE `user` SET `valided`=1 WHERE `id`="' . $_GET['u'] . '"');
-		}
+        if ($result['total'] != 0)
+        {
+            $user = $result['data'][0];
 
-		$_SESSION['user'] = $_GET['u'];
+            if ($user['valided'] == 0)
+            {
+                $db->update('UPDATE `user` SET `valided`=1 WHERE `id`="' . $_GET['u'] . '"');
+            }
 
-		$tpl->assignSection('confirm_ok');
-	}
-	else
-	{
-		$tpl->assignSection('confirm_error');
-	}
+            $_SESSION['user'][$_GET['u']] = array
+            (
+                'login'         => $user['login'],
+                'email'         => $user['email'],
+                'register_date' => $user['register_date'],
+            );
+
+            $tpl->assignSection('confirm_ok');
+        }
+        else
+        {
+            $tpl->assignSection('confirm_error');
+        }
+    }
 }
 else
 {
