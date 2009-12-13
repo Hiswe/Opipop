@@ -15,5 +15,4 @@
 <body>
 
     <div id="main">
-        <a href="{ROOT_PATH}">You Survey</a>
 

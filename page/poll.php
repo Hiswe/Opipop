@@ -6,21 +6,15 @@ $rs_question = $db->select
 ('
     SELECT `id`, `date`, `label`
     FROM `question`
-    ORDER BY `date` DESC
-', 0, 8);
-
-$idList = array();
-foreach ($rs_question['data'] as $item)
-{
-    $idList[] = $item['id'];
-}
+    WHERE `id` = ' . $_GET['id'] . '
+');
 
 $rs_answer = $db->select
 ('
     SELECT a.id, a.label, j.question_id
     FROM `answer` AS a
     JOIN `question_answer` AS j ON j.answer_id = a.id
-    WHERE j.question_id IN (' . implode(',', $idList) . ')
+    WHERE j.question_id = ' . $_GET['id'] . '
 ', 0, 8);
 
 foreach ($rs_question['data'] as $question)
@@ -43,4 +37,5 @@ foreach ($rs_question['data'] as $question)
         }
     }
 }
+
 

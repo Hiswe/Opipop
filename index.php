@@ -6,9 +6,9 @@
 
     require_once 'page/' . $page . '.php';
 
-	$tpl->assignTemplate ('templates/header.tpl');
-	$tpl->assignTemplate ('templates/'.$page.'.tpl');
-	$tpl->assignTemplate ('templates/footer.tpl');
+	$tpl->assignTemplate ('template/header.tpl');
+	$tpl->assignTemplate ('template/'.$page.'.tpl');
+	$tpl->assignTemplate ('template/footer.tpl');
 
 	$tpl->display ();
 

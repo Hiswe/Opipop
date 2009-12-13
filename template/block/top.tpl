@@ -1,4 +1,6 @@
 
+        <a href="{ROOT_PATH}">You Survey</a>
+
         <h4>Menu:</h4>
         <ul id="menu">
             <li><a href="{ROOT_PATH}login">connect a new user</a></li>

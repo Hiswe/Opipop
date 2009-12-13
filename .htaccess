@@ -13,4 +13,5 @@ RewriteEngine on
 
 RewriteRule ^login$ index.php?page=login [L]
 RewriteRule ^login/confirm$ index.php?page=login_confirm [L,QSA]
+RewriteRule ^poll/([0-9]+)$ index.php?page=poll&id=$1 [L]
 

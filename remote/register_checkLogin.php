@@ -4,7 +4,12 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
-    $rs = $db->select('SELECT id FROM user WHERE login="' . $_POST['login'] . '" AND valided=1');
+    $rs = $db->select
+    ('
+        SELECT `id`
+        FROM `user`
+        WHERE `login`="' . $_POST['login'] . '" AND `valided`=1
+    ');
 
     if ($rs['total'] != 0)
     {
