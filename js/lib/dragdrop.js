@@ -9,6 +9,8 @@ var dragdrop =
 
     dragObject   : null,
     originObject : null,
+    recievers    : new Array(),
+    dropCallback : new Function(),
 
     falsefunc : function()
     {
@@ -38,8 +40,11 @@ var dragdrop =
         }
     },
 
-    grab : function(e, context)
+    grab : function(e, context, recievers, dropCallback)
     {
+        dragdrop.recievers = recievers;
+        dragdrop.dropCallback = dropCallback;
+
         dragdrop.getmouseXY(e);
 
         dragdrop.dragObject = context.cloneNode(true);
@@ -68,6 +73,20 @@ var dragdrop =
             dragdrop.dragObject.style.left = (dragdrop.originX + (dragdrop.mouseX - dragdrop.grabX)).toString(10) + 'px';
             dragdrop.dragObject.style.top  = (dragdrop.originY + (dragdrop.mouseY - dragdrop.grabY)).toString(10) + 'px';
         }
+        for (var i = 0; i < dragdrop.recievers.length; i ++)
+        {
+            if (dragdrop.dragObject.offsetLeft > dragdrop.recievers[i].offsetLeft
+                && dragdrop.dragObject.offsetTop > dragdrop.recievers[i].offsetTop
+                && dragdrop.dragObject.offsetLeft + dragdrop.dragObject.getWidth() < dragdrop.recievers[i].offsetLeft + dragdrop.recievers[i].getWidth()
+                && dragdrop.dragObject.offsetTop + dragdrop.dragObject.getHeight() < dragdrop.recievers[i].offsetTop + dragdrop.recievers[i].getHeight())
+            {
+                (!dragdrop.recievers[i].hasClassName('colide')) ? dragdrop.recievers[i].addClassName('colide') : null;
+            }
+            else
+            {
+                (dragdrop.recievers[i].hasClassName('colide')) ? dragdrop.recievers[i].removeClassName('colide') : null;
+            }
+        }
         dragdrop.getmouseXY(e); // NS is passing (event), while IE is passing (null)
         return false;           // in IE this prevents cascading of events, thus text selection is disabled
     },
@@ -79,6 +98,15 @@ var dragdrop =
             dragdrop.originObject.parentNode.removeChild(dragdrop.dragObject);
             dragdrop.originObject.style.visibility = "visible";
         }
+        for (var i = 0; i < dragdrop.recievers.length; i ++)
+        {
+            if (dragdrop.recievers[i].hasClassName('colide'))
+            {
+                dragdrop.recievers[i].removeClassName('colide');
+                dragdrop.dropCallback(dragdrop.originObject, dragdrop.recievers[i]);
+            }
+        }
+        dragdrop.recievers = new Array();
         document.onmouseup = null;
         document.onmousedown = null; // re-enables text selection on NS
     }

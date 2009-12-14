@@ -8,10 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
 
     <script language="javascript" type="text/javascript">var ROOT_PATH = '{ROOT_PATH}';</script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/prototype.js"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/dragdrop.js"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/prototype.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/dragdrop.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/function.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/main.js?{VERSION}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
 </head>
 <body>
 

@@ -1,2 +1,32 @@
+#farm
+{
+    border: solid 1px #ccc;
+    padding: 10px;
+    margin: 8px;
+}
 
+#farm.colide
+{
+    border-color: #66ff66;
+}
+
+#result li.answer
+{
+    border: dashed 1px #ccc;
+    padding: 8px;
+    margin: 10px;
+}
+
+#result li.answer.colide
+{
+    border-color: #ff6666;
+}
+
+li.user
+{
+    display: inline-block;
+    background: #ffffcc;
+    margin: 2px;
+    padding: 2px 4px;
+}
 

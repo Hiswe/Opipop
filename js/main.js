@@ -8,17 +8,30 @@ window.onload = function () {
 
 function poll_init()
 {
+    var recievers = new Array();
+
+    $$('#result li.answer').each(function(item)
+    {
+        recievers.push(item);
+    });
+    recievers.push($('farm'));
+
     $$('#farm li.user').each(function(item)
     {
         item.observe('mousedown', function(e)
         {
-            dragdrop.grab(e, this);
+            dragdrop.grab(e, this, recievers, poll_userDropCallback);
         });
         item.setStyle(
         {
             cursor : 'pointer'
         });
     });
+}
+
+function poll_userDropCallback(user, reciever)
+{
+    reciever.down('ul').insert(user);
 }
 
 

@@ -33,6 +33,7 @@ foreach ($rs_question['data'] as $question)
             $tpl->assignLoopVar('question.answer', array
             (
                 'label' => $answer['label'],
+                'id'    => $answer['id'],
             ));
         }
     }
