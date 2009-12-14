@@ -27,9 +27,9 @@ foreach ($rs_question['data'] as $question)
 {
     $tpl->assignLoopVar('question', array
     (
-        'date' => date('d-m-Y', $question['date']),
+        'date'  => date('d-m-Y', $question['date']),
         'label' => $question['label'],
-        'id' => $question['id'],
+        'id'    => $question['id'],
     ));
 
     foreach ($rs_answer['data'] as $answer)

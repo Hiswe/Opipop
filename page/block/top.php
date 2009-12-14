@@ -7,6 +7,7 @@ if (isOk($_SESSION['user']))
         $tpl->assignLoopVar('userLogged', array
         (
             'login' => $data['login'],
+            'id'    => $data['id'],
         ));
     }
 }

@@ -3,6 +3,26 @@ window.onload = function () {
 
 
 ///////////////////
+// POLL
+///////////////////
+
+function poll_init()
+{
+    $$('#farm li.user').each(function(item)
+    {
+        item.observe('mousedown', function(e)
+        {
+            dragdrop.grab(e, this);
+        });
+        item.setStyle(
+        {
+            cursor : 'pointer'
+        });
+    });
+}
+
+
+///////////////////
 // FORM
 ///////////////////
 
