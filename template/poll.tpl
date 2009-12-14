@@ -1,22 +1,26 @@
 
             <!-- INCLUDE block/top.tpl -->
 
-            <!-- LOOP question -->
-            <h2 id="question"><span>{question.date}</span> <a href="{ROOT_PATH}poll/{question.id}">{question.label}</a></h2>
+            <h2 id="question"><span>{question_date}</span> <a href="{ROOT_PATH}poll/{question_id}">{question_label}</a></h2>
             <ul id="result">
-                <!-- LOOP question.answer -->
-                <li id="answer_{question.answer.id}" class="answer">{question.answer.label}<ul></ul></li>
-                <!-- END question.answer -->
+                <!-- LOOP answer -->
+                <li id="answer_{answer.id}" class="answer">{answer.label}
+                    <ul>
+                        <!-- LOOP answer.user -->
+                        <li id="user_{answer.user.id}" class="user">{answer.user.login}</li>
+                        <!-- END answer.user -->
+                    </ul>
+                </li>
+                <!-- END answer -->
             </ul>
-            <!-- END question -->
 
             <div id="farm">
                 <ul>
-                    <!-- LOOP userLogged -->
-                    <li id="user_{userLogged.id}" class="user">{userLogged.login}</li>
-                    <!-- END userLogged -->
+                    <!-- LOOP user -->
+                    <li id="user_{user.id}" class="user">{user.login}</li>
+                    <!-- END user -->
                 </ul>
             </div>
 
-            <script type="text/javascript">poll_init();</script>
+            <script type="text/javascript">poll_init({poll_parameters});</script>
 

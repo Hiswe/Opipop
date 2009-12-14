@@ -6,8 +6,12 @@ window.onload = function () {
 // POLL
 ///////////////////
 
-function poll_init()
+var poll_parameters = {};
+
+function poll_init(params)
 {
+    poll_parameters = params;
+
     var recievers = new Array();
 
     $$('#result li.answer').each(function(item)
@@ -16,7 +20,7 @@ function poll_init()
     });
     recievers.push($('farm'));
 
-    $$('#farm li.user').each(function(item)
+    $$('#farm li.user, #result li.user').each(function(item)
     {
         item.observe('mousedown', function(e)
         {
@@ -32,6 +36,28 @@ function poll_init()
 function poll_userDropCallback(user, reciever)
 {
     reciever.down('ul').insert(user);
+
+    var answer_id = 0;
+
+    if (reciever.readAttribute('id') != 'farm')
+    {
+        answer_id = reciever.readAttribute('id').split('_')[1];
+    }
+
+    var params = $H(
+    {
+        answer_id   : answer_id,
+        question_id : poll_parameters['question_id'],
+        user_id     : user.readAttribute('id').split('_')[1]
+    });
+
+    new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
+    {
+        parameters: params.toQueryString(),
+        onSuccess: function(xhr)
+        {
+        }
+    });
 }
 
 
