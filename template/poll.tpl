@@ -2,6 +2,8 @@
             <!-- INCLUDE block/top.tpl -->
 
             <h2 id="question"><span>{question_date}</span> <a href="{ROOT_PATH}poll/{question_id}">{question_label}</a></h2>
+
+            <!-- SECTION active -->
             <ul id="result">
                 <!-- LOOP answer -->
                 <li id="answer_{answer.id}" class="answer">{answer.label}
@@ -22,7 +24,21 @@
                 </ul>
             </div>
 
-            <!-- SECTION active -->
             <script type="text/javascript">poll_init({poll_parameters});</script>
             <!-- END active -->
+
+            <!-- SECTION inactive -->
+            <ul id="result">
+                <!-- LOOP answer -->
+                <li id="answer_{answer.id}" class="answer">{answer.label}
+                    <ul>
+                        <!-- LOOP answer.user -->
+                        <li id="user_{answer.user.id}" class="user">{answer.user.login}</li>
+                        <!-- END answer.user -->
+                    </ul>
+                    <div class="progress" style="width:{answer.percent}%;">{answer.progress} ({answer.percent}%)</div>
+                </li>
+                <!-- END answer -->
+            </ul>
+            <!-- END inactive -->
 

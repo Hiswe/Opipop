@@ -27,7 +27,7 @@ if ($rs_question['total'] != 0)
             SELECT `user_id`, `answer_id`
             FROM `user_result`
             WHERE `question_id`=' . $question['id'] . ' AND `user_id` IN (' . implode(',', $user_idList) . ')
-        ', 0, 8);
+        ');
     }
 
     $rs_answer = $db->select
@@ -36,7 +36,22 @@ if ($rs_question['total'] != 0)
         FROM `answer` AS a
         JOIN `question_answer` AS j ON j.answer_id = a.id
         WHERE j.question_id = ' . $_GET['id'] . '
-    ', 0, 8);
+    ');
+
+    $rs_progress = $db->select
+    ('
+        SELECT `answer_id`, COUNT(`user_id`) AS `total`
+        FROM `user_result`
+        WHERE `question_id`=' . $question['id'] . '
+        GROUP BY `answer_id`
+    ');
+    $progressTotal = 0;
+    $progressAnswer = array();
+    foreach ($rs_progress['data'] as $progress)
+    {
+        $progressTotal += $progress['total'];
+        $progressAnswer[$progress['answer_id']] = $progress['total'];
+    }
 
     $tpl->assignVar(array
     (
@@ -49,10 +64,14 @@ if ($rs_question['total'] != 0)
     {
         if ($answer['question_id'] == $question['id'])
         {
+            $progress = (isset($progressAnswer[$answer['id']])) ? $progressAnswer[$answer['id']] : 0;
+
             $tpl->assignLoopVar('answer', array
             (
-                'label' => $answer['label'],
-                'id'    => $answer['id'],
+                'label'    => $answer['label'],
+                'id'       => $answer['id'],
+                'progress' => $progress,
+                'percent'  => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
             ));
 
             if (count($_SESSION['user']) != 0)

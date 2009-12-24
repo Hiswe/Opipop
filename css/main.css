@@ -22,6 +22,11 @@
     border-color: #ff6666;
 }
 
+#result div.progress
+{
+    background: #ccffcc;
+}
+
 li.user
 {
     display: inline-block;

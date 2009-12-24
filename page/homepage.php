@@ -24,7 +24,7 @@ if ($rs_question['total'] != 0)
         FROM `answer` AS a
         JOIN `question_answer` AS j ON j.answer_id = a.id
         WHERE j.question_id IN (' . implode(',', $idList) . ')
-    ', 0, 8);
+    ');
 
     foreach ($rs_question['data'] as $question)
     {
