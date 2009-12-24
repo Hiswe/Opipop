@@ -6,7 +6,7 @@ $rs_question = $db->select
 ('
     SELECT `id`, `date`, `label`
     FROM `question`
-    WHERE `date` > ' . (time() - (86400 * 7)) . '
+    WHERE `date` > ' . (time() - POLL_DURATION) . '
     ORDER BY `date` DESC
 ', 0, 8);
 

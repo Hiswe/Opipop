@@ -14,10 +14,6 @@ if ($rs_question['total'] != 0)
 {
     $question = $rs_question['data'][0];
 
-    $poll_parameters = array();
-    $poll_parameters['question_id'] = $question['id'];
-    $poll_parameters['user'] = array();
-
     $user_idList = array();
     $user_voted_idList = array();
     if (count($_SESSION['user']) != 0)
@@ -77,8 +73,16 @@ if ($rs_question['total'] != 0)
         }
     }
 
-    if (count($_SESSION['user']) != 0)
+    if ($question['date'] < time() - POLL_DURATION)
     {
+        $tpl->assignSection('inactive');
+    }
+    else if (count($_SESSION['user']) != 0)
+    {
+        $poll_parameters = array();
+        $poll_parameters['question_id'] = $question['id'];
+        $poll_parameters['user'] = array();
+
         foreach ($rs_result['data'] as $result)
         {
             $poll_parameters['user'][$result['user_id']] = $result['answer_id'];
@@ -94,8 +98,9 @@ if ($rs_question['total'] != 0)
                 ));
             }
         }
-    }
 
-    $tpl->assignVar('poll_parameters', json_encode($poll_parameters));
+        $tpl->assignVar('poll_parameters', json_encode($poll_parameters));
+        $tpl->assignSection('active');
+    }
 }
 

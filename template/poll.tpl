@@ -22,5 +22,7 @@
                 </ul>
             </div>
 
+            <!-- SECTION active -->
             <script type="text/javascript">poll_init({poll_parameters});</script>
+            <!-- END active -->
 

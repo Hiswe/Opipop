@@ -6,9 +6,9 @@ $rs_question = $db->select
 ('
     SELECT `id`, `date`, `label`
     FROM `question`
-    WHERE `date` < ' . (time() - (86400 * 7)) . '
+    WHERE `date` < ' . (time() - POLL_DURATION) . '
     ORDER BY `date` DESC
-', (($_GET['p'] > 0) ? $_GET['p'] - 1 : $_GET['p']) * POLLS_PER_PAGE, POLLS_PER_PAGE);
+', (($_GET['p'] > 0) ? $_GET['p'] - 1 : $_GET['p']) * POLL_PER_PAGE, POLL_PER_PAGE);
 
 if ($rs_question['total'] != 0)
 {
@@ -47,7 +47,7 @@ if ($rs_question['total'] != 0)
         }
     }
 
-    $totalPage = ceil($rs_question['total'] / POLLS_PER_PAGE);
+    $totalPage = ceil($rs_question['total'] / POLL_PER_PAGE);
     $n = 1;
 
     if ($_GET['p'] > 0)

@@ -24,5 +24,6 @@
     $conf['PAGE_TITLE']       = utf8_encode ('youSurvey');
     $conf['PAGE_DESCRIPTION'] = utf8_encode ('');
     $conf['PAGE_KEYWORDS']    = utf8_encode ('');
-    $conf['POLLS_PER_PAGE']   = 7;
+    $conf['POLL_DURATION']    = 86400 * 7;
+    $conf['POLL_PER_PAGE']    = 7;
 
