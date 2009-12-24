@@ -12,7 +12,8 @@
 
 	$tpl->display ();
 
-echo 'SQL : ' . number_format($sql_time, 3, ',', ' ') . ' sec | ';
-echo 'PHP : ' . number_format(microtime() - $start_time - $sql_time, 3, ',', ' ') . ' sec | ';
+echo '<br/><hr></hr>';
+echo 'SQL : ' . number_format($db->getTotalQueryTime(), 3, ',', ' ') . ' sec | ';
+echo 'PHP : ' . number_format(microtime() - $start_time - $db->getTotalQueryTime(), 3, ',', ' ') . ' sec | ';
 echo 'TOTAL : ' . number_format (microtime() - $start_time, 3, ',', ' ') . ' sec';
 

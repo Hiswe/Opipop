@@ -107,6 +107,11 @@
 		function close (){
 			mysql_close ($this->CON);
 		}
+
+        function getTotalQueryTime()
+        {
+            return $this->queryTime;
+        }
 	}
 
 ?>
