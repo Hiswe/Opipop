@@ -4,17 +4,32 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
-    $key = md5(rand(0, 1000) + microtime());
+    // Look if this login exists
+    $rs = $db->select
+    ('
+        SELECT `id`
+        FROM `user`
+        WHERE `login`="' . $_POST['login'] . '" AND `valided`=1
+    ');
 
-    $id = $db->insert('INSERT INTO `user` (`login`, `email`, `password`, `key`, `register_date`) VALUES
-    (
-        "' . $_POST['login'] . '",
-        "' . $_POST['email'] . '",
-        "' . md5($_POST['password']) . '",
-        "' . $key . '",
-		"' . time() . '"
-    )');
+	// If this user is not already registered
+	// TODO : check if the email is not allready taken
+    if ($rs['total'] != 0)
+    {
+		// Encrypte password
+		$key = md5(rand(0, 1000) + microtime());
 
+		// Insert user's infos in the base
+		$id = $db->insert('INSERT INTO `user` (`login`, `email`, `password`, `key`, `register_date`) VALUES
+		(
+			"' . $_POST['login'] . '",
+			"' . $_POST['email'] . '",
+			"' . md5($_POST['password']) . '",
+			"' . $key . '",
+			"' . time() . '"
+		)');
 
-    echo $key . chr(13) . $ROO_PATH . 'login/confirm?u=' . $id . '&k=' . $key;
+		// TODO : register informations should be sent by email
+		echo $key . chr(13) . $ROO_PATH . 'login/confirm?u=' . $id . '&k=' . $key;
+	}
 

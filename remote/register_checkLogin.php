@@ -4,6 +4,7 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
+    // Look if this login exists
     $rs = $db->select
     ('
         SELECT `id`
