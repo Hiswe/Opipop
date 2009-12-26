@@ -8,7 +8,18 @@ window.onload = function () {
 
 var poll_parameters = {};
 
-function poll_init(params)
+function poll_initResult()
+{
+    $$('#result div.progress').each(function(item)
+    {
+        item.setStyle(
+        {
+            'width': item.readAttribute('name') + '%'
+        });
+    });
+}
+
+function poll_initVote(params)
 {
     poll_parameters = params;
 

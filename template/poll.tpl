@@ -24,7 +24,7 @@
                 </ul>
             </div>
 
-            <script type="text/javascript">poll_init({poll_parameters});</script>
+            <script type="text/javascript">poll_initVote({poll_parameters});</script>
             <!-- END active -->
 
             <!-- SECTION inactive -->
@@ -36,9 +36,11 @@
                         <li id="user_{answer.user.id}" class="user">{answer.user.login}</li>
                         <!-- END answer.user -->
                     </ul>
-                    <div class="progress" style="width:{answer.percent}%;">{answer.progress} ({answer.percent}%)</div>
+                    <div class="progress" name="{answer.percent}">{answer.progress} ({answer.percent}%)</div>
                 </li>
                 <!-- END answer -->
             </ul>
+
+            <script type="text/javascript">poll_initResult();</script>
             <!-- END inactive -->
 

@@ -14,7 +14,7 @@
 
 	// If this user is not already registered
 	// TODO : check if the email is not allready taken
-    if ($rs['total'] != 0)
+    if ($rs['total'] == 0)
     {
 		// Encrypte password
 		$key = md5(rand(0, 1000) + microtime());
