@@ -12,10 +12,20 @@ function poll_initResult()
 {
     $$('#result div.progress').each(function(item)
     {
-        item.setStyle(
+        var fx = new FX.Element(item);
+        fx.setOptions(
+        {
+           'duration': 2500,
+           'transition': FX.Transition.easeOutBounce
+        });
+        fx.animate(
         {
             'width': item.readAttribute('name') + '%'
         });
+        setTimeout(function()
+        {
+            fx.play();
+        }, Math.floor(Math.random() * 800));
     });
 }
 

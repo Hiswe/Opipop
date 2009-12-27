@@ -1,0 +1,3 @@
+[submodule "js/lib/protofx"]
+	path = js/lib/protofx
+	url = git://github.com/xilinus/protofx.git

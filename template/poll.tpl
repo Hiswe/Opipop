@@ -36,7 +36,8 @@
                         <li id="user_{answer.user.id}" class="user">{answer.user.login}</li>
                         <!-- END answer.user -->
                     </ul>
-                    <div class="progress" name="{answer.percent}">{answer.progress} ({answer.percent}%)</div>
+                    <div>{answer.progress} ({answer.percent}%)</div>
+                    <div class="progress" name="{answer.percent}"></div>
                 </li>
                 <!-- END answer -->
             </ul>

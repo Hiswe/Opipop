@@ -24,6 +24,8 @@
 
 #result div.progress
 {
+    width: 0%;
+    height: 10px;
     background: #ccffcc;
 }
 
