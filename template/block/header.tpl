@@ -5,8 +5,6 @@
 
     <title>{PAGE_TITLE}</title>
 
-    <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
-
     <script language="javascript" type="text/javascript">var ROOT_PATH = '{ROOT_PATH}';</script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/prototype.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/protofx/dist/protofx.js?{VERSION}"></script>
