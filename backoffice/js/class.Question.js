@@ -13,13 +13,32 @@ var Question = function(param)
             action  : 'javascript:null'
         });
 
-        this.container.insert(Form.newInputText('Question',
+        this.container.insert(Form.newInputText(
         {
+            label     : 'Question',
             id        : 'question_label',
             type      : 'text',
             name      : 'label',
             value     : this.data['label'],
             maxlength : 255
+        }));
+
+        this.container.insert(Form.newSelect(
+        {
+            label  : '1st answer',
+            id     : 'question_answer1',
+            name   : 'answer[]',
+            value  : this.data['answer1'],
+            values : this.data['answers']
+        }));
+
+        this.container.insert(Form.newSelect(
+        {
+            label  : '2nd answer',
+            id     : 'question_answer2',
+            name   : 'answer[]',
+            value  : this.data['answer2'],
+            values : this.data['answers']
         }));
 
         this.container.insert(Form.newInputSubmit('save'));
@@ -78,10 +97,14 @@ var Question = function(param)
     this.save = function()
     {
         this.data['label'] = $('question_label').value;
+        this.data['answer1'] = $('question_answer1').value;
+        this.data['answer2'] = $('question_answer2').value;
         var param =
         {
-            id    : this.data['id'],
-            label : this.data['label']
+            id      : this.data['id'],
+            label   : this.data['label'],
+            answer1 : this.data['answer1'],
+            answer2 : this.data['answer2']
         };
 
         new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_save.php',
