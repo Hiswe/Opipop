@@ -27,7 +27,7 @@
         <li><a href="javascript:init('question');">question list</a></li>
     </ul>
 
-    <ul id="list"></ul>
+    <div id="list"></div>
     <ul id="pagination"></ul>
     <div id="form"></div>
 

@@ -33,7 +33,7 @@
                 "' . $_POST['answer_id'] . '",
                 "' . $_POST['user_id'] . '",
                 "' . time() . '"
-            ) ');
+            )');
         }
     }
     // Else if the user voted blank

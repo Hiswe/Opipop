@@ -18,7 +18,7 @@
         <!-- SECTION pagination -->
         <div class="pagination">
             <!-- SECTION pagination_prev -->
-            <a href="{ROOT_PATH}{pagination_prev}" class="prev">&lt;&lt; prev</a>
+            <a href="{ROOT_PATH}{pagination_prev}" class="prev">&#60;&#60; prev</a>
             <!-- END pagination_prev -->
 
             <ul>
@@ -44,7 +44,7 @@
             </ul>
 
             <!-- SECTION pagination_next -->
-            <a href="{ROOT_PATH}{pagination_next}" class="next">next &rt;&rt;</a>
+            <a href="{ROOT_PATH}{pagination_next}" class="next">next &#62;&#62;</a>
             <!-- END pagination_next -->
         </div>
         <!-- END pagination -->

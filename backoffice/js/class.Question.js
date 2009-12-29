@@ -3,7 +3,6 @@ var Question = function(param)
     this.param = param;
     this.data  = {};
     this.loaded = false;
-    this.opened = false;
     this.container = null;
 
     this.init = function()
@@ -27,13 +26,27 @@ var Question = function(param)
         this.container.observe('submit', this.save.bind(this));
     };
 
+    this.create = function(label, callback)
+    {
+        var param =
+        {
+            label : label
+        };
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_add.php',
+        {
+            parameters: $H(param).toQueryString(),
+            onSuccess: function(xhr)
+            {
+                this.loaded = true;
+                this.data = xhr.responseJSON;
+                callback(xhr.responseJSON);
+            }.bind(this)
+        });
+    };
+
     this.toggle = function()
     {
-        if (this.opened)
-        {
-            this.hide();
-        }
-        else if (this.loaded)
+        if (this.loaded)
         {
             this.show();
         }
@@ -43,12 +56,12 @@ var Question = function(param)
             {
                 id : this.param.item.getData('id')
             };
-
             new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_load.php',
             {
                 parameters: $H(param).toQueryString(),
                 onSuccess: function(xhr)
                 {
+                    this.loaded = true;
                     this.data = xhr.responseJSON;
                     this.init();
                     this.show();
@@ -60,13 +73,6 @@ var Question = function(param)
     this.show = function()
     {
         $('form').update(this.container);
-        this.opened = true;
-    };
-
-    this.hide = function()
-    {
-        $('form').update();
-        this.opened = false;
     };
 
     this.save = function()
