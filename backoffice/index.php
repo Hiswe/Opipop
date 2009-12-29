@@ -13,22 +13,21 @@
 
     <script language="javascript" type="text/javascript">var ROOT_PATH = '<?php echo ROOT_PATH; ?>';</script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>js/lib/prototype.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/admin.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/main.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.List.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Item.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Question.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Form.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo ROOT_PATH; ?>backoffice/css/main.css">
 </head>
 <body>
 
-    <h2>Backoffice</h2>
-
-    <ul>
+    <ul id="menu">
         <li><a href="javascript:init('question');">question list</a></li>
     </ul>
 
     <div id="list"></div>
-    <ul id="pagination"></ul>
     <div id="form"></div>
 
 </body>

@@ -14,9 +14,24 @@ var List = function(param)
             {
                 onSuccess: function(xhr)
                 {
+                    var addButton = new Element('li');
+                    addButton.update('Add item');
+                    addButton.observe('click', this.addItem.bind(this));
+
+                    var nextButton = new Element('li');
+                    nextButton.update('&#62;&#62;');
+                    nextButton.observe('click', this.nextPage.bind(this));
+
+                    var previousButton = new Element('li');
+                    previousButton.update('&#60;&#60;');
+                    previousButton.observe('click', this.previousPage.bind(this));
+
                     this.data = xhr.responseJSON;
-                    this.listContainer = new Element('ul');
-                    this.buttonContainer = new Element('ul');
+                    this.listContainer = new Element('ul').addClassName('items');
+                    this.buttonContainer = new Element('ul').addClassName('buttons');
+                    this.buttonContainer.insert(previousButton);
+                    this.buttonContainer.insert(nextButton);
+                    this.buttonContainer.insert(addButton);
                     this.initCallback();
                 }.bind(this)
             });
@@ -30,33 +45,14 @@ var List = function(param)
     this.initCallback = function()
     {
         $('list').update();
-        $('list').insert(this.listContainer);
         $('list').insert(this.buttonContainer);
+        $('list').insert(this.listContainer);
 
         this.showPage(this.param.page);
-        this.initTools();
     };
 
     this.initTools = function()
     {
-        var addButton = new Element('li');
-        addButton.update('Add item');
-        addButton.observe('click', this.addItem.bind(this));
-
-        var nextButton = new Element('li');
-        nextButton.update('&#62;&#62;');
-        nextButton.observe('click', this.nextPage.bind(this));
-
-        var previousButton = new Element('li');
-        previousButton.update('&#60;&#60;');
-        previousButton.observe('click', this.previousPage.bind(this));
-
-        var tools = new Element('ul');
-        tools.insert(addButton);
-        tools.insert(nextButton);
-        tools.insert(previousButton);
-
-        $('list').insert(tools);
     };
 
     this.showPage = function(p)

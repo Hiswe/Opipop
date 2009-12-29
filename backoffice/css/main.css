@@ -1,0 +1,77 @@
+*
+{
+		margin: 0;
+		padding: 0;
+}
+
+body
+{
+		font-size: 12px;
+		font-family: arial, sans-serif;
+}
+
+h2
+{
+		margin: 10px;
+}
+
+#menu
+{
+		margin: 0 10px;
+		float: right;
+		list-style: none;
+}
+
+#list
+{
+		margin: 10px;
+		height: 245px;
+		border-bottom: dashed 1px #ddd;
+}
+
+#list ul
+{
+		list-style: none;
+		border: solid 1px #ddd;
+		clear: left;
+		float: left;
+}
+
+#list ul.buttons
+{
+		background: #ddd;
+		padding: 2px 6px 0 6px;
+}
+
+#list ul.items
+{
+		background: #f0f0f0;
+		padding: 6px 0 6px 0;
+}
+
+#list ul.buttons li
+{
+		float: left;
+		padding: 1px 2px;
+		margin: 0 4px;
+		cursor: pointer;
+}
+
+#list ul.items li
+{
+		overflow: hidden;
+		background: #ffffff;
+		border: solid 1px #f0f0f0;
+		border-width: 1px 0;
+		margin: 0 8px;
+		padding: 2px 4px;
+		cursor: pointer;
+		color: #333;
+}
+
+#form
+{
+		margin: 10px;
+		clear: both;
+}
+
