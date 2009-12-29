@@ -10,6 +10,14 @@ var Form =
         return line;
 	},
 
+	newOption : function(label, value)
+	{
+		var option = new Element('option');
+		option.update(label);
+		option.writeAttribute('value', value);
+		return option;
+	},
+
     newSelect : function(param)
     {
         var input = new Element('select');
@@ -22,11 +30,11 @@ var Form =
 			input.writeAttribute('name', param.name);
 		}
 
+		var option = null;
+		input.insert(Form.newOption('...', 0));
 		$A(param.values).each(function(item)
 		{
-			option = new Element('option');
-			option.update(item.label);
-			option.writeAttribute('value', item.value);
+			option = Form.newOption(item.label, item.value);
 			if (item.value == param.value)
 			{
 				option.writeAttribute('selected', 'selected');
