@@ -26,10 +26,14 @@ var List = function(param)
                     previousButton.update('&#60;&#60;');
                     previousButton.observe('click', this.previousPage.bind(this));
 
+                    var currentPage = new Element('li');
+                    currentPage.writeAttribute('id', 'list_currentPage');
+
                     this.data = xhr.responseJSON;
                     this.listContainer = new Element('ul').addClassName('items');
                     this.buttonContainer = new Element('ul').addClassName('buttons');
                     this.buttonContainer.insert(previousButton);
+                    this.buttonContainer.insert(currentPage);
                     this.buttonContainer.insert(nextButton);
                     this.buttonContainer.insert(addButton);
                     this.initCallback();
@@ -78,6 +82,8 @@ var List = function(param)
             this.itemList.push(item);
             this.listContainer.insert(item.container);
         }
+
+        $('list_currentPage').update((this.param.page + 1) + ' / ' + this.getTotalPages());
     };
 
     this.previousPage = function()
@@ -90,10 +96,15 @@ var List = function(param)
 
     this.nextPage = function()
     {
-        if (this.param.page + 1 < Math.ceil(this.data.length / this.param.itemPerPage))
+        if (this.param.page + 1 < this.getTotalPages())
         {
             this.showPage(this.param.page + 1);
         }
+    };
+
+    this.getTotalPages = function()
+    {
+        return Math.ceil(this.data.length / this.param.itemPerPage);
     };
 
     this.addItem = function()
