@@ -1,9 +1,15 @@
+window.onload = function ()
+{
+    init('question');
+};
+
 var lists = {};
 
 function init(type)
 {
+    $('working').hide();
     $('list').update();
-    $('form').update();
+    $('form').hide();
 
     switch(type)
     {
@@ -13,7 +19,9 @@ function init(type)
                 lists[type] = new List(
                 {
                     script      : 'backoffice/remote/question_list.php',
+                    container   : 'list',
                     model       : Question,
+                    editStatus  : true,
                     page        : 0,
                     itemPerPage : 10
                 });

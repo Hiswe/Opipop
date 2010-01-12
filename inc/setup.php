@@ -10,6 +10,8 @@
 		header('Location: ' . ROOT_PATH . 'search/' . urlencode(preg_replace ('#[./]#isU', ' ', $_POST['q'])));
 	}
 
+    date_default_timezone_set('Europe/Paris');
+
 	$start_time = microtime();
 	$sql_time = 0;
 

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2009 at 07:56 PM
+-- Generation Time: Jan 12, 2010 at 10:44 PM
 -- Server version: 5.0.67
--- PHP Version: 5.3.0
+-- PHP Version: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `label` varchar(32) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -39,10 +39,11 @@ CREATE TABLE IF NOT EXISTS `answer` (
 
 CREATE TABLE IF NOT EXISTS `question` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `status` tinyint(1) NOT NULL default '0',
   `date` int(10) unsigned NOT NULL,
   `label` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(320) collate utf8_unicode_ci NOT NULL,
   `register_date` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 

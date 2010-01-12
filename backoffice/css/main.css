@@ -1,77 +1,247 @@
 *
 {
-		margin: 0;
-		padding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+html
+{
+    height: 100%;
 }
 
 body
 {
-		font-size: 12px;
-		font-family: arial, sans-serif;
+    font-size: 12px;
+    font-family: arial, sans-serif;
 }
 
 h2
 {
-		margin: 10px;
+    margin: 10px;
+}
+
+#logo
+{
+    bottom: 10px;
+    left: 10px;
+    position: fixed;
+}
+
+#working
+{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 4px;
+    right: 4px;
+    background: url(../image/ajax-loader.gif) no-repeat center center;
 }
 
 #menu
 {
-		margin: 0 10px;
-		float: right;
-		list-style: none;
+    margin: 0 10px;
+    float: right;
+    list-style: none;
 }
 
 #list
 {
-		margin: 10px 140px 10px 10px;
-		height: 245px;
-		border-bottom: dashed 1px #ddd;
+    margin: 10px 10px 10px 10px;
+    width: 672px;
 }
 
-#list ul
+div.list
 {
-		list-style: none;
-		border: solid 1px #ddd;
-		clear: left;
+    height: 250px;
+    position: relative;
 }
 
-#list ul.buttons
+div.list ul
 {
-		float: left;
-		background: #ddd;
-		padding: 2px 6px 0 6px;
+    list-style: none;
+    border: solid 1px #ddd;
+    clear: left;
+    -webkit-box-shadow: rgba(100, 100, 100, 0.2) 4px 4px 4px;
+    -moz-box-shadow: rgba(100, 100, 100, 0.2) 4px 4px 4px;
 }
 
-#list ul.items
+div.list ul.buttons
 {
-		background: #f0f0f0;
-		padding: 6px 0 6px 0;
+    float: left;
+    background: #ddd;
+    padding: 2px 6px 0 6px;
+    top: 0;
+    position: absolute;
+    z-index: 1;
 }
 
-#list ul.buttons li
+div.list ul.items
 {
-		float: left;
-		padding: 1px 2px;
-		margin: 0 4px;
-		cursor: pointer;
+    background: #f0f0f0;
+    padding: 6px 0 6px 0;
+    position: absolute;
+    width: 100%;
+    top: 20px;
+    z-index: 2;
 }
 
-#list ul.items li
+div.list ul.buttons li
 {
-		overflow: hidden;
-		background: #ffffff;
-		border: solid 1px #f0f0f0;
-		border-width: 1px 0;
-		margin: 0 8px;
-		padding: 2px 4px;
-		cursor: pointer;
-		color: #333;
+    float: left;
+    padding: 1px 2px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+div.list ul.items li
+{
+    overflow: hidden;
+    background: #ffffff;
+    border: solid 1px #f0f0f0;
+    border-width: 1px 0;
+    margin: 0 8px;
+    padding: 2px 4px;
+    cursor: pointer;
+    color: #333;
+}
+
+div.list ul.items li.on
+{
+    background: #ffddff;
+}
+
+div.list ul.items li:hover
+{
+    background: #ffffdd;
+}
+
+div.list ul.items li span.up,
+div.list ul.items li span.down
+{
+    width: 16px;
+    height: 16px;
+    float: right;
+    display: block;
+    margin: -1px 0;
+}
+div.list ul.items li span.status,
+div.list ul.items li span.edit
+{
+    width: 16px;
+    height: 16px;
+    float: left;
+    display: block;
+    margin: -1px 2px -1px 0;
+}
+div.list ul.items li span.status
+{
+    background: url(../image/bullet_grey.png) no-repeat center center;
+}
+div.list ul.items li span.status:hover
+{
+    background: url(../image/bullet_pink.png) no-repeat center center;
+}
+div.list ul.items li span.status.on
+{
+    background: url(../image/bullet_purple.png) no-repeat center center;
+}
+div.list ul.items li span.edit
+{
+    background: url(../image/edit.png) no-repeat center center;
+}
+div.list ul.items li span.edit:hover
+{
+    background: url(../image/edit_hover.png) no-repeat center center;
+}
+div.list ul.items li span.up
+{
+    background: url(../image/up.png) no-repeat center center;
+}
+div.list ul.items li span.up:hover
+{
+    background: url(../image/up_hover.png) no-repeat center center;
+}
+div.list ul.items li span.down
+{
+    background: url(../image/down.png) no-repeat center center;
+}
+div.list ul.items li span.down:hover
+{
+    background: url(../image/down_hover.png) no-repeat center center;
 }
 
 #form
 {
-		margin: 10px;
-		clear: both;
+    margin: 10px 0 0 10px;
+    clear: both;
+    border: solid 1px #ddd;
+    background: #fff;
+    width: 670px;
+    -webkit-box-shadow: rgba(100, 100, 100, 0.2) 4px 4px 4px;
+    -moz-box-shadow: rgba(100, 100, 100, 0.2) 4px 4px 4px;
 }
+
+#form div
+{
+    position: relative;
+    background: #f0f0f0;
+    margin: 6px 8px;
+    padding: 4px 8px;
+}
+
+#form div label
+{
+    float: left;
+    display: block;
+    width: 120px;
+    text-align: right;
+    padding: 4px 10px 0 0;
+    vertical-align: center;
+    font-weight: bold;
+}
+
+#form input[type="text"]
+{
+    font-size: 14px;
+    display: block;
+    width: 504px;
+    margin: 0px;
+    padding: 1px 0;
+    border-width: 1px;
+}
+
+#form input[type="submit"]
+{
+    margin: 0 0 0 130px;
+    font-size: 14px;
+}
+
+#form object,
+#form embed
+{
+    position: absolute;
+    top: 112px;
+    left: 280px;
+}
+
+#photo_upload_preview_box
+{
+    border: solid 2px #fff;
+    padding: 4px !important;
+    margin: 0 10px 0 130px !important;
+    width: 120px;
+    height: 120px;
+}
+
+#photo_upload_preview_image
+{
+}
+
+#photo_upload_progress
+{
+    color: #999;
+    font-size: 12px;
+    float: right;
+}
+
 

@@ -92,6 +92,7 @@ var Question = function(param)
     this.show = function()
     {
         $('form').update(this.container);
+        $('form').show();
     };
 
     this.save = function()
@@ -114,6 +115,19 @@ var Question = function(param)
             {
                 this.param.item.updateLabel(this.data['label']);
             }.bind(this)
+        });
+    };
+
+    this.toggleStatus = function(callback)
+    {
+        var param =
+        {
+            id : this.param.item.getData('id')
+        };
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_toggleStatus.php',
+        {
+            parameters: $H(param).toQueryString(),
+            onSuccess: callback
         });
     };
 };

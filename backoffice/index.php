@@ -18,16 +18,14 @@
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Item.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Question.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Form.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Job.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo ROOT_PATH; ?>backoffice/css/main.css">
 </head>
 <body>
 
-    <ul id="menu">
-        <li><a href="javascript:init('question');">question list</a></li>
-    </ul>
-
-    <div id="list"></div>
+    <div id="working"></div>
+    <div id="list" class="list"></div>
     <div id="form"></div>
 
 </body>
