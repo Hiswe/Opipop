@@ -79,10 +79,11 @@ if ($rs_question['total'] != 0)
         // Assign answer's infos
         $tpl->assignLoopVar('answer', array
         (
-            'label'    => $answer['label'],
-            'id'       => $answer['id'],
-            'progress' => $progress,
-            'percent'  => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
+            'label'           => $answer['label'],
+            'id'              => $answer['id'],
+            'progress'        => $progress,
+            'percentFormated' => ($progressTotal == 0) ? 0 : number_format(($progress / $progressTotal) * 100, 1, ',', ' '),
+            'percent'         => ($progressTotal == 0) ? 0 : ($progress / $progressTotal) * 100,
         ));
 
         // If some users are logged
