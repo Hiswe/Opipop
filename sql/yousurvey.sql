@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 12, 2010 at 10:44 PM
+-- Generation Time: Jan 13, 2010 at 05:48 PM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -66,6 +66,8 @@ CREATE TABLE IF NOT EXISTS `question_answer` (
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `valided` binary(1) NOT NULL default '0',
+  `male` tinyint(1) NOT NULL default '1',
+  `zip` tinyint(3) unsigned NOT NULL default '0',
   `login` varchar(32) collate utf8_unicode_ci NOT NULL,
   `password` varchar(32) collate utf8_unicode_ci NOT NULL,
   `key` varchar(32) collate utf8_unicode_ci NOT NULL,

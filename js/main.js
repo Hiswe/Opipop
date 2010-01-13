@@ -184,9 +184,13 @@ var register_checkEmailTimeout = 0;
 function register_init()
 {
     $('register_login').observe('keydown', register_scheduleCheckLogin);
+    $('register_login').observe('change', register_scheduleCheckLogin);
     $('register_email').observe('keydown', register_scheduleCheckEmail);
+    $('register_email').observe('change', register_scheduleCheckEmail);
     $('register_password_1').observe('keydown', register_scheduleCheckPassword);
+    $('register_password_1').observe('change', register_scheduleCheckPassword);
     $('register_password_2').observe('keydown', register_scheduleCheckPassword);
+    $('register_password_2').observe('change', register_scheduleCheckPassword);
 }
 
 function register_scheduleCheckLogin()
@@ -235,6 +239,10 @@ function register_checkLogin()
             }
         });
     }
+    else
+    {
+        form_cleanError(input);
+    }
 }
 
 function register_checkEmail()
@@ -247,11 +255,36 @@ function register_checkEmail()
         if (checkEmail(input.value))
         {
             form_cleanError(input);
+
+            var params = $H(
+            {
+                email : input.value
+            });
+
+            new Ajax.Request (ROOT_PATH + 'remote/register_checkEmail.php',
+            {
+                parameters: params.toQueryString(),
+                onSuccess: function(xhr)
+                {
+                    if (xhr.responseText == '1')
+                    {
+                        form_cleanError(input);
+                    }
+                    else if (xhr.responseText == '0')
+                    {
+                        form_setError(input, 'this email is already in use');
+                    }
+                }
+            });
         }
         else
         {
             form_setError(input, 'wrong email');
         }
+    }
+    else
+    {
+        form_cleanError(input);
     }
 }
 
@@ -288,10 +321,14 @@ function register_checkPassword()
 function register_submit()
 {
     var login = $('register_login').value.stripScripts().stripTags().strip();
+    var gender = $('register_gender').value.stripScripts().stripTags().strip();
+    var zip = $('register_zip').value.stripScripts().stripTags().strip();
     var email = $('register_email').value.stripScripts().stripTags().strip();
     var password = $('register_password_1').value.stripScripts().stripTags().strip();
 
-    if (login.blank() || email.blank() || password.blank())
+    return alert(zip);
+
+    if (login.blank() || email.blank() || password.blank() || zip.blank() || gender.blank())
     {
         alert('You must fill all the form\'s field to register !');
         return;
@@ -300,9 +337,11 @@ function register_submit()
     {
         var params = $H(
         {
-            login: login,
-            email: email,
-            password: password
+            login    : login,
+            gender   : gender,
+            zip      : zip,
+            email    : email,
+            password : password
         });
 
         new Ajax.Request (ROOT_PATH + 'remote/register_submit.php',

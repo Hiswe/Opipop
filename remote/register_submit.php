@@ -20,9 +20,11 @@
 		$key = md5(rand(0, 1000) + microtime());
 
 		// Insert user's infos in the base
-		$id = $db->insert('INSERT INTO `user` (`login`, `email`, `password`, `key`, `register_date`) VALUES
+		$id = $db->insert('INSERT INTO `user` (`login`, `zip`, `gender`, `email`, `password`, `key`, `register_date`) VALUES
 		(
 			"' . $_POST['login'] . '",
+			"' . $_POST['zip'] . '",
+			"' . $_POST['gender'] . '",
 			"' . $_POST['email'] . '",
 			"' . md5($_POST['password']) . '",
 			"' . $key . '",
