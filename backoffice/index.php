@@ -16,6 +16,7 @@
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/main.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.List.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Item.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Category.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Question.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Form.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Job.js"></script>
@@ -25,7 +26,8 @@
 <body>
 
     <div id="working"></div>
-    <div id="list" class="list"></div>
+    <div id="list_1" class="list"></div>
+    <div id="list_2" class="list"></div>
     <div id="form"></div>
 
 </body>

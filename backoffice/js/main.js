@@ -1,6 +1,6 @@
 window.onload = function ()
 {
-    init('question');
+    init('category');
 };
 
 var lists = {};
@@ -8,22 +8,24 @@ var lists = {};
 function init(type)
 {
     $('working').hide();
-    $('list').update();
+    $('list_1').update();
+    $('list_2').update();
     $('form').hide();
 
     switch(type)
     {
-        case 'question':
+        case 'category':
             if (!lists[type])
             {
                 lists[type] = new List(
                 {
-                    script      : 'backoffice/remote/question_list.php',
-                    container   : 'list',
-                    model       : Question,
-                    editStatus  : true,
-                    page        : 0,
-                    itemPerPage : 10
+                    script       : 'backoffice/remote/category_list.php',
+                    container    : 'list_1',
+                    model        : Category,
+                    editStatus   : true,
+                    editPosition : true,
+                    page         : 0,
+                    itemPerPage  : 10
                 });
             }
             lists[type].init();

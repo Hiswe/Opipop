@@ -111,7 +111,7 @@
 		// enleve tous les accents
 		$text = strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
 		// remplace tous ce qui n'est pas lettre ou chifre pas par un tir?
-		$text = preg_replace ('([^a-z0-9\-])', '-', $text);
+		$text = preg_replace ('([^a-z0-9\-_])', '-', $text);
 		// remplace les tiré mustiples par un tiré
 		$text = preg_replace ('(-+)', '-', $text);
 		// efface les underscore et les tirés en fin de chaine

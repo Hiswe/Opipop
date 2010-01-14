@@ -108,9 +108,6 @@ function poll_saveResult()
         });
     });
 
-    console.log(params);
-    console.log($H(params).toQueryString());
-
     if (i !== 0)
     {
         new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
@@ -120,7 +117,13 @@ function poll_saveResult()
             {
                 if (poll_parameters['mode'] == 'vote')
                 {
-                    // put back users to farm
+                    // clean the farm
+                    $$('#farm li.user').each(function(item)
+                    {
+                        item.remove();
+                    });
+
+                    // put back users who voted to farm
                     users.each(function(item)
                     {
                         $('farm').down('ul').insert(item);

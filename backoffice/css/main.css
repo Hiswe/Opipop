@@ -44,9 +44,17 @@ h2
     list-style: none;
 }
 
-#list
+#list_1
 {
-    margin: 10px 10px 10px 10px;
+		float: left;
+    margin: 10px;
+    width: 220px;
+}
+
+#list_2
+{
+		float: left;
+    margin: 10px;
     width: 672px;
 }
 
@@ -172,7 +180,7 @@ div.list ul.items li span.down:hover
 
 #form
 {
-    margin: 10px 0 0 10px;
+    margin: 10px 0 0 250px;
     clear: both;
     border: solid 1px #ddd;
     background: #fff;

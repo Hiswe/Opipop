@@ -49,7 +49,8 @@ var Question = function(param)
     {
         var param =
         {
-            label : label
+            label       : label,
+            category_id : this.param.categoryId
         };
         new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_add.php',
         {

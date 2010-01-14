@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2010 at 05:48 PM
+-- Generation Time: Jan 15, 2010 at 12:32 AM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -34,16 +34,32 @@ CREATE TABLE IF NOT EXISTS `answer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `status` tinyint(1) NOT NULL default '0',
+  `position` int(10) unsigned NOT NULL default '0',
+  `label` varchar(32) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `question`
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `category_id` int(10) unsigned NOT NULL,
   `status` tinyint(1) NOT NULL default '0',
   `date` int(10) unsigned NOT NULL,
   `label` varchar(255) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+  PRIMARY KEY  (`id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 -- --------------------------------------------------------
 
@@ -54,8 +70,9 @@ CREATE TABLE IF NOT EXISTS `question` (
 CREATE TABLE IF NOT EXISTS `question_answer` (
   `question_id` int(10) unsigned NOT NULL,
   `answer_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`question_id`,`answer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY  (`question_id`,`answer_id`),
+  KEY `answer_id` (`answer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -113,6 +130,19 @@ CREATE TABLE IF NOT EXISTS `user_result` (
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `question_answer`
+--
+ALTER TABLE `question_answer`
+  ADD CONSTRAINT `question_answer_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `question_answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_prognostic`
