@@ -33,6 +33,24 @@ function poll_initVote(params)
 {
     poll_parameters = params;
 
+    $('saveButton').hide();
+    $('saveButton').observe('click', poll_saveResult);
+
+    if (poll_parameters['mode'] == 'vote')
+    {
+        $$('#result li.user.guessed').each(function(item)
+        {
+            item.hide();
+        });
+    }
+    if (poll_parameters['mode'] == 'prognostic')
+    {
+        $$('#result li.user.voted').each(function(item)
+        {
+            item.hide();
+        });
+    }
+
     var recievers = new Array();
 
     $$('#result li.answer').each(function(item)
@@ -41,7 +59,7 @@ function poll_initVote(params)
     });
     recievers.push($('farm'));
 
-    $$('#farm li.user, #result li.user').each(function(item)
+    $$('#farm li.user').each(function(item)
     {
         item.observe('mousedown', function(e)
         {
@@ -58,29 +76,76 @@ function poll_userDropCallback(user, reciever)
 {
     reciever.down('ul').insert(user);
 
-    var answer_id = 0;
-
-    if (reciever.readAttribute('id') != 'farm')
+    if ($$('#result li.answer li.user.unregistered').length === 0)
     {
-        answer_id = reciever.readAttribute('id').split('_')[1];
+        $('saveButton').hide();
     }
-
-    var params = $H(
+    else
     {
-        answer_id   : answer_id,
-        question_id : poll_parameters['question_id'],
-        user_id     : user.readAttribute('id').split('_')[1]
-    });
-
-    new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
-    {
-        parameters: params.toQueryString(),
-        onSuccess: function(xhr)
-        {
-        }
-    });
+        $('saveButton').show();
+    }
 }
 
+function poll_saveResult()
+{
+    $('saveButton').hide();
+
+    var i = 0;
+    var users = [];
+    var params =
+    {
+        'mode' : poll_parameters['mode'],
+        'question_id' : poll_parameters['question_id']
+    };
+    $$('#result li.answer').each(function(answer)
+    {
+        answer.select('li.user.unregistered').each(function(user)
+        {
+            users.push(user);
+            params['user[' + i + ']'] = user.readAttribute('id').split('_')[1];
+            params['answer[' + i + ']'] = answer.readAttribute('id').split('_')[1];
+            i ++;
+        });
+    });
+
+    console.log(params);
+    console.log($H(params).toQueryString());
+
+    if (i !== 0)
+    {
+        new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
+        {
+            parameters: $H(params).toQueryString(),
+            onSuccess: function(xhr)
+            {
+                if (poll_parameters['mode'] == 'vote')
+                {
+                    // put back users to farm
+                    users.each(function(item)
+                    {
+                        $('farm').down('ul').insert(item);
+                    });
+
+                    // switch voted/guessed users display
+                    $$('#result li.user.guessed').each(function(item)
+                    {
+                        item.show();
+                    });
+                    $$('#result li.user.voted').each(function(item)
+                    {
+                        item.hide();
+                    });
+
+                    poll_parameters['mode'] = 'prognostic';
+                }
+                else
+                {
+                    window.location = ROOT_PATH;
+                }
+            }
+        });
+    }
+}
 
 ///////////////////
 // FORM

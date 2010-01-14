@@ -33,6 +33,14 @@ if ($rs_question['total'] != 0)
             FROM `user_result`
             WHERE `question_id`=' . $question['id'] . ' AND `user_id` IN (' . implode(',', $user_idList) . ')
         ');
+
+        // Select users prognostic
+        $rs_prognostic = $db->select
+        ('
+            SELECT `user_id`, `answer_id`
+            FROM `user_prognostic`
+            WHERE `question_id`=' . $question['id'] . ' AND `user_id` IN (' . implode(',', $user_idList) . ')
+        ');
     }
 
     // Select all answers releted to this question
@@ -100,9 +108,25 @@ if ($rs_question['total'] != 0)
                     (
                         'login' => $_SESSION['user'][$result['user_id']]['login'],
                         'id'    => $result['user_id'],
+                        'class' => 'voted',
                     ));
                     // Remembed this user has allready voted
                     $user_voted_idList[$result['user_id']] = true;
+                }
+            }
+            // Loop through all users prognostics
+            foreach ($rs_prognostic['data'] as $result)
+            {
+                // If the result is about this answer
+                if ($result['answer_id'] == $answer['id'])
+                {
+                    // Assing user's infos
+                    $tpl->assignLoopVar('answer.user', array
+                    (
+                        'login' => $_SESSION['user'][$result['user_id']]['login'],
+                        'id'    => $result['user_id'],
+                        'class' => 'guessed',
+                    ));
                 }
             }
         }
@@ -120,6 +144,7 @@ if ($rs_question['total'] != 0)
         $poll_parameters = array();
         $poll_parameters['question_id'] = $question['id'];
         $poll_parameters['user'] = array();
+        $poll_parameters['mode'] = 'vote';
 
         // Pass all users results to javascripts
         foreach ($rs_result['data'] as $result)

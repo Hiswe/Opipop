@@ -9,7 +9,7 @@
                 <li id="answer_{answer.id}" class="answer">{answer.label}
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li id="user_{answer.user.id}" class="user">{answer.user.login}</li>
+                        <li id="user_{answer.user.id}" class="user {answer.user.class}">{answer.user.login}</li>
                         <!-- END answer.user -->
                     </ul>
                 </li>
@@ -19,10 +19,12 @@
             <div id="farm">
                 <ul>
                     <!-- LOOP user -->
-                    <li id="user_{user.id}" class="user">{user.login}</li>
+                    <li id="user_{user.id}" class="user unregistered">{user.login}</li>
                     <!-- END user -->
                 </ul>
             </div>
+
+            <div id="saveButton">Save results</div>
 
             <script type="text/javascript">poll_initVote({poll_parameters});</script>
             <!-- END active -->
