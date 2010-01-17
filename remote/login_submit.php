@@ -24,8 +24,6 @@
 		$_SESSION['user'][$user['id']] = array
 		(
 			'login'         => $user['login'],
-			'email'         => $user['email'],
-			'register_date' => $user['register_date'],
 		);
 
         echo '1';

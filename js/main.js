@@ -154,6 +154,16 @@ function poll_saveResult()
 // FORM
 ///////////////////
 
+function form_disable(form)
+{
+    form.down('input[type=submit]').writeAttribute('disabled');
+}
+
+function form_enable(form)
+{
+    form.down('input[type=submit]').writeAttribute('disabled', false);
+}
+
 function form_setError(input, message)
 {
     var form = input.up('form');
@@ -198,7 +208,7 @@ function form_cleanError(input)
 
 
 ///////////////////
-// REGISTER
+// LOGIN
 ///////////////////
 
 function login_init()
@@ -207,6 +217,8 @@ function login_init()
 
 function login_submit()
 {
+    form_disable($('login'));
+
     var login = $('login_login').value.stripScripts().stripTags().strip();
     var password = $('login_password').value.stripScripts().stripTags().strip();
 
@@ -240,6 +252,136 @@ function login_submit()
         });
     }
 }
+
+
+///////////////////
+// USER EDIT
+///////////////////
+
+function user_edit_init()
+{
+}
+
+function user_edit_submit()
+{
+    form_disable($('user_edit'));
+
+    var gender = $('user_edit_gender').value.stripScripts().stripTags().strip();
+    var zip = $('user_edit_zip').value.stripScripts().stripTags().strip();
+
+    if (zip.blank() || gender.blank())
+    {
+        alert('You must fill all the form\'s field !');
+        return;
+    }
+    else
+    {
+        var params = $H(
+        {
+            gender : gender,
+            zip    : zip,
+            id     : user_id
+        });
+
+        new Ajax.Request (ROOT_PATH + 'remote/user_edit_submit.php',
+        {
+            parameters: params.toQueryString(),
+            onSuccess: function(xhr)
+            {
+                form_enable($('user_edit'));
+            }
+        });
+    }
+}
+
+
+///////////////////
+// USER PASSWORD
+///////////////////
+
+var user_password_checkPasswordTimeout = 0;
+
+function user_password_init()
+{
+    $('user_password_password_1').observe('keydown', user_password_scheduleCheckPassword);
+    $('user_password_password_1').observe('change', user_password_scheduleCheckPassword);
+    $('user_password_password_2').observe('keydown', user_password_scheduleCheckPassword);
+    $('user_password_password_2').observe('change', user_password_scheduleCheckPassword);
+}
+
+function user_password_scheduleCheckPassword()
+{
+    clearTimeout(user_password_checkPasswordTimeout);
+    user_password_checkPasswordTimeout = setTimeout(user_password_checkPassword, 500);
+}
+
+function user_password_checkPassword()
+{
+    var input_1 = $('user_password_password_1');
+    var input_2 = $('user_password_password_2');
+
+    if (input_1.value.length == 0)
+    {
+        input_2.value = '';
+        form_cleanError(input_1);
+        form_cleanError(input_2);
+    }
+    else if (input_1.value.length < 6)
+    {
+        form_setError(input_1, 'password must be at least 6 character long');
+    }
+    else
+    {
+        form_cleanError(input_1);
+
+        if (input_1.value.length != 0 && input_2.value.length != 0 && input_1.value !=  input_2.value)
+        {
+            form_setError(input_2, 'error confirming passord');
+        }
+        else
+        {
+            form_cleanError(input_2);
+        }
+    }
+}
+
+function user_password_submit()
+{
+    form_disable($('user_password'));
+
+    var old_password = $('user_password_password_0').value;
+    var new_password = $('user_password_password_1').value;
+
+    if (old_password.blank() || new_password.blank())
+    {
+        alert('You must fill all the form\'s field !');
+        return;
+    }
+    else
+    {
+        var params = $H(
+        {
+            old_password : old_password,
+            new_password : new_password,
+            id           : user_id
+        });
+
+        new Ajax.Request (ROOT_PATH + 'remote/user_password_submit.php',
+        {
+            parameters: params.toQueryString(),
+            onSuccess: function(xhr)
+            {
+                form_enable($('user_password'));
+
+                if (xhr.responseText == '0')
+                {
+                    alert('Your current password is not correct !');
+                }
+            }
+        });
+    }
+}
+
 
 ///////////////////
 // REGISTER
@@ -286,6 +428,12 @@ function register_checkLogin()
 
     if (!value.blank())
     {
+        if (value.match(/([^a-zA-Z0-9_])/g))
+        {
+            form_setError(input, 'username must contain only alpha or digit characters or underscores');
+            return;
+        }
+
         var params = $H(
         {
             login: input.value
@@ -388,13 +536,13 @@ function register_checkPassword()
 
 function register_submit()
 {
+    form_disable($('register'));
+
     var login = $('register_login').value.stripScripts().stripTags().strip();
     var gender = $('register_gender').value.stripScripts().stripTags().strip();
     var zip = $('register_zip').value.stripScripts().stripTags().strip();
     var email = $('register_email').value.stripScripts().stripTags().strip();
-    var password = $('register_password_1').value.stripScripts().stripTags().strip();
-
-    return alert(zip);
+    var password = $('register_password_1').value;
 
     if (login.blank() || email.blank() || password.blank() || zip.blank() || gender.blank())
     {

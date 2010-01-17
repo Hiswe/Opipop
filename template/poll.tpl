@@ -1,7 +1,7 @@
 
             <!-- INCLUDE block/top.tpl -->
 
-            <h2 id="question"><span>{question_date}</span> <a href="{ROOT_PATH}poll/{question_id}">{question_label}</a></h2>
+            <h1 id="question"><span>{question_date}</span> <a href="{ROOT_PATH}poll/{question_id}">{question_label}</a></h1>
 
             <!-- SECTION active -->
             <ul id="result">

@@ -22,3 +22,7 @@ RewriteRule ^poll/[a-zA-Z0-9_-]*-([0-9]+)$ index.php?page=poll&id=$1 [L]
 RewriteRule ^([a-zA-Z0-9_-]*)-([0-9]+)/*([0-9]*)$ index.php?page=poll_list&guid=$1&id=$2&p=$3 [L]
 RewriteRule ^([a-zA-Z0-9_-]*)-([0-9]+)/archives/*([0-9]*)$ index.php?page=poll_list&guid=$1&id=$2&p=$3&archive=1 [L]
 
+# USER
+RewriteRule ^([a-zA-Z0-9_]+)$ index.php?page=user&login=$1 [L]
+RewriteRule ^([a-zA-Z0-9_]+)/edit$ index.php?page=user_edit&login=$1 [L]
+
