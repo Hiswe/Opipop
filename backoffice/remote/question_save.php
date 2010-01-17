@@ -10,21 +10,27 @@
 
 	$db->delete('DELETE FROM `question_answer` WHERE `question_id`="' . $_POST['id'] . '"');
 
-	if ($_POST['answer1'] != 0)
+	foreach ($_POST['answer'] as $answer)
 	{
-		$db->insert('INSERT INTO `question_answer` (`question_id`, `answer_id`) VALUES
-		(
-			"' . $_POST['id'] . '",
-			"' . $_POST['answer1'] . '"
-		)');
-	}
+		$rs_answer = $db->select('
+			SELECT `id`
+			FROM `answer`
+			WHERE `label`="' . $answer . '"
+		');
 
-	if ($_POST['answer2'] != 0)
-	{
+		if ($rs_answer['total'] == 0)
+		{
+			$answer_id = $db->insert('INSERT INTO `answer` (`label`) VALUES ("' . $answer . '")');
+		}
+		else
+		{
+			$answer_id =  $rs_answer['data'][0]['id'];
+		}
+
 		$db->insert('INSERT INTO `question_answer` (`question_id`, `answer_id`) VALUES
 		(
 			"' . $_POST['id'] . '",
-			"' . $_POST['answer2'] . '"
+			"' . $answer_id . '"
 		)');
 	}
 

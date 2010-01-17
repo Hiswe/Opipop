@@ -23,22 +23,22 @@ var Question = function(param)
             maxlength : 255
         }));
 
-        this.container.insert(Form.newSelect(
+        this.container.insert(Form.newInputText(
         {
-            label  : '1st answer',
-            id     : 'question_answer1',
-            name   : 'answer[]',
-            value  : this.data['answer1'],
-            values : this.data['answers']
+            label     : '1st answer',
+            id        : 'question_answer1',
+            name      : 'answer[]',
+            value     : this.data['answer1'],
+            maxlength : 32
         }));
 
-        this.container.insert(Form.newSelect(
+        this.container.insert(Form.newInputText(
         {
-            label  : '2nd answer',
-            id     : 'question_answer2',
-            name   : 'answer[]',
-            value  : this.data['answer2'],
-            values : this.data['answers']
+            label     : '2nd answer',
+            id        : 'question_answer2',
+            name      : 'answer[]',
+            value     : this.data['answer2'],
+            maxlength : 32
         }));
 
         this.container.insert(Form.newInputSubmit('save'));
@@ -103,10 +103,10 @@ var Question = function(param)
         this.data['answer2'] = $('question_answer2').value;
         var param =
         {
-            id      : this.data['id'],
-            label   : this.data['label'],
-            answer1 : this.data['answer1'],
-            answer2 : this.data['answer2']
+            'id'      : this.data['id'],
+            'label'   : this.data['label'],
+            'answer[0]' : this.data['answer1'],
+            'answer[1]' : this.data['answer2']
         };
 
         new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_save.php',

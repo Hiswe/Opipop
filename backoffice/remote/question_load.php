@@ -13,22 +13,17 @@
 	$rs_question = $db->select('SELECT `id`, `category_id`, `date`, `label` FROM `question` WHERE `id`="' . $_POST['id'] . '"');
     $data = $rs_question['data'][0];
 
-	$rs_answer = $db->select('SELECT `answer_id` FROM `question_answer` WHERE `question_id`="' . $_POST['id'] . '"');
+	$rs_answer = $db->select('
+		SELECT a.label
+		FROM `question_answer` AS `q`
+		JOIN `answer` AS `a` ON a.id=q.answer_id
+		WHERE q.question_id="' . $_POST['id'] . '"
+	');
     $n = 1;
     foreach ($rs_answer['data'] as $item)
     {
-        $data['answer' . $n] = $item['answer_id'];
+        $data['answer' . $n] = $item['label'];
         $n ++;
-    }
-
-	$rs_answers = $db->select('SELECT `id`, `label` FROM `answer` ORDER BY `label` ASC');
-    $data['answers'] = array();
-    foreach ($rs_answers['data'] as $item)
-    {
-        $data['answers'][] = array(
-            'value' => $item['id'],
-            'label' => $item['label'],
-        );
     }
 
 	echo json_encode($data);
