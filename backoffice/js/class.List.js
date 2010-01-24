@@ -35,6 +35,11 @@ var List = function(param)
         $(this.param.container).insert(this.listContainer);
 
         this.showPage(this.param.page);
+
+		if (this.param.autoLoad && this.itemList.length != 0)
+		{
+			this.itemList[0].clickCallback();
+		}
     };
 
     this.initTools = function()

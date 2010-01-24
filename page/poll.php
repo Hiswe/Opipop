@@ -48,7 +48,7 @@ if ($rs_question['total'] != 0)
     ('
         SELECT a.id, a.label, j.question_id
         FROM `answer` AS a
-        JOIN `question_answer` AS j ON j.answer_id = a.id
+        JOIN `question_answer_feeling` AS j ON j.answer_id = a.id
         WHERE j.question_id = ' . $_GET['id'] . '
     ');
 

@@ -1,5 +1,10 @@
 var Form =
 {
+    /*
+    *   Generate a line to insert an input in
+    *
+    *   @message the label that appears on the line
+    */
     newLine : function(message)
     {
         var label = new Element('label');
@@ -10,6 +15,12 @@ var Form =
         return line;
     },
 
+    /*
+    *   Generate an option tag for select inputs
+    *
+    *   @label the label of the option
+    *   @value the value of the option
+    */
     newOption : function(label, value)
     {
         var option = new Element('option');
@@ -18,6 +29,15 @@ var Form =
         return option;
     },
 
+    /*
+    *   Generate a select input
+    *
+    *   @param.id the id of the input
+    *   @param.name the name of the input
+    *   @param.label the labl of the input
+    *   @param.allowEmpty if true insert a empty option
+    *   @param.values an array of option objects {label:..., value:...}
+    */
     newSelect : function(param)
     {
         var input = new Element('select');
@@ -31,7 +51,10 @@ var Form =
         }
 
         var option = null;
-        input.insert(Form.newOption('...', 0));
+        if (param.allowEmpty)
+        {
+            input.insert(Form.newOption('...', 0));
+        }
         $A(param.values).each(function(item)
         {
             option = Form.newOption(item.label, item.value);
@@ -47,16 +70,21 @@ var Form =
         return line;
     },
 
+    /*
+    *   Generate a text input
+    *
+    *   @param.id the id of the input
+    *   @param.name the name of the input
+    *   @param.label the labl of the input
+    *   @param.value the value of the input
+    *   @param.maxlength the max number of char allowed
+    */
     newInputText : function(param)
     {
         var input = new Element('input');
         if (param.id)
         {
             input.writeAttribute('id', param.id);
-        }
-        if (param.type)
-        {
-            input.writeAttribute('type', param.type);
         }
         if (param.name)
         {
@@ -70,12 +98,18 @@ var Form =
         {
             input.writeAttribute('maxlength', param.maxlength);
         }
+        input.writeAttribute('type', 'text');
 
         var line = Form.newLine(param.label);
         line.insert(input);
         return line;
     },
 
+    /*
+    *   Generate a submit input
+    *
+    *   @message the value of the input
+    */
     newInputSubmit : function(message)
     {
         var line  = new Element('div');
@@ -90,6 +124,17 @@ var Form =
         return line;
     },
 
+    /*
+    *   Generate an upload space
+    *
+    *   @param.label the labl of the input
+    *   @param.buttonId the id of the swf button container
+    *   @param.progressId the id of the progress zone
+    *   @param.previewImageId the id of the preview image tag
+    *   @param.previewBoxId the id of the preview image container
+    *   @param.imageLink the link to the image
+    *   @param.src the src of the preview image
+    */
     newUpload : function(param)
     {
         var previewImage = new Element('img',

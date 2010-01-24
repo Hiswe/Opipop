@@ -7,6 +7,15 @@ var Question = function(param)
 
     this.init = function()
     {
+        var feelings = [
+            { value : '1', label:'None (aucuns)' },
+            { value : '2', label:'Personality (personalit&eacute;)' },
+            { value : '3', label : 'Surroundings (environnement)'},
+            { value : '4', label : 'Knowledge (connaissance)' },
+            { value : '5', label : 'Experience (exp&eacute;rience)' },
+            { value : '6', label : 'Thoughts (pens&eacute;es)'}
+        ];
+
         this.container = new Element('form',
         {
             methode : 'post',
@@ -17,7 +26,6 @@ var Question = function(param)
         {
             label     : 'Question',
             id        : 'question_label',
-            type      : 'text',
             name      : 'label',
             value     : this.data['label'],
             maxlength : 255
@@ -39,6 +47,24 @@ var Question = function(param)
             name      : 'answer[]',
             value     : this.data['answer2'],
             maxlength : 32
+        }));
+
+        this.container.insert(Form.newSelect(
+        {
+            label     : '1st answer\'s feeling',
+            id        : 'question_feeling1',
+            name      : 'feeling[]',
+            value     : this.data['feeling1'],
+            values    : feelings
+        }));
+
+        this.container.insert(Form.newSelect(
+        {
+            label     : '2st answer\'s feeling',
+            id        : 'question_feeling2',
+            name      : 'feeling[]',
+            value     : this.data['feeling2'],
+            values    : feelings
         }));
 
         this.container.insert(Form.newInputSubmit('save'));
@@ -98,15 +124,19 @@ var Question = function(param)
 
     this.save = function()
     {
-        this.data['label'] = $('question_label').value;
-        this.data['answer1'] = $('question_answer1').value;
-        this.data['answer2'] = $('question_answer2').value;
+        this.data['label']    = $('question_label').value;
+        this.data['answer1']  = $('question_answer1').value;
+        this.data['answer2']  = $('question_answer2').value;
+        this.data['feeling1'] = $('question_feeling1').value;
+        this.data['feeling2'] = $('question_feeling2').value;
         var param =
         {
-            'id'      : this.data['id'],
-            'label'   : this.data['label'],
-            'answer[0]' : this.data['answer1'],
-            'answer[1]' : this.data['answer2']
+            'id'         : this.data['id'],
+            'label'      : this.data['label'],
+            'answer[0]'  : this.data['answer1'],
+            'answer[1]'  : this.data['answer2'],
+            'feeling[0]' : this.data['feeling1'],
+            'feeling[1]' : this.data['feeling2']
         };
 
         new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_save.php',

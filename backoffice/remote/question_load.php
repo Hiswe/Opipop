@@ -14,15 +14,17 @@
     $data = $rs_question['data'][0];
 
 	$rs_answer = $db->select('
-		SELECT a.label
-		FROM `question_answer` AS `q`
-		JOIN `answer` AS `a` ON a.id=q.answer_id
+		SELECT a.label AS `answer`, f.id `feeling`
+		FROM `question_answer_feeling` AS `q`
+		JOIN `answer`  AS `a` ON a.id=q.answer_id
+		JOIN `feeling` AS `f` ON f.id=q.feeling_id
 		WHERE q.question_id="' . $_POST['id'] . '"
 	');
     $n = 1;
     foreach ($rs_answer['data'] as $item)
     {
-        $data['answer' . $n] = $item['label'];
+        $data['answer' . $n] = $item['answer'];
+        $data['feeling' . $n] = $item['feeling'];
         $n ++;
     }
 

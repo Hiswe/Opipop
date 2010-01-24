@@ -8,9 +8,9 @@
 		SET `label` = "' . $_POST['label'] . '"
 		WHERE `id` = "' . $_POST['id'] . '"');
 
-	$db->delete('DELETE FROM `question_answer` WHERE `question_id`="' . $_POST['id'] . '"');
+	$db->delete('DELETE FROM `question_answer_feeling` WHERE `question_id`="' . $_POST['id'] . '"');
 
-	foreach ($_POST['answer'] as $answer)
+	foreach ($_POST['answer'] as $key => $answer)
 	{
 		$rs_answer = $db->select('
 			SELECT `id`
@@ -27,10 +27,11 @@
 			$answer_id =  $rs_answer['data'][0]['id'];
 		}
 
-		$db->insert('INSERT INTO `question_answer` (`question_id`, `answer_id`) VALUES
+		$db->insert('INSERT INTO `question_answer_feeling` (`question_id`, `answer_id`, `feeling_id`) VALUES
 		(
 			"' . $_POST['id'] . '",
-			"' . $answer_id . '"
+			"' . $answer_id . '",
+			"' . $_POST['feeling'][$key] . '"
 		)');
 	}
 

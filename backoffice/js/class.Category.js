@@ -17,12 +17,14 @@ var Category = function(param)
                 page        : 0,
                 itemPerPage : 10,
                 editStatus  : true,
+                autoLoad    : true,
                 parameters  :
                 {
                     categoryId : this.param.item.getData('id')
                 }
             });
         }
+		this.loaded = true;
         this.list.init();
     };
 
