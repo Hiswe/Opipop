@@ -73,9 +73,10 @@ if ($rs_question['total'] != 0)
     // Assign question infos
     $tpl->assignVar(array
     (
-        'question_date'  => date('d-m-Y', $question['date']),
-        'question_label' => $question['label'],
-        'question_id'    => $question['id'],
+        'question_start_date' => date('d/m/Y', $question['date']),
+        'question_end_date'   => date('d/m/Y', $question['date'] + POLL_DURATION),
+        'question_label'      => $question['label'],
+        'question_id'         => $question['id'],
     ));
 
     // Loop through all answers
@@ -91,7 +92,7 @@ if ($rs_question['total'] != 0)
             'id'              => $answer['id'],
             'progress'        => $progress,
             'percentFormated' => ($progressTotal == 0) ? 0 : number_format(($progress / $progressTotal) * 100, 1, ',', ' '),
-            'percent'         => ($progressTotal == 0) ? 0 : ($progress / $progressTotal) * 100,
+            'percent'         => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
         ));
 
         // If some users are logged
@@ -107,6 +108,7 @@ if ($rs_question['total'] != 0)
                     $tpl->assignLoopVar('answer.user', array
                     (
                         'login' => $_SESSION['user'][$result['user_id']]['login'],
+                        'guid'  => makeGuid($_SESSION['user'][$result['user_id']]['login']),
                         'id'    => $result['user_id'],
                         'class' => 'voted',
                     ));
@@ -124,6 +126,7 @@ if ($rs_question['total'] != 0)
                     $tpl->assignLoopVar('answer.user', array
                     (
                         'login' => $_SESSION['user'][$result['user_id']]['login'],
+                        'guid'  => makeGuid($_SESSION['user'][$result['user_id']]['login']),
                         'id'    => $result['user_id'],
                         'class' => 'guessed',
                     ));

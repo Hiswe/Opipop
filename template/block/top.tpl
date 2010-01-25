@@ -4,7 +4,7 @@
         <h4>User logged:</h4>
         <ul id="userLogged">
             <!-- LOOP userLogged -->
-            <li><a href="{ROOT_PATH}{userLogged.login}">{userLogged.login}</a></li>
+            <li><a href="{ROOT_PATH}{userLogged.guid}">{userLogged.login}</a></li>
             <!-- END userLogged -->
             <li><a href="{ROOT_PATH}login">connect a new user</a></li>
         </ul>

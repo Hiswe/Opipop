@@ -32,8 +32,19 @@
 li.user
 {
     display: inline-block;
-    background: #ccc;
     margin: 2px;
     padding: 2px 4px;
+}
+
+li.user.voted
+{
+    background: #ccc;
+		border: solid 1px #999;
+}
+
+li.user.guessed
+{
+    background: #fff;
+		border: solid 1px #ccc;
 }
 
