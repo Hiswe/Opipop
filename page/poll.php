@@ -44,35 +44,15 @@ if ($rs_question['total'] != 0)
         ');
     }
 
-    // Select all answers releted to this question and some infos about it
+    // Select all answers releted to this question
     $rs_answer = $db->select
     ('
-        SELECT a.id, a.label, COUNT(u.id) AS total_answer, SUM(u.male) AS total_male
+        SELECT a.id, a.label
         FROM `answer` AS `a`
         JOIN `question_answer_feeling` AS j ON j.answer_id = a.id
-        JOIN `user_result` AS `r` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
-        JOIN `user` AS `u` ON r.user_id=u.id
         WHERE j.question_id = ' . $_GET['id'] . '
         GROUP BY a.id
     ');
-
-    // Count results for each answers related to this questions
-    $rs_progress = $db->select
-    ('
-        SELECT `answer_id`, COUNT(`user_id`) AS `total`
-        FROM `user_result`
-        WHERE `question_id`=' . $question['id'] . '
-        GROUP BY `answer_id`
-    ');
-
-    // Compute totals
-    $progressTotal = 0;
-    $progressAnswer = array();
-    foreach ($rs_progress['data'] as $progress)
-    {
-        $progressTotal += $progress['total'];
-        $progressAnswer[$progress['answer_id']] = $progress['total'];
-    }
 
     // Assign question infos
     $tpl->assignVar(array
@@ -84,72 +64,59 @@ if ($rs_question['total'] != 0)
         'question_id'         => $question['id'],
     ));
 
-    // Loop through all answers
-    foreach ($rs_answer['data'] as $answer)
+    // If this question is not out of date
+    if ($question['date'] > time() - POLL_DURATION)
     {
-        // Compute percent
-        $progress = (isset($progressAnswer[$answer['id']])) ? $progressAnswer[$answer['id']] : 0;
+        $tpl->assignSection('active');
 
-        // Assign answer's infos
-        $tpl->assignLoopVar('answer', array
-        (
-            'label'           => $answer['label'],
-            'id'              => $answer['id'],
-            'progress'        => $progress,
-            'percentFormated' => ($progressTotal == 0) ? 0 : number_format(($progress / $progressTotal) * 100, 1, ',', ' '),
-            'percent'         => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
-            'percent_male'    => ($answer['total_male'] / $answer['total_answer']) * 100,
-            'percent_female'  => (($answer['total_answer'] - $answer['total_male']) / $answer['total_answer']) * 100,
-        ));
-
-        // If some users are logged
-        if (count($_SESSION['user']) != 0)
+        // Loop through all answers
+        foreach ($rs_answer['data'] as $answer)
         {
-            // Loop through all users results
-            foreach ($rs_result['data'] as $result)
+            // Assign answer's infos
+            $tpl->assignLoopVar('answer', array
+            (
+                'label'           => $answer['label'],
+                'id'              => $answer['id'],
+            ));
+
+            // If some users are logged
+            if (count($_SESSION['user']) != 0)
             {
-                // If the result is about this answer
-                if ($result['answer_id'] == $answer['id'])
+                // Loop through all users results
+                foreach ($rs_result['data'] as $result)
                 {
-                    // Assing user's infos
-                    $tpl->assignLoopVar('answer.user', array
-                    (
-                        'login' => $_SESSION['user'][$result['user_id']]['login'],
-                        'id'    => $result['user_id'],
-                        'class' => 'voted',
-                    ));
-                    // Remembed this user has allready voted
-                    $user_voted_idList[$result['user_id']] = true;
+                    // If the result is about this answer
+                    if ($result['answer_id'] == $answer['id'])
+                    {
+                        // Assing user's infos
+                        $tpl->assignLoopVar('answer.user', array
+                        (
+                            'login' => $_SESSION['user'][$result['user_id']]['login'],
+                            'id'    => $result['user_id'],
+                            'class' => 'voted',
+                        ));
+                        // Remembed this user has allready voted
+                        $user_voted_idList[$result['user_id']] = true;
+                    }
                 }
-            }
-            // Loop through all users prognostics
-            foreach ($rs_prognostic['data'] as $result)
-            {
-                // If the result is about this answer
-                if ($result['answer_id'] == $answer['id'])
+                // Loop through all users prognostics
+                foreach ($rs_prognostic['data'] as $result)
                 {
-                    // Assing user's infos
-                    $tpl->assignLoopVar('answer.user', array
-                    (
-                        'login' => $_SESSION['user'][$result['user_id']]['login'],
-                        'guid'  => makeGuid($_SESSION['user'][$result['user_id']]['login']),
-                        'id'    => $result['user_id'],
-                        'class' => 'guessed',
-                    ));
+                    // If the result is about this answer
+                    if ($result['answer_id'] == $answer['id'])
+                    {
+                        // Assing user's infos
+                        $tpl->assignLoopVar('answer.user', array
+                        (
+                            'login' => $_SESSION['user'][$result['user_id']]['login'],
+                            'guid'  => makeGuid($_SESSION['user'][$result['user_id']]['login']),
+                            'id'    => $result['user_id'],
+                            'class' => 'guessed',
+                        ));
+                    }
                 }
             }
         }
-    }
-
-    // If this question is out of date
-    if ($question['date'] < time() - POLL_DURATION)
-    {
-        $tpl->assignSection('inactive');
-    }
-    // If it's not out of date
-    else
-    {
-        $tpl->assignSection('active');
 
         if (count($_SESSION['user']) != 0)
         {
@@ -157,7 +124,6 @@ if ($rs_question['total'] != 0)
             $poll_parameters = array();
             $poll_parameters['question_id'] = $question['id'];
             $poll_parameters['user'] = array();
-            $poll_parameters['mode'] = 'vote';
 
             // Pass all users results to javascripts
             foreach ($rs_result['data'] as $result)
@@ -181,6 +147,72 @@ if ($rs_question['total'] != 0)
             }
 
             $tpl->assignVar('poll_parameters', json_encode($poll_parameters));
+        }
+    }
+    else
+    {
+        $tpl->assignSection('inactive');
+
+        // Stats about answers
+        $rs_stats = $db->select
+        ('
+            SELECT a.id, COUNT(u.id) AS total_answer, SUM(u.male) AS total_male
+            FROM `answer` AS `a`
+            JOIN `question_answer_feeling` AS j ON j.answer_id = a.id
+            JOIN `user_result` AS `r` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
+            JOIN `user` AS `u` ON r.user_id=u.id
+            WHERE j.question_id = ' . $_GET['id'] . '
+            GROUP BY a.id
+        ');
+
+        // Count results for each answers related to this questions
+        $rs_progress = $db->select
+        ('
+            SELECT `answer_id`, COUNT(`user_id`) AS `total`
+            FROM `user_result`
+            WHERE `question_id`=' . $question['id'] . '
+            GROUP BY `answer_id`
+        ');
+
+        // Compute totals
+        $progressTotal = 0;
+        $progressAnswer = array();
+        foreach ($rs_progress['data'] as $progress)
+        {
+            $progressTotal += $progress['total'];
+            $progressAnswer[$progress['answer_id']] = $progress['total'];
+        }
+
+        // Loop through all answers
+        foreach ($rs_answer['data'] as $answer)
+        {
+            // Compute percent
+            $progress = (isset($progressAnswer[$answer['id']])) ? $progressAnswer[$answer['id']] : 0;
+
+            $totalAnswer = 0;
+            $totalMale   = 0;
+            $totalFemale = 0;
+            foreach ($rs_stats['data'] as $stats)
+            {
+                if ($stats['id'] == $answer['id'])
+                {
+                    $totalAnswer = $stats['total_answer'];
+                    $totalMale   = $stats['total_male'];
+                    $totalFemale = $stats['total_answer'] - $stats['total_male'];
+                    break;
+                }
+            }
+
+            // Assign answer's infos
+            $tpl->assignLoopVar('answer', array
+            (
+                'label'           => $answer['label'],
+                'id'              => $answer['id'],
+                'percentFormated' => ($progressTotal == 0) ? 0 : number_format(($progress / $progressTotal) * 100, 1, ',', ' '),
+                'percent'         => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
+                'percent_male'    => ($totalAnswer == 0) ? 0 : round(($totalMale / $totalAnswer) * 100),
+                'percent_female'  => ($totalAnswer == 0) ? 0 : round(($totalFemale / $totalAnswer) * 100),
+            ));
         }
     }
 }

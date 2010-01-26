@@ -6,7 +6,9 @@
             <!-- LOOP userLogged -->
             <li><a href="{ROOT_PATH}{userLogged.login}">{userLogged.login}</a></li>
             <!-- END userLogged -->
-            <li><a href="{ROOT_PATH}login">connect a new user</a></li>
+			<!-- SECTION login -->
+            <li><a href="{ROOT_PATH}login">Login / register</a></li>
+			<!-- END login -->
         </ul>
 
 		<h4>Categories:</h4>

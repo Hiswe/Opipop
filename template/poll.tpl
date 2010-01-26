@@ -7,10 +7,10 @@
 			<p>This poll will end in {question_end_time}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
-                <li id="answer_{answer.id}" class="answer">{answer.label}
+                <li name="answer_{answer.id}" class="answer">{answer.label}
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li id="user_{answer.user.id}" class="user {answer.user.class}">{answer.user.login}</li>
+                        <li name="user_{answer.user.id}" class="user {answer.user.class}">{answer.user.login}</li>
                         <!-- END answer.user -->
                     </ul>
                 </li>
@@ -20,7 +20,8 @@
             <div id="farm">
                 <ul>
                     <!-- LOOP user -->
-                    <li id="user_{user.id}" class="user unregistered">{user.login}</li>
+                    <li name="user_{user.id}" class="user voted unregistered">{user.login}</li>
+                    <li name="user_{user.id}" class="user guessed unregistered">{user.login}</li>
                     <!-- END user -->
                 </ul>
             </div>
@@ -34,7 +35,7 @@
 			<p>This poll started on the {question_start_date} and ended on the {question_end_date}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
-                <li id="answer_{answer.id}" class="answer">({answer.percentFormated}%) {answer.label}
+                <li name="answer_{answer.id}" class="answer">({answer.percentFormated}%) {answer.label}
                     <div class="progress" name="{answer.percent}"></div>
                     <ul>
                         <li><strong>Mal:</strong> {answer.percent_male}%</li>
@@ -42,7 +43,7 @@
                     </ul>
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li id="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}">{answer.user.login}</a></li>
+                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}">{answer.user.login}</a></li>
                         <!-- END answer.user -->
                     </ul>
                 </li>

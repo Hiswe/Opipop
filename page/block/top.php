@@ -13,6 +13,10 @@ if (isOk($_SESSION['user']))
         ));
     }
 }
+else
+{
+	$tpl->assignSection('login');
+}
 
 $rs_category = $db->select('SELECT `id`, `label` FROM `category` WHERE `status`="1" ORDER BY `position` ASC');
 
