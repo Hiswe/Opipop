@@ -5,9 +5,10 @@ include 'page/block/top.php';
 // Select the requested question
 $rs_question = $db->select
 ('
-    SELECT `id`, `date`, `label`
-    FROM `question`
-    WHERE `id` = ' . $_GET['id'] . '
+    SELECT q.id, q.date, q.label
+    FROM `question` AS `q`
+    JOIN `category` AS `c` ON c.id=q.category_id
+    WHERE q.id=' . $_GET['id'] . ' AND q.status=1 AND c.status=1
 ');
 
 // If there is one
@@ -75,6 +76,7 @@ if ($rs_question['total'] != 0)
     (
         'question_start_date' => date('d/m/Y', $question['date']),
         'question_end_date'   => date('d/m/Y', $question['date'] + POLL_DURATION),
+        'question_end_time'   => timeWarp($question['date'] + POLL_DURATION),
         'question_label'      => $question['label'],
         'question_id'         => $question['id'],
     ));
@@ -140,37 +142,45 @@ if ($rs_question['total'] != 0)
         $tpl->assignSection('inactive');
     }
     // If it's not out of date
-    else if (count($_SESSION['user']) != 0)
+    else
     {
-        // Init some variables for javascripts
-        $poll_parameters = array();
-        $poll_parameters['question_id'] = $question['id'];
-        $poll_parameters['user'] = array();
-        $poll_parameters['mode'] = 'vote';
-
-        // Pass all users results to javascripts
-        foreach ($rs_result['data'] as $result)
-        {
-            $poll_parameters['user'][$result['user_id']] = $result['answer_id'];
-        }
-
-        // Loop through all logged users
-        foreach($user_idList as $id)
-        {
-            // If he did not vote
-            if (!array_key_exists($id, $user_voted_idList))
-            {
-                // Assing user's infos
-                $tpl->assignLoopVar('user', array
-                (
-                    'login' => $_SESSION['user'][$id]['login'],
-                    'id'    => $id,
-                ));
-            }
-        }
-
-        $tpl->assignVar('poll_parameters', json_encode($poll_parameters));
         $tpl->assignSection('active');
+
+        if (count($_SESSION['user']) != 0)
+        {
+            // Init some variables for javascripts
+            $poll_parameters = array();
+            $poll_parameters['question_id'] = $question['id'];
+            $poll_parameters['user'] = array();
+            $poll_parameters['mode'] = 'vote';
+
+            // Pass all users results to javascripts
+            foreach ($rs_result['data'] as $result)
+            {
+                $poll_parameters['user'][$result['user_id']] = $result['answer_id'];
+            }
+
+            // Loop through all logged users
+            foreach($user_idList as $id)
+            {
+                // If he did not vote
+                if (!array_key_exists($id, $user_voted_idList))
+                {
+                    // Assing user's infos
+                    $tpl->assignLoopVar('user', array
+                    (
+                        'login' => $_SESSION['user'][$id]['login'],
+                        'id'    => $id,
+                    ));
+                }
+            }
+
+            $tpl->assignVar('poll_parameters', json_encode($poll_parameters));
+        }
     }
+}
+else
+{
+    // TODO : Error no poll found
 }
 

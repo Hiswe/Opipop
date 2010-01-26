@@ -1,16 +1,16 @@
 <?php
 
-	require_once 'inc/conf.default.php';
-	require_once 'inc/conf.local.php';
+    require_once 'inc/conf.default.php';
+    require_once 'inc/conf.local.php';
     require_once 'inc/setup.php';
 
     require_once 'page/' . $page . '.php';
 
-	$tpl->assignTemplate ('template/block/header.tpl');
-	$tpl->assignTemplate ('template/'.$page.'.tpl');
-	$tpl->assignTemplate ('template/block/footer.tpl');
+    $tpl->assignTemplate ('template/block/header.tpl');
+    $tpl->assignTemplate ('template/'.$page.'.tpl');
+    $tpl->assignTemplate ('template/block/footer.tpl');
 
-	$tpl->display ();
+    $tpl->display ();
 
 echo '<br/><hr/>';
 echo 'SQL : ' . number_format($db->getTotalQueryTime(), 3, ',', ' ') . ' sec | ';

@@ -3,9 +3,8 @@
 
             <h1 id="question">{question_label}</h1>
 
-			<p>This poll started on the {question_start_date} and ended on the {question_end_date}.</p>
-
             <!-- SECTION active -->
+			<p>This poll will end in {question_end_time}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
                 <li id="answer_{answer.id}" class="answer">{answer.label}
@@ -32,6 +31,7 @@
             <!-- END active -->
 
             <!-- SECTION inactive -->
+			<p>This poll started on the {question_start_date} and ended on the {question_end_date}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
                 <li id="answer_{answer.id}" class="answer">({answer.percentFormated}%) {answer.label}

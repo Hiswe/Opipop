@@ -17,6 +17,8 @@ if (isOk($_GET['archive']))
 		JOIN `category` AS `c` ON c.id=q.category_id
 		WHERE q.date < ' . (time() - POLL_DURATION - 3600) . '
 		AND c.id="' . $_GET['id'] . '"
+        AND q.status=1
+        AND c.status=1
 		ORDER BY q.date DESC
 	', (($_GET['p'] > 0) ? $_GET['p'] - 1 : $_GET['p']) * POLL_PER_PAGE, POLL_PER_PAGE);
 }
@@ -30,6 +32,8 @@ else
 		JOIN `category` AS `c` ON c.id=q.category_id
 		WHERE q.date > ' . (time() - POLL_DURATION) . '
 		AND c.id="' . $_GET['id'] . '"
+        AND q.status=1
+        AND c.status=1
 		ORDER BY q.date DESC
 	');
 }
