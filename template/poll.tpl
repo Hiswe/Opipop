@@ -21,7 +21,7 @@
             <div id="farm">
                 <ul>
                     <!-- LOOP user -->
-                    <li id="user_{user.id}" class="user unregistered"><a href="{ROOT_PATH}{user.guid}">{user.login}</a></li>
+                    <li id="user_{user.id}" class="user unregistered">{user.login}</li>
                     <!-- END user -->
                 </ul>
             </div>
@@ -38,7 +38,7 @@
                     <div class="progress" name="{answer.percent}"></div>
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li id="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.guid}">{answer.user.login}</a></li>
+                        <li id="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}">{answer.user.login}</a></li>
                         <!-- END answer.user -->
                     </ul>
                 </li>

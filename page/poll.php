@@ -108,7 +108,6 @@ if ($rs_question['total'] != 0)
                     $tpl->assignLoopVar('answer.user', array
                     (
                         'login' => $_SESSION['user'][$result['user_id']]['login'],
-                        'guid'  => makeGuid($_SESSION['user'][$result['user_id']]['login']),
                         'id'    => $result['user_id'],
                         'class' => 'voted',
                     ));

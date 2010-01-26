@@ -2,14 +2,28 @@
 
 include 'page/block/top.php';
 
+if (!is_array($_SESSION['user']) || count($_SESSION['user']) == 0)
+{
+	// TODO : Error no user logged
+	exit();
+}
+
 foreach ($_SESSION['user'] as $id => $info)
 {
-    if ($info['login'] == $_GET['login'])
+    if (strtolower($info['login']) == strtolower($_GET['login']))
     {
         $userId = $id;
         break;
     }
 }
+
+if (!isset($userId))
+{
+	// TODO : Error this user is not logged
+	exit();
+}
+
+$tpl->assignSection('private');
 
 $rs = $db->select('SELECT `male`, `zip` FROM `user` WHERE `id`="' . $userId . '"');
 

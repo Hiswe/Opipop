@@ -15,6 +15,13 @@ if ($rs_user['total'] != 0)
 {
 	$userId = $rs_user['data'][0]['id'];
 
+	$tpl->assignVar('user_id', $userId);
+
+	if (is_array($_SESSION['user']) && isset($_SESSION['user'][$userId]))
+	{
+		$tpl->assignSection('private');
+	}
+
 	// Count user's total votes
 	$rs_result_total = $db->select('
 		SELECT COUNT(user_id) AS `total`
@@ -143,15 +150,85 @@ if ($rs_user['total'] != 0)
 			'user_totalPredictionLost' => $totalPredictionLost,
 			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_user_prognostic['total']) * 100),
 		));
+
+		// Compute user's feelings
+		$rs_user_feeling = $db->select('
+			SELECT f.id, COUNT(f.id) AS total
+			FROM `user_result` AS `r`
+			JOIN `question_answer_feeling` AS `j` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
+			JOIN `feeling` AS `f` ON f.id=j.feeling_id
+			WHERE r.user_id="' . $userId . '" AND f.id!="1"
+			GROUP BY f.id
+		');
+
+		// Init values
+		$feelings = array('personality', 'surroundings', 'knowledge', 'experience', 'thoughts');
+		$user_feelings = array('1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0);
+
+		// Count user feelings
+		$totalPoint = 0;
+		$max = 0;
+		$values = array();
+		foreach ($rs_user_feeling['data'] as $item)
+		{
+			$user_feelings[$item['id']] = $item['total'];
+			$max = ($max < $item['total']) ? $item['total'] : $max;
+			$totalPoint ++;
+		}
+		foreach ($feelings as $id => $label)
+		{
+			$tpl->assignLoopVar('feeling', array
+			(
+				'label'   => $label,
+				'percent' => round(($user_feelings[$id + 1] / $max) * 100),
+			));
+			$values[] = number_format(($user_feelings[$id + 1] / $max) * 5 + 1, 2);
+		}
+
+		include 'inc/pChart.1.27d/pChart/pData.class';
+		include 'inc/pChart.1.27d/pChart/pChart.class';
+		include 'inc/pChart.1.27d/pChart/pCache.class';
+
+		error_reporting(0);
+
+		// Dataset definition
+		$DataSet = new pData;
+		$DataSet->AddPoint($feelings, 'Label');
+		$DataSet->AddPoint($values, 'Serie1');
+		$DataSet->AddSerie('Serie1');
+		$DataSet->SetAbsciseLabelSerie('Label');
+		$DataSet->SetSerieName('Personality', 'Serie1');
+
+		// Init cahce
+		$Cache = new pCache(ROOT_DIR . 'media/chart/');
+		if (!$Cache->isInCache('personality', $DataSet->GetData()))
+		{
+			// Initialise the graph
+			$Chart = new pChart(400, 400);
+			$Chart->setFontProperties('inc/pChart.1.27d/Fonts/tahoma.ttf',10);
+			$Chart->setGraphArea(50, 50, 350, 350);
+			$Chart->setColorPalette(0, 120, 120, 230);
+
+			// Draw the radar graph
+			$Chart->drawRadarAxis($DataSet->GetData(),$DataSet->GetDataDescription(),TRUE,20,120,120,120,230,230,230);
+			$Chart->drawFilledRadar($DataSet->GetData(),$DataSet->GetDataDescription(),50,20);
+
+			// Cache the graph
+			$Cache->WriteToCache('personality', $DataSet->GetData(), $Chart);
+		}
+		$tpl->assignVar('personality_chart', $Cache->GetFromCache('personality', $DataSet->GetData(), true));
+
+		error_reporting(E_ALL);
 	}
 	else
 	{
 		$tpl->assignVar(array
 		(
-			'user_totalVote' => 0,
-			'user_totalPredictionWon' => 0,
+			'user_totalVote'           => 0,
+			'user_totalPredictionWon'  => 0,
 			'user_totalPredictionLost' => 0,
-			'user_distance' => 0,
+			'user_predictionAccuracy'  => 0,
+			'user_distance'            => 0,
 		));
 	}
 }

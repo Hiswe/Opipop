@@ -8,8 +8,8 @@ var Question = function(param)
     this.init = function()
     {
         var feelings = [
-            { value : '1', label:'None (aucuns)' },
-            { value : '2', label:'Personality (personalit&eacute;)' },
+            { value : '1', label : 'None (aucuns)' },
+            { value : '2', label : 'Personality (personalit&eacute;)' },
             { value : '3', label : 'Surroundings (environnement)'},
             { value : '4', label : 'Knowledge (connaissance)' },
             { value : '5', label : 'Experience (exp&eacute;rience)' },
