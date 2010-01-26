@@ -44,13 +44,16 @@ if ($rs_question['total'] != 0)
         ');
     }
 
-    // Select all answers releted to this question
+    // Select all answers releted to this question and some infos about it
     $rs_answer = $db->select
     ('
-        SELECT a.id, a.label, j.question_id
-        FROM `answer` AS a
+        SELECT a.id, a.label, COUNT(u.id) AS total_answer, SUM(u.male) AS total_male
+        FROM `answer` AS `a`
         JOIN `question_answer_feeling` AS j ON j.answer_id = a.id
+        JOIN `user_result` AS `r` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
+        JOIN `user` AS `u` ON r.user_id=u.id
         WHERE j.question_id = ' . $_GET['id'] . '
+        GROUP BY a.id
     ');
 
     // Count results for each answers related to this questions
@@ -95,6 +98,8 @@ if ($rs_question['total'] != 0)
             'progress'        => $progress,
             'percentFormated' => ($progressTotal == 0) ? 0 : number_format(($progress / $progressTotal) * 100, 1, ',', ' '),
             'percent'         => ($progressTotal == 0) ? 0 : round(($progress / $progressTotal) * 100),
+            'percent_male'    => ($answer['total_male'] / $answer['total_answer']) * 100,
+            'percent_female'  => (($answer['total_answer'] - $answer['total_male']) / $answer['total_answer']) * 100,
         ));
 
         // If some users are logged

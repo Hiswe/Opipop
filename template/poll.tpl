@@ -37,6 +37,10 @@
                 <li id="answer_{answer.id}" class="answer">({answer.percentFormated}%) {answer.label}
                     <div class="progress" name="{answer.percent}"></div>
                     <ul>
+                        <li><strong>Mal:</strong> {answer.percent_male}%</li>
+                        <li><strong>Female:</strong> {answer.percent_female}%</li>
+                    </ul>
+                    <ul>
                         <!-- LOOP answer.user -->
                         <li id="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}">{answer.user.login}</a></li>
                         <!-- END answer.user -->
