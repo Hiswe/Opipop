@@ -24,6 +24,7 @@ RewriteRule ^category/([a-zA-Z0-9_-]*)/archives/*([0-9]*)$ index.php?page=poll_l
 
 # COMMUNITY
 RewriteRule ^users/*([0-9]*)$ index.php?page=user_list&p=$1 [L]
+RewriteRule ^users/search/([^/]+)/*([0-9]*)$ index.php?page=user_list&query=$1&p=$2 [L]
 
 # USER
 RewriteRule ^([a-zA-Z0-9_]+)$ index.php?page=user&login=$1 [L]

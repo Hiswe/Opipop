@@ -3,6 +3,25 @@ window.onload = function () {
 
 
 ///////////////////
+// USER
+///////////////////
+
+function user_search_submit()
+{
+    var query = $('user_search_query').value.stripScripts().stripTags().strip();
+
+    if (query.blank())
+    {
+        return;
+    }
+
+    form_disable($('user_search'));
+
+	window.location = ROOT_PATH + 'users/search/' + escape(query);
+}
+
+
+///////////////////
 // POLL
 ///////////////////
 
