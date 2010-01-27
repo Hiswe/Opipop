@@ -201,199 +201,183 @@
 	//	IMAGES
 	////////////////////////////////////////////
 
-	function redimage($src, $dest, $dw=false, $dh=false, $stamp = false)
+    function redimage($src, $dest, $dw=false, $dh=false, $loose=false, $stamp=false)
     {
-		// detect file type (could be a lot better)
-		if (is_array($src))
+        // detect file type (could be a lot better)
+        if (is_array($src))
         {
-			$type_src = strtoupper(substr($src['name'], -3));
-			$src = $src['tmp_name'];
-		}
+            $type_src = strtoupper(substr($src['name'], -3));
+            $src = $src['tmp_name'];
+        }
         else
         {
-			$type_src = strtoupper(substr($src, -3));
-		}
+            $type_src = strtoupper(substr($src, -3));
+        }
 
-		$type_dest = strtoupper(substr($dest, -3));
+        $type_dest = strtoupper(substr($dest, -3));
 
-		// read source image
-		switch ($type_src)
+        // read source image
+        switch ($type_src)
         {
-			case 'JPG' : $src_img = ImageCreateFromJpeg($src);
-				break;
-			case 'PEG' : $src_img = ImageCreateFromJpeg($src);
-				break;
-			case 'GIF' : $src_img = ImageCreateFromGif($src);
-				break;
-			case 'PNG' : $src_img = imageCreateFromPng($src);
-				break;
-			case 'BMP' : $src_img = imageCreatefromWBmp($src);
-				break;
-		}
+            case 'JPG':
+            case 'PEG':
+                $src_img = ImageCreateFromJpeg($src);
+                break;
+            case 'GIF':
+                $src_img = ImageCreateFromGif($src);
+                break;
+            case 'PNG':
+                $src_img = imageCreateFromPng($src);
+                break;
+            case 'BMP':
+                $src_img = imageCreatefromWBmp($src);
+                break;
+        }
 
-		// get it's info
-		$size = GetImageSize($src);
-		$fw = $size[0];
-		$fh = $size[1];
+        // get it's info
+        $size = GetImageSize($src);
+        $sw = $size[0];
+        $sh = $size[1];
 
-		// ROGNE the picture from the top left pixel's color
-		$rogne_color = imagecolorat($src_img, 0, 0);
-		$rogne_point = array($fh, 0, 0, $fw);
-
-		for ($x = 0; $x < $fw; $x ++)
+        // do not redim the pic
+        if ($dw == false && $dh == false)
         {
-			for ($y = 0; $y < $fh; $y ++)
+            $dest_img = ImageCreateTrueColor($sw, $sh);
+
+            ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $sw, $sh, $sw, $sh);
+        }
+        // redim the pix with dest W as max Side
+        elseif ($dw != 0 && $dh == false)
+        {
+            if ($sw == $sh)
             {
-				if (imagecolorat ($src_img, $x, $y) != $rogne_color)
-                {
-					$rogne_point[0] = ($rogne_point[0] > $y) ? $y : $rogne_point[0];
-					$rogne_point[1] = ($rogne_point[1] < $x) ? $x : $rogne_point[1];
-					$rogne_point[2] = ($rogne_point[2] < $y) ? $y : $rogne_point[2];
-					$rogne_point[3] = ($rogne_point[3] > $x) ? $x : $rogne_point[3];
-				}
-			}
-		}
-
-		$sw = $rogne_point[1] - $rogne_point[3];
-		$sh = $rogne_point[2] - $rogne_point[0];
-
-		$rogne_img = ImageCreateTrueColor($sw, $sh);
-
-		ImageCopyResampled($rogne_img, $src_img, 0, 0, $rogne_point[3], $rogne_point[0], $fw, $fh, $fw, $fh);
-
-		$src_img = $rogne_img;
-
-		// do not redim the pic
-		if ($dw == false && $dh == false)
-        {
-			$dest_img = ImageCreateTrueColor($sw, $sh);
-
-			ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $sw, $sh, $sw, $sh);
-		}
-		// redim the pix with dest W as max Side
-		elseif ($dw != 0 && $dh == false)
-        {
-			if ($sw == $sh)
-            {
-				$dh = $dw;
-			}
+                $dh = $dw;
+            }
             elseif ($sw > $sh)
             {
-				$dh = round(($dw / $sw) * $sh);
-			}
+                $dh = round(($dw / $sw) * $sh);
+            }
             else
             {
-				$dh = $dw;
-				$dw = round(($dh / $sh) * $sw);
-			}
+                $dh = $dw;
+                $dw = round(($dh / $sh) * $sw);
+            }
 
-			$dest_img = ImageCreateTrueColor($dw, $dh);
+            $dest_img = ImageCreateTrueColor($dw, $dh);
 
-			ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $dw, $dh, $sw, $sh);
-		}
-		// redim the pic according to dest W or dest H
-		elseif ($dw == 0 || $dh == 0)
+            ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $dw, $dh, $sw, $sh);
+        }
+        // redim the pic according to dest W or dest H
+        elseif ($dw == 0 || $dh == 0)
         {
-			if ($dw == 0)
+            if ($dw == 0)
             {
-				$dw = round(($dh / $sh) * $sw);
-			}
-			elseif ($dh == 0)
+                $dw = round(($dh / $sh) * $sw);
+            }
+            elseif ($dh == 0)
             {
-				$dh = round(($dw / $sw) * $sh);
-			}
+                $dh = round(($dw / $sw) * $sh);
+            }
 
-			$dest_img = ImageCreateTrueColor($dw, $dh);
+            $dest_img = ImageCreateTrueColor($dw, $dh);
 
-			ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $dw, $dh, $sw, $sh);
-		}
-		// redim the pic and crop it according to dest W and dest H
+            ImageCopyResampled($dest_img, $src_img, 0, 0, 0, 0, $dw, $dh, $sw, $sh);
+        }
+        // redim the pic and crop it according to dest W and dest H
         else
-		{
-			if ($sw / $sh < $dw / $dh)
-            {
-				$th = $sh;
-				$tw = round($sh * ($dw / $dh));
+        {
+            $test = ($loose) ? $sw / $sh > $dw / $dh : $sw / $sh < $dw / $dh;
 
-				$x = round(($tw - $sw) / 2);
-				$y = 0;
-			}
+            if ($test)
+            {
+                $th = $sh;
+                $tw = round($sh * ($dw / $dh));
+
+                $x = round(($tw - $sw) / 2);
+                $y = 0;
+            }
             else
             {
-				$tw = $sw;
-				$th = round($sw * ($dh / $dw));
+                $tw = $sw;
+                $th = round($sw * ($dh / $dw));
 
-				$x = 0;
-				$y = round(($th - $sh) / 2);
-			}
+                $x = 0;
+                $y = round(($th - $sh) / 2);
+            }
 
-			$temp_img = ImageCreateTrueColor($tw, $th);
-			$dest_img = ImageCreateTrueColor($dw, $dh);
+            $temp_img = ImageCreateTrueColor($tw, $th);
+            $dest_img = ImageCreateTrueColor($dw, $dh);
 
-			imagefill($temp_img, 0, 0, imagecolorallocate($dest_img, 255, 255, 255));
+            imagefill($temp_img, 0, 0, imagecolorallocate($dest_img, 255, 255, 255));
 
-			ImageCopyResampled($temp_img, $src_img, $x, $y, 0, 0, $sw, $sh, $sw, $sh);
-			ImageCopyResampled($dest_img, $temp_img, 0, 0, 0, 0, $dw, $dh, $tw, $th);
+            ImageCopyResampled($temp_img, $src_img, $x, $y, 0, 0, $sw, $sh, $sw, $sh);
+            ImageCopyResampled($dest_img, $temp_img, 0, 0, 0, 0, $dw, $dh, $tw, $th);
 
-			ImageDestroy($temp_img);
-		}
+            ImageDestroy($temp_img);
+        }
 
-		if ($stamp != false)
+        if ($stamp != false)
         {
-			// detect file type (could be a lot better)
-			$type_stamp = strtoupper(substr($stamp, -3));
+            // detect file type (could be a lot better)
+            $type_stamp = strtoupper(substr($stamp, -3));
 
-			// read  stamp
-			switch ($type_stamp)
+            // read  stamp
+            switch ($type_stamp)
             {
-				case 'JPG' : $stamp_img = ImageCreateFromJpeg($stamp);
-					break;
-				case 'PEG' : $stamp_img = ImageCreateFromJpeg($stamp);
-					break;
-				case 'GIF' : $stamp_img = ImageCreateFromGif($stamp);
-					break;
-				case 'PNG' : $stamp_img = imageCreateFromPng($stamp);
-					break;
-				case 'BMP' : $stamp_img = imageCreatefromWBmp($stamp);
-					break;
-			}
+                case 'JPG':
+                case 'PEG':
+                    $stamp_img = ImageCreateFromJpeg($stamp);
+                    break;
+                case 'GIF':
+                    $stamp_img = ImageCreateFromGif($stamp);
+                    break;
+                case 'PNG':
+                    $stamp_img = imageCreateFromPng($stamp);
+                    break;
+                case 'BMP':
+                    $stamp_img = imageCreatefromWBmp($stamp);
+                    break;
+            }
 
-			// get it's info
-			$size = GetImageSize($stamp);
-			$stw = $size[0];
-			$sth = $size[1];
+            // get it's info
+            $size = GetImageSize($stamp);
+            $stw = $size[0];
+            $sth = $size[1];
 
-			$sx = $dw - $stw;
-			$sy = $dh - $sth;
+            $sx = $dw - $stw;
+            $sy = $dh - $sth;
 
-			imagecolortransparent($stamp_img, imageColorAllocate($stamp_img, 0, 0, 0));
+            imagecolortransparent($stamp_img, imageColorAllocate($stamp_img, 0, 0, 0));
 
-			imagecopy($dest_img, $stamp_img, $sx, $sy, 0, 0, $stw, $sth);
-		}
+            imagecopy($dest_img, $stamp_img, $sx, $sy, 0, 0, $stw, $sth);
+        }
 
-		// free destination
-		if (file_exists($dest_img))
+        // free destination
+        if (file_exists($dest))
         {
-			unlink($dest_img);
-		}
+            unlink($dest);
+        }
 
-		// save dest image
-		switch ($type_dest)
+        // save dest image
+        switch ($type_dest)
         {
-			case 'JPG' : imageJpeg($dest_img, $dest, 90);
-				break;
-			case 'PEG' : imageJpeg($dest_img, $dest, 90);
-				break;
-			case 'GIF' : imageGif($dest_img, $dest, 90);
-				break;
-			case 'PNG' : imagePng($dest_img, $dest, 90);
-				break;
-			case 'BMP' : imageWBmp($dest_img, $dest, 90);
-				break;
-		}
+            case 'JPG':
+            case 'PEG':
+                imageJpeg($dest_img, $dest, 100);
+                break;
+            case 'GIF':
+                imageGif($dest_img, $dest, 100);
+                break;
+            case 'PNG':
+                imagePng($dest_img, $dest, 100);
+                break;
+            case 'BMP':
+                imageWBmp($dest_img, $dest, 100);
+                break;
+        }
 
-		// free memory
-		imageDestroy($src_img);
-		ImageDestroy($dest_img);
-	}
+        // free memory
+        imageDestroy($src_img);
+        ImageDestroy($dest_img);
+    }
 

@@ -2,6 +2,7 @@
         <!-- INCLUDE block/top.tpl -->
 
         <h1>{user_login}</h1>
+		<div><img src="{ROOT_PATH}media/avatar/{avatar}" alt="{user_login}" /></div>
 
         <!-- INCLUDE block/user_menu.tpl -->
 

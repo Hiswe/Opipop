@@ -25,16 +25,19 @@ function user_search_submit()
 function user_addToFriend(friendId, reload)
 {
 	var link = $('addToFriend_' + friendId);
-
-	link.update();
-
 	var action = link.readAttribute('class');
-
 	var params = $H(
 	{
 		friendId : friendId,
 		action   : action
 	});
+
+	if (action == 'remove' && !confirm('Are you sure you want to remove this user from your friends ?'))
+	{
+		return;
+	}
+
+	link.update();
 
 	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend.php',
 	{
@@ -299,33 +302,18 @@ function user_edit_init()
 
 function user_edit_submit()
 {
-    form_disable($('user_edit'));
-
     var gender = $('user_edit_gender').value.stripScripts().stripTags().strip();
     var zip = $('user_edit_zip').value.stripScripts().stripTags().strip();
 
     if (zip.blank() || gender.blank())
     {
         alert('You must fill all the form\'s field !');
-        return;
+        return false;
     }
     else
     {
-        var params = $H(
-        {
-            gender : gender,
-            zip    : zip,
-            id     : user_id
-        });
-
-        new Ajax.Request (ROOT_PATH + 'remote/user_edit_submit.php',
-        {
-            parameters: params.toQueryString(),
-            onSuccess: function(xhr)
-            {
-                form_enable($('user_edit'));
-            }
-        });
+		form_disable($('user_edit'));
+		$('user_edit').submit();
     }
 }
 

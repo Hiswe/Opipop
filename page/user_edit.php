@@ -25,6 +25,15 @@ if (!isset($userId))
 
 $tpl->assignSection('private');
 
+if (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_LARGE_SIZE . '/' . $userId . '.jpg'))
+{
+	$tpl->assignVar('avatar', AVATAR_LARGE_SIZE . '/' . $userId . '.jpg');
+}
+else
+{
+	$tpl->assignVar('avatar', AVATAR_LARGE_SIZE . '/0.jpg');
+}
+
 $rs = $db->select('SELECT `male`, `zip` FROM `user` WHERE `id`="' . $userId . '"');
 
 if ($rs['total'] != 0)

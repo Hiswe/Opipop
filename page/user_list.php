@@ -82,6 +82,7 @@ foreach ($rs_user['data'] as $user)
         'login'          => $user['login'],
         'register_since' => timeWarp($user['register_date']),
         'vote'           => $user['vote'],
+        'avatar'         => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $user['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $user['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
     ));
 
     // If a user are connected

@@ -19,6 +19,15 @@ if ($rs_user['total'] != 0)
         'user_id' => $profileId,
     ));
 
+    if (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_LARGE_SIZE . '/' . $profileId . '.jpg'))
+    {
+        $tpl->assignVar('avatar', AVATAR_LARGE_SIZE . '/' . $profileId . '.jpg');
+    }
+    else
+    {
+        $tpl->assignVar('avatar', AVATAR_LARGE_SIZE . '/0.jpg');
+    }
+
     // If someone is logged
 	if (is_array($_SESSION['user']))
 	{

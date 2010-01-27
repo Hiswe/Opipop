@@ -2,13 +2,16 @@
         <!-- INCLUDE block/top.tpl -->
 
         <h1>{user_login}</h1>
+		<div><img src="{ROOT_PATH}media/avatar/{avatar}" alt="{user_login}" /></div>
 
         <!-- INCLUDE block/user_menu.tpl -->
 
         <script type="text/javascript">var user_id = {user_id};</script>
 
         <h2>Edit you informations:</h2>
-        <form id="user_edit" method="post" name="user_edit" action="javascript:user_edit_submit();">
+        <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user_edit_submit.php" onsubmit="return user_edit_submit();" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{user_id}" />
+			<input type="hidden" name="login" value="{user_login}" />
             <div>
                 <label>Gender:
                     <select id="user_edit_gender" name="gender" value="">
@@ -118,6 +121,15 @@
                         <option value="95"{user_edit_zip_95}>Val-d'Oise</option>
                     </select>
                 </label>
+            </div>
+            <div>
+                <label>Avatar: <input type="file" name="avatar" /></label>
+				<p>
+					You can upload a JPG, GIF or PNG file<br />
+					Max size : 450 KB<br />
+					Max width : 1680 px<br />
+					Max height : 1680 px
+				</p>
             </div>
             <div><input type="submit" name="submit" value="save"></div>
         </form>
