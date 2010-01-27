@@ -14,6 +14,9 @@
                 <ul>
                     <li>nb vote: {user.vote}</li>
                     <li>registered since {user.register_since}</li>
+                    <!-- LOOP user.friendRequest -->
+                    <li><a href="javascript:user_addToFriend({user.id});" id="addToFriend_{user.id}" class="{user.friendRequest.action}">{user.friendRequest.message}</a></li>
+                    <!-- END user.friendRequest -->
                 </ul>
             </li>
             <!-- END user -->

@@ -2,8 +2,41 @@
 
 include 'page/block/top.php';
 
+// If a user are connected
+if (isOk($_SESSION['user']))
+{
+	foreach($_SESSION['user'] as $id => $data)
+	{
+		$userId = $id;
+		break;
+	}
+
+    // Select all my friends
+    $rs_friend = $db->select('
+        SELECT `user_id_1`, `user_id_2`, `valided`
+        FROM `friend`
+        WHERE `user_id_1`="' . $userId . '" OR `user_id_2`="' . $userId . '"
+    ');
+    $friendList = array();
+    $waitingList = array();
+    foreach ($rs_friend['data'] as $friend)
+    {
+        $friendId = ($userId == $friend['user_id_1']) ? $friend['user_id_2'] : $friend['user_id_1'];
+        if ($friend['valided'] == 0)
+        {
+            $waitingList[] = $friendId;
+        }
+        else
+        {
+            $friendList[] = $friendId;
+        }
+    }
+}
+
+
 $where = 'u.valided="1"';
 
+// If we made a search
 if (isOk($_GET['query']))
 {
     $where .= ' AND u.login LIKE(\'' . getLikeList($_GET['query']) . '\')';
@@ -27,12 +60,39 @@ $rs_user = $db->select('
 // List all users
 foreach ($rs_user['data'] as $user)
 {
+    if (in_array($user['id'], $waitingList))
+    {
+        $friendMessage = 'Cancel friend request';
+        $friendAction  = 'cancel';
+    }
+    else if (in_array($user['id'], $friendList))
+    {
+        $friendMessage = 'Remove from friends';
+        $friendAction  = 'remove';
+    }
+    else
+    {
+        $friendMessage = 'Add to friends';
+        $friendAction  = 'add';
+    }
+
     $tpl->assignLoopVar('user', array
     (
-        'login' => $user['login'],
+        'id'             => $user['id'],
+        'login'          => $user['login'],
         'register_since' => timeWarp($user['register_date']),
-        'vote' => $user['vote'],
+        'vote'           => $user['vote'],
     ));
+
+    // If a user are connected
+    if (isOk($userId) && $userId != $user['id'])
+    {
+        $tpl->assignLoopVar('user.friendRequest', array
+        (
+            'message' => $friendMessage,
+            'action'  => $friendAction,
+        ));
+    }
 }
 
 // Dress the pagination

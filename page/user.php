@@ -2,8 +2,6 @@
 
 include 'page/block/top.php';
 
-$tpl->assignVar('user_login', $_GET['login']);
-
 // Retrieve user's id
 $rs_user = $db->select('
 	SELECT `id`
@@ -13,20 +11,111 @@ $rs_user = $db->select('
 
 if ($rs_user['total'] != 0)
 {
-	$userId = $rs_user['data'][0]['id'];
+	$profileId = $rs_user['data'][0]['id'];
 
-	$tpl->assignVar('user_id', $userId);
+    $tpl->assignVar(array
+    (
+        'user_login' => $_GET['login'],
+        'user_id' => $profileId,
+    ));
 
-	if (is_array($_SESSION['user']) && isset($_SESSION['user'][$userId]))
+    // If someone is logged
+	if (is_array($_SESSION['user']))
 	{
-		$tpl->assignSection('private');
+        foreach($_SESSION['user'] as $id => $data)
+        {
+            $userId = $id;
+            break;
+        }
+
+        // If I'm on my profile
+        if ($profileId == $userId)
+        {
+            $tpl->assignSection('private');
+
+            // Select all my pending friend requests
+            $rs_request = $db->select('
+                SELECT u.id, u.login
+                FROM `friend` AS `f`
+                JOIN `user` AS `u` ON u.id=f.user_id_1
+                WHERE f.valided=0 AND f.user_id_2="' . $userId . '"
+            ');
+            if ($rs_request['total'] != 0)
+            {
+                foreach ($rs_request['data'] as $friend)
+                {
+                    $tpl->assignLoopVar('request', array
+                    (
+                        'id' => $friend['id'],
+                        'login' => $friend['login'],
+                    ));
+                }
+                $tpl->assignSection('friendPendingRequest');
+            }
+        }
+        else
+        {
+            $tpl->assignSection('friendRequest');
+
+            // Look if we are friends
+            $rs_friendRequest = $db->select('
+                SELECT `valided`
+                FROM `friend`
+                WHERE (`user_id_1`="' . $userId . '" AND `user_id_2`="' . $profileId . '")
+                OR (`user_id_1`="' . $profileId . '" AND `user_id_2`="' . $userId . '")
+            ');
+
+            if ($rs_friendRequest['total'] == 0)
+            {
+                $friendMessage = 'Add to friends';
+                $friendAction  = 'add';
+            }
+            else
+            {
+                if ($rs_friendRequest['data'][0]['valided'] == 1)
+                {
+                    $friendMessage = 'Remove from friends';
+                    $friendAction  = 'remove';
+                }
+                else
+                {
+                    $friendMessage = 'Cancel friend request';
+                    $friendAction  = 'cancel';
+                }
+            }
+
+            $tpl->assignVar(array
+            (
+                'friendRequest_message' => $friendMessage,
+                'friendRequest_action'  => $friendAction,
+            ));
+        }
 	}
+
+    // Select all user's friends
+    $rs_friend = $db->select('
+        SELECT f.user_id_1, f.user_id_2, f.valided, u.login, u.id
+        FROM `friend` AS `f`
+        JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
+        WHERE f.valided="1" AND (f.user_id_1="' . $profileId . '" OR f.user_id_2="' . $profileId . '")
+    ');
+    foreach ($rs_friend['data'] as $friend)
+    {
+        if ($friend['id'] != $profileId)
+        {
+            $tpl->assignLoopVar('friend', array
+            (
+                'id' => $friend['id'],
+                'login' => $friend['login'],
+            ));
+        }
+    }
 
 	// Count user's total votes
 	$rs_result_total = $db->select('
 		SELECT COUNT(user_id) AS `total`
 		FROM `user_result`
-		WHERE `user_id`="' . $userId . '"
+		WHERE `user_id`="' . $profileId . '"
 		GROUP BY `user_id`
 	');
 
@@ -44,7 +133,7 @@ if ($rs_user['total'] != 0)
 			SELECT r.question_id AS `question_id`, r.answer_id AS `answer_id`
 			FROM `user_result` AS `r`
 			JOIN `question` AS `q` ON q.id=r.question_id
-			WHERE r.user_id="' . $userId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
+			WHERE r.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
 		');
 
 		// Count results for each question's answers
@@ -97,7 +186,7 @@ if ($rs_user['total'] != 0)
 			SELECT p.question_id AS `question_id`, p.answer_id AS `answer_id`
 			FROM `user_prognostic` AS `p`
 			JOIN `question` AS `q` ON q.id=p.question_id
-			WHERE p.user_id="' . $userId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
+			WHERE p.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
 		');
 
 		// Count prognostic for each question's answers
@@ -157,7 +246,7 @@ if ($rs_user['total'] != 0)
 			FROM `user_result` AS `r`
 			JOIN `question_answer_feeling` AS `j` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
 			JOIN `feeling` AS `f` ON f.id=j.feeling_id
-			WHERE r.user_id="' . $userId . '" AND f.id!="1"
+			WHERE r.user_id="' . $profileId . '" AND f.id!="1"
 			GROUP BY f.id
 		');
 

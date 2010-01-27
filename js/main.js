@@ -8,16 +8,81 @@ window.onload = function () {
 
 function user_search_submit()
 {
+	form_disable($('user_search'));
+
     var query = $('user_search_query').value.stripScripts().stripTags().strip();
 
     if (query.blank())
     {
-        return;
+		window.location = ROOT_PATH + 'users';
     }
+	else
+	{
+		window.location = ROOT_PATH + 'users/search/' + escape(query);
+	}
+}
 
-    form_disable($('user_search'));
+function user_addToFriend(friendId, reload)
+{
+	var link = $('addToFriend_' + friendId);
 
-	window.location = ROOT_PATH + 'users/search/' + escape(query);
+	link.update();
+
+	var action = link.readAttribute('class');
+
+	var params = $H(
+	{
+		friendId : friendId,
+		action   : action
+	});
+
+	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend.php',
+	{
+		parameters: params.toQueryString(),
+		onSuccess: function(xhr)
+		{
+			if (reload)
+			{
+				window.location.reload();
+				return;
+			}
+
+			link.removeClassName(link.readAttribute('class'));
+			if (action == 'add')
+			{
+				link.addClassName('cancel');
+				link.update('Cancle friend request');
+			}
+			else if (action == 'cancel' || action == 'remove')
+			{
+				link.addClassName('add');
+				link.update('Add to friends');
+			}
+		}
+	});
+}
+
+function user_requestFriend(friendId, accept)
+{
+	if (accept)
+	{
+		$('request_' + friendId).update(new Element('span').update('accepted'));
+	}
+	else
+	{
+		$('request_' + friendId).update(new Element('span').update('rejected'));
+	}
+
+	var params = $H(
+	{
+		friendId : friendId,
+		action   : (accept) ? 'accept' : 'cancel'
+	});
+
+	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend.php',
+	{
+		parameters: params.toQueryString()
+	});
 }
 
 
@@ -115,7 +180,7 @@ function poll_saveResult()
 		parameters: $H(params).toQueryString(),
 		onSuccess: function(xhr)
 		{
-			//window.location.reload();
+			window.location.reload();
 		}
 	});
 }
