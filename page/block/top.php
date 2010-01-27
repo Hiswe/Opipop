@@ -18,7 +18,7 @@ else
 	$tpl->assignSection('login');
 }
 
-$rs_category = $db->select('SELECT `id`, `label` FROM `category` WHERE `status`="1" ORDER BY `position` ASC');
+$rs_category = $db->select('SELECT `id`, `label`, `guid` FROM `category` WHERE `status`="1" ORDER BY `position` ASC');
 
 foreach ($rs_category['data'] as $category)
 {
@@ -26,7 +26,7 @@ foreach ($rs_category['data'] as $category)
 	(
 		'id' => $category['id'],
 		'label' => $category['label'],
-		'guid' => makeGuid($category['label']),
+		'guid' => $category['guid'],
 	));
 }
 

@@ -16,7 +16,7 @@ if (isOk($_GET['archive']))
 		FROM `question` AS `q`
 		JOIN `category` AS `c` ON c.id=q.category_id
 		WHERE q.date < ' . (time() - POLL_DURATION - 3600) . '
-		AND c.id="' . $_GET['id'] . '"
+		AND c.guid="' . $_GET['guid'] . '"
         AND q.status=1
         AND c.status=1
 		ORDER BY q.date DESC
@@ -31,7 +31,7 @@ else
 		FROM `question` AS `q`
 		JOIN `category` AS `c` ON c.id=q.category_id
 		WHERE q.date > ' . (time() - POLL_DURATION) . '
-		AND c.id="' . $_GET['id'] . '"
+		AND c.guid="' . $_GET['guid'] . '"
         AND q.status=1
         AND c.status=1
 		ORDER BY q.date DESC
@@ -109,7 +109,7 @@ if ($rs_question['total'] != 0)
 			$tpl->assignLoopVar('pagination_' . $n, array
 			(
 				'n'      => $p + 1,
-				'link'   => $_GET['guid'] . '-' . $_GET['id'] . '/archives/' . (($p == 0) ? '' : $p + 1),
+				'link'   => 'category/' . $_GET['guid'] . '/archives/' . (($p == 0) ? '' : $p + 1),
 				'class'  => ($p == $_GET['p']) ? 'on' : 'off'
 			));
 		}
@@ -126,8 +126,8 @@ if ($rs_question['total'] != 0)
 			$tpl->assignSection('pagination');
 			$tpl->assignVar(array
 			(
-				'pagination_next' => $_GET['guid'] . '-' . $_GET['id'] . '/archives/' . ($_GET['p'] + 2),
-				'pagination_prev' => $_GET['guid'] . '-' . $_GET['id'] . '/archives' . (($_GET['p'] == 1) ? '' : '/' . $_GET['p'])
+				'pagination_next' => 'category/' . $_GET['guid'] . '/archives/' . ($_GET['p'] + 2),
+				'pagination_prev' => 'category/' . $_GET['guid'] . '/archives' . (($_GET['p'] == 1) ? '' : '/' . $_GET['p'])
 			));
 		}
 	}

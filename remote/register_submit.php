@@ -4,6 +4,16 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
+
+    $forbidenLogins = array('login', 'register', 'category', 'poll', 'users', 'infos');
+
+    // If the login is not allowed exit
+    if (in_array($_POST['login'], $forbidenLogins))
+    {
+        echo '0';
+        exit();
+    }
+
     // Look if this login exists
     $rs = $db->select
     ('

@@ -516,7 +516,14 @@ function register_submit()
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
             {
-                window.location = ROOT_PATH + 'login/confirm';
+				if (xhr.responseText == '0')
+				{
+					alert('Error while registerging, this login is not allowed !');
+				}
+				else
+				{
+					window.location = ROOT_PATH + 'login/confirm';
+				}
             }
         });
     }
