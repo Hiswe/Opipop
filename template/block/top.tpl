@@ -24,4 +24,8 @@
 			<!-- END category -->
 		</ul>
 
+        <!-- SECTION feedback -->
+        <p><i>{feedback}</i></p>
+        <!-- END feedback -->
+
 

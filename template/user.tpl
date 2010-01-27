@@ -9,7 +9,7 @@
         <h4>Friends:</h4>
         <ul>
             <!-- LOOP friend -->
-            <li><a href="{ROOT_PATH}{friend.login}">{friend.login}</a></li>
+            <li class="user"><a href="{ROOT_PATH}{friend.login}"><img src="{ROOT_PATH}media/avatar/{friend.avatar}" alt="{friend.login}" /> {friend.login}</a></li>
             <!-- END friend -->
         </ul>
 
@@ -17,7 +17,7 @@
         <h4>Friend requests:</h4>
         <ul>
             <!-- LOOP request -->
-            <li><a href="{ROOT_PATH}{request.login}">{request.login}</a>: <span id="request_{request.id}"><a href="javascript:user_requestFriend({request.id}, true);">accept</a> / <a href="javascript:user_requestFriend({request.id}, false);">reject</a></span></li>
+            <li class="user"><a href="{ROOT_PATH}{request.login}"><img src="{ROOT_PATH}media/avatar/{request.avatar}" alt="{request.login}" /> {request.login}</a>: <span id="request_{request.id}"><a href="javascript:user_requestFriend({request.id}, true);">accept</a> / <a href="javascript:user_requestFriend({request.id}, false);">reject</a></span></li>
             <!-- END request -->
         </ul>
         <!-- END friendPendingRequest -->

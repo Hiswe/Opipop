@@ -9,12 +9,7 @@
         exit();
     }
 
-	foreach($_SESSION['user'] as $id => $data)
-	{
-		$userId = $id;
-		break;
-	}
-
+	$userId   = $_SESSION['user']['id'];
 	$friendId = $_POST['friendId'];
 
 	if ($userId == $friendId)

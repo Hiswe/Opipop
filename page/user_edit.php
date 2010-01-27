@@ -2,22 +2,17 @@
 
 include 'page/block/top.php';
 
-if (!is_array($_SESSION['user']) || count($_SESSION['user']) == 0)
+if (!isOk($_SESSION['user']))
 {
 	// TODO : Error no user logged
 	exit();
 }
 
-foreach ($_SESSION['user'] as $id => $info)
+if (strtolower($_SESSION['user']['login']) == strtolower($_GET['login']))
 {
-    if (strtolower($info['login']) == strtolower($_GET['login']))
-    {
-        $userId = $id;
-        break;
-    }
+	$userId = $_SESSION['user']['id'];
 }
-
-if (!isset($userId))
+else
 {
 	// TODO : Error this user is not logged
 	exit();

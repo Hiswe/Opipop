@@ -10,7 +10,7 @@
 
         <ul id="userList">
             <!-- LOOP user -->
-            <li><strong><a href="{ROOT_PATH}{user.login}"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</a></strong>
+            <li><strong class="user"><a href="{ROOT_PATH}{user.login}"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</a></strong>
                 <ul>
                     <li>nb vote: {user.vote}</li>
                     <li>registered since {user.register_since}</li>

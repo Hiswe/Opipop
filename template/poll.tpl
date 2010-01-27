@@ -10,7 +10,7 @@
                 <li name="answer_{answer.id}" class="answer">{answer.label}
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li name="user_{answer.user.id}" class="user {answer.user.class}">{answer.user.login}</li>
+                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><img src="{ROOT_PATH}media/avatar/{answer.user.avatar}" alt="{answer.user.login}" /> {answer.user.login}</li>
                         <!-- END answer.user -->
                     </ul>
                 </li>
@@ -20,8 +20,8 @@
             <div id="farm">
                 <ul>
                     <!-- LOOP user -->
-                    <li name="user_{user.id}" class="user voted unregistered">{user.login}</li>
-                    <li name="user_{user.id}" class="user guessed unregistered">{user.login}</li>
+                    <li name="user_{user.id}" class="user voted unregistered"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</li>
+                    <li name="user_{user.id}" class="user guessed unregistered"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</li>
                     <!-- END user -->
                 </ul>
             </div>
@@ -43,7 +43,7 @@
                     </ul>
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}">{answer.user.login}</a></li>
+                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}"><img src="{ROOT_PATH}media/avatar/{answer.user.avatar}" alt="{answer.user.login}" /> {answer.user.login}</a></li>
                         <!-- END answer.user -->
                     </ul>
                 </li>

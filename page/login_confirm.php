@@ -4,7 +4,7 @@
 if (isOk($_GET['u']) && isOk($_GET['k']))
 {
     // If the user is already logged
-    if (isOk($_SESSION['user'][$_GET['u']]))
+    if (isOk($_SESSION['user']) && $_SESSION['user']['id'] == $_GET['u'])
     {
         $tpl->assignSection('confirm_ok');
     }
@@ -13,7 +13,7 @@ if (isOk($_GET['u']) && isOk($_GET['k']))
         // Select user's infos
         $result = $db->select
         ('
-            SELECT `valided`,`login`,`email`,`register_date`
+            SELECT `id`, `valided`,`login`,`email`,`register_date`
             FROM `user`
             WHERE `id`="' . $_GET['u'] . '" AND `key`="' . $_GET['k'] . '"
         ');
@@ -30,11 +30,10 @@ if (isOk($_GET['u']) && isOk($_GET['k']))
             }
 
             // Log the user
-            $_SESSION['user'][$_GET['u']] = array
+            $_SESSION['user'] = array
             (
-                'login'         => $user['login'],
-                'email'         => $user['email'],
-                'register_date' => $user['register_date'],
+                'login' => $user['login'],
+                'id'    => $user['id'],
             );
 
             $tpl->assignSection('confirm_ok');

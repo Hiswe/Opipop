@@ -4,8 +4,9 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
-    if (!$_SESSION['user'][$_POST['id']])
+    if (!isOk($_POST['id']) || !isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !isOk($_POST['old_password']) || !isOk($_POST['new_password']))
     {
+		header('Location: ' . ROOT_PATH);
         exit();
     }
 
@@ -13,14 +14,16 @@
 
     if ($rs['total'] == 0)
     {
-        echo '0';
+		$_SESSION['feedback'] = 'Your current password is not correct !';
     }
     else
     {
-        echo '1';
+		$_SESSION['feedback'] = 'Password changed';
 
         $db->update('UPDATE `user` SET
             `password`="' . md5($_POST['new_password']) . '"
             WHERE `id`="' . $_POST['id'] . '"');
     }
+
+	header('Location: ' . ROOT_PATH . $_POST['login']);
 

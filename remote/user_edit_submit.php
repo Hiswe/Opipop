@@ -4,19 +4,19 @@
 	require_once '../inc/conf.local.php';
     require_once '../inc/setup.php';
 
-    if (!$_SESSION['user'][$_POST['id']] || !isOk($_POST['zip']) || !isOk($_POST['gender']) || !isOk($_POST['id']) || !isOk($_POST['login']))
+
+    if (!isOk($_POST['id']) || !isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !isOk($_POST['zip']) || !isset($_POST['gender']) || !isOk($_POST['login']))
     {
 		header('Location: ' . ROOT_PATH);
         exit();
     }
-
 
     $db->update('UPDATE `user` SET
         `zip`="' . $_POST['zip'] . '",
         `male`="' . $_POST['gender'] . '"
         WHERE `id`="' . $_POST['id'] . '"');
 
-	if (isset($_FILES) && isset($_FILES['avatar']))
+	if (isset($_FILES) && isset($_FILES['avatar']) && $_FILES['avatar']['error'] != 4)
 	{
 		$size = filesize($_FILES['avatar']['tmp_name']);
 		$stat = stat($_FILES['avatar']['tmp_name']);
@@ -37,6 +37,8 @@
 			redimage($original, ROOT_DIR . 'media/avatar/25x25/' . $_POST['id'] . '.jpg', $sizeSmall[0], (isset ($sizeSmall[1])) ? $sizeSmall[1] : false, true);
 		}
 	}
+
+	$_SESSION['feedback'] = 'Your informations has been updated';
 
 	header('Location: ' . ROOT_PATH . $_POST['login']);
 

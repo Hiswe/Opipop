@@ -280,7 +280,7 @@ function login_submit()
             {
                 if (xhr.responseText == '1')
                 {
-                    window.location = ROOT_PATH;
+                    window.location = ROOT_PATH + login;
                 }
                 else
                 {
@@ -313,7 +313,7 @@ function user_edit_submit()
     else
     {
 		form_disable($('user_edit'));
-		$('user_edit').submit();
+        return true;
     }
 }
 
@@ -370,38 +370,18 @@ function user_password_checkPassword()
 
 function user_password_submit()
 {
-    form_disable($('user_password'));
-
     var old_password = $('user_password_password_0').value;
     var new_password = $('user_password_password_1').value;
 
     if (old_password.blank() || new_password.blank())
     {
         alert('You must fill all the form\'s field !');
-        return;
+        return false;
     }
     else
     {
-        var params = $H(
-        {
-            old_password : old_password,
-            new_password : new_password,
-            id           : user_id
-        });
-
-        new Ajax.Request (ROOT_PATH + 'remote/user_password_submit.php',
-        {
-            parameters: params.toQueryString(),
-            onSuccess: function(xhr)
-            {
-                form_enable($('user_password'));
-
-                if (xhr.responseText == '0')
-                {
-                    alert('Your current password is not correct !');
-                }
-            }
-        });
+		form_disable($('user_password'));
+		return true;
     }
 }
 

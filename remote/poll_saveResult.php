@@ -14,7 +14,7 @@
     foreach($_POST['user'] as $user_id => $data)
     {
 		// If the user specified is not logged exit
-		if (!isset($_SESSION['user'][$user_id]))
+		if (!isOk($_SESSION['user']) || $_SESSION['user']['id'] != $user_id)
 		{
 			continue;
 		}

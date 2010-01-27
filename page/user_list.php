@@ -5,11 +5,7 @@ include 'page/block/top.php';
 // If a user are connected
 if (isOk($_SESSION['user']))
 {
-	foreach($_SESSION['user'] as $id => $data)
-	{
-		$userId = $id;
-		break;
-	}
+    $userId = $_SESSION['user']['id'];
 
     // Select all my friends
     $rs_friend = $db->select('

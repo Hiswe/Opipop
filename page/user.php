@@ -29,13 +29,9 @@ if ($rs_user['total'] != 0)
     }
 
     // If someone is logged
-	if (is_array($_SESSION['user']))
+	if (isOk($_SESSION['user']))
 	{
-        foreach($_SESSION['user'] as $id => $data)
-        {
-            $userId = $id;
-            break;
-        }
+        $userId = $_SESSION['user']['id'];
 
         // If I'm on my profile
         if ($profileId == $userId)
@@ -55,8 +51,9 @@ if ($rs_user['total'] != 0)
                 {
                     $tpl->assignLoopVar('request', array
                     (
-                        'id' => $friend['id'],
-                        'login' => $friend['login'],
+                        'id'     => $friend['id'],
+                        'login'  => $friend['login'],
+                        'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
                     ));
                 }
                 $tpl->assignSection('friendPendingRequest');
@@ -114,8 +111,9 @@ if ($rs_user['total'] != 0)
         {
             $tpl->assignLoopVar('friend', array
             (
-                'id' => $friend['id'],
-                'login' => $friend['login'],
+                'id'     => $friend['id'],
+                'login'  => $friend['login'],
+                'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
             ));
         }
     }

@@ -1,17 +1,14 @@
 <?php
 
-// If some user are connected
+// If a user is connected
 if (isOk($_SESSION['user']))
 {
     // List them
-    foreach($_SESSION['user'] as $id => $data)
-    {
-        $tpl->assignLoopVar('userLogged', array
-        (
-            'login' => $data['login'],
-            'id'    => $id,
-        ));
-    }
+    $tpl->assignLoopVar('userLogged', array
+    (
+        'login' => $_SESSION['user']['login'],
+        'id'    => $_SESSION['user']['id'],
+    ));
 }
 else
 {
@@ -28,5 +25,13 @@ foreach ($rs_category['data'] as $category)
 		'label' => $category['label'],
 		'guid' => $category['guid'],
 	));
+}
+
+// If a feedback should be displayed
+if (isOk($_SESSION['feedback']))
+{
+    $tpl->assignSection('feedback');
+    $tpl->assignVar('feedback', $_SESSION['feedback']);
+    unset($_SESSION['feedback']);
 }
 

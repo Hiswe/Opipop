@@ -21,9 +21,10 @@
     else
     {
 		$user = $rs['data'][0];
-		$_SESSION['user'][$user['id']] = array
+		$_SESSION['user'] = array
 		(
-			'login'         => $user['login'],
+			'id'    => $user['id'],
+			'login' => $user['login'],
 		);
 
         echo '1';

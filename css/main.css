@@ -29,22 +29,18 @@
     background: #ccffcc;
 }
 
-li.user
+li.user,
+strong.user
 {
     display: inline-block;
     margin: 2px;
-    padding: 2px 4px;
+    padding: 4px 4px 0px 4px;
+		border: solid 1px #ccc;
 }
 
 li.user.voted
 {
     background: #ccc;
 		border: solid 1px #999;
-}
-
-li.user.guessed
-{
-    background: #fff;
-		border: solid 1px #ccc;
 }
 

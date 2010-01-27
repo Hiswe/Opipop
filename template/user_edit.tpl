@@ -136,7 +136,9 @@
         <script type="text/javascript">user_edit_init();</script>
 
         <h2>Change your password:</h2>
-        <form id="user_password" method="post" name="user_password" action="javascript:user_password_submit();">
+        <form id="user_password" method="post" name="user_password" action="{ROOT_PATH}remote/user_password_submit.php" onsubmit="return user_password_submit();">
+			<input type="hidden" name="id" value="{user_id}" />
+			<input type="hidden" name="login" value="{user_login}" />
             <div><label>Current password: <input id="user_password_password_0" type="password" maxlength="128" name="password_1" value="" /></label></div>
             <div><label>New password: <input id="user_password_password_1" type="password" maxlength="128" name="password_1" value="" /></label></div>
             <div><label>Confirm new password: <input id="user_password_password_2" type="password" maxlength="128" name="password_2" value="" /></label></div>
