@@ -26,4 +26,5 @@
     $conf['PAGE_KEYWORDS']    = utf8_encode ('');
     $conf['POLL_DURATION']    = 86400 * 7;
     $conf['POLL_PER_PAGE']    = 7;
+    $conf['USER_PER_PAGE']    = 7;
 
