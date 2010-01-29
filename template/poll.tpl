@@ -2,6 +2,10 @@
             <!-- INCLUDE block/top.tpl -->
 
             <h1 id="question">{question_label}</h1>
+            <p>
+                <a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}poll/p-{question_id}" target="_blank" title="share this poll on Twitter !"><img src="{ROOT_PATH}media/layout/tshare.png" /> Tweet this !</a>
+                <a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}poll/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this poll on Facebook !"><img src="{ROOT_PATH}media/layout/fbshare.png" /> Post on facebook</a>
+            </p>
 
             <!-- SECTION active -->
 			<p>This poll will end in {question_end_time}.</p>

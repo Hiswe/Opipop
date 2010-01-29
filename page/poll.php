@@ -54,11 +54,13 @@ if ($rs_question['total'] != 0)
     // Assign question infos
     $tpl->assignVar(array
     (
-        'question_start_date' => date('d/m/Y', $question['date']),
-        'question_end_date'   => date('d/m/Y', $question['date'] + POLL_DURATION),
-        'question_end_time'   => timeWarp($question['date'] + POLL_DURATION),
-        'question_label'      => $question['label'],
-        'question_id'         => $question['id'],
+        'question_start_date'       => date('d/m/Y', $question['date']),
+        'question_end_date'         => date('d/m/Y', $question['date'] + POLL_DURATION),
+        'question_end_time'         => timeWarp($question['date'] + POLL_DURATION),
+        'question_guid'             => makeGuid($question['label']),
+        'question_label'            => $question['label'],
+        'question_label_urlencoded' => urlencode($question['label']),
+        'question_id'               => $question['id'],
     ));
 
     // If this question is not out of date
