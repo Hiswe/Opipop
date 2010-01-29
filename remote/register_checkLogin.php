@@ -5,7 +5,7 @@
     require_once '../inc/setup.php';
 
 
-    $forbidenLogins = array('login', 'register', 'category', 'poll', 'users', 'infos');
+    $forbidenLogins = array('login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
 
     if (in_array($_POST['login'], $forbidenLogins))
     {

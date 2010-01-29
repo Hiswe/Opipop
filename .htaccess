@@ -15,6 +15,9 @@ RewriteEngine on
 RewriteRule ^login$ index.php?page=login [L]
 RewriteRule ^login/confirm$ index.php?page=login_confirm [L,QSA]
 
+# LOGOUT
+RewriteRule ^logout$ index.php?page=logout [L]
+
 # POLL
 RewriteRule ^poll/[a-zA-Z0-9_-]*-([0-9]+)$ index.php?page=poll&id=$1 [L]
 

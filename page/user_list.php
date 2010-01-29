@@ -2,6 +2,9 @@
 
 include 'page/block/top.php';
 
+$friendList = array();
+$waitingList = array();
+
 // If a user are connected
 if (isOk($_SESSION['user']))
 {
@@ -13,8 +16,6 @@ if (isOk($_SESSION['user']))
         FROM `friend`
         WHERE `user_id_1`="' . $userId . '" OR `user_id_2`="' . $userId . '"
     ');
-    $friendList = array();
-    $waitingList = array();
     foreach ($rs_friend['data'] as $friend)
     {
         $friendId = ($userId == $friend['user_id_1']) ? $friend['user_id_2'] : $friend['user_id_1'];

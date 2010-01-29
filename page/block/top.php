@@ -4,15 +4,16 @@
 if (isOk($_SESSION['user']))
 {
     // List them
-    $tpl->assignLoopVar('userLogged', array
+    $tpl->assignVar(array
     (
-        'login' => $_SESSION['user']['login'],
-        'id'    => $_SESSION['user']['id'],
+        'user_login' => $_SESSION['user']['login'],
+        'user_id'    => $_SESSION['user']['id'],
     ));
+	$tpl->assignSection('logged');
 }
 else
 {
-	$tpl->assignSection('login');
+	$tpl->assignSection('notLogged');
 }
 
 $rs_category = $db->select('SELECT `id`, `label`, `guid` FROM `category` WHERE `status`="1" ORDER BY `position` ASC');

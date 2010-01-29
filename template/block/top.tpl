@@ -1,12 +1,13 @@
 
         <div>
-            <a href="{ROOT_PATH}">You Survey</a><span> - </span>
-            <!-- LOOP userLogged -->
-            <a href="{ROOT_PATH}{userLogged.login}">{userLogged.login}</a>
-            <!-- END userLogged -->
-			<!-- SECTION login -->
+            <a href="{ROOT_PATH}">You Survey</a>
+            <span> - </span>
+			<!-- SECTION logged -->
+            <a href="{ROOT_PATH}{user_login}">{user_login}</a> (<a href="{ROOT_PATH}logout">logout</a>)
+            <!-- END logged -->
+			<!-- SECTION notLogged -->
             <a href="{ROOT_PATH}login">Login / register</a>
-            <!-- END login -->
+            <!-- END notLogged -->
         </div>
 
 		<h4><a href="{ROOT_PATH}users">Community</a></h4>
