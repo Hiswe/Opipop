@@ -29,7 +29,18 @@
 			<li><strong>prediction lost:</strong> {user_totalPredictionLost}</li>
 			<li><strong>prediction accuracy:</strong> {user_predictionAccuracy}%</li>
 			<li><strong>distance from popular opinion:</strong> {user_global_distance}m</li>
+		</ul>
+		<ul>
 			<li><strong>distance from your friends opinion:</strong> {user_friend_distance}m</li>
+			<li><strong>prediction accuracy toward your friends:</strong>
+                <ul>
+                    <!-- LOOP friendPredictionAccuracy -->
+                    <li><strong>{friendPredictionAccuracy.login}:</strong> {friendPredictionAccuracy.percent}%</li>
+                    <!-- END friendPredictionAccuracy -->
+                </ul>
+			</li>
+		</ul>
+		<ul>
 			<li><strong>personality:</strong>
 				<ul>
 					<!-- LOOP feeling -->

@@ -105,7 +105,6 @@ if ($rs_user['total'] != 0)
         JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
         WHERE f.valided="1" AND (f.user_id_1="' . $profileId . '" OR f.user_id_2="' . $profileId . '")
     ');
-    $friendIds = array();
     foreach ($rs_friend['data'] as $friend)
     {
         if ($friend['id'] != $profileId)
@@ -269,6 +268,32 @@ if ($rs_user['total'] != 0)
 			'user_totalPredictionLost' => $totalPredictionLost,
 			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_user_guess['total']) * 100),
 		));
+
+        // Count user's good guess about his friends for past questions
+        $rs_user_guess_friend = $db->select('
+            SELECT
+                u.id AS `id`,
+                u.login AS `login`,
+                SUM(IF(p.answer_id=r.answer_id, 1, 0)) AS `total_good`,
+                COUNT(p.question_id) AS `total_question`
+            FROM `user_guess_friend` AS `p`
+            JOIN `user_result` AS `r` ON p.question_id=r.question_id AND r.user_id IN (' . implode(',', $friendIds) . ')
+            JOIN `question` AS `q` ON q.id=p.question_id
+            JOIN `user` AS `u` ON p.friend_id=u.id
+            WHERE p.user_id="' . $profileId . '"
+            AND q.date < ' . (time() - POLL_DURATION - 3600) . '
+            AND `friend_id` IN (' . implode(',', $friendIds) . ')
+            GROUP BY p.friend_id
+        ');
+        foreach ($rs_user_guess_friend['data'] as $guess)
+        {
+            $tpl->assignLoopVar('friendPredictionAccuracy', array
+            (
+                'id'      => $guess['id'],
+                'login'   => $guess['login'],
+                'percent' => round(($guess['total_good'] / $guess['total_question']) * 100),
+            ));
+        }
 
 		// Compute user's feelings
 		$rs_user_feeling = $db->select('
