@@ -144,129 +144,108 @@ if ($rs_user['total'] != 0)
 			WHERE r.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
 		');
 
-		// Count results for each question's answers
-		$rs_result = $db->select('
-			SELECT `question_id`, `answer_id`, COUNT(answer_id) AS `total`
-			FROM `user_result`
-			GROUP BY `question_id`, `answer_id`
-		');
+        // Count total questions
+        $rs_totalQuestion = $db->select('SELECT COUNT(*) AS `total` FROM `question` WHERE `date` < ' . (time() - POLL_DURATION - 3600) . '');
+        $totalQuestion = $rs_totalQuestion['data'][0]['total'];
 
-		// Build a table containing question's id associated
-		// with the most voted answer's id (0 if egality)
-		$results = array();
-		foreach ($rs_result['data'] as $item)
-		{
-			if (in_array($item['question_id'], $results))
-			{
-				if ($results[$item['question_id']]['total'] == $item['total'])
-				{
-					$results[$item['question_id']]['answer_id'] = 0;
-				}
-				else if ($results[$item['question_id']]['total'] < $item['total'])
-				{
-					continue;
-				}
-			}
-			$results[$item['question_id']] = array
-			(
-				'answer_id' => $item['answer_id'],
-				'total'     => $item['total'],
-			);
-		}
-		$totalQuestion = count($results);
+
+
+
+        // Get stats on user votes according to global votes
+        $rs_result = $db->select('
+            SELECT
+                rg.question_id,
+                COUNT(rg.answer_id) AS `total_vote`,
+                SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `total_according_votes`,
+                SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `total_disaccording_votes`
+            FROM `user_result` AS `rg`
+            JOIN `user_result` AS `ru` ON ru.user_id="' . $profileId . '" AND rg.question_id=ru.question_id
+            JOIN `question` AS `q` ON q.id=rg.question_id
+            WHERE q.date < ' . (time() - POLL_DURATION - 3600) . '
+            GROUP BY rg.question_id
+            ORDER BY rg.question_id
+        ');
 
 		// Count user's popular votes
 		$totalAccordingVote = 0;
-		foreach ($rs_user_result['data'] as $item)
+        $totalVote = $rs_result['total'];
+		foreach ($rs_result['data'] as $item)
 		{
-			if ($results[$item['question_id']]['answer_id'] == 0 || $results[$item['question_id']]['answer_id'] == $item['answer_id'])
+			if ($item['total_according_votes'] >= $item['total_disaccording_votes'])
 			{
 				$totalAccordingVote ++;
 			}
 		}
 		$tpl->assignVar(array
 		(
-			'user_global_distance' => round((($user_totalVote - $totalAccordingVote) / $user_totalVote) * $totalQuestion),
+			'user_global_distance' => round((($totalVote - $totalAccordingVote) / $totalVote) * $totalQuestion),
 		));
 
-		// Count results for each question's answers from user's friends
-		$rs_friend_result = $db->select('
-			SELECT `question_id`, `answer_id`, COUNT(answer_id) AS `total`
-			FROM `user_result`
-            WHERE `user_id` IN (' . implode(',', $friendIds) . ')
-			GROUP BY `question_id`, `answer_id`
-		');
-
-		// Build a table containing question's id associated
-		// with the most voted answer's id (0 if egality)
-		$friend_results = array();
-		foreach ($rs_friend_result['data'] as $item)
-		{
-			if (in_array($item['question_id'], $friend_results))
-			{
-				if ($friend_results[$item['question_id']]['total'] == $item['total'])
-				{
-					$friend_results[$item['question_id']]['answer_id'] = 0;
-				}
-				else if ($friend_results[$item['question_id']]['total'] < $item['total'])
-				{
-					continue;
-				}
-			}
-			$friend_results[$item['question_id']] = array
-			(
-				'answer_id' => $item['answer_id'],
-				'total'     => $item['total'],
-			);
-		}
-		$friend_totalQuestion = count($results);
+        // Get stats on user votes according to his friends votes
+        $rs_friend_result = $db->select('
+            SELECT
+                rg.question_id,
+                COUNT(rg.answer_id) AS `total_vote`,
+                SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `total_according_votes`,
+                SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `total_disaccording_votes`
+            FROM `user_result` AS `rg`
+            JOIN `user_result` AS `ru` ON ru.user_id="' . $profileId . '" AND rg.question_id=ru.question_id
+            JOIN `question` AS `q` ON q.id=rg.question_id
+            WHERE q.date < ' . (time() - POLL_DURATION - 3600) . '
+            AND rg.user_id IN (' . implode(',', $friendIds) . ')
+            GROUP BY rg.question_id
+            ORDER BY rg.question_id
+        ');
 
 		// Count user's popular votes
 		$friend_totalAccordingVote = 0;
-        $friend_totalComonVote = 0;
-		foreach ($rs_user_result['data'] as $item)
+        $friend_totalVote = $rs_friend_result['total'];
+		foreach ($rs_friend_result['data'] as $item)
 		{
-			if (isset($friend_results[$item['question_id']]))
+			if ($item['total_according_votes'] >= $item['total_disaccording_votes'])
 			{
-                if ($friend_results[$item['question_id']]['answer_id'] == 0 || $friend_results[$item['question_id']]['answer_id'] == $item['answer_id'])
-                {
-                    $friend_totalAccordingVote ++;
-                }
-                $friend_totalComonVote ++;
+				$friend_totalAccordingVote ++;
 			}
 		}
 		$tpl->assignVar(array
 		(
-			'user_friend_distance' => round((($friend_totalQuestion - $friend_totalAccordingVote) / $friend_totalQuestion) * $friend_totalComonVote),
+			'user_friend_distance' => round((($friend_totalVote - $friend_totalAccordingVote) / $friend_totalVote) * $totalQuestion),
 		));
 
-		// Select all user's guess for past questions
-		$rs_user_guess = $db->select('
-			SELECT p.question_id AS `question_id`, p.answer_id AS `answer_id`
-			FROM `user_guess` AS `p`
-			JOIN `question` AS `q` ON q.id=p.question_id
-			WHERE p.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
-		');
+        // Get stats on user guesses according to global votes
+        $rs_guess = $db->select('
+            SELECT
+                rg.question_id,
+                COUNT(rg.answer_id) AS `total_vote`,
+                SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `total_according_guesses`,
+                SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `total_disaccording_guesses`
+            FROM `user_result` AS `rg`
+            JOIN `user_guess` AS `gu` ON gu.user_id="' . $profileId . '" AND rg.question_id=gu.question_id
+            JOIN `question` AS `q` ON q.id=rg.question_id
+            WHERE q.date < ' . (time() - POLL_DURATION - 3600) . '
+            GROUP BY rg.question_id
+            ORDER BY rg.question_id
+        ');
 
 		// Count user's good and bad guess
 		$totalPredictionLost = 0;
 		$totalPredictionWon = 0;
-		foreach ($rs_user_guess['data'] as $item)
+		foreach ($rs_guess['data'] as $item)
 		{
-			if ($results[$item['question_id']]['answer_id'] != 0 && $results[$item['question_id']]['answer_id'] != $item['answer_id'])
+			if ($item['total_according_guesses'] >= $item['total_disaccording_guesses'])
 			{
-				$totalPredictionLost ++;
+				$totalPredictionWon ++;
 			}
 			else
 			{
-				$totalPredictionWon ++;
+				$totalPredictionLost ++;
 			}
 		}
 		$tpl->assignVar(array
 		(
 			'user_totalPredictionWon' => $totalPredictionWon,
 			'user_totalPredictionLost' => $totalPredictionLost,
-			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_user_guess['total']) * 100),
+			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_guess['total']) * 100),
 		));
 
         // Count user's good guess about his friends for past questions
