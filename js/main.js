@@ -123,19 +123,33 @@ function poll_initVote(params)
     $('saveButton').hide();
     $('saveButton').observe('click', poll_saveResult);
 
-    var recievers = new Array();
+    var userRecievers = new Array();
+    var friendRecievers = new Array();
 
     $$('#result li.answer').each(function(item)
     {
-        recievers.push(item);
+        userRecievers.push(item);
+        friendRecievers.push(item);
     });
-    recievers.push($('farm'));
+    userRecievers.push($('base_user'));
+    friendRecievers.push($('base_friend'));
 
-    $$('#farm li.user').each(function(item)
+    $$('#base li.user').each(function(item)
     {
         item.observe('mousedown', function(e)
         {
-            dragdrop.grab(e, this, recievers, poll_userDropCallback);
+            dragdrop.grab(e, this, userRecievers, poll_userDropCallback);
+        });
+        item.setStyle(
+        {
+            cursor : 'pointer'
+        });
+    });
+    $$('#base li.friend').each(function(item)
+    {
+        item.observe('mousedown', function(e)
+        {
+            dragdrop.grab(e, this, friendRecievers, poll_userDropCallback);
         });
         item.setStyle(
         {
@@ -146,9 +160,9 @@ function poll_initVote(params)
 
 function poll_userDropCallback(user, reciever)
 {
-    reciever.down('ul').insert(user);
+    reciever.insert(user);
 
-    if ($$('#farm li.user.unregistered').length === 0)
+    if ($$('#base_user li.user.unregistered').length === 0)
     {
         $('saveButton').show();
     }
@@ -176,6 +190,10 @@ function poll_saveResult()
         {
             params['user[' + user.readAttribute('name').split('_')[1] + '][guess]'] = answer.readAttribute('name').split('_')[1];
         });
+        answer.select('li.friend.unregistered.guessed').each(function(friend)
+        {
+            params['friend[' + friend.readAttribute('name').split('_')[1] + '][guess]'] = answer.readAttribute('name').split('_')[1];
+        });
     });
 
 	new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
@@ -183,7 +201,7 @@ function poll_saveResult()
 		parameters: $H(params).toQueryString(),
 		onSuccess: function(xhr)
 		{
-			window.location.reload();
+            window.location.reload();
 		}
 	});
 }

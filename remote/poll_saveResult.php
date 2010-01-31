@@ -28,9 +28,11 @@
 					$answer_id = $value;
 					break;
 				case 'guess':
-					$table = 'user_prognostic';
+					$table = 'user_guess';
 					$answer_id = $value;
 					break;
+                default:
+                    continue;
 			}
 
 			// Select user's results if there is some
@@ -39,7 +41,6 @@
 			// If the user did not vote for this question
 			if ($rs['total'] == 0)
 			{
-				echo $answer_id;
 				// If he voted for an answer
 				if ($answer_id != 0)
 				{
@@ -54,11 +55,12 @@
 				}
 			}
 			// Else if the user voted blank
-			else if ($answer_id == 0)
-			{
-				// Remove his answer
-				$db->delete('DELETE FROM `' . $table . '` WHERE `question_id`=' . $_POST['question_id'] . ' AND `user_id`=' . $user_id);
-			}
+			// WE DO NOT ALLOW THIS
+			//else if ($answer_id == 0)
+			//{
+				//// Remove his answer
+				//$db->delete('DELETE FROM `' . $table . '` WHERE `question_id`=' . $_POST['question_id'] . ' AND `user_id`=' . $user_id);
+			//}
 			// Else if he already voted but changed his minde
 			// WE DO NOT ALLOW THIS
 			//else if ($answer_id != $rs['data'][0]['answer_id'])
@@ -69,5 +71,57 @@
 					//WHERE `question_id`=' . $_POST['question_id'] . ' AND `user_id`=' . $user_id);
 			//}
 		}
+    }
+
+    // Dress friends id list
+    $friendIds = array();
+    foreach($_POST['friend'] as $friend_id => $data)
+    {
+        $friendIds[] = $friend_id;
+    }
+
+    // Look if there is prognostics for thoses friend from this user to this question
+    $rs = $db->select('
+        SELECT `friend_id` FROM `user_guess_friend`
+        WHERE `question_id`="' . $_POST['question_id'] . '"
+        AND `user_id`="' . $user_id .'"
+        AND `friend_id` IN (' . implode(',', $friendIds) . ')
+    ');
+
+    // Establish the list of already guessed friends
+    $freindRegistered = array();
+    foreach ($rs as $item)
+    {
+        $freindRegistered[] = $item['friend_id'];
+    }
+
+    foreach($_POST['friend'] as $friend_id => $data)
+    {
+		foreach ($data as $type => $value)
+		{
+            switch ($type)
+            {
+                case 'guess':
+                    $table = 'user_guess_friend';
+                    $answer_id = $value;
+                    break;
+                default:
+                    continue;
+            }
+
+            // If user did not already guess for this friend
+            if (!in_array($friend_id, $freindRegistered))
+            {
+                // Remember his guess
+                $db->insert('INSERT INTO `' . $table . '` (`question_id`, `answer_id`, `user_id`, `friend_id`, `date`) VALUES
+                (
+                    "' . $_POST['question_id'] . '",
+                    "' . $answer_id . '",
+                    "' . $user_id . '",
+                    "' . $friend_id . '",
+                    "' . time() . '"
+                )');
+            }
+        }
     }
 

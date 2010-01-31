@@ -100,7 +100,7 @@ if ($rs_user['total'] != 0)
 
     // Select all user's friends
     $rs_friend = $db->select('
-        SELECT f.user_id_1, f.user_id_2, f.valided, u.login, u.id
+        SELECT u.login, u.id
         FROM `friend` AS `f`
         JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
         WHERE f.valided="1" AND (f.user_id_1="' . $profileId . '" OR f.user_id_2="' . $profileId . '")
@@ -188,50 +188,50 @@ if ($rs_user['total'] != 0)
 			'user_distance' => round((($user_totalVote - $totalPopularVote) / $user_totalVote) * $totalQuestion),
 		));
 
-		// Select all user's prognostics for past questions
-		$rs_user_prognostic = $db->select('
+		// Select all user's guess for past questions
+		$rs_user_guess = $db->select('
 			SELECT p.question_id AS `question_id`, p.answer_id AS `answer_id`
-			FROM `user_prognostic` AS `p`
+			FROM `user_guess` AS `p`
 			JOIN `question` AS `q` ON q.id=p.question_id
 			WHERE p.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
 		');
 
-		// Count prognostic for each question's answers
-		$rs_prognostic = $db->select('
+		// Count guess for each question's answers
+		$rs_guess = $db->select('
 			SELECT `question_id`, `answer_id`, COUNT(answer_id) AS `total`
-			FROM `user_prognostic`
+			FROM `user_guess`
 			GROUP BY `question_id`, `answer_id`
 		');
 
 		// Build a table containing question's id associated
 		// with the most guessed answer's id (0 if egality)
-		$prognostics = array();
-		foreach ($rs_prognostic['data'] as $item)
+		$guess = array();
+		foreach ($rs_guess['data'] as $item)
 		{
-			if (in_array($item['question_id'], $prognostics))
+			if (in_array($item['question_id'], $guess))
 			{
-				if ($prognostics[$item['question_id']]['total'] == $item['total'])
+				if ($guess[$item['question_id']]['total'] == $item['total'])
 				{
-					$prognostics[$item['question_id']]['answer_id'] = 0;
+					$guess[$item['question_id']]['answer_id'] = 0;
 				}
-				else if ($prognostics[$item['question_id']]['total'] < $item['total'])
+				else if ($guess[$item['question_id']]['total'] < $item['total'])
 				{
 					continue;
 				}
 			}
-			$prognostics[$item['question_id']] = array
+			$guess[$item['question_id']] = array
 			(
 				'answer_id' => $item['answer_id'],
 				'total'     => $item['total'],
 			);
 		}
 
-		// Count user's good and bad prognostics
+		// Count user's good and bad guess
 		$totalPredictionLost = 0;
 		$totalPredictionWon = 0;
-		foreach ($rs_user_prognostic['data'] as $item)
+		foreach ($rs_user_guess['data'] as $item)
 		{
-			if ($prognostics[$item['question_id']]['answer_id'] != 0 && $prognostics[$item['question_id']]['answer_id'] != $item['answer_id'])
+			if ($guess[$item['question_id']]['answer_id'] != 0 && $guess[$item['question_id']]['answer_id'] != $item['answer_id'])
 			{
 				$totalPredictionLost ++;
 			}
@@ -244,7 +244,7 @@ if ($rs_user['total'] != 0)
 		(
 			'user_totalPredictionWon' => $totalPredictionWon,
 			'user_totalPredictionLost' => $totalPredictionLost,
-			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_user_prognostic['total']) * 100),
+			'user_predictionAccuracy' => round(($totalPredictionWon / $rs_user_guess['total']) * 100),
 		));
 
 		// Compute user's feelings

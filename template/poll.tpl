@@ -14,19 +14,27 @@
                 <li name="answer_{answer.id}" class="answer">{answer.label}
                     <ul>
                         <!-- LOOP answer.user -->
-                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><img src="{ROOT_PATH}media/avatar/{answer.user.avatar}" alt="{answer.user.login}" /> {answer.user.login}</li>
+                        <li name="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}"><img src="{ROOT_PATH}media/avatar/{answer.user.avatar}" alt="{answer.user.login}" /> {answer.user.login}</a></li>
                         <!-- END answer.user -->
+                        <!-- LOOP answer.friend -->
+                        <li name="user_{answer.friend.id}" class="friend {answer.friend.class}"><a href="{ROOT_PATH}{answer.friend.login}"><img src="{ROOT_PATH}media/avatar/{answer.friend.avatar}" alt="{answer.friend.login}" /> {answer.friend.login}</a></li>
+                        <!-- END answer.friend -->
                     </ul>
                 </li>
                 <!-- END answer -->
             </ul>
 
-            <div id="farm">
-                <ul>
+            <div id="base">
+                <ul id="base_user">
                     <!-- LOOP user -->
                     <li name="user_{user.id}" class="user voted unregistered"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</li>
                     <li name="user_{user.id}" class="user guessed unregistered"><img src="{ROOT_PATH}media/avatar/{user.avatar}" alt="{user.login}" /> {user.login}</li>
                     <!-- END user -->
+                </ul>
+                <ul id="base_friend">
+                    <!-- LOOP friend -->
+                    <li name="friend_{friend.id}" class="friend guessed unregistered"><img src="{ROOT_PATH}media/avatar/{friend.avatar}" alt="{friend.login}" /> {friend.login}</li>
+                    <!-- END friend -->
                 </ul>
             </div>
 
@@ -49,6 +57,9 @@
                         <!-- LOOP answer.user -->
                         <li name="user_{answer.user.id}" class="user {answer.user.class}"><a href="{ROOT_PATH}{answer.user.login}"><img src="{ROOT_PATH}media/avatar/{answer.user.avatar}" alt="{answer.user.login}" /> {answer.user.login}</a></li>
                         <!-- END answer.user -->
+                        <!-- LOOP answer.friend -->
+                        <li name="user_{answer.friend.id}" class="friend {answer.friend.class}"><a href="{ROOT_PATH}{answer.friend.login}"><img src="{ROOT_PATH}media/avatar/{answer.friend.avatar}" alt="{answer.friend.login}" /> {answer.friend.login}</a></li>
+                        <!-- END answer.friend -->
                     </ul>
                 </li>
                 <!-- END answer -->

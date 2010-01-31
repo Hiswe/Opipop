@@ -1,11 +1,12 @@
-#farm
+#base ul
 {
     border: solid 1px #ccc;
     padding: 10px;
     margin: 8px;
+    min-height: 40px;
 }
 
-#farm.colide
+#base ul.colide
 {
     border-color: #66ff66;
 }
@@ -13,7 +14,7 @@
 #result li.answer
 {
     border: dashed 1px #ccc;
-    padding: 8px;
+    padding: 16px 8px;
     margin: 10px;
 }
 
@@ -30,6 +31,7 @@
 }
 
 li.user,
+li.friend,
 strong.user
 {
     display: inline-block;
@@ -38,9 +40,15 @@ strong.user
 		border: solid 1px #ccc;
 }
 
-li.user.voted
+li.user.voted,
+li.friend.voted
 {
     background: #ccc;
 		border: solid 1px #999;
+}
+
+li.friend
+{
+    border-style: dashed;
 }
 

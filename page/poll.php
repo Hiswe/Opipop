@@ -31,14 +31,6 @@ if ($rs_question['total'] != 0)
             FROM `user_result`
             WHERE `question_id`=' . $question['id'] . ' AND `user_id`="' . $userId . '"
         ');
-
-        // Select users prognostic
-        $rs_prognostic = $db->select
-        ('
-            SELECT `user_id`, `answer_id`
-            FROM `user_prognostic`
-            WHERE `question_id`=' . $question['id'] . ' AND `user_id`="' . $userId . '"
-        ');
     }
 
     // Select all answers releted to this question
@@ -74,17 +66,30 @@ if ($rs_question['total'] != 0)
             // Init some variables for javascripts
             $poll_parameters = array();
             $poll_parameters['question_id'] = $question['id'];
-            $poll_parameters['user'] = array();
-
-            // Pass all users results to javascripts
-            foreach ($rs_result['data'] as $result)
-            {
-                $poll_parameters['user'][$result['user_id']] = $result['answer_id'];
-            }
 
             // If the user did not vote
             if ($rs_result['total'] == 0)
             {
+                // Select all user's friends
+                $rs_friend = $db->select('
+                    SELECT u.login, u.id
+                    FROM `friend` AS `f`
+                    JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
+                    WHERE f.valided="1" AND (f.user_id_1="' . $userId . '" OR f.user_id_2="' . $userId . '")
+                    AND u.id!="' . $userId . '"
+                ');
+
+                // Assign friends infos
+                foreach ($rs_friend['data'] as $friend)
+                {
+                    $tpl->assignLoopVar('friend', array
+                    (
+                        'id'     => $friend['id'],
+                        'login'  => $friend['login'],
+                        'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
+                    ));
+                }
+
                 // Assing user's infos
                 $tpl->assignLoopVar('user', array
                 (
@@ -165,9 +170,30 @@ if ($rs_question['total'] != 0)
             'percent_female'  => ($totalAnswer == 0) ? 0 : round(($totalFemale / $totalAnswer) * 100),
         ));
 
-        // If a users is logged
-        if (isOk($_SESSION['user']))
+        // If a users is logged and voted
+        if (isOk($_SESSION['user']) && $rs_result['total'] != 0)
         {
+            // Select users guess
+            $rs_guess = $db->select
+            ('
+                SELECT `user_id`, `answer_id`
+                FROM `user_guess`
+                WHERE `question_id`=' . $question['id'] . ' AND `user_id`="' . $userId . '"
+            ');
+
+            // Select users guess for his friends
+            $rs_guess_friend = $db->select
+            ('
+                SELECT g.answer_id, u.login, u.id
+                FROM `user_guess_friend` AS `g`
+                JOIN `friend` AS `f`
+                    ON (f.user_id_1=g.user_id AND f.user_id_2=g.friend_id)
+                    OR (f.user_id_1=g.friend_id AND f.user_id_2=g.user_id)
+                JOIN `user` AS `u`
+                    ON u.id=g.friend_id
+                WHERE g.question_id=' . $question['id'] . ' AND g.user_id="' . $userId . '"
+            ');
+
             // Loop through user's results
             foreach ($rs_result['data'] as $result)
             {
@@ -182,11 +208,10 @@ if ($rs_question['total'] != 0)
                         'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $userId . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $userId . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
                         'class'  => 'voted',
                     ));
-                    // Remembed this user has allready voted
                 }
             }
-            // Loop through user's prognostics
-            foreach ($rs_prognostic['data'] as $result)
+            // Loop through user's guess
+            foreach ($rs_guess['data'] as $result)
             {
                 // If the result is about this answer
                 if ($result['answer_id'] == $answer['id'])
@@ -199,6 +224,23 @@ if ($rs_question['total'] != 0)
                         'guid'   => makeGuid($_SESSION['user']['login']),
                         'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $userId . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $userId . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
                         'class'  => 'guessed',
+                    ));
+                }
+            }
+            // Loop through user's guess for its friends
+            foreach ($rs_guess_friend['data'] as $result)
+            {
+                // If the result is about this answer
+                if ($result['answer_id'] == $answer['id'])
+                {
+                    // Assing friend's infos
+                    $tpl->assignLoopVar('answer.friend', array
+                    (
+                        'id'     => $result['id'],
+                        'login'  => $result['login'],
+                        'guid'   => makeGuid($result['login']),
+                        'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $result['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $result['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
+                        'class'  => 'friend',
                     ));
                 }
             }

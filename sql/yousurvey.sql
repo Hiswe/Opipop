@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 28, 2010 at 01:05 AM
+-- Generation Time: Jan 30, 2010 at 06:37 PM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `label` varchar(32) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `label` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -126,10 +126,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_prognostic`
+-- Table structure for table `user_guess`
 --
 
-CREATE TABLE IF NOT EXISTS `user_prognostic` (
+CREATE TABLE IF NOT EXISTS `user_guess` (
   `question_id` int(10) unsigned NOT NULL,
   `answer_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -138,6 +138,24 @@ CREATE TABLE IF NOT EXISTS `user_prognostic` (
   KEY `question_id` (`question_id`),
   KEY `answer_id` (`answer_id`),
   KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_guess_friend`
+--
+
+CREATE TABLE IF NOT EXISTS `user_guess_friend` (
+  `question_id` int(10) unsigned NOT NULL,
+  `answer_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `friend_id` int(10) unsigned NOT NULL,
+  `date` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`question_id`,`answer_id`,`user_id`,`friend_id`),
+  KEY `answer_id` (`answer_id`),
+  KEY `user_id` (`user_id`),
+  KEY `friend_id` (`friend_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -183,12 +201,24 @@ ALTER TABLE `question_answer_feeling`
   ADD CONSTRAINT `question_answer_feeling_ibfk_3` FOREIGN KEY (`feeling_id`) REFERENCES `feeling` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `user_prognostic`
+-- Constraints for table `user_guess`
 --
-ALTER TABLE `user_prognostic`
-  ADD CONSTRAINT `user_prognostic_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `user_prognostic_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `user_prognostic_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+ALTER TABLE `user_guess`
+  ADD CONSTRAINT `user_friend_prognostic_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_friend_prognostic_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_friend_prognostic_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_guess_friend`
+--
+ALTER TABLE `user_guess_friend`
+  ADD CONSTRAINT `user_guess_friend_ibfk_4` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_friend_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_friend_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_friend_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_result`
