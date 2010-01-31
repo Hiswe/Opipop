@@ -1,3 +1,1 @@
 
-        <!-- INCLUDE block/top.tpl -->
-

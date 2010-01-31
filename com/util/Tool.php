@@ -1,28 +1,19 @@
 <?php
 
-	////////////////////////////////////////////
-	//	DEBUG
-	////////////////////////////////////////////
-
-	function print_array($array)
+class Tool
+{
+	static function print_array($array)
     {
 		echo '<pre>';
-		print_r ($array);
+		print_r($array);
 		echo '</pre>';
 	}
 
-
-
-
-	////////////////////////////////////////////
-	//	UTILITIES
-	////////////////////////////////////////////
-
-	function isOK(&$var)
+	static function isOK(&$var)
     {
-		if (isset ($var))
+		if (isset($var))
         {
-			if (!empty ($var))
+			if (!empty($var))
             {
 				return true;
 			}
@@ -30,24 +21,24 @@
 		return false;
 	}
 
-	function checkMail($email)
+	static function checkMail($email)
     {
 		$atom = '[-a-z0-9!#$%&\'*+/=?^_`{|}~]';
 		$domain = '[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])';
 		return eregi("^$atom+(\\.$atom+)*@($domain?\\.)+$domain\$", $email);
 	}
 
-	function xmlFormat($text)
+	static function xmlFormat($text)
     {
-		return str_replace (array ('&', "'", '"', '>', '<'), array ('&amp;', '&apos;', '&quot;', '&gt;', '&lt;'), $text);
+		return str_replace(array('&', "'", '"', '>', '<'), array('&amp;', '&apos;', '&quot;', '&gt;', '&lt;'), $text);
 	}
 
-	function getLikeList($q)
+	static function getLikeList($q)
     {
 		$q = urldecode($q);
 
 		// replace spimple quotes by double quotes
-		$q = str_replace("'", '"', str_replace ('/\\', '', $q));
+		$q = str_replace("'", '"', str_replace('/\\', '', $q));
 
 		// delet multiple quotes
 		$q =  preg_replace('#("+)#is', '"', $q);
@@ -65,7 +56,7 @@
 		$q =  preg_replace('#(\s+)#is', ' ', $q);
 
 		// get words
-		$words = explode(' ', trim ($q));
+		$words = explode(' ', trim($q));
 
 		$searched_list = '';
 
@@ -74,46 +65,39 @@
 			$searched_list .= '%'.implode('%', $sentences[1]).'%';
 		}
 
-		if (!empty ($words[0]))
+		if (!empty($words[0]))
         {
 			$searched_list .= '%'.implode('%', $words).'%';
 		}
 		return $searched_list;
 	}
 
-	function cutText($text, $max)
+	static function cutText($text, $max)
     {
 		if (strlen($text) >= $max)
         {
 			$text = substr($text, 0, $max);
-			$text = substr($text, 0, strrpos ($text, " ")) . "...";
+			$text = substr($text, 0, strrpos($text, " ")) . "...";
 		}
 		return $text;
 	}
 
-	function removeHTML($text)
+	static function removeHTML($text)
     {
 		$text = str_replace('</p>', ' ', $text);
 		$text = preg_replace('#(<[^>]*>)#isU', '', $text);
 		return $text;
 	}
 
-
-
-
-	////////////////////////////////////////////
-	//	CLEAN UP TEXT
-	////////////////////////////////////////////
-
-	function makeGuid ($text)
+	static function makeGuid($text)
     {
 		$text = strtolower($text);
 		// enleve tous les accents
 		$text = strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
 		// remplace tous ce qui n'est pas lettre ou chifre pas par un tir?
-		$text = preg_replace ('([^a-z0-9\-_])', '-', $text);
+		$text = preg_replace('([^a-z0-9\-_])', '-', $text);
 		// remplace les tiré mustiples par un tiré
-		$text = preg_replace ('(-+)', '-', $text);
+		$text = preg_replace('(-+)', '-', $text);
 		// efface les underscore et les tirés en fin de chaine
 		$text = preg_replace('(-*$)', '', $text);
 		// efface les underscore et les tirés eno.ok début de chaine
@@ -122,19 +106,12 @@
 		return $text;
 	}
 
-	function removeSpecialChar($text)
+	static function removeSpecialChar($text)
     {
-		return strtr ($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
+		return strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
 	}
 
-
-
-
-	////////////////////////////////////////////
-	//	DATES
-	////////////////////////////////////////////
-
-	function timeWarp($time)
+	static function timeWarp($time)
     {
 		if ($time > time())
         {
@@ -184,7 +161,7 @@
 			$s = '';
 		}
 
-		if ($time > time ())
+		if ($time > time())
         {
 			return 'in ' . $n . ' ' . $unit . $s;
 		}
@@ -194,14 +171,7 @@
 		}
 	}
 
-
-
-
-	////////////////////////////////////////////
-	//	IMAGES
-	////////////////////////////////////////////
-
-    function redimage($src, $dest, $dw=false, $dh=false, $loose=false, $stamp=false)
+    static function redimage($src, $dest, $dw=false, $dh=false, $loose=false, $stamp=false)
     {
         // detect file type (could be a lot better)
         if (is_array($src))
@@ -380,4 +350,5 @@
         imageDestroy($src_img);
         ImageDestroy($dest_img);
     }
+}
 
