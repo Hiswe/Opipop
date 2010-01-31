@@ -201,6 +201,7 @@ function poll_saveResult()
 		parameters: $H(params).toQueryString(),
 		onSuccess: function(xhr)
 		{
+            // TODO : the page is the same after reload, maybe we don't need to reload the page
             window.location.reload();
 		}
 	});

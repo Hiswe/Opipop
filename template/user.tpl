@@ -28,7 +28,8 @@
 			<li><strong>prediction won:</strong> {user_totalPredictionWon}</li>
 			<li><strong>prediction lost:</strong> {user_totalPredictionLost}</li>
 			<li><strong>prediction accuracy:</strong> {user_predictionAccuracy}%</li>
-			<li><strong>distance from popular opinion:</strong> {user_distance}m</li>
+			<li><strong>distance from popular opinion:</strong> {user_global_distance}m</li>
+			<li><strong>distance from your friends opinion:</strong> {user_friend_distance}m</li>
 			<li><strong>personality:</strong>
 				<ul>
 					<!-- LOOP feeling -->

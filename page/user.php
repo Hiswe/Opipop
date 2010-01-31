@@ -105,6 +105,7 @@ if ($rs_user['total'] != 0)
         JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
         WHERE f.valided="1" AND (f.user_id_1="' . $profileId . '" OR f.user_id_2="' . $profileId . '")
     ');
+    $friendIds = array();
     foreach ($rs_friend['data'] as $friend)
     {
         if ($friend['id'] != $profileId)
@@ -115,6 +116,7 @@ if ($rs_user['total'] != 0)
                 'login'  => $friend['login'],
                 'avatar' => (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg')) ? AVATAR_SMALL_SIZE . '/' . $friend['id'] . '.jpg' : AVATAR_SMALL_SIZE . '/0.jpg',
             ));
+            $friendIds[] = $friend['id'];
         }
     }
 
@@ -175,17 +177,68 @@ if ($rs_user['total'] != 0)
 		$totalQuestion = count($results);
 
 		// Count user's popular votes
-		$totalPopularVote = 0;
+		$totalAccordingVote = 0;
 		foreach ($rs_user_result['data'] as $item)
 		{
 			if ($results[$item['question_id']]['answer_id'] == 0 || $results[$item['question_id']]['answer_id'] == $item['answer_id'])
 			{
-				$totalPopularVote ++;
+				$totalAccordingVote ++;
 			}
 		}
 		$tpl->assignVar(array
 		(
-			'user_distance' => round((($user_totalVote - $totalPopularVote) / $user_totalVote) * $totalQuestion),
+			'user_global_distance' => round((($user_totalVote - $totalAccordingVote) / $user_totalVote) * $totalQuestion),
+		));
+
+		// Count results for each question's answers from user's friends
+		$rs_friend_result = $db->select('
+			SELECT `question_id`, `answer_id`, COUNT(answer_id) AS `total`
+			FROM `user_result`
+            WHERE `user_id` IN (' . implode(',', $friendIds) . ')
+			GROUP BY `question_id`, `answer_id`
+		');
+
+		// Build a table containing question's id associated
+		// with the most voted answer's id (0 if egality)
+		$friend_results = array();
+		foreach ($rs_friend_result['data'] as $item)
+		{
+			if (in_array($item['question_id'], $friend_results))
+			{
+				if ($friend_results[$item['question_id']]['total'] == $item['total'])
+				{
+					$friend_results[$item['question_id']]['answer_id'] = 0;
+				}
+				else if ($friend_results[$item['question_id']]['total'] < $item['total'])
+				{
+					continue;
+				}
+			}
+			$friend_results[$item['question_id']] = array
+			(
+				'answer_id' => $item['answer_id'],
+				'total'     => $item['total'],
+			);
+		}
+		$friend_totalQuestion = count($results);
+
+		// Count user's popular votes
+		$friend_totalAccordingVote = 0;
+        $friend_totalComonVote = 0;
+		foreach ($rs_user_result['data'] as $item)
+		{
+			if (isset($friend_results[$item['question_id']]))
+			{
+                if ($friend_results[$item['question_id']]['answer_id'] == 0 || $friend_results[$item['question_id']]['answer_id'] == $item['answer_id'])
+                {
+                    $friend_totalAccordingVote ++;
+                }
+                $friend_totalComonVote ++;
+			}
+		}
+		$tpl->assignVar(array
+		(
+			'user_friend_distance' => round((($friend_totalQuestion - $friend_totalAccordingVote) / $friend_totalQuestion) * $friend_totalComonVote),
 		));
 
 		// Select all user's guess for past questions
@@ -196,42 +249,12 @@ if ($rs_user['total'] != 0)
 			WHERE p.user_id="' . $profileId . '" AND q.date < ' . (time() - POLL_DURATION - 3600) . '
 		');
 
-		// Count guess for each question's answers
-		$rs_guess = $db->select('
-			SELECT `question_id`, `answer_id`, COUNT(answer_id) AS `total`
-			FROM `user_guess`
-			GROUP BY `question_id`, `answer_id`
-		');
-
-		// Build a table containing question's id associated
-		// with the most guessed answer's id (0 if egality)
-		$guess = array();
-		foreach ($rs_guess['data'] as $item)
-		{
-			if (in_array($item['question_id'], $guess))
-			{
-				if ($guess[$item['question_id']]['total'] == $item['total'])
-				{
-					$guess[$item['question_id']]['answer_id'] = 0;
-				}
-				else if ($guess[$item['question_id']]['total'] < $item['total'])
-				{
-					continue;
-				}
-			}
-			$guess[$item['question_id']] = array
-			(
-				'answer_id' => $item['answer_id'],
-				'total'     => $item['total'],
-			);
-		}
-
 		// Count user's good and bad guess
 		$totalPredictionLost = 0;
 		$totalPredictionWon = 0;
 		foreach ($rs_user_guess['data'] as $item)
 		{
-			if ($guess[$item['question_id']]['answer_id'] != 0 && $guess[$item['question_id']]['answer_id'] != $item['answer_id'])
+			if ($results[$item['question_id']]['answer_id'] != 0 && $results[$item['question_id']]['answer_id'] != $item['answer_id'])
 			{
 				$totalPredictionLost ++;
 			}
@@ -324,7 +347,8 @@ if ($rs_user['total'] != 0)
 			'user_totalPredictionWon'  => 0,
 			'user_totalPredictionLost' => 0,
 			'user_predictionAccuracy'  => 0,
-			'user_distance'            => 0,
+			'user_global_distance'     => 0,
+			'user_firend_distance'     => 0,
 		));
 	}
 }
