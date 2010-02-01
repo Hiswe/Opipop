@@ -19,7 +19,7 @@ function init(type)
             {
                 lists[type] = new List(
                 {
-                    script       : 'backoffice/remote/category_list.php',
+                    script       : 'backoffice/remote/category_list',
                     container    : 'list_1',
                     model        : Category,
                     editStatus   : true,

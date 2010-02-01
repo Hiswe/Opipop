@@ -1,8 +1,27 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
+    // CONF
+    include '../inc/conf.default.php';
+    include '../inc/conf.local.php';
+	foreach($conf as $key => $value)
+	{
+		DEFINE($key, $value);
+	}
+
+    // PHP
+	ini_set('session.use_trans_sid', '0');	// remove PHPSSID
+	ini_set('url_rewriter.tags', ''); 		// remove PHPSSID
+    date_default_timezone_set('Europe/Paris');
+    session_start();
+
+    // REMOTES
+    if (isset($_GET['remote']))
+    {
+        include '../com/DB.php';
+        include '../com/Tool.php';
+        include 'remote/' . $_GET['remote'] . '.php';
+        exit();
+    }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">

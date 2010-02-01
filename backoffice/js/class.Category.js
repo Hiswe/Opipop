@@ -11,7 +11,7 @@ var Category = function(param)
         {
             this.list = new List(
             {
-                script      : 'backoffice/remote/question_list.php',
+                script      : 'backoffice/remote/question_list',
                 container   : 'list_2',
                 model       : Question,
                 page        : 0,
@@ -38,7 +38,7 @@ var Category = function(param)
         {
             label : label
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_add.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_add',
         {
             parameters: $H(param).toQueryString(),
             onSuccess: function(xhr)
@@ -79,7 +79,7 @@ var Category = function(param)
         {
             id : this.param.item.getData('id')
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_toggleStatus.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_toggleStatus',
         {
             parameters: $H(param).toQueryString(),
             onSuccess: callback
@@ -93,7 +93,7 @@ var Category = function(param)
             id    : this.param.item.getData('id'),
             label : label
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_updateLabel.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_updateLabel',
         {
             parameters: $H(param).toQueryString()
         });
@@ -106,7 +106,7 @@ var Category = function(param)
             id    : this.param.item.getData('id'),
             shift : shift
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_updatePosition.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/category_updatePosition',
         {
             parameters: $H(param).toQueryString()
         });

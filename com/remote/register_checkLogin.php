@@ -1,6 +1,6 @@
 <?php
 
-    $forbidenLogins = array('remote', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
+    $forbidenLogins = array('remote', 'backoffice', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
 
     if (in_array($_POST['login'], $forbidenLogins))
     {

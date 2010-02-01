@@ -78,7 +78,7 @@ var Question = function(param)
             label       : label,
             category_id : this.param.categoryId
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_add.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_add',
         {
             parameters: $H(param).toQueryString(),
             onSuccess: function(xhr)
@@ -102,7 +102,7 @@ var Question = function(param)
             {
                 id : this.param.item.getData('id')
             };
-            new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_load.php',
+            new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_load',
             {
                 parameters: $H(param).toQueryString(),
                 onSuccess: function(xhr)
@@ -139,7 +139,7 @@ var Question = function(param)
             'feeling[1]' : this.data['feeling2']
         };
 
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_save.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_save',
         {
             parameters: $H(param).toQueryString(),
             onSuccess: function(xhr)
@@ -155,7 +155,7 @@ var Question = function(param)
         {
             id : this.param.item.getData('id')
         };
-        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_toggleStatus.php',
+        new Ajax.Request(ROOT_PATH + 'backoffice/remote/question_toggleStatus',
         {
             parameters: $H(param).toQueryString(),
             onSuccess: callback
