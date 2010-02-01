@@ -5,7 +5,7 @@ class Block_Top extends Block
 	public function configure()
 	{
 		// If a user is connected get its infos
-		if (isOk($_SESSION['user']))
+		if (Tool::isOk($_SESSION['user']))
 		{
 			$this->tpl->assignVar(array
 			(
@@ -20,7 +20,7 @@ class Block_Top extends Block
 		}
 
 		// If a feedback should be displayed
-		if (isOk($_SESSION['feedback']))
+		if (Tool::isOk($_SESSION['feedback']))
 		{
 			$this->tpl->assignSection('feedback');
 			$this->tpl->assignVar('feedback', $_SESSION['feedback']);

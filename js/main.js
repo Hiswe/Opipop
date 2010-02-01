@@ -39,7 +39,7 @@ function user_addToFriend(friendId, reload)
 
 	link.update();
 
-	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend.php',
+	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
 	{
 		parameters: params.toQueryString(),
 		onSuccess: function(xhr)
@@ -82,7 +82,7 @@ function user_requestFriend(friendId, accept)
 		action   : (accept) ? 'accept' : 'cancel'
 	});
 
-	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend.php',
+	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
 	{
 		parameters: params.toQueryString()
 	});
@@ -196,7 +196,7 @@ function poll_saveResult()
         });
     });
 
-	new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult.php',
+	new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult',
 	{
 		parameters: $H(params).toQueryString(),
 		onSuccess: function(xhr)
@@ -292,7 +292,7 @@ function login_submit()
             password: password
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/login_submit.php',
+        new Ajax.Request (ROOT_PATH + 'remote/login_submit',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
@@ -461,7 +461,7 @@ function register_checkLogin()
             login: input.value
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/register_checkLogin.php',
+        new Ajax.Request (ROOT_PATH + 'remote/register_checkLogin',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
@@ -499,7 +499,7 @@ function register_checkEmail()
                 email : input.value
             });
 
-            new Ajax.Request (ROOT_PATH + 'remote/register_checkEmail.php',
+            new Ajax.Request (ROOT_PATH + 'remote/register_checkEmail',
             {
                 parameters: params.toQueryString(),
                 onSuccess: function(xhr)
@@ -582,7 +582,7 @@ function register_submit()
             password : password
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/register_submit.php',
+        new Ajax.Request (ROOT_PATH + 'remote/register_submit',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)

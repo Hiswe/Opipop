@@ -1,10 +1,5 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
-
-
     if (!isOk($_POST['id']) || !isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !isOk($_POST['zip']) || !isset($_POST['gender']) || !isOk($_POST['login']))
     {
 		header('Location: ' . ROOT_PATH);

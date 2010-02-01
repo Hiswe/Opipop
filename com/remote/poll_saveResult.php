@@ -1,9 +1,5 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
-
     // If the question specified is out of date or does not exists exit
     $rs_question = $db->select('SELECT `date` FROM `question` WHERE `id`="' . $_POST['question_id'] . '"');
     if ($rs_question['total'] == 0 || $rs_question['data'][0]['date'] < time() - POLL_DURATION)

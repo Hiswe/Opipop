@@ -1,11 +1,7 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
-
     // Select the user corresponding to the this login and password
-    $rs = $db->select
+    $rs = DB::select
 	('
 		SELECT `id`,`login`,`email`,`register_date`
 		FROM `user`

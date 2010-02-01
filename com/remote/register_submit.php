@@ -1,11 +1,6 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
-
-
-    $forbidenLogins = array('login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
+    $forbidenLogins = array('remote', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
 
     // If the login is not allowed exit
     if (in_array($_POST['login'], $forbidenLogins))
@@ -15,7 +10,7 @@
     }
 
     // Look if this login exists
-    $rs = $db->select
+    $rs = DB::select
     ('
         SELECT `id`
         FROM `user`
@@ -30,7 +25,7 @@
 		$key = md5(rand(0, 1000) + microtime());
 
 		// Insert user's infos in the base
-		$id = $db->insert('INSERT INTO `user` (`login`, `zip`, `gender`, `email`, `password`, `key`, `register_date`) VALUES
+		$id = DB::insert('INSERT INTO `user` (`login`, `zip`, `gender`, `email`, `password`, `key`, `register_date`) VALUES
 		(
 			"' . $_POST['login'] . '",
 			"' . $_POST['zip'] . '",

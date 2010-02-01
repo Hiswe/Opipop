@@ -1,9 +1,5 @@
 <?php
 
-	require_once '../inc/conf.default.php';
-	require_once '../inc/conf.local.php';
-    require_once '../inc/setup.php';
-
     if (!isOk($_POST['id']) || !isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !isOk($_POST['old_password']) || !isOk($_POST['new_password']))
     {
 		header('Location: ' . ROOT_PATH);

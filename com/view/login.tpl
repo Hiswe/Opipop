@@ -1,6 +1,4 @@
 
-        <!-- INCLUDE block/top.tpl -->
-
 		<!-- SECTION login -->
         <h2>Login an existing user</h2>
         <form id="login" method="post" name="login" action="javascript:login_submit();">

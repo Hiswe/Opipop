@@ -1,46 +1,54 @@
 <?php
 
     include 'inc/setup.php';
-
-	include 'com/Page.php';
-	include 'com/Block.php';
-	include 'com/Template.php';
 	include 'com/DB.php';
-	include 'com/util/Tool.php';
+	include 'com/Tool.php';
 
-    // DEBUG INFOS
-	$start_time = microtime();
-	$sql_time = 0;
-
-	$tpl = new templateEngine();
-	$tpl->cacheTimeCoef = CACHE_TIMECOEF;
-	$tpl->assignVar (array(
-		'PAGE_TITLE'       => PAGE_TITLE,
-		'PAGE_DESCRIPTION' => PAGE_DESCRIPTION,
-		'PAGE_KEYWORDS'    => PAGE_KEYWORDS,
-		'ROOT_PATH'        => ROOT_PATH,
-		'VERSION'          => VERSION
-	));
-
-	$page = (isOk($_GET['page'])) ? $_GET['page'] : 'homepage';
-    switch ($page)
+    if (isset($_GET['remote']))
     {
-        case 'homepage':
-            require_once 'com/page/Homepage.php';
-            $page = new Page_Homepage($tpl);
-            break;
-
-        default :
-            $page = new Page($tpl);
+        include 'com/remote/' . $_GET['remote'] . '.php';
+        exit();
     }
-    $page->configureData();
-    $page->configureView();
 
-    $tpl->display();
+    if (isset($_GET['page']))
+    {
+        include 'com/Page.php';
+        include 'com/Block.php';
+        include 'com/Template.php';
 
-    // DEBUG INFOS
-    echo '<br/><hr/>';
-    echo 'SQL : ' . number_format(DB::getTotalQueryTime(), 3, ',', ' ') . ' sec | ';
-    echo 'PHP : ' . number_format(microtime() - $start_time - DB::getTotalQueryTime(), 3, ',', ' ') . ' sec | ';
-    echo 'TOTAL : ' . number_format (microtime() - $start_time, 3, ',', ' ') . ' sec';
+        $tpl = new templateEngine();
+        $tpl->cacheTimeCoef = CACHE_TIMECOEF;
+        $tpl->assignVar (array(
+            'PAGE_TITLE'       => PAGE_TITLE,
+            'PAGE_DESCRIPTION' => PAGE_DESCRIPTION,
+            'PAGE_KEYWORDS'    => PAGE_KEYWORDS,
+            'ROOT_PATH'        => ROOT_PATH,
+            'VERSION'          => VERSION
+        ));
+
+        switch ($_GET['page'])
+        {
+            case 'homepage':
+                include 'com/page/Homepage.php';
+                $page = new Page_Homepage($tpl);
+                break;
+
+            case 'login':
+                include 'com/page/Login.php';
+                $page = new Page_Login($tpl);
+                break;
+
+            case 'logout':
+                include 'com/page/Logout.php';
+                $page = new Page_Logout($tpl);
+                break;
+
+            default :
+                $page = new Page($tpl);
+        }
+        $page->configureData();
+        $page->configureView();
+
+        $tpl->display();
+    }
 
