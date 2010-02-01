@@ -11,16 +11,7 @@ class Page
 		$this->gatherParameterFromRequest();
 	}
 
-	public function getParameter($name)
-	{
-		if (in_array($name, $this->params))
-		{
-			return $this->params[$name];
-		}
-		return false;
-	}
-
-	protected function gatherParameterFromRequest()
+	private function gatherParameterFromRequest()
 	{
 		$this->params = array();
 		foreach ($_GET as $key => $value)
@@ -28,6 +19,24 @@ class Page
 			$this->params[$key] = $value;
 		}
 	}
+
+	protected function getParameter($name)
+	{
+		if (array_key_exists($name, $this->params))
+		{
+			return $this->params[$name];
+		}
+		return false;
+	}
+
+    protected function getPage()
+    {
+        if ($this->getParameter('p') !== false)
+        {
+            return $this->getParameter('p');
+        }
+        return 0;
+    }
 
 	public function configureData(){}
 	public function configureView(){}

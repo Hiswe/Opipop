@@ -24,12 +24,12 @@ RewriteRule ^login/confirm$ index.php?page=login_confirm [L,QSA]
 # LOGOUT
 RewriteRule ^logout$ index.php?remote=logout [L]
 
-# POLL
-RewriteRule ^poll/[a-zA-Z0-9_-]*-([0-9]+)$ index.php?page=poll&id=$1 [L]
+# QUESTION
+RewriteRule ^question/[a-zA-Z0-9_-]*-([0-9]+)$ index.php?page=question&id=$1 [L]
 
 # CATEGORY
-RewriteRule ^category/([a-zA-Z0-9_-]*)/*([0-9]*)$ index.php?page=poll_list&guid=$1&p=$2 [L]
-RewriteRule ^category/([a-zA-Z0-9_-]*)/archives/*([0-9]*)$ index.php?page=poll_list&guid=$1&p=$2&archive=1 [L]
+RewriteRule ^category/([a-zA-Z0-9_-]*)/*([0-9]*)$ index.php?page=question_list&guid=$1&p=$2 [L]
+RewriteRule ^category/([a-zA-Z0-9_-]*)/archives/*([0-9]*)$ index.php?page=question_list&guid=$1&p=$2&archive=1 [L]
 
 # COMMUNITY
 RewriteRule ^users/*([0-9]*)$ index.php?page=user_list&p=$1 [L]

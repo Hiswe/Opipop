@@ -5,7 +5,7 @@
         <ul id="questionList">
             <!-- LOOP question -->
             <li>
-                <div class="question"><span>{question.time}</span> - <a href="{ROOT_PATH}poll/{question.guid}-{question.id}">{question.label}</a></div>
+                <div class="question"><span>{question.time}</span> - <a href="{ROOT_PATH}question/{question.guid}-{question.id}">{question.label}</a></div>
                 <ul class="answer">
                     <!-- LOOP question.answer -->
                     <li>{question.answer.label}</li>

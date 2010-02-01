@@ -59,6 +59,11 @@
                 $page = new Page_Logout($tpl);
                 break;
 
+            case 'question_list':
+                include 'com/page/question/List.php';
+                $page = new Page_Question_List($tpl);
+                break;
+
             default :
                 $page = new Page($tpl);
         }
