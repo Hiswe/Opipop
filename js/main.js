@@ -90,12 +90,12 @@ function user_requestFriend(friendId, accept)
 
 
 ///////////////////
-// POLL
+// QUESTION
 ///////////////////
 
-var poll_parameters = {};
+var question_questionId = {};
 
-function poll_initResult()
+function question_initResult()
 {
     $$('#result div.progress').each(function(item)
     {
@@ -116,12 +116,12 @@ function poll_initResult()
     });
 }
 
-function poll_initVote(params)
+function question_initVote(id)
 {
-    poll_parameters = params;
+    question_questionId = id;
 
     $('saveButton').hide();
-    $('saveButton').observe('click', poll_saveResult);
+    $('saveButton').observe('click', question_saveResult);
 
     var userRecievers = new Array();
     var friendRecievers = new Array();
@@ -138,7 +138,7 @@ function poll_initVote(params)
     {
         item.observe('mousedown', function(e)
         {
-            dragdrop.grab(e, this, userRecievers, poll_userDropCallback);
+            dragdrop.grab(e, this, userRecievers, question_userDropCallback);
         });
         item.setStyle(
         {
@@ -149,7 +149,7 @@ function poll_initVote(params)
     {
         item.observe('mousedown', function(e)
         {
-            dragdrop.grab(e, this, friendRecievers, poll_userDropCallback);
+            dragdrop.grab(e, this, friendRecievers, question_userDropCallback);
         });
         item.setStyle(
         {
@@ -158,7 +158,7 @@ function poll_initVote(params)
     });
 }
 
-function poll_userDropCallback(user, reciever)
+function question_userDropCallback(user, reciever)
 {
     reciever.insert(user);
 
@@ -172,13 +172,13 @@ function poll_userDropCallback(user, reciever)
     }
 }
 
-function poll_saveResult()
+function question_saveResult()
 {
     $('saveButton').hide();
 
     var params =
     {
-        'question_id' : poll_parameters['question_id']
+        'question_id' : question_questionId
     };
     $$('#result li.answer').each(function(answer)
     {
@@ -196,7 +196,7 @@ function poll_saveResult()
         });
     });
 
-	new Ajax.Request (ROOT_PATH + 'remote/poll_saveResult',
+	new Ajax.Request (ROOT_PATH + 'remote/question_saveResult',
 	{
 		parameters: $H(params).toQueryString(),
 		onSuccess: function(xhr)

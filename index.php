@@ -32,6 +32,15 @@
         include 'com/Block.php';
         include 'com/Template.php';
 
+        include 'com/block/Top.php';
+
+        include 'com/model/Category.php';
+        include 'com/model/Answer.php';
+        include 'com/model/Guess.php';
+        include 'com/model/Question.php';
+        include 'com/model/User.php';
+        include 'com/model/Pagination.php';
+
         $tpl = new templateEngine();
         $tpl->cacheTimeCoef = CACHE_TIMECOEF;
         $tpl->assignVar (array(
@@ -57,6 +66,11 @@
             case 'logout':
                 include 'com/page/Logout.php';
                 $page = new Page_Logout($tpl);
+                break;
+
+            case 'question':
+                include 'com/page/Question.php';
+                $page = new Page_Question($tpl);
                 break;
 
             case 'question_list':

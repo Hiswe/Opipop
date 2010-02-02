@@ -1,7 +1,5 @@
 <?php
 
-include 'com/block/Top.php';
-
 class Page_Login extends Page
 {
 	public function configureData()

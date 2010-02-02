@@ -30,7 +30,7 @@ class Category
 		}
 	}
 
-    public function fetchQuestions()
+    private function fetchQuestions()
     {
         if ($this->isArchive)
         {
@@ -40,7 +40,8 @@ class Category
         {
             $where = 'q.date > ' . (time() - QUESTION_DURATION);
         }
-        $this->questions = DB::select
+        // TODO : retrun an array of question
+        $rs = DB::select
         ('
             SELECT q.id, q.date, q.label
             FROM `question` AS `q`
@@ -51,6 +52,19 @@ class Category
             AND c.status=1
             ORDER BY q.date DESC
         ');
+		foreach ($rs['data'] as $question)
+		{
+			$this->questions[] = new Question($question['id'], array
+			(
+				'label' => $question['label'],
+				'date' => $question['date'],
+			));
+		}
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function setIsArchive($bool)
@@ -64,7 +78,7 @@ class Category
         {
             $this->fetchQuestions();
         }
-        return $this->questions['total'];
+        return count($this->questions);
     }
 
     public function getQuestions($page = false)
@@ -76,7 +90,7 @@ class Category
         $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
         $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
 
-		return array_slice($this->questions['data'], $from, $max);
+		return array_slice($this->questions, $from, $max);
     }
 }
 

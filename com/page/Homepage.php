@@ -1,7 +1,5 @@
 <?php
 
-include 'com/block/Top.php';
-
 class Page_Homepage extends Page
 {
 	public function configureView()
