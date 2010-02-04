@@ -2,6 +2,14 @@
 
 class Page_Login extends Page
 {
+	public function configureView()
+	{
+		$this->tpl->assignTemplate('com/view/header.tpl');
+		$this->tpl->assignTemplate('com/view/top.tpl');
+		$this->tpl->assignTemplate('com/view/login.tpl');
+		$this->tpl->assignTemplate('com/view/footer.tpl');
+	}
+
 	public function configureData()
 	{
 		$top = new Block_Top($this->tpl);
@@ -16,14 +24,6 @@ class Page_Login extends Page
 		{
 			$this->tpl->assignSection('login');
 		}
-	}
-
-	public function configureView()
-	{
-		$this->tpl->assignTemplate ('com/view/header.tpl');
-		$this->tpl->assignTemplate ('com/view/top.tpl');
-		$this->tpl->assignTemplate ('com/view/login.tpl');
-		$this->tpl->assignTemplate ('com/view/footer.tpl');
 	}
 }
 

@@ -1,12 +1,12 @@
 <?php
 
-    if (!isOk($_POST['id']) || !isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !isOk($_POST['zip']) || !isset($_POST['gender']) || !isOk($_POST['login']))
+    if (!Tool::isOk($_POST['id']) || !Tool::isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !Tool::isOk($_POST['zip']) || !isset($_POST['gender']) || !Tool::isOk($_POST['login']))
     {
 		header('Location: ' . ROOT_PATH);
         exit();
     }
 
-    $db->update('UPDATE `user` SET
+    DB::update('UPDATE `user` SET
         `zip`="' . $_POST['zip'] . '",
         `male`="' . $_POST['gender'] . '"
         WHERE `id`="' . $_POST['id'] . '"');

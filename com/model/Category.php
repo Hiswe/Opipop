@@ -23,16 +23,17 @@ class Category
 	{
         if (!$this->data['id'] && $guid)
         {
-            $where =  'WHERE `guid`="' . $guid;
+            $where =  'WHERE `guid`="' . $guid . '"';
         }
         else
         {
-            $where =  'WHERE `id`="' . $this->data['id'];
+            $where =  'WHERE `id`="' . $this->data['id'] . '"';
         }
 		$rs = DB::select('
 			SELECT `id`, `label`
+			FROM `category`
             ' . $where . '
-			FROM `user`
+            AND `status`=1
 		');
 		if ($rs['total'] == 0)
 		{

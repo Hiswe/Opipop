@@ -39,7 +39,7 @@ class User
             $where = '`id`="' . $this->data['id'] . '"';
         }
 		$rs = DB::select('
-			SELECT `id`, `login`, `valided`
+			SELECT `id`, `login`, `valided`, `male`, `email`, `zip`
 			FROM `user`
             WHERE ' . $where . '
 		');
@@ -53,7 +53,7 @@ class User
 	private function fetchFriends()
 	{
 		$rs = DB::select('
-			SELECT u.login, u.id
+			SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
 			FROM `friend` AS `f`
 			JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
 			WHERE f.valided="1" AND (f.user_id_1="' . $this->data['id'] . '" OR f.user_id_2="' . $this->data['id'] . '")
@@ -62,18 +62,14 @@ class User
         $this->friends = array();
 		foreach ($rs['data'] as $friend)
 		{
-			$this->friends[] = new User($friend['id'], array
-			(
-				'login'   => $friend['login'],
-				'valided' => 1,
-			));
+			$this->friends[] = new User($friend['id'], $friend);
 		}
 	}
 
 	private function fetchPendingFriends()
 	{
 		$rs = DB::select('
-			SELECT u.login, u.id
+			SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
 			FROM `friend` AS `f`
             JOIN `user` AS `u` ON u.id=f.user_id_1
             WHERE f.valided="0" AND f.user_id_2="' . $this->data['id'] . '"
@@ -81,11 +77,7 @@ class User
         $this->pendingFriends = array();
 		foreach ($rs['data'] as $friend)
 		{
-			$this->pendingFriends[] = new User($friend['id'], array
-			(
-				'login'   => $friend['login'],
-				'valided' => 0,
-			));
+			$this->pendingFriends[] = new User($friend['id'], $friend);
 		}
 	}
 
@@ -126,7 +118,7 @@ class User
 	{
         $rs = DB::select
 		('
-			SELECT g.answer_id, u.id, u.login, u.valided
+			SELECT g.answer_id, u.login, u.id, u.male, u.zip, u.email, u.valided
 			FROM `user_guess_friend` AS `g`
 			JOIN `friend` AS `f`
 				ON (f.user_id_1=g.user_id AND f.user_id_2=g.friend_id)
@@ -144,6 +136,9 @@ class User
                 (
                     'login'   => $guess['login'],
                     'valided' => $guess['valided'],
+                    'email'   => $guess['email'],
+                    'zip'     => $guess['zip'],
+                    'male'    => $guess['male'],
                 ))
             ));
         }
@@ -252,8 +247,12 @@ class User
         {
             $rs = DB::select('
                 SELECT
-                    u.id AS `id`,
-                    u.login AS `login`,
+                    u.login,
+                    u.id,
+                    u.male,
+                    u.zip,
+                    u.email,
+                    u.valided,
                     COUNT(g.question_id) AS `guesses`
                     SUM(IF(g.answer_id=r.answer_id, 1, 0)) AS `popularGuesses`,
                     SUM(IF(g.answer_id!=r.answer_id, 1, 0)) AS `unpopularGuesses`,
@@ -278,8 +277,11 @@ class User
                     'unpopularGuesses' => $friend['unpopularGuesses'],
                     'user'             => new User($friend['id'], array
                     (
-                        'login'   => $friend['login'],
-                        'valided' => 1,
+                        'login' => $friend['login'],
+                        'zip'   => $friend['zip'],
+                        'male'  => $friend['male'],
+                        'email' => $friend['email'],
+                        'login' => $friend['login'],
                     )),
                 );
             }
@@ -385,6 +387,33 @@ class User
 		return $this->data['active'];
 	}
 
+	public function getEmail()
+	{
+		if (!isset($this->data['email']))
+		{
+			$this->fetchData();
+		}
+		return $this->data['email'];
+	}
+
+	public function getMale()
+	{
+		if (!isset($this->data['male']))
+		{
+			$this->fetchData();
+		}
+		return $this->data['male'];
+	}
+
+	public function getZip()
+	{
+		if (!isset($this->data['zip']))
+		{
+			$this->fetchData();
+		}
+		return $this->data['zip'];
+	}
+
 	public function getAvatarUri($type)
 	{
 		switch ($type)
@@ -397,15 +426,37 @@ class User
 				$size = AVATAR_MEDIUM_SIZE;
 				break;
 
-			case 'big':
+			case 'large':
 				$size = AVATAR_LARGE_SIZE;
 				break;
 		}
-		if (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->data['id'] . '.jpg'))
+		if (file_exists(ROOT_DIR . 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
 		{
-			return 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->data['id'] . '.jpg';
+			return 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg';
 		}
-		return 'media/avatar/' . AVATAR_SMALL_SIZE . '/0.jpg';
+		return 'media/avatar/' . $size . '/0.jpg';
 	}
+
+    public static function search($page = false, $query = false)
+    {
+        $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
+        $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
+
+		$rs = DB::select('
+			SELECT u.id, u.login, u.valided, u.male, u.email, u.zip
+			FROM `user` AS `u`
+			JOIN `user_result` AS `r` ON r.user_id=u.id
+			WHERE valided="1" ' . (($query) ? ' AND u.login LIKE(\'' . Tool::getLikeList($query) . '\')' : '') . '
+			GROUP BY u.id
+			ORDER BY u.register_date DESC
+		', $from, $max);
+
+        $users = array();
+		foreach ($rs['data'] as $user)
+		{
+			$users[] = new User($user['id'], $user);
+		}
+        return $users;
+    }
 }
 

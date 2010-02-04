@@ -4,10 +4,12 @@ class Page_User extends Page
 {
 	public function configureView()
 	{
-		$this->tpl->assignTemplate ('com/view/header.tpl');
-		$this->tpl->assignTemplate ('com/view/top.tpl');
-		$this->tpl->assignTemplate ('com/view/user.tpl');
-		$this->tpl->assignTemplate ('com/view/footer.tpl');
+		$this->tpl->assignTemplate('com/view/header.tpl');
+		$this->tpl->assignTemplate('com/view/top.tpl');
+		$this->tpl->assignTemplate('com/view/user_header.tpl');
+		$this->tpl->assignTemplate('com/view/user_menu.tpl');
+		$this->tpl->assignTemplate('com/view/user.tpl');
+		$this->tpl->assignTemplate('com/view/footer.tpl');
 	}
 
 	public function configureData()
@@ -109,26 +111,35 @@ class Page_User extends Page
 
             // Get stats on profil's user votes according to global votes
             $profileAGS = $profile->getAnswerGlobalStats();
-            $this->tpl->assignVar(array
-            (
-                'profile_global_distance' => round((($profileAGS['votes'] - $profileAGS['popularVotes']) / $profileAGS['votes']) * $totalQuestions),
-            ));
+            if ($profileAGS['votes'] != 0)
+            {
+                $this->tpl->assignVar(array
+                (
+                    'profile_global_distance' => round((($profileAGS['votes'] - $profileAGS['popularVotes']) / $profileAGS['votes']) * $totalQuestions),
+                ));
+            }
 
             // Get stats on profil's user votes according to his friends votes
             $profileAFS = $profile->getAnswerFriendStats();
-            $this->tpl->assignVar(array
-            (
-                'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['popularVotes']) / $profileAFS['votes']) * $totalQuestions),
-            ));
+            if ($profileAFS['votes'] != 0)
+            {
+                $this->tpl->assignVar(array
+                (
+                    'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['popularVotes']) / $profileAFS['votes']) * $totalQuestions),
+                ));
+            }
 
             // Get stats on profil's user guesses according to global votes
             $profileGGS = $profile->getGuessGlobalStats();
-            $this->tpl->assignVar(array
-            (
-                'profile_totalPredictionWon'  => $profileGGS['popularGuesses'],
-                'profile_totalPredictionLost' => $profileGGS['unpopularGuesses'],
-                'profile_predictionAccuracy'  => round(($profileGGS['popularGuesses'] / $profileGGS['guesses']) * 100),
-            ));
+            if ($profileGGS['guesses'] != 0)
+            {
+                $this->tpl->assignVar(array
+                (
+                    'profile_totalPredictionWon'  => $profileGGS['popularGuesses'],
+                    'profile_totalPredictionLost' => $profileGGS['unpopularGuesses'],
+                    'profile_predictionAccuracy'  => round(($profileGGS['popularGuesses'] / $profileGGS['guesses']) * 100),
+                ));
+            }
 
             // Get stats on profil's user gusses for each of his friends
             $profileGFS = $profile->getGuessFriendsStats();
@@ -138,7 +149,7 @@ class Page_User extends Page
                 (
                     'id'      => $friend['user']->getId(),
                     'login'   => $friend['user']->getLogin(),
-                    'percent' => round(($friend['popularGuesses'] / $friend['guesses']) * 100),
+                    'percent' => round(($friend['guesses'] == 0) ? 0 : ($friend['popularGuesses'] / $friend['guesses']) * 100),
                 ));
             }
 
@@ -156,7 +167,7 @@ class Page_User extends Page
                 $this->tpl->assignLoopVar('feeling', array
                 (
                     'label'   => $label,
-                    'percent' => round(($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
+                    'percent' => round(($maxFeelingScore == 0) ? 0 : ($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
                 ));
                 $values[] = number_format(($profileFeelings[$id + 1] / $maxFeelingScore) * 5 + 1, 2);
             }

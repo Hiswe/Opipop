@@ -1,6 +1,6 @@
 <?php
 
-	if (!isOk($_SESSION['user']))
+	if (!Tool::isOk($_SESSION['user']))
     {
         exit();
     }
@@ -15,7 +15,7 @@
 
 	if ($_POST['action'] == 'add')
 	{
-		$rs_friend = $db->select('
+		$rs_friend = DB::select('
 			SELECT `valided`
 			FROM `friend`
 			WHERE (`user_id_1`="' . $friendId . '" AND `user_id_2`="' . $userId . '")
@@ -24,7 +24,7 @@
 
 		if ($rs_friend['total'] == 0)
 		{
-			$db->insert('INSERT INTO `friend` (`user_id_1`, `user_id_2`, `date`) VALUES
+			DB::insert('INSERT INTO `friend` (`user_id_1`, `user_id_2`, `date`) VALUES
 			(
 				"' . $userId . '",
 				"' . $friendId . '",
@@ -34,11 +34,11 @@
 	}
 	else if ($_POST['action'] == 'accept')
 	{
-		$db->update('UPDATE `friend` SET `valided`="1" WHERE `user_id_1`="' . $friendId . '" AND `user_id_2`="' . $userId . '"');
+		DB::update('UPDATE `friend` SET `valided`="1" WHERE `user_id_1`="' . $friendId . '" AND `user_id_2`="' . $userId . '"');
 	}
 	else
 	{
-		$db->delete('DELETE FROM `friend`
+		DB::delete('DELETE FROM `friend`
 			WHERE (`user_id_1`="' . $friendId . '" AND `user_id_2`="' . $userId . '")
 			OR (`user_id_1`="' . $userId . '" AND `user_id_2`="' . $friendId . '")
 		');

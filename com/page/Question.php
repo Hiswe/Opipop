@@ -4,10 +4,10 @@ class Page_Question extends Page
 {
 	public function configureView()
 	{
-		$this->tpl->assignTemplate ('com/view/header.tpl');
-		$this->tpl->assignTemplate ('com/view/top.tpl');
-		$this->tpl->assignTemplate ('com/view/question.tpl');
-		$this->tpl->assignTemplate ('com/view/footer.tpl');
+		$this->tpl->assignTemplate('com/view/header.tpl');
+		$this->tpl->assignTemplate('com/view/top.tpl');
+		$this->tpl->assignTemplate('com/view/question.tpl');
+		$this->tpl->assignTemplate('com/view/footer.tpl');
 	}
 
 	public function configureData()

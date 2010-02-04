@@ -293,11 +293,11 @@
 						return $this->getFile ($this->cacheFolder.$cacheName);
 					}
 
-					return '<!-- CACHE '.$cacheName.' -->'.$this->include_render ($this->getFile (ROOT_DIR.'template/'.$info[0])).'<!-- END '.$cacheName.' -->';
+					return '<!-- CACHE '.$cacheName.' -->'.$this->include_render ($this->getFile (ROOT_DIR.$info[0])).'<!-- END '.$cacheName.' -->';
 				}
 			}
 
-			return $this->include_render ($this->getFile (ROOT_DIR.'template/'.$info[0]));
+			return $this->include_render ($this->getFile (ROOT_DIR.$info[0]));
 		}
 
 		// save the cache of an included file

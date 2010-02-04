@@ -1,11 +1,4 @@
 
-        <!-- INCLUDE block/top.tpl -->
-
-        <h1>{profile_login}</h1>
-		<div><img src="{ROOT_PATH}{profile_avatar}" alt="{profile_login}" /></div>
-
-        <!-- INCLUDE block/profile_menu.tpl -->
-
         <h4>Friends:</h4>
         <ul>
             <!-- LOOP friend -->

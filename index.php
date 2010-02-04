@@ -79,8 +79,18 @@
                 break;
 
             case 'user':
-                include 'com/page/user.php';
+                include 'com/page/User.php';
                 $page = new Page_User($tpl);
+                break;
+
+            case 'user_edit':
+                include 'com/page/user/Edit.php';
+                $page = new Page_User_Edit($tpl);
+                break;
+
+            case 'user_list':
+                include 'com/page/user/List.php';
+                $page = new Page_User_List($tpl);
                 break;
 
             default :
