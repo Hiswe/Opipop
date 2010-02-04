@@ -19,7 +19,7 @@
 		$user = $rs['data'][0];
 		$_SESSION['user'] = array
 		(
-			'id'    => $user['id'],
+			'id'    => (int)$user['id'],
 			'login' => $user['login'],
 		);
 

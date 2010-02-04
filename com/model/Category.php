@@ -2,39 +2,50 @@
 
 class Category
 {
-    protected $id;
+    protected $data;
     protected $questions;
     protected $isArchive = false;
 
-	public function Category($id)
+	public function Category($id, $data = array())
 	{
-		if (is_string($id))
+		if (preg_match('/^(\d+)$/', $id) == 0)
 		{
-            $rs = DB::select('
-                SELECT `id`
-                FROM `category`
-                WHERE `guid`="' . $id . '"
-            ');
-            if ($rs['total'] != 0)
-            {
-                $this->id = $rs['data'][0]['id'];
-            }
-            else
-            {
-                // TODO : Error 500
-            }
+            $this->fetchData($id);
 		}
 		else
 		{
-            $this->id = $id;
+			$this->data = $data;
+            $this->data['id'] = $id;
 		}
+	}
+
+	private function fetchData($guid = false)
+	{
+        if (!$this->data['id'] && $guid)
+        {
+            $where =  'WHERE `guid`="' . $guid;
+        }
+        else
+        {
+            $where =  'WHERE `id`="' . $this->data['id'];
+        }
+		$rs = DB::select('
+			SELECT `id`, `label`
+            ' . $where . '
+			FROM `user`
+		');
+		if ($rs['total'] == 0)
+		{
+            // TODO : Error 500
+		}
+		$this->data = $rs['data'][0];
 	}
 
     private function fetchQuestions()
     {
         if ($this->isArchive)
         {
-            $where = 'q.date < ' . (time() - QUESTION_DURATION - 3600);
+            $where = 'q.date < ' . (time() - QUESTION_DURATION);
         }
         else
         {
@@ -47,7 +58,7 @@ class Category
             FROM `question` AS `q`
             JOIN `category` AS `c` ON c.id=q.category_id
             WHERE ' . $where . '
-            AND c.id="' . $this->id . '"
+            AND c.id="' . $this->data['id'] . '"
             AND q.status=1
             AND c.status=1
             ORDER BY q.date DESC
@@ -64,8 +75,17 @@ class Category
 
     public function getId()
     {
-        return $this->id;
+        return $this->data['id'];
     }
+
+	public function getLabel()
+	{
+		if (!isset($this->data['label']))
+		{
+			$this->fetchData();
+		}
+		return $this->data['label'];
+	}
 
     public function setIsArchive($bool)
     {
@@ -74,7 +94,7 @@ class Category
 
     public function getTotalQuestions()
     {
-        if (!$this->questions)
+        if (!isset($this->questions))
         {
             $this->fetchQuestions();
         }
@@ -83,7 +103,7 @@ class Category
 
     public function getQuestions($page = false)
     {
-        if (!$this->questions)
+        if (!isset($this->questions))
         {
             $this->fetchQuestions();
         }

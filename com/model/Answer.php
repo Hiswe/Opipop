@@ -2,16 +2,15 @@
 
 class Answer
 {
-    protected $id;
     protected $data;
     protected $stats;
 
 	public function Answer($id, $data = array())
 	{
-		if (is_numeric($id))
+		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
-            $this->id = $id;
 			$this->data = $data;
+            $this->data['id'] = $id;
 		}
 		else
 		{
@@ -25,7 +24,7 @@ class Answer
         ('
             SELECT `label`
             FROM `answer`
-            WHERE `id`=' . $this->id . '
+            WHERE `id`=' . $this->data['id'] . '
         ');
 		if ($rs['total'] == 0)
 		{
@@ -44,7 +43,7 @@ class Answer
 		('
 			SELECT
 				COUNT(r.question_id) AS total,
-				SUM(if(r.answer_id="' . $this->id . '", 1, 0)) AS total_matching,
+				SUM(if(r.answer_id="' . $this->data['id'] . '", 1, 0)) AS total_matching,
 				SUM(u.male) AS total_male
 			FROM `user_result` AS `r`
 			JOIN `user` AS `u` ON r.user_id=u.id
@@ -56,12 +55,12 @@ class Answer
 
     public function getId()
     {
-        return $this->id;
+        return $this->data['id'];
     }
 
     public function getLabel()
     {
-		if (!$this->data)
+		if (!isset($this->data['label']))
 		{
 			$this->fetchData();
 		}
@@ -70,7 +69,7 @@ class Answer
 
     public function getPercent()
     {
-		if (!$this->stats)
+		if (!isset($this->stats))
 		{
 			$this->fetchStats();
 		}
@@ -79,7 +78,7 @@ class Answer
 
     public function getPercentMale()
     {
-		if (!$this->stats)
+		if (!isset($this->stats))
 		{
 			$this->fetchStats();
 		}
@@ -88,7 +87,7 @@ class Answer
 
     public function getPercentFemale()
     {
-		if (!$this->stats)
+		if (!isset($this->stats))
 		{
 			$this->fetchStats();
 		}

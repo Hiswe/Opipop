@@ -2,29 +2,46 @@
 
 class User
 {
-    protected $id;
+    const FRIEND_STATUS_NONE    = 0;
+    const FRIEND_STATUS_PENDING = 1;
+    const FRIEND_STATUS_VALIDED = 2;
+
     protected $data;
+    protected $feelings;
     protected $friends;
+    protected $pendingFriends;
+    protected $answerGlobalStats;
+    protected $answerFriendStats;
+    protected $guessGlobalStats;
+    protected $guessFriendsStats;
 
 	public function User($id, $data = array())
 	{
-		if (is_string($id))
+		if (preg_match('/^(\d+)$/', $id) == 0)
 		{
-            $this->id = $id;
-			$this->data = $data;
+            $this->fetchData($id);
 		}
 		else
 		{
-            // TODO : Error 500
+			$this->data = $data;
+            $this->data['id'] = $id;
 		}
 	}
 
-	private function fetchData()
+	private function fetchData($login = false)
 	{
+        if (!$this->data['id'] && $login)
+        {
+            $where = '`login`="' . $login . '"';
+        }
+        else
+        {
+            $where = '`id`="' . $this->data['id'] . '"';
+        }
 		$rs = DB::select('
 			SELECT `id`, `login`, `valided`
 			FROM `user`
-			WHERE `id`="' . $this->id . '"
+            WHERE ' . $where . '
 		');
 		if ($rs['total'] == 0)
 		{
@@ -39,14 +56,35 @@ class User
 			SELECT u.login, u.id
 			FROM `friend` AS `f`
 			JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
-			WHERE f.valided="1" AND (f.user_id_1="' . $this->id . '" OR f.user_id_2="' . $this->id . '")
-			AND u.id!="' . $this->id . '"
+			WHERE f.valided="1" AND (f.user_id_1="' . $this->data['id'] . '" OR f.user_id_2="' . $this->data['id'] . '")
+			AND u.id!="' . $this->data['id'] . '"
 		');
+        $this->friends = array();
 		foreach ($rs['data'] as $friend)
 		{
 			$this->friends[] = new User($friend['id'], array
 			(
-				'login' => $friend['login'],
+				'login'   => $friend['login'],
+				'valided' => 1,
+			));
+		}
+	}
+
+	private function fetchPendingFriends()
+	{
+		$rs = DB::select('
+			SELECT u.login, u.id
+			FROM `friend` AS `f`
+            JOIN `user` AS `u` ON u.id=f.user_id_1
+            WHERE f.valided="0" AND f.user_id_2="' . $this->data['id'] . '"
+		');
+        $this->pendingFriends = array();
+		foreach ($rs['data'] as $friend)
+		{
+			$this->pendingFriends[] = new User($friend['id'], array
+			(
+				'login'   => $friend['login'],
+				'valided' => 0,
 			));
 		}
 	}
@@ -57,7 +95,7 @@ class User
 		('
 			SELECT `answer_id`
 			FROM `user_result`
-			WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->id . '"
+			WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->data['id'] . '"
 		');
 		if ($rs['total'] != 0)
 		{
@@ -66,13 +104,13 @@ class User
 		return false;
     }
 
-    public function getGuess($questionId)
+    public function getGuess($question)
     {
         $rs = DB::select
 		('
 			SELECT `answer_id`
 			FROM `user_guess`
-			WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->id . '"
+			WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
 		');
 		if ($rs['total'] != 0)
 		{
@@ -84,7 +122,7 @@ class User
 		return false;
     }
 
-	public function getGuessesForFriends($questionId)
+	public function getGuessesAboutFriends($question)
 	{
         $rs = DB::select
 		('
@@ -95,44 +133,243 @@ class User
 				OR (f.user_id_1=g.friend_id AND f.user_id_2=g.user_id)
 			JOIN `user` AS `u`
 				ON u.id=g.friend_id
-			WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->id . '"
+			WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
 		');
-		if ($rs['total'] != 0)
-		{
-			$guesses = array();
-			foreach ($rs['data'] as $guess)
-			{
-				$guesses[] = new Guess($guess['answer_id'], array
-				(
-					'user' => new User($guess['id'], array
-					(
-						'login'   => $guess['login'],
-						'valided' => $guess['valided'],
-					))
-				));
-			}
-			return $guesses;
-		}
-		return false;
+        $guesses = array();
+        foreach ($rs['data'] as $guess)
+        {
+            $guesses[] = new Guess($guess['answer_id'], array
+            (
+                'user' => new User($guess['id'], array
+                (
+                    'login'   => $guess['login'],
+                    'valided' => $guess['valided'],
+                ))
+            ));
+        }
+        return $guesses;
 	}
+
+    public function getAnswerGlobalStats()
+    {
+        if (!isset($this->answerGlobalStats))
+        {
+            $rs = DB::select('
+                SELECT
+                    COUNT(rg.answer_id) AS `votes`,
+                    SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `popularVotes`,
+                    SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `unpopularVotes`
+                FROM `user_result` AS `rg`
+                JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+                JOIN `question` AS `q` ON q.id=rg.question_id
+                WHERE q.date < ' . (time() - QUESTION_DURATION) . '
+            ');
+            if ($rs['total'] == 0)
+            {
+                $this->answerGlobalStats = array
+                (
+                    'votes'          => 0,
+                    'popularVotes'   => 0,
+                    'unpopularVotes' => 0
+                );
+            }
+            else
+            {
+                $this->answerGlobalStats = $rs['data'][0];
+            }
+        }
+        return $this->answerGlobalStats;
+    }
+
+    public function getAnswerFriendStats()
+    {
+        if (!isset($this->answerFriendStats))
+        {
+            $rs = DB::select('
+                SELECT
+                    COUNT(rg.answer_id) AS `votes`,
+                    SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `popularVotes`,
+                    SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `unpopularVotes`
+                FROM `user_result` AS `rg`
+                JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+                JOIN `question` AS `q` ON q.id=rg.question_id
+                JOIN `friend` AS f
+                    ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
+                    OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+                WHERE q.date < ' . (time() - QUESTION_DURATION) . '
+            ');
+            if ($rs['total'] == 0)
+            {
+                $this->answerFriendStats = array
+                (
+                    'votes'          => 0,
+                    'popularVotes'   => 0,
+                    'unpopularVotes' => 0
+                );
+            }
+            else
+            {
+                $this->answerFriendStats = $rs['data'][0];
+            }
+        }
+        return $this->answerFriendStats;
+    }
+
+    public function getGuessGlobalStats()
+    {
+        if (!isset($this->guessGlobalStats))
+        {
+            $rs = DB::select('
+                SELECT
+                    COUNT(rg.answer_id) AS `guesses`,
+                    SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `popularGuesses`,
+                    SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `unpopularGuesses`
+                FROM `user_result` AS `rg`
+                JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
+                JOIN `question` AS `q` ON q.id=rg.question_id
+                WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+            ');
+            if ($rs['total'] == 0)
+            {
+                $this->guessGlobalStats = array
+                (
+                    'guesses'          => 0,
+                    'popularGuesses'   => 0,
+                    'unpopularGuesses' => 0
+                );
+            }
+            else
+            {
+                $this->guessGlobalStats = $rs['data'][0];
+            }
+        }
+        return $this->guessGlobalStats;
+    }
+
+    public function getGuessFriendsStats()
+    {
+        if (!isset($this->guessFriendsStats))
+        {
+            $rs = DB::select('
+                SELECT
+                    u.id AS `id`,
+                    u.login AS `login`,
+                    COUNT(g.question_id) AS `guesses`
+                    SUM(IF(g.answer_id=r.answer_id, 1, 0)) AS `popularGuesses`,
+                    SUM(IF(g.answer_id!=r.answer_id, 1, 0)) AS `unpopularGuesses`,
+                FROM `user_guess_friend` AS `g`
+                JOIN `user` AS `u` ON g.friend_id=u.id
+                JOIN `user_result` AS `r` ON g.question_id=r.question_id
+                JOIN `question` AS `q` ON q.id=g.question_id
+                JOIN `friend` AS f
+                    ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
+                    OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+                WHERE g.user_id="' . $this->data['id'] . '"
+                AND q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+                GROUP BY g.friend_id
+            ');
+            $this->guessFriendsStats = array();
+            foreach ($rs['data'] as $friend)
+            {
+                $this->guessFriendsStats[] = array
+                (
+                    'guesses'          => $friend['guesses'],
+                    'popularGuesses'   => $friend['popularGuesses'],
+                    'unpopularGuesses' => $friend['unpopularGuesses'],
+                    'user'             => new User($friend['id'], array
+                    (
+                        'login'   => $friend['login'],
+                        'valided' => 1,
+                    )),
+                );
+            }
+        }
+        return $this->guessFriendsStats;
+    }
+
+    public function getFriendStatus($user)
+    {
+        $rs = DB::select('
+            SELECT `valided`
+            FROM `friend`
+            WHERE (`user_id_1`="' . $this->data['id'] . '" AND `user_id_2`="' . $user->getId() . '")
+            OR (`user_id_1`="' . $user->getId() . '" AND `user_id_2`="' . $this->data['id'] . '")
+        ');
+        if ($rs['total'] == 0)
+        {
+            return User::FRIEND_STATUS_NONE;
+        }
+        else if ($rs['data'][0]['valided'] == 1)
+        {
+            return User::FRIEND_STATUS_VALIDED;
+        }
+        else
+        {
+            return User::FRIEND_STATUS_PENDING;
+        }
+    }
+
+    public function getTotalVotes()
+    {
+        if (!isset($this->data['total_vote']))
+        {
+            $rs = DB::select('
+                SELECT COUNT(*) AS `total`
+                FROM `user_result`
+                WHERE `user_id`="' . $this->data['id'] . '"
+            ');
+            $this->data['total_vote'] = $rs['data'][0]['total'];
+        }
+        return $this->data['total_vote'];
+    }
 
 	public function getFriends()
 	{
-		if (!$this->friends)
+		if (!isset($this->friends))
 		{
 			$this->fetchFriends();
 		}
 		return $this->friends;
 	}
 
+	public function getPendingFriends()
+	{
+		if (!isset($this->pendingFriends))
+		{
+			$this->fetchPendingFriends();
+		}
+		return $this->pendingFriends;
+	}
+
+    public function getFeelings()
+    {
+        if (!isset($this->feelings))
+        {
+            $rs = DB::select('
+                SELECT f.id, COUNT(f.id) AS total
+                FROM `user_result` AS `r`
+                JOIN `question_answer_feeling` AS `j` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
+                JOIN `feeling` AS `f` ON f.id=j.feeling_id
+                WHERE r.user_id="' . $this->data['id'] . '" AND f.id!="1"
+                GROUP BY f.id
+            ');
+            $this->feelings = array('1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0);
+            foreach ($rs['data'] as $item)
+            {
+                $this->feelings[$item['id']] = $item['total'];
+            }
+        }
+        return $this->feelings;
+    }
+
 	public function getId()
 	{
-		return $this->id;
+		return $this->data['id'];
 	}
 
 	public function getLogin()
 	{
-		if (!$this->data)
+		if (!isset($this->data['login']))
 		{
 			$this->fetchData();
 		}
@@ -141,7 +378,7 @@ class User
 
 	public function getActive()
 	{
-		if (!$this->data)
+		if (!isset($this->data['active']))
 		{
 			$this->fetchData();
 		}
@@ -164,9 +401,9 @@ class User
 				$size = AVATAR_LARGE_SIZE;
 				break;
 		}
-		if (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->id . '.jpg'))
+		if (file_exists(ROOT_DIR . 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->data['id'] . '.jpg'))
 		{
-			return 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->id . '.jpg';
+			return 'media/avatar/' . AVATAR_SMALL_SIZE . '/' . $this->data['id'] . '.jpg';
 		}
 		return 'media/avatar/' . AVATAR_SMALL_SIZE . '/0.jpg';
 	}

@@ -78,6 +78,11 @@
                 $page = new Page_Question_List($tpl);
                 break;
 
+            case 'user':
+                include 'com/page/user.php';
+                $page = new Page_User($tpl);
+                break;
+
             default :
                 $page = new Page($tpl);
         }

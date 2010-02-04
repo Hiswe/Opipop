@@ -2,16 +2,15 @@
 
 class Question
 {
-    protected $id;
     protected $data;
     protected $answers;
 
 	public function Question($id, $data = array())
 	{
-		if (is_numeric($id))
+		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
-            $this->id = $id;
 			$this->data = $data;
+            $this->data['id'] = $id;
 		}
 		else
 		{
@@ -26,7 +25,7 @@ class Question
             SELECT q.id, q.date, q.label
             FROM `question` AS `q`
             JOIN `category` AS `c` ON c.id=q.category_id
-            WHERE q.id=' . $this->id . ' AND q.status=1 AND c.status=1
+            WHERE q.id=' . $this->data['id'] . ' AND q.status=1 AND c.status=1
         ');
 		if ($rs['total'] == 0)
 		{
@@ -41,7 +40,7 @@ class Question
             SELECT a.id, a.label
             FROM `answer` AS `a`
             JOIN `question_answer_feeling` AS j ON j.answer_id = a.id
-            WHERE j.question_id = ' . $this->id . '
+            WHERE j.question_id = ' . $this->data['id'] . '
             GROUP BY a.id
 		');
 		foreach ($rs['data'] as $answer)
@@ -49,19 +48,19 @@ class Question
 			$this->answers[] = new Answer($answer['id'], array
 			(
 				'label' => $answer['label'],
-				'question_id' => $this->id,
+				'question_id' => $this->data['id'],
 			));
 		}
     }
 
     public function getId()
     {
-        return $this->id;
+        return $this->data['id'];
     }
 
     public function getLabel()
     {
-		if (!$this->data)
+		if (!isset($this->data['label']))
 		{
 			$this->fetchData();
 		}
@@ -70,7 +69,7 @@ class Question
 
     public function getStartDate()
     {
-		if (!$this->data)
+		if (!isset($this->data['date']))
 		{
 			$this->fetchData();
 		}
@@ -79,7 +78,7 @@ class Question
 
     public function getEndDate()
     {
-		if (!$this->data)
+		if (!isset($this->data['date']))
 		{
 			$this->fetchData();
 		}
@@ -88,7 +87,7 @@ class Question
 
     public function isActive()
     {
-		if (!$this->data)
+		if (!isset($this->data['date']))
 		{
 			$this->fetchData();
 		}
@@ -97,11 +96,21 @@ class Question
 
 	public function getAnswers()
 	{
-		if (!$this->answers)
+		if (!isset($this->answers))
 		{
 			$this->fetchAnswers();
 		}
 		return $this->answers;
 	}
+
+    static public function getTotalQuestions()
+    {
+        $rs = DB::select('
+            SELECT COUNT(*) AS `total`
+            FROM `question`
+            WHERE `date` < ' . (time() - QUESTION_DURATION) . '
+        ');
+        return $rs['data'][0]['total'];
+    }
 }
 

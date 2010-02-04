@@ -26,8 +26,8 @@ class Page_Question extends Page
             $userAnswer = $user->getAnswer($question->getId());
             if ($userAnswer !== false)
             {
-                $userGuess             = $user->getGuess($question->getId());
-                $userGuessesForFriends = $user->getGuessesForFriends($question->getId());
+                $userGuess               = $user->getGuess($question);
+                $userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
             }
         }
 
@@ -138,24 +138,21 @@ class Page_Question extends Page
                 }
 
                 // If the user guessed for his friends
-                if ($userGuessesForFriends)
+                // Loop through all guesses
+                foreach ($userGuessesAboutFriends as $guess)
                 {
-                    // Loop through all guesses
-                    foreach ($userGuessesForFriends as $guess)
+                    // If the result is about this answer
+                    if ($guess->getId() == $answer->getId())
                     {
-                        // If the result is about this answer
-                        if ($guess->getId() == $answer->getId())
-                        {
-                            // Assing friend's infos
-                            $this->tpl->assignLoopVar('answer.friend', array
-                            (
-                                'id'     => $guess->getUser()->getId(),
-                                'login'  => $guess->getUser()->getLogin(),
-                                'avatar' => $guess->getUser()->getAvatarUri('small'),
-                                'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
-                                'class'  => 'friend',
-                            ));
-                        }
+                        // Assing friend's infos
+                        $this->tpl->assignLoopVar('answer.friend', array
+                        (
+                            'id'     => $guess->getUser()->getId(),
+                            'login'  => $guess->getUser()->getLogin(),
+                            'avatar' => $guess->getUser()->getAvatarUri('small'),
+                            'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
+                            'class'  => 'friend',
+                        ));
                     }
                 }
             }

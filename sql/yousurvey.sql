@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2010 at 06:37 PM
+-- Generation Time: Feb 02, 2010 at 02:12 AM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -215,10 +215,10 @@ ALTER TABLE `user_guess`
 -- Constraints for table `user_guess_friend`
 --
 ALTER TABLE `user_guess_friend`
-  ADD CONSTRAINT `user_guess_friend_ibfk_4` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_guess_friend_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_guess_friend_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `user_guess_friend_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `user_guess_friend_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_guess_friend_ibfk_4` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_result`

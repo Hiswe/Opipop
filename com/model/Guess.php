@@ -2,15 +2,14 @@
 
 class Guess
 {
-    protected $id;
     protected $data;
 
 	public function Guess($id, $data = array())
 	{
-		if (is_numeric($id))
+		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
-            $this->id = $id;
 			$this->data = $data;
+            $this->data['id'] = $id;
 		}
 		else
 		{
@@ -20,17 +19,17 @@ class Guess
 
     public function getId()
     {
-        return $this->id;
+        return $this->data['id'];
     }
 
     public function getAnswer()
     {
-        return new Answer($this->id);
+        return new Answer($this->data['id']);
     }
 
     public function getUser()
     {
-		if (!$this->data['user'])
+		if (!isset($this->data['user']))
 		{
             // TODO : Error 500
 		}
