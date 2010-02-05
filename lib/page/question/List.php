@@ -4,11 +4,11 @@ class Page_Question_List extends Page
 {
 	public function configureView()
 	{
-		$this->tpl->assignTemplate ('com/view/header.tpl');
-		$this->tpl->assignTemplate ('com/view/top.tpl');
-		$this->tpl->assignTemplate ('com/view/question_list.tpl');
-		$this->tpl->assignTemplate ('com/view/pagination.tpl');
-		$this->tpl->assignTemplate ('com/view/footer.tpl');
+		$this->tpl->assignTemplate('lib/view/header.tpl');
+		$this->tpl->assignTemplate('lib/view/top.tpl');
+		$this->tpl->assignTemplate('lib/view/question_list.tpl');
+		$this->tpl->assignTemplate('lib/view/pagination.tpl');
+		$this->tpl->assignTemplate('lib/view/footer.tpl');
 	}
 
 	public function configureData()

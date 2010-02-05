@@ -4,12 +4,12 @@ class Page_User_Edit extends Page
 {
 	public function configureView()
 	{
-		$this->tpl->assignTemplate('com/view/header.tpl');
-		$this->tpl->assignTemplate('com/view/top.tpl');
-		$this->tpl->assignTemplate('com/view/user_header.tpl');
-		$this->tpl->assignTemplate('com/view/user_menu.tpl');
-		$this->tpl->assignTemplate('com/view/user_edit.tpl');
-		$this->tpl->assignTemplate('com/view/footer.tpl');
+		$this->tpl->assignTemplate('lib/view/header.tpl');
+		$this->tpl->assignTemplate('lib/view/top.tpl');
+		$this->tpl->assignTemplate('lib/view/user_header.tpl');
+		$this->tpl->assignTemplate('lib/view/user_menu.tpl');
+		$this->tpl->assignTemplate('lib/view/user_edit.tpl');
+		$this->tpl->assignTemplate('lib/view/footer.tpl');
 	}
 
 	public function configureData()

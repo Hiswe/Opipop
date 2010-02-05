@@ -16,13 +16,13 @@
 
     function __autoload($className)
     {
-        include 'com/' . str_replace('_', '/', $className) . '.php';
+        include 'lib/' . str_replace('_', '/', $className) . '.php';
     }
 
     // REMOTES
     if (isset($_GET['remote']))
     {
-        include 'com/remote/' . $_GET['remote'] . '.php';
+        include 'lib/remote/' . $_GET['remote'] . '.php';
         exit();
     }
 

@@ -4,10 +4,10 @@ class Page_Login extends Page
 {
 	public function configureView()
 	{
-		$this->tpl->assignTemplate('com/view/header.tpl');
-		$this->tpl->assignTemplate('com/view/top.tpl');
-		$this->tpl->assignTemplate('com/view/login.tpl');
-		$this->tpl->assignTemplate('com/view/footer.tpl');
+		$this->tpl->assignTemplate('lib/view/header.tpl');
+		$this->tpl->assignTemplate('lib/view/top.tpl');
+		$this->tpl->assignTemplate('lib/view/login.tpl');
+		$this->tpl->assignTemplate('lib/view/footer.tpl');
 	}
 
 	public function configureData()
