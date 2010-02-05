@@ -14,11 +14,14 @@
     date_default_timezone_set('Europe/Paris');
     session_start();
 
+    function __autoload($className)
+    {
+        include 'com/' . str_replace('_', '/', $className) . '.php';
+    }
+
     // REMOTES
     if (isset($_GET['remote']))
     {
-        include 'com/DB.php';
-        include 'com/Tool.php';
         include 'com/remote/' . $_GET['remote'] . '.php';
         exit();
     }
@@ -26,22 +29,7 @@
     // PAGES
     if (isset($_GET['page']))
     {
-        include 'com/DB.php';
-        include 'com/Tool.php';
-        include 'com/Page.php';
-        include 'com/Block.php';
-        include 'com/Template.php';
-
-        include 'com/block/Top.php';
-
-        include 'com/model/Category.php';
-        include 'com/model/Answer.php';
-        include 'com/model/Guess.php';
-        include 'com/model/Question.php';
-        include 'com/model/User.php';
-        include 'com/model/Pagination.php';
-
-        $tpl = new templateEngine();
+        $tpl = new Template();
         $tpl->cacheTimeCoef = CACHE_TIMECOEF;
         $tpl->assignVar (array(
             'PAGE_TITLE'       => PAGE_TITLE,
@@ -54,42 +42,34 @@
         switch ($_GET['page'])
         {
             case 'homepage':
-                include 'com/page/Homepage.php';
                 $page = new Page_Homepage($tpl);
                 break;
 
             case 'login':
-                include 'com/page/Login.php';
                 $page = new Page_Login($tpl);
                 break;
 
             case 'logout':
-                include 'com/page/Logout.php';
                 $page = new Page_Logout($tpl);
                 break;
 
             case 'question':
-                include 'com/page/Question.php';
                 $page = new Page_Question($tpl);
                 break;
 
             case 'question_list':
-                include 'com/page/question/List.php';
                 $page = new Page_Question_List($tpl);
                 break;
 
             case 'user':
-                include 'com/page/User.php';
                 $page = new Page_User($tpl);
                 break;
 
             case 'user_edit':
-                include 'com/page/user/Edit.php';
                 $page = new Page_User_Edit($tpl);
                 break;
 
             case 'user_list':
-                include 'com/page/user/List.php';
                 $page = new Page_User_List($tpl);
                 break;
 

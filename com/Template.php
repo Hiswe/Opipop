@@ -1,6 +1,6 @@
 <?php
 
-	class templateEngine
+	class Template
 	{
 		// store the list of all tpl files name and cache time
 		var $TEMPLATE, $SECTION, $LOOP, $VARIABLE,	$CONTENT, $SIZE, $LATEST_INCLUDE, $LOOP_SIZE;
@@ -9,7 +9,7 @@
 		var $cacheFolder, $cacheTimeCoef, $renderCompress, $execTime, $cacheKeyList;
 
 		// Construct
-		function templateEngine (){
+		function Template (){
 			$this->TEMPLATE = $this->SECTION = $this->LOOP = $this->VARIABLE = $this->SIZE = $this->LATEST_INCLUDE = $this->LOOP_SIZE = $this->cacheKeyList = array ();
 			$this->CONTENT = '';
 
