@@ -1,12 +1,12 @@
 <?php
 
-class Category
+class Model_Category
 {
     protected $data;
     protected $questions;
     protected $isArchive = false;
 
-	public function Category($id, $data = array())
+	public function Model_Category($id, $data = array())
 	{
 		if (preg_match('/^(\d+)$/', $id) == 0)
 		{
@@ -66,7 +66,7 @@ class Category
         ');
 		foreach ($rs['data'] as $question)
 		{
-			$this->questions[] = new Question($question['id'], array
+			$this->questions[] = new Model_Question($question['id'], array
 			(
 				'label' => $question['label'],
 				'date' => $question['date'],

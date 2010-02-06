@@ -18,7 +18,7 @@ class Page_User extends Page
 		$top = new Block_Top($this->tpl);
 		$top->configure();
 
-        $profile = new User($_GET['login']);
+        $profile = new Model_User($_GET['login']);
 
         $this->tpl->assignVar(array
         (
@@ -30,7 +30,7 @@ class Page_User extends Page
         // If a user is logged
         if (Tool::isOk($_SESSION['user']))
         {
-            $user = new User($_SESSION['user']['id']);
+            $user = new Model_User($_SESSION['user']['id']);
 
             // If I'm on my profile
             if ($user->getId() == $profile->getId())
@@ -59,15 +59,15 @@ class Page_User extends Page
                 // Look if I'm friend with this profile's user
                 switch ($profile->getFriendStatus($user))
                 {
-                    case User::FRIEND_STATUS_NONE :
+                    case Model_User::FRIEND_STATUS_NONE :
                         $friendMessage = 'Add to friends';
                         $friendAction  = 'add';
                         break;
-                    case User::FRIEND_STATUS_PENDING :
+                    case Model_User::FRIEND_STATUS_PENDING :
                         $friendMessage = 'Cancel friend request';
                         $friendAction  = 'cancel';
                         break;
-                    case User::FRIEND_STATUS_VALIDED :
+                    case Model_User::FRIEND_STATUS_VALIDED :
                         $friendMessage = 'Remove from friends';
                         $friendAction  = 'remove';
                         break;
@@ -107,7 +107,7 @@ class Page_User extends Page
         // If profile's user already voted
         if ($profileTotalVotes != 0)
         {
-            $totalQuestions = Question::getTotalQuestions();
+            $totalQuestions = Model_Question::getTotalQuestions();
 
             // Get stats on profil's user votes according to global votes
             $profileAGS = $profile->getAnswerGlobalStats();

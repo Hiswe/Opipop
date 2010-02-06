@@ -1,6 +1,6 @@
 <?php
 
-class Pagination
+class Model_Pagination
 {
     private $currentPage = 0;
     private $itemPerPage = 0;
@@ -8,7 +8,7 @@ class Pagination
     private $page = 0;
     private $link = '';
 
-	public function Pagination()
+	public function Model_Pagination()
 	{
     }
 

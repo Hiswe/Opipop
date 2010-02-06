@@ -19,7 +19,7 @@ class Page_User_List extends Page
         // If a user is logged
         if (Tool::isOk($_SESSION['user']))
         {
-			$reader = new User($_SESSION['user']['id']);
+			$reader = new Model_User($_SESSION['user']['id']);
 		}
 
 		// If we made a search
@@ -30,11 +30,11 @@ class Page_User_List extends Page
 			(
 				'search_query' => utf8_encode(htmlspecialchars(rawurldecode(stripslashes($query))))
 			));
-			$users = User::search($this->getPage(), $query);
+			$users = Model_User::search($this->getPage(), $query);
 		}
 		else
 		{
-			$users = User::search($this->getPage());
+			$users = Model_User::search($this->getPage());
 		}
 
 		// List all users
@@ -51,15 +51,15 @@ class Page_User_List extends Page
 			{
 				switch ($reader->getFriendStatus($user))
 				{
-					case User::FRIEND_STATUS_NONE :
+					case Model_User::FRIEND_STATUS_NONE :
 						$friendMessage = 'Add to friends';
 						$friendAction  = 'add';
 						break;
-					case User::FRIEND_STATUS_PENDING :
+					case Model_User::FRIEND_STATUS_PENDING :
 						$friendMessage = 'Cancel friend request';
 						$friendAction  = 'cancel';
 						break;
-					case User::FRIEND_STATUS_VALIDED :
+					case Model_User::FRIEND_STATUS_VALIDED :
 						$friendMessage = 'Remove from friends';
 						$friendAction  = 'remove';
 						break;

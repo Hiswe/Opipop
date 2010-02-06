@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Model_User
 {
     const FRIEND_STATUS_NONE    = 0;
     const FRIEND_STATUS_PENDING = 1;
@@ -15,7 +15,7 @@ class User
     protected $guessGlobalStats;
     protected $guessFriendsStats;
 
-	public function User($id, $data = array())
+	public function Model_User($id, $data = array())
 	{
 		if (preg_match('/^(\d+)$/', $id) == 0)
 		{
@@ -62,7 +62,7 @@ class User
         $this->friends = array();
 		foreach ($rs['data'] as $friend)
 		{
-			$this->friends[] = new User($friend['id'], $friend);
+			$this->friends[] = new Model_User($friend['id'], $friend);
 		}
 	}
 
@@ -77,7 +77,7 @@ class User
         $this->pendingFriends = array();
 		foreach ($rs['data'] as $friend)
 		{
-			$this->pendingFriends[] = new User($friend['id'], $friend);
+			$this->pendingFriends[] = new Model_User($friend['id'], $friend);
 		}
 	}
 
@@ -91,7 +91,7 @@ class User
 		');
 		if ($rs['total'] != 0)
 		{
-			return new Answer($rs['data'][0]['answer_id']);
+			return new Model_Answer($rs['data'][0]['answer_id']);
 		}
 		return false;
     }
@@ -106,7 +106,7 @@ class User
 		');
 		if ($rs['total'] != 0)
 		{
-			return new Guess($rs['data'][0]['answer_id'], array
+			return new Model_Guess($rs['data'][0]['answer_id'], array
 			(
 				'user' => $this
 			));
@@ -130,9 +130,9 @@ class User
         $guesses = array();
         foreach ($rs['data'] as $guess)
         {
-            $guesses[] = new Guess($guess['answer_id'], array
+            $guesses[] = new Model_Guess($guess['answer_id'], array
             (
-                'user' => new User($guess['id'], array
+                'user' => new Model_User($guess['id'], array
                 (
                     'login'   => $guess['login'],
                     'valided' => $guess['valided'],
@@ -253,9 +253,9 @@ class User
                     u.zip,
                     u.email,
                     u.valided,
-                    COUNT(g.question_id) AS `guesses`
+                    COUNT(g.question_id) AS `guesses`,
                     SUM(IF(g.answer_id=r.answer_id, 1, 0)) AS `popularGuesses`,
-                    SUM(IF(g.answer_id!=r.answer_id, 1, 0)) AS `unpopularGuesses`,
+                    SUM(IF(g.answer_id!=r.answer_id, 1, 0)) AS `unpopularGuesses`
                 FROM `user_guess_friend` AS `g`
                 JOIN `user` AS `u` ON g.friend_id=u.id
                 JOIN `user_result` AS `r` ON g.question_id=r.question_id
@@ -275,7 +275,7 @@ class User
                     'guesses'          => $friend['guesses'],
                     'popularGuesses'   => $friend['popularGuesses'],
                     'unpopularGuesses' => $friend['unpopularGuesses'],
-                    'user'             => new User($friend['id'], array
+                    'user'             => new Model_User($friend['id'], array
                     (
                         'login' => $friend['login'],
                         'zip'   => $friend['zip'],
@@ -299,15 +299,15 @@ class User
         ');
         if ($rs['total'] == 0)
         {
-            return User::FRIEND_STATUS_NONE;
+            return Model_User::FRIEND_STATUS_NONE;
         }
         else if ($rs['data'][0]['valided'] == 1)
         {
-            return User::FRIEND_STATUS_VALIDED;
+            return Model_User::FRIEND_STATUS_VALIDED;
         }
         else
         {
-            return User::FRIEND_STATUS_PENDING;
+            return Model_User::FRIEND_STATUS_PENDING;
         }
     }
 
@@ -454,7 +454,7 @@ class User
         $users = array();
 		foreach ($rs['data'] as $user)
 		{
-			$users[] = new User($user['id'], $user);
+			$users[] = new Model_User($user['id'], $user);
 		}
         return $users;
     }

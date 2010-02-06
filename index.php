@@ -16,7 +16,7 @@
 
     function __autoload($className)
     {
-        include 'lib/' . str_replace('_', '/', $className) . '.php';
+        include ROOT_DIR . 'lib/' . str_replace('_', '/', $className) . '.php';
     }
 
     // REMOTES

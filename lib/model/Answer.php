@@ -1,11 +1,11 @@
 <?php
 
-class Answer
+class Model_Answer
 {
     protected $data;
     protected $stats;
 
-	public function Answer($id, $data = array())
+	public function Model_Answer($id, $data = array())
 	{
 		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
@@ -48,9 +48,20 @@ class Answer
 			FROM `user_result` AS `r`
 			JOIN `user` AS `u` ON r.user_id=u.id
 			WHERE r.question_id="' . $this->data['question_id'] . '"
+            AND r.answer_id="' . $this->data['id'] . '"
 			GROUP BY r.question_id
 		');
-		$this->stats = $rs['data'][0];
+        $this->stats = array
+        (
+            'total' => 0,
+            'total' => 'total_matching',
+            'total' => 'total_male',
+        );
+        if ($rs['total'] != 0)
+        {
+            $this->stats = $rs['data'][0];
+        }
+        return $this->stats;
 	}
 
     public function getId()
@@ -73,6 +84,10 @@ class Answer
 		{
 			$this->fetchStats();
 		}
+        if ($this->stats['total'] == 0)
+        {
+            return 0;
+        }
 		return ($this->stats['total_matching'] / $this->stats['total']) * 100;
     }
 
@@ -82,6 +97,10 @@ class Answer
 		{
 			$this->fetchStats();
 		}
+        if ($this->stats['total'] == 0)
+        {
+            return 0;
+        }
 		return ($this->stats['total_male'] / $this->stats['total']) * 100;
     }
 
@@ -91,6 +110,10 @@ class Answer
 		{
 			$this->fetchStats();
 		}
+        if ($this->stats['total'] == 0)
+        {
+            return 0;
+        }
 		return (($this->stats['total'] - $this->stats['total_male']) / $this->stats['total']) * 100;
     }
 }

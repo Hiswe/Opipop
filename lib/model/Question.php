@@ -1,11 +1,11 @@
 <?php
 
-class Question
+class Model_Question
 {
     protected $data;
     protected $answers;
 
-	public function Question($id, $data = array())
+	public function Model_Question($id, $data = array())
 	{
 		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
@@ -45,7 +45,7 @@ class Question
 		');
 		foreach ($rs['data'] as $answer)
 		{
-			$this->answers[] = new Answer($answer['id'], array
+			$this->answers[] = new Model_Answer($answer['id'], array
 			(
 				'label' => $answer['label'],
 				'question_id' => $this->data['id'],

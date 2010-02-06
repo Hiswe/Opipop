@@ -17,12 +17,12 @@ class Page_Question extends Page
 		$top->configure();
 
         // Get question
-        $question = new Question($this->getParameter('id'));
+        $question = new Model_Question($this->getParameter('id'));
 
         // If a user is logged
         if (Tool::isOk($_SESSION['user']))
         {
-            $user = new User($_SESSION['user']['id']);
+            $user = new Model_User($_SESSION['user']['id']);
             $userAnswer = $user->getAnswer($question->getId());
             if ($userAnswer !== false)
             {
@@ -88,8 +88,8 @@ class Page_Question extends Page
                 // Assign answer's infos
                 $this->tpl->assignLoopVar('answer', array
                 (
-                    'label' => $answer['label'],
-                    'id'    => $answer['id'],
+                    'id'    => $answer->getId(),
+                    'label' => $answer->getLabel(),
                 ));
             }
 

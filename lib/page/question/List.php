@@ -18,7 +18,7 @@ class Page_Question_List extends Page
 		$top->configure();
 
         // Init category
-        $category = new Category($this->getParameter('guid'));
+        $category = new Model_Category($this->getParameter('guid'));
         $category->setIsArchive($this->getParameter('archive'));
         if ($category->getTotalQuestions() == 0)
         {
@@ -67,7 +67,7 @@ class Page_Question_List extends Page
         // Pagination setup
         if ($this->getParameter('archive'))
         {
-            $pagination = new Pagination();
+            $pagination = new Model_Pagination();
             $pagination->setPage($this->getPage());
             $pagination->setItemPerPage(QUESTION_PER_PAGE);
             $pagination->setTotalItem($category->getTotalQuestions());

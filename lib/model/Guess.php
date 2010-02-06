@@ -1,10 +1,10 @@
 <?php
 
-class Guess
+class Model_Guess
 {
     protected $data;
 
-	public function Guess($id, $data = array())
+	public function Model_Guess($id, $data = array())
 	{
 		if (preg_match('/^(\d+)$/', $id) != 0)
 		{
@@ -24,7 +24,7 @@ class Guess
 
     public function getAnswer()
     {
-        return new Answer($this->data['id']);
+        return new Model_Answer($this->data['id']);
     }
 
     public function getUser()

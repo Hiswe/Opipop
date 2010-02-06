@@ -24,7 +24,7 @@ class Page_User_Edit extends Page
             // TODO : 500
         }
 
-        $user = new User($_SESSION['user']['id']);
+        $user = new Model_User($_SESSION['user']['id']);
 
         $this->tpl->assignSection('private');
         $this->tpl->assignVar(array
