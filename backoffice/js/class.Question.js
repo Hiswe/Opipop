@@ -33,6 +33,15 @@ var Question = function(param)
 
         this.container.insert(Form.newInputText(
         {
+            label     : 'Did you know',
+            id        : 'question_didyouknow',
+            name      : 'didyouknow',
+            value     : this.data['didyouknow'],
+            maxlength : 255
+        }));
+
+        this.container.insert(Form.newInputText(
+        {
             label     : '1st answer',
             id        : 'question_answer1',
             name      : 'answer[]',
@@ -124,15 +133,17 @@ var Question = function(param)
 
     this.save = function()
     {
-        this.data['label']    = $('question_label').value;
-        this.data['answer1']  = $('question_answer1').value;
-        this.data['answer2']  = $('question_answer2').value;
-        this.data['feeling1'] = $('question_feeling1').value;
-        this.data['feeling2'] = $('question_feeling2').value;
+        this.data['label']      = $('question_label').value;
+        this.data['didyouknow'] = $('question_didyouknow').value;
+        this.data['answer1']    = $('question_answer1').value;
+        this.data['answer2']    = $('question_answer2').value;
+        this.data['feeling1']   = $('question_feeling1').value;
+        this.data['feeling2']   = $('question_feeling2').value;
         var param =
         {
             'id'         : this.data['id'],
             'label'      : this.data['label'],
+            'didyouknow' : this.data['didyouknow'],
             'answer[0]'  : this.data['answer1'],
             'answer[1]'  : this.data['answer2'],
             'feeling[0]' : this.data['feeling1'],

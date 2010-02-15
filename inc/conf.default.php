@@ -26,7 +26,7 @@
     $conf['AVATAR_LARGE_SIZE']  = '140x140';
 
     // CONTENT
-    $conf['PAGE_TITLE']       = utf8_encode ('youSurvey');
+    $conf['PAGE_TITLE']       = utf8_encode ('Opipop');
     $conf['PAGE_DESCRIPTION'] = utf8_encode ('');
     $conf['PAGE_KEYWORDS']    = utf8_encode ('');
     $conf['QUESTION_DURATION']    = 86400 * 7;

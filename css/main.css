@@ -1,54 +1,16 @@
-#base ul
-{
-    border: solid 1px #ccc;
-    padding: 10px;
-    margin: 8px;
-    min-height: 40px;
-}
+* { margin: 0; padding: 0; }
 
-#base ul.colide
-{
-    border-color: #66ff66;
-}
+body { margin: 0; padding: 0; font-family: arial, sans-serif; font-size: 12px; background: #f0f0f0; color: #666; }
 
-#result li.answer
-{
-    border: dashed 1px #ccc;
-    padding: 16px 8px;
-    margin: 10px;
-}
+ul { list-style: none; }
 
-#result li.answer.colide
-{
-    border-color: #ff6666;
-}
+a { color: #ff99cc; font-weight: bold; text-decoration: none; }
 
-#result div.progress
-{
-    width: 0%;
-    height: 10px;
-    background: #ccffcc;
-}
+a:hover { text-decoration: underline; }
 
-li.user,
-li.friend,
-strong.user
-{
-    display: inline-block;
-    margin: 2px;
-    padding: 4px 4px 0px 4px;
-		border: solid 1px #ccc;
-}
+#main { max-width: 1050px; min-width: 800px; margin: 0 auto; background: #fff; position: relative; }
 
-li.user.voted,
-li.friend.voted
-{
-    background: #ccc;
-		border: solid 1px #999;
-}
+#header { padding: 10px; font-size: 32px; }
+#header p { font-style: italic; font-size: 12px; margin: 0 0 0 20px; }
 
-li.friend
-{
-    border-style: dashed;
-}
-
+#userBox { position: absolute; top: 10px; right: 10px; padding: 10px; border: solid 1px #ccc; background: #f0f0f0; font-size: 16px; }

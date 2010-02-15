@@ -17,8 +17,8 @@
     // REMOTES
     if (isset($_GET['remote']))
     {
-        include '../com/DB.php';
-        include '../com/Tool.php';
+        include '../lib/DB.php';
+        include '../lib/Tool.php';
         include 'remote/' . $_GET['remote'] . '.php';
         exit();
     }

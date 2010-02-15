@@ -22,7 +22,7 @@ class Model_Question
     {
         $rs = DB::select
         ('
-            SELECT q.id, q.date, q.label
+            SELECT q.id, q.date, q.label, q.didyouknow
             FROM `question` AS `q`
             JOIN `category` AS `c` ON c.id=q.category_id
             WHERE q.id=' . $this->data['id'] . ' AND q.status=1 AND c.status=1
@@ -65,6 +65,15 @@ class Model_Question
 			$this->fetchData();
 		}
         return $this->data['label'];
+    }
+
+    public function getDidyouknow()
+    {
+		if (!isset($this->data['didyouknow']))
+		{
+			$this->fetchData();
+		}
+        return $this->data['didyouknow'];
     }
 
     public function getStartDate()
@@ -112,5 +121,22 @@ class Model_Question
         ');
         return $rs['data'][0]['total'];
     }
+
+	static public function getRandomQuestion()
+	{
+        $rs = DB::select
+        ('
+            SELECT q.id, q.date, q.label, q.didyouknow
+            FROM `question` AS `q`
+            JOIN `category` AS `c` ON c.id=q.category_id
+            WHERE q.status=1 AND c.status=1
+			ORDER BY RAND()
+        ');
+		if ($rs['total'] == 0)
+		{
+            // TODO : Error 500
+		}
+		return new Model_Question($rs['data'][0]['id'], $rs['data'][0]);
+	}
 }
 

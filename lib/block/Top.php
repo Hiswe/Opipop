@@ -38,6 +38,21 @@ class Block_Top extends Block
 				'guid' => $category['guid'],
 			));
 		}
+
+		// Did you know ?
+		$question   = Model_Question::getRandomQuestion();
+		$answers    = $question->getAnswers();
+		$didyouknow = $question->getDidyouknow();
+        foreach ($answers as $key => $answer)
+		{
+			$didyouknow = str_replace('{PERCENT_' . ($key + 1) . '}', number_format($answer->getPercent($question->getId()), 1, ',', ' '), $didyouknow);
+		}
+		$this->tpl->assignVar(array
+		(
+			'didyouknow_label' => $didyouknow,
+			'didyouknow_id'    => $question->getId(),
+			'didyouknow_guid'  => Tool::makeGuid($question->getLabel()),
+		));
 	}
 }
 

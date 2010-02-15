@@ -48,14 +48,13 @@ class Model_Answer
 			FROM `user_result` AS `r`
 			JOIN `user` AS `u` ON r.user_id=u.id
 			WHERE r.question_id="' . $this->data['question_id'] . '"
-            AND r.answer_id="' . $this->data['id'] . '"
 			GROUP BY r.question_id
 		');
         $this->stats = array
         (
-            'total' => 0,
-            'total' => 'total_matching',
-            'total' => 'total_male',
+            'total'          => 0,
+            'total_matching' => 0,
+            'total_male'     => 0,
         );
         if ($rs['total'] != 0)
         {

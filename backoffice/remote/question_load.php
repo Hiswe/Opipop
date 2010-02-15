@@ -7,7 +7,7 @@
     ini_set("memory_limit",'16M');
 
 	$rs_question = DB::select('
-		SELECT `id`, `category_id`, `date`, `label`
+		SELECT `id`, `category_id`, `date`, `label`, `didyouknow`
 		FROM `question`
 		WHERE `id`="' . $_POST['id'] . '"
 	');

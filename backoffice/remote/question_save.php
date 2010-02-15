@@ -1,7 +1,9 @@
 <?php
 
 	DB::update('UPDATE `question`
-		SET `label` = "' . $_POST['label'] . '"
+		SET
+			`label` = "' . $_POST['label'] . '",
+			`didyouknow` = "' . $_POST['didyouknow'] . '"
 		WHERE `id` = "' . $_POST['id'] . '"');
 
 	DB::delete('

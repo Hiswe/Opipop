@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 02, 2010 at 02:12 AM
+-- Generation Time: Feb 15, 2010 at 11:24 PM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `yousurvey`
+-- Database: `opipop`
 --
 
 -- --------------------------------------------------------
@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `status` tinyint(1) NOT NULL default '0',
   `date` int(10) unsigned NOT NULL,
   `label` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `didyouknow` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
