@@ -118,6 +118,7 @@ class Model_Question
             SELECT COUNT(*) AS `total`
             FROM `question`
             WHERE `date` < ' . (time() - QUESTION_DURATION) . '
+			AND `category_id`="' . MAIN_CATEGORY . '"
         ');
         return $rs['data'][0]['total'];
     }
@@ -130,6 +131,7 @@ class Model_Question
             FROM `question` AS `q`
             JOIN `category` AS `c` ON c.id=q.category_id
             WHERE q.status=1 AND c.status=1
+			AND q.category_id="' . MAIN_CATEGORY . '"
 			ORDER BY RAND()
         ');
 		if ($rs['total'] == 0)

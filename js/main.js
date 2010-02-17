@@ -94,6 +94,41 @@ function user_requestFriend(friendId, accept)
 ///////////////////
 
 var question_questionId = {};
+var question_archivePage = 1;
+
+function question_initList()
+{
+    $('morePollsButton').observe('mousedown', question_showArchive);
+}
+
+function removeMorePollButton()
+{
+    $('morePollsButton').remove();
+}
+
+function question_showArchive()
+{
+    $('morePollsButton').hide();
+
+    var params =
+    {
+        'page' : question_archivePage,
+    };
+
+	new Ajax.Request (ROOT_PATH + 'remote/question_getArchive',
+	{
+		parameters: $H(params).toQueryString(),
+		onSuccess: function(xhr)
+		{
+            if ($('morePollsButton'))
+            {
+                $('morePollsButton').show();
+            }
+            $('questionArchiveContainer').insert(xhr.responseText);
+            question_archivePage ++;
+		}
+	});
+}
 
 function question_initResult()
 {

@@ -110,7 +110,6 @@ class Model_Category
         }
         $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
         $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
-
 		return array_slice($this->questions, $from, $max);
     }
 }

@@ -17,3 +17,8 @@
             <!-- END question -->
         </ul>
 
+        <div id="questionArchiveContainer"></div>
+
+        <div id="morePolls"><a href="javascript:return false;" id="morePollsButton">More polls</a></div>
+        <script type="text/javascript">question_initList();</script>
+

@@ -14,10 +14,22 @@
     date_default_timezone_set('Europe/Paris');
     session_start();
 
+    // AUTOLOADER
     function __autoload($className)
     {
         include ROOT_DIR . 'lib/' . str_replace('_', '/', $className) . '.php';
     }
+
+    // TEMPLATE ENGINE
+    $tpl = new Template();
+    $tpl->cacheTimeCoef = CACHE_TIMECOEF;
+    $tpl->assignVar (array(
+        'PAGE_TITLE'       => PAGE_TITLE,
+        'PAGE_DESCRIPTION' => PAGE_DESCRIPTION,
+        'PAGE_KEYWORDS'    => PAGE_KEYWORDS,
+        'ROOT_PATH'        => ROOT_PATH,
+        'VERSION'          => VERSION
+    ));
 
     // REMOTES
     if (isset($_GET['remote']))
@@ -29,16 +41,6 @@
     // PAGES
     if (isset($_GET['page']))
     {
-        $tpl = new Template();
-        $tpl->cacheTimeCoef = CACHE_TIMECOEF;
-        $tpl->assignVar (array(
-            'PAGE_TITLE'       => PAGE_TITLE,
-            'PAGE_DESCRIPTION' => PAGE_DESCRIPTION,
-            'PAGE_KEYWORDS'    => PAGE_KEYWORDS,
-            'ROOT_PATH'        => ROOT_PATH,
-            'VERSION'          => VERSION
-        ));
-
         switch ($_GET['page'])
         {
             case 'homepage':
