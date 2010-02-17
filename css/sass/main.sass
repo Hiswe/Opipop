@@ -8,7 +8,7 @@ body
     font-family: arial, sans-serif
     font-size: 12px
     background: #f0f0f0
-    color: #666
+    color: #999
 
 ul
     list-style: none
@@ -48,7 +48,7 @@ a:hover
 
 
 /////////////////////////
-// HEADER
+// USER BOX
 /////////////////////////
 
 #userBox
@@ -59,3 +59,44 @@ a:hover
     border: solid 1px #ccc
     background: #f0f0f0
     font-size: 16px
+
+
+/////////////////////////
+// QUESTION ACTIVE
+/////////////////////////
+
+#questionActiveList
+    margin: 40px
+    li.question
+        margin: 30px 10px
+        div.label
+            text-align: center
+            font-size: 18px
+            font-weight: bold
+            border-bottom: solid 1px #ccc
+            padding: 10px
+            img.star
+                float: right
+        ul.answers
+            position: relative
+            li.answer
+                background: #f0f0f0
+                text-align: center
+                float: left
+                width: 50%
+                padding: 20px 0
+                font-size: 14px
+                font-weight: bold
+        div.share
+            a
+                margin: 0 0 0 5px
+                float: right
+    li.question.key_0
+        ul.answers
+            li.answer
+                padding: 80px 0
+        div.infos
+            font-style: italic
+
+
+

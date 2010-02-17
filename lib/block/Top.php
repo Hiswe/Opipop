@@ -27,18 +27,6 @@ class Block_Top extends Block
 			unset($_SESSION['feedback']);
 		}
 
-		// List categories
-		$rs_category = DB::select('SELECT `id`, `label`, `guid` FROM `category` WHERE `status`="1" ORDER BY `position` ASC');
-		foreach ($rs_category['data'] as $category)
-		{
-			$this->tpl->assignLoopVar('category', array
-			(
-				'id' => $category['id'],
-				'label' => $category['label'],
-				'guid' => $category['guid'],
-			));
-		}
-
 		// Did you know ?
 		$question   = Model_Question::getRandomQuestion();
 		$answers    = $question->getAnswers();

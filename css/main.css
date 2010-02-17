@@ -1,6 +1,6 @@
 * { margin: 0; padding: 0; }
 
-body { margin: 0; padding: 0; font-family: arial, sans-serif; font-size: 12px; background: #f0f0f0; color: #666; }
+body { margin: 0; padding: 0; font-family: arial, sans-serif; font-size: 12px; background: #f0f0f0; color: #999; }
 
 ul { list-style: none; }
 
@@ -14,3 +14,13 @@ a:hover { text-decoration: underline; }
 #header p { font-style: italic; font-size: 12px; margin: 0 0 0 20px; }
 
 #userBox { position: absolute; top: 10px; right: 10px; padding: 10px; border: solid 1px #ccc; background: #f0f0f0; font-size: 16px; }
+
+#questionActiveList { margin: 40px; }
+#questionActiveList li.question { margin: 30px 10px; }
+#questionActiveList li.question div.label { text-align: center; font-size: 18px; font-weight: bold; border-bottom: solid 1px #ccc; padding: 10px; }
+#questionActiveList li.question div.label img.star { float: right; }
+#questionActiveList li.question ul.answers { position: relative; }
+#questionActiveList li.question ul.answers li.answer { background: #f0f0f0; text-align: center; float: left; width: 50%; padding: 20px 0; font-size: 14px; font-weight: bold; }
+#questionActiveList li.question div.share a { margin: 0 0 0 5px; float: right; }
+#questionActiveList li.question.key_0 ul.answers li.answer { padding: 80px 0; }
+#questionActiveList li.question.key_0 div.infos { font-style: italic; }
