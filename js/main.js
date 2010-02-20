@@ -6,22 +6,6 @@ window.onload = function () {
 // USER
 ///////////////////
 
-function user_search_submit()
-{
-	form_disable($('user_search'));
-
-    var query = $('user_search_query').value.stripScripts().stripTags().strip();
-
-    if (query.blank())
-    {
-		window.location = ROOT_PATH + 'users';
-    }
-	else
-	{
-		window.location = ROOT_PATH + 'users/search/' + escape(query);
-	}
-}
-
 function user_addToFriend(friendId, reload)
 {
 	var link = $('addToFriend_' + friendId);
@@ -305,6 +289,20 @@ function form_cleanError(input)
 
 function login_init()
 {
+    $('login_link').observe('click', login_show);
+    login_hide();
+}
+
+function login_show()
+{
+    $('login').show();
+    $('login_link').hide();
+}
+
+function login_hide()
+{
+    $('login').hide();
+    $('login_link').show();
 }
 
 function login_submit()

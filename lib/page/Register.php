@@ -1,12 +1,12 @@
 <?php
 
-class Page_Login extends Page
+class Page_Register extends Page
 {
 	public function configureView()
 	{
 		$this->tpl->assignTemplate('lib/view/header.tpl');
 		$this->tpl->assignTemplate('lib/view/top.tpl');
-		$this->tpl->assignTemplate('lib/view/login.tpl');
+		$this->tpl->assignTemplate('lib/view/register.tpl');
 		$this->tpl->assignTemplate('lib/view/footer.tpl');
 	}
 

@@ -47,8 +47,8 @@
                 $page = new Page_Homepage($tpl);
                 break;
 
-            case 'login':
-                $page = new Page_Login($tpl);
+            case 'register':
+                $page = new Page_Register($tpl);
                 break;
 
             case 'logout':

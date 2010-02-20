@@ -2,13 +2,9 @@
             <!-- INCLUDE block/top.tpl -->
 
             <h1 id="question">{question_label}</h1>
-            <p>
-                <a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !"><img src="{ROOT_PATH}media/layout/tshare.png" /> Tweet this !</a>
-                <a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !"><img src="{ROOT_PATH}media/layout/fbshare.png" /> Post on facebook</a>
-            </p>
 
             <!-- SECTION active -->
-			<p>This question will end in {question_end_time}.</p>
+			<p id="questionInfo">This question will end in {question_end_time}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
                 <li name="answer_{answer.id}" class="answer">{answer.label}
@@ -44,7 +40,7 @@
             <!-- END active -->
 
             <!-- SECTION inactive -->
-			<p>This question started on the {question_start_date} and ended on the {question_end_date}.</p>
+			<p id="questionInfo">This question started on the {question_start_date} and ended on the {question_end_date}.</p>
             <ul id="result">
                 <!-- LOOP answer -->
                 <li name="answer_{answer.id}" class="answer">({answer.percentFormated}%) {answer.label}
@@ -67,4 +63,9 @@
 
             <script type="text/javascript">question_initResult();</script>
             <!-- END inactive -->
+
+            <ul id="share">
+                <li><a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{ROOT_PATH}media/layout/tshare.png" /></a></li>
+                <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>
+            </ul>
 

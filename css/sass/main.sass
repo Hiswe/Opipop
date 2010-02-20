@@ -12,12 +12,15 @@ body
 ul
     list-style: none
 
-a
+a,
+span.link
     color: #ff99cc
     font-weight: bold
     text-decoration: none
+    cursor: pointer
 
-a:hover
+a:hover,
+span.link:hover
     text-decoration: underline
 
 
@@ -91,12 +94,6 @@ a:hover
             a
                 margin: 0 0 0 5px
                 float: right
-    li.question.key_0
-        ul.answers
-            li.answer
-                padding: 80px 0
-        div.infos
-            font-style: italic
 
 
 /////////////////////////
@@ -117,3 +114,27 @@ a:hover
         padding: 10px
         margin: 20px
         text-align: center
+
+
+/////////////////////////
+// QUESTION
+/////////////////////////
+
+#question
+    border: solid 1px red
+    text-align: center
+    margin: 20px
+
+#questionInfo
+    text-align: center
+    font-style: italic
+
+
+/////////////////////////
+// SHARE
+/////////////////////////
+
+#share
+    text-align: right
+    margin: 10px
+
