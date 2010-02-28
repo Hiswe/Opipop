@@ -2,21 +2,21 @@
 
 class Page_User extends Page
 {
-	public function configureView()
-	{
-		$this->tpl->assignTemplate('lib/view/header.tpl');
-		$this->tpl->assignTemplate('lib/view/top.tpl');
-		$this->tpl->assignTemplate('lib/view/user_header.tpl');
-		$this->tpl->assignTemplate('lib/view/user_menu.tpl');
-		$this->tpl->assignTemplate('lib/view/user.tpl');
-		$this->tpl->assignTemplate('lib/view/footer.tpl');
-	}
+    public function configureView()
+    {
+        $this->tpl->assignTemplate('lib/view/header.tpl');
+        $this->tpl->assignTemplate('lib/view/top.tpl');
+        $this->tpl->assignTemplate('lib/view/user_header.tpl');
+        $this->tpl->assignTemplate('lib/view/user_menu.tpl');
+        $this->tpl->assignTemplate('lib/view/user.tpl');
+        $this->tpl->assignTemplate('lib/view/footer.tpl');
+    }
 
-	public function configureData()
-	{
+    public function configureData()
+    {
         // Configure top block
-		$top = new Block_Top($this->tpl);
-		$top->configure();
+        $top = new Block_Top($this->tpl);
+        $top->configure();
 
         $profile = new Model_User($_GET['login']);
 
@@ -207,6 +207,6 @@ class Page_User extends Page
 
             error_reporting(E_ALL);
         }
-	}
+    }
 }
 

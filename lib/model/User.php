@@ -15,21 +15,21 @@ class Model_User
     protected $guessGlobalStats;
     protected $guessFriendsStats;
 
-	public function Model_User($id, $data = array())
-	{
-		if (preg_match('/^(\d+)$/', $id) == 0)
-		{
+    public function Model_User($id, $data = array())
+    {
+        if (preg_match('/^(\d+)$/', $id) == 0)
+        {
             $this->fetchData($id);
-		}
-		else
-		{
-			$this->data = $data;
+        }
+        else
+        {
+            $this->data = $data;
             $this->data['id'] = $id;
-		}
-	}
+        }
+    }
 
-	private function fetchData($login = false)
-	{
+    private function fetchData($login = false)
+    {
         if (!$this->data['id'] && $login)
         {
             $where = '`login`="' . $login . '"';
@@ -38,95 +38,95 @@ class Model_User
         {
             $where = '`id`="' . $this->data['id'] . '"';
         }
-		$rs = DB::select('
-			SELECT `id`, `login`, `valided`, `male`, `email`, `zip`
-			FROM `user`
+        $rs = DB::select('
+            SELECT `id`, `login`, `valided`, `male`, `email`, `zip`
+            FROM `user`
             WHERE ' . $where . '
-		');
-		if ($rs['total'] == 0)
-		{
+        ');
+        if ($rs['total'] == 0)
+        {
             // TODO : Error 500
-		}
-		$this->data = $rs['data'][0];
-	}
+        }
+        $this->data = $rs['data'][0];
+    }
 
-	private function fetchFriends()
-	{
-		$rs = DB::select('
-			SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
-			FROM `friend` AS `f`
-			JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
-			WHERE f.valided="1" AND (f.user_id_1="' . $this->data['id'] . '" OR f.user_id_2="' . $this->data['id'] . '")
-			AND u.id!="' . $this->data['id'] . '"
-		');
+    private function fetchFriends()
+    {
+        $rs = DB::select('
+            SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
+            FROM `friend` AS `f`
+            JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
+            WHERE f.valided="1" AND (f.user_id_1="' . $this->data['id'] . '" OR f.user_id_2="' . $this->data['id'] . '")
+            AND u.id!="' . $this->data['id'] . '"
+        ');
         $this->friends = array();
-		foreach ($rs['data'] as $friend)
-		{
-			$this->friends[] = new Model_User($friend['id'], $friend);
-		}
-	}
+        foreach ($rs['data'] as $friend)
+        {
+            $this->friends[] = new Model_User($friend['id'], $friend);
+        }
+    }
 
-	private function fetchPendingFriends()
-	{
-		$rs = DB::select('
-			SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
-			FROM `friend` AS `f`
+    private function fetchPendingFriends()
+    {
+        $rs = DB::select('
+            SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
+            FROM `friend` AS `f`
             JOIN `user` AS `u` ON u.id=f.user_id_1
             WHERE f.valided="0" AND f.user_id_2="' . $this->data['id'] . '"
-		');
+        ');
         $this->pendingFriends = array();
-		foreach ($rs['data'] as $friend)
-		{
-			$this->pendingFriends[] = new Model_User($friend['id'], $friend);
-		}
-	}
+        foreach ($rs['data'] as $friend)
+        {
+            $this->pendingFriends[] = new Model_User($friend['id'], $friend);
+        }
+    }
 
     public function getAnswer($questionId)
     {
         $rs = DB::select
-		('
-			SELECT `answer_id`
-			FROM `user_result`
-			WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->data['id'] . '"
-		');
-		if ($rs['total'] != 0)
-		{
-			return new Model_Answer($rs['data'][0]['answer_id']);
-		}
-		return false;
+        ('
+            SELECT `answer_id`
+            FROM `user_result`
+            WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->data['id'] . '"
+        ');
+        if ($rs['total'] != 0)
+        {
+            return new Model_Answer($rs['data'][0]['answer_id']);
+        }
+        return false;
     }
 
     public function getGuess($question)
     {
         $rs = DB::select
-		('
-			SELECT `answer_id`
-			FROM `user_guess`
-			WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
-		');
-		if ($rs['total'] != 0)
-		{
-			return new Model_Guess($rs['data'][0]['answer_id'], array
-			(
-				'user' => $this
-			));
-		}
-		return false;
+        ('
+            SELECT `answer_id`
+            FROM `user_guess`
+            WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
+        ');
+        if ($rs['total'] != 0)
+        {
+            return new Model_Guess($rs['data'][0]['answer_id'], array
+            (
+                'user' => $this
+            ));
+        }
+        return false;
     }
 
-	public function getGuessesAboutFriends($question)
-	{
+    public function getGuessesAboutFriends($question)
+    {
         $rs = DB::select
-		('
-			SELECT g.answer_id, u.login, u.id, u.male, u.zip, u.email, u.valided
-			FROM `user_guess_friend` AS `g`
-			JOIN `friend` AS `f`
-				ON (f.user_id_1=g.user_id AND f.user_id_2=g.friend_id)
-				OR (f.user_id_1=g.friend_id AND f.user_id_2=g.user_id)
-			JOIN `user` AS `u`
-				ON u.id=g.friend_id
-			WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
-		');
+        ('
+            SELECT g.answer_id, u.login, u.id, u.male, u.zip, u.email, u.valided
+            FROM `user_guess_friend` AS `g`
+            JOIN `friend` AS `f`
+                ON (f.user_id_1=g.user_id AND f.user_id_2=g.friend_id)
+                OR (f.user_id_1=g.friend_id AND f.user_id_2=g.user_id)
+            JOIN `user` AS `u`
+                ON u.id=g.friend_id
+            WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
+        ');
         $guesses = array();
         foreach ($rs['data'] as $guess)
         {
@@ -143,7 +143,7 @@ class Model_User
             ));
         }
         return $guesses;
-	}
+    }
 
     public function getAnswerGlobalStats()
     {
@@ -325,23 +325,23 @@ class Model_User
         return $this->data['total_vote'];
     }
 
-	public function getFriends()
-	{
-		if (!isset($this->friends))
-		{
-			$this->fetchFriends();
-		}
-		return $this->friends;
-	}
+    public function getFriends()
+    {
+        if (!isset($this->friends))
+        {
+            $this->fetchFriends();
+        }
+        return $this->friends;
+    }
 
-	public function getPendingFriends()
-	{
-		if (!isset($this->pendingFriends))
-		{
-			$this->fetchPendingFriends();
-		}
-		return $this->pendingFriends;
-	}
+    public function getPendingFriends()
+    {
+        if (!isset($this->pendingFriends))
+        {
+            $this->fetchPendingFriends();
+        }
+        return $this->pendingFriends;
+    }
 
     public function getFeelings()
     {
@@ -364,98 +364,98 @@ class Model_User
         return $this->feelings;
     }
 
-	public function getId()
-	{
-		return $this->data['id'];
-	}
+    public function getId()
+    {
+        return $this->data['id'];
+    }
 
-	public function getLogin()
-	{
-		if (!isset($this->data['login']))
-		{
-			$this->fetchData();
-		}
-		return $this->data['login'];
-	}
+    public function getLogin()
+    {
+        if (!isset($this->data['login']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['login'];
+    }
 
-	public function getActive()
-	{
-		if (!isset($this->data['active']))
-		{
-			$this->fetchData();
-		}
-		return $this->data['active'];
-	}
+    public function getActive()
+    {
+        if (!isset($this->data['active']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['active'];
+    }
 
-	public function getEmail()
-	{
-		if (!isset($this->data['email']))
-		{
-			$this->fetchData();
-		}
-		return $this->data['email'];
-	}
+    public function getEmail()
+    {
+        if (!isset($this->data['email']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['email'];
+    }
 
-	public function getMale()
-	{
-		if (!isset($this->data['male']))
-		{
-			$this->fetchData();
-		}
-		return $this->data['male'];
-	}
+    public function getMale()
+    {
+        if (!isset($this->data['male']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['male'];
+    }
 
-	public function getZip()
-	{
-		if (!isset($this->data['zip']))
-		{
-			$this->fetchData();
-		}
-		return $this->data['zip'];
-	}
+    public function getZip()
+    {
+        if (!isset($this->data['zip']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['zip'];
+    }
 
-	public function getAvatarUri($type)
-	{
-		switch ($type)
-		{
-			case 'small':
-				$size = AVATAR_SMALL_SIZE;
-				break;
+    public function getAvatarUri($type)
+    {
+        switch ($type)
+        {
+            case 'small':
+                $size = AVATAR_SMALL_SIZE;
+                break;
 
-			case 'medium':
-				$size = AVATAR_MEDIUM_SIZE;
-				break;
+            case 'medium':
+                $size = AVATAR_MEDIUM_SIZE;
+                break;
 
-			case 'large':
-				$size = AVATAR_LARGE_SIZE;
-				break;
-		}
-		if (file_exists(ROOT_DIR . 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
-		{
-			return 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg';
-		}
-		return 'media/avatar/' . $size . '/0.jpg';
-	}
+            case 'large':
+                $size = AVATAR_LARGE_SIZE;
+                break;
+        }
+        if (file_exists(ROOT_DIR . 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
+        {
+            return 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg';
+        }
+        return 'media/avatar/' . $size . '/0.jpg';
+    }
 
     public static function search($page = false, $query = false)
     {
         $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
         $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
 
-		$rs = DB::select('
-			SELECT u.id, u.login, u.valided, u.male, u.email, u.zip
-			FROM `user` AS `u`
-			JOIN `user_result` AS `r` ON r.user_id=u.id
-			WHERE valided="1" ' . (($query) ? ' AND u.login LIKE(\'' . Tool::getLikeList($query) . '\')' : '') . '
-			GROUP BY u.id
-			ORDER BY u.register_date DESC
-		', $from, $max);
+        $rs = DB::select('
+            SELECT u.id, u.login, u.valided, u.male, u.email, u.zip
+            FROM `user` AS `u`
+            JOIN `user_result` AS `r` ON r.user_id=u.id
+            WHERE valided="1" ' . (($query) ? ' AND u.login LIKE(\'' . Tool::getLikeList($query) . '\')' : '') . '
+            GROUP BY u.id
+            ORDER BY u.register_date DESC
+        ', $from, $max);
 
         $users = array();
-		foreach ($rs['data'] as $user)
-		{
-			$users[] = new Model_User($user['id'], $user);
-		}
+        foreach ($rs['data'] as $user)
+        {
+            $users[] = new Model_User($user['id'], $user);
+        }
         return $users;
     }
 }

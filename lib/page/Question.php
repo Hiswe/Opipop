@@ -2,19 +2,19 @@
 
 class Page_Question extends Page
 {
-	public function configureView()
-	{
-		$this->tpl->assignTemplate('lib/view/header.tpl');
-		$this->tpl->assignTemplate('lib/view/top.tpl');
-		$this->tpl->assignTemplate('lib/view/question.tpl');
-		$this->tpl->assignTemplate('lib/view/footer.tpl');
-	}
+    public function configureView()
+    {
+        $this->tpl->assignTemplate('lib/view/header.tpl');
+        $this->tpl->assignTemplate('lib/view/top.tpl');
+        $this->tpl->assignTemplate('lib/view/question.tpl');
+        $this->tpl->assignTemplate('lib/view/footer.tpl');
+    }
 
-	public function configureData()
-	{
+    public function configureData()
+    {
         // Configure top block
-		$top = new Block_Top($this->tpl);
-		$top->configure();
+        $top = new Block_Top($this->tpl);
+        $top->configure();
 
         // Get question
         $question = new Model_Question($this->getParameter('id'));
@@ -85,6 +85,8 @@ class Page_Question extends Page
                 'percent'         => round($answer->getPercent()),
             ));
 
+            // TODO !!
+
             // If a user is logged and voted
             if (Tool::isOk($_SESSION['user']))
             {
@@ -116,20 +118,23 @@ class Page_Question extends Page
 
                 // If the user guessed for his friends
                 // Loop through all guesses
-                foreach ($userGuessesAboutFriends as $guess)
+                if ($userGuessesAboutFriends)
                 {
-                    // If the result is about this answer
-                    if ($guess->getId() == $answer->getId())
+                    foreach ($userGuessesAboutFriends as $guess)
                     {
-                        // Assing friend's infos
-                        $this->tpl->assignLoopVar('answer.friend', array
-                        (
-                            'id'     => $guess->getUser()->getId(),
-                            'login'  => $guess->getUser()->getLogin(),
-                            'avatar' => $guess->getUser()->getAvatarUri('small'),
-                            'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
-                            'class'  => 'friend',
-                        ));
+                        // If the result is about this answer
+                        if ($guess->getId() == $answer->getId())
+                        {
+                            // Assing friend's infos
+                            $this->tpl->assignLoopVar('answer.friend', array
+                            (
+                                'id'     => $guess->getUser()->getId(),
+                                'login'  => $guess->getUser()->getLogin(),
+                                'avatar' => $guess->getUser()->getAvatarUri('small'),
+                                'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
+                                'class'  => 'friend',
+                            ));
+                        }
                     }
                 }
             }
@@ -138,7 +143,7 @@ class Page_Question extends Page
         }
 
         $this->tpl->assignVar('question_data', json_encode(array_reverse($data)));
-	}
+    }
 }
 
 

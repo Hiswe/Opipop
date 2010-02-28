@@ -3,14 +3,14 @@
     // CONF
     include '../inc/conf.default.php';
     include '../inc/conf.local.php';
-	foreach($conf as $key => $value)
-	{
-		DEFINE($key, $value);
-	}
+    foreach($conf as $key => $value)
+    {
+        DEFINE($key, $value);
+    }
 
     // PHP
-	ini_set('session.use_trans_sid', '0');	// remove PHPSSID
-	ini_set('url_rewriter.tags', ''); 		// remove PHPSSID
+    ini_set('session.use_trans_sid', '0');    // remove PHPSSID
+    ini_set('url_rewriter.tags', '');         // remove PHPSSID
     date_default_timezone_set('Europe/Paris');
     session_start();
 

@@ -2,174 +2,174 @@
 
 class Tool
 {
-	static function print_array($array)
+    static function print_array($array)
     {
-		echo '<pre>';
-		print_r($array);
-		echo '</pre>';
-	}
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+    }
 
-	static function isOK(&$var)
+    static function isOK(&$var)
     {
-		if (isset($var))
+        if (isset($var))
         {
-			if (!empty($var))
+            if (!empty($var))
             {
-				return true;
-			}
-		}
-		return false;
-	}
+                return true;
+            }
+        }
+        return false;
+    }
 
-	static function checkMail($email)
+    static function checkMail($email)
     {
-		$atom = '[-a-z0-9!#$%&\'*+/=?^_`{|}~]';
-		$domain = '[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])';
-		return eregi("^$atom+(\\.$atom+)*@($domain?\\.)+$domain\$", $email);
-	}
+        $atom = '[-a-z0-9!#$%&\'*+/=?^_`{|}~]';
+        $domain = '[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])';
+        return eregi("^$atom+(\\.$atom+)*@($domain?\\.)+$domain\$", $email);
+    }
 
-	static function xmlFormat($text)
+    static function xmlFormat($text)
     {
-		return str_replace(array('&', "'", '"', '>', '<'), array('&amp;', '&apos;', '&quot;', '&gt;', '&lt;'), $text);
-	}
+        return str_replace(array('&', "'", '"', '>', '<'), array('&amp;', '&apos;', '&quot;', '&gt;', '&lt;'), $text);
+    }
 
-	static function getLikeList($q)
+    static function getLikeList($q)
     {
-		$q = urldecode($q);
+        $q = urldecode($q);
 
-		// replace spimple quotes by double quotes
-		$q = str_replace("'", '"', str_replace('/\\', '', $q));
+        // replace spimple quotes by double quotes
+        $q = str_replace("'", '"', str_replace('/\\', '', $q));
 
-		// delet multiple quotes
-		$q =  preg_replace('#("+)#is', '"', $q);
+        // delet multiple quotes
+        $q =  preg_replace('#("+)#is', '"', $q);
 
-		// delet spaces near cotes
-		$q = preg_replace('#(\s*"\s*)#is', '"', $q);
+        // delet spaces near cotes
+        $q = preg_replace('#(\s*"\s*)#is', '"', $q);
 
-		// get out sentences (don't keep quotes)
-		preg_match_all('#"(.+)"#isU', $q, $sentences);
+        // get out sentences (don't keep quotes)
+        preg_match_all('#"(.+)"#isU', $q, $sentences);
 
-		// delet sentences (and quotes)
-		$q =  preg_replace('#(".+")#isU', ' ', $q);
+        // delet sentences (and quotes)
+        $q =  preg_replace('#(".+")#isU', ' ', $q);
 
-		// delet multiple spaces
-		$q =  preg_replace('#(\s+)#is', ' ', $q);
+        // delet multiple spaces
+        $q =  preg_replace('#(\s+)#is', ' ', $q);
 
-		// get words
-		$words = explode(' ', trim($q));
+        // get words
+        $words = explode(' ', trim($q));
 
-		$searched_list = '';
+        $searched_list = '';
 
-		if (count($sentences[1]) != 0)
+        if (count($sentences[1]) != 0)
         {
-			$searched_list .= '%'.implode('%', $sentences[1]).'%';
-		}
+            $searched_list .= '%'.implode('%', $sentences[1]).'%';
+        }
 
-		if (!empty($words[0]))
+        if (!empty($words[0]))
         {
-			$searched_list .= '%'.implode('%', $words).'%';
-		}
-		return $searched_list;
-	}
+            $searched_list .= '%'.implode('%', $words).'%';
+        }
+        return $searched_list;
+    }
 
-	static function cutText($text, $max)
+    static function cutText($text, $max)
     {
-		if (strlen($text) >= $max)
+        if (strlen($text) >= $max)
         {
-			$text = substr($text, 0, $max);
-			$text = substr($text, 0, strrpos($text, " ")) . "...";
-		}
-		return $text;
-	}
+            $text = substr($text, 0, $max);
+            $text = substr($text, 0, strrpos($text, " ")) . "...";
+        }
+        return $text;
+    }
 
-	static function removeHTML($text)
+    static function removeHTML($text)
     {
-		$text = str_replace('</p>', ' ', $text);
-		$text = preg_replace('#(<[^>]*>)#isU', '', $text);
-		return $text;
-	}
+        $text = str_replace('</p>', ' ', $text);
+        $text = preg_replace('#(<[^>]*>)#isU', '', $text);
+        return $text;
+    }
 
-	static function makeGuid($text)
+    static function makeGuid($text)
     {
-		$text = strtolower($text);
-		// enleve tous les accents
-		$text = strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
-		// remplace tous ce qui n'est pas lettre ou chifre pas par un tir?
-		$text = preg_replace('([^a-z0-9\-_])', '-', $text);
-		// remplace les tiré mustiples par un tiré
-		$text = preg_replace('(-+)', '-', $text);
-		// efface les underscore et les tirés en fin de chaine
-		$text = preg_replace('(-*$)', '', $text);
-		// efface les underscore et les tirés eno.ok début de chaine
-		$text = preg_replace('(^-*)', '', $text);
+        $text = strtolower($text);
+        // enleve tous les accents
+        $text = strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
+        // remplace tous ce qui n'est pas lettre ou chifre pas par un tir?
+        $text = preg_replace('([^a-z0-9\-_])', '-', $text);
+        // remplace les tiré mustiples par un tiré
+        $text = preg_replace('(-+)', '-', $text);
+        // efface les underscore et les tirés en fin de chaine
+        $text = preg_replace('(-*$)', '', $text);
+        // efface les underscore et les tirés eno.ok début de chaine
+        $text = preg_replace('(^-*)', '', $text);
 
-		return $text;
-	}
+        return $text;
+    }
 
-	static function removeSpecialChar($text)
+    static function removeSpecialChar($text)
     {
-		return strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
-	}
+        return strtr($text, "àáâãäåòóôõöøèéêëçìíîïùúûüÿñ", "aaaaaaooooooeeeeciiiiuuuuyn");
+    }
 
-	static function timeWarp($time)
+    static function timeWarp($time)
     {
-		if ($time > time())
+        if ($time > time())
         {
-			$diff = $time - time();
-		}
+            $diff = $time - time();
+        }
         else
         {
-			$diff = time() - $time;
-		}
+            $diff = time() - $time;
+        }
 
-		if ($diff < 60)
+        if ($diff < 60)
         {
-			$unit = 'second';
-			$n = $diff;
-		}
+            $unit = 'second';
+            $n = $diff;
+        }
         elseif ($diff < 3600)
         {
-			$unit = 'minute';
-			$n = round($diff / 60);
-		}
+            $unit = 'minute';
+            $n = round($diff / 60);
+        }
         elseif ($diff < 86400)
         {
-			$unit = 'hour';
-			$n = round($diff / 3600);
-		}
+            $unit = 'hour';
+            $n = round($diff / 3600);
+        }
         elseif ($diff < 604800)
         {
-			$unit = 'day';
-			$n = round($diff / 86400);
-		}
+            $unit = 'day';
+            $n = round($diff / 86400);
+        }
         elseif ($diff < 1814400)
         {
-			$unit = 'week';
-			$n = round($diff / 604800);
-		}
+            $unit = 'week';
+            $n = round($diff / 604800);
+        }
         else
         {
-			return date('d/m/Y', $time);
-		}
+            return date('d/m/Y', $time);
+        }
 
-		if ($n > 1)
+        if ($n > 1)
         {
-			$s = 's';
-		}
+            $s = 's';
+        }
         else
         {
-			$s = '';
-		}
+            $s = '';
+        }
 
-		if ($time > time())
+        if ($time > time())
         {
-			return 'in ' . $n . ' ' . $unit . $s;
-		}
+            return 'in ' . $n . ' ' . $unit . $s;
+        }
         else
         {
-			return $n . ' ' . $unit . $s . ' ago';
-		}
-	}
+            return $n . ' ' . $unit . $s . ' ago';
+        }
+    }
 
     static function redimage($src, $dest, $dw=false, $dh=false, $loose=false, $stamp=false)
     {

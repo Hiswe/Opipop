@@ -52,68 +52,68 @@ function vis_simplePie(target, width, height, data)
 
 function user_addToFriend(friendId, reload)
 {
-	var link = $('addToFriend_' + friendId);
-	var action = link.readAttribute('class');
-	var params = $H(
-	{
-		friendId : friendId,
-		action   : action
-	});
+    var link = $('addToFriend_' + friendId);
+    var action = link.readAttribute('class');
+    var params = $H(
+    {
+        friendId : friendId,
+        action   : action
+    });
 
-	if (action == 'remove' && !confirm('Are you sure you want to remove this user from your friends ?'))
-	{
-		return;
-	}
+    if (action == 'remove' && !confirm('Are you sure you want to remove this user from your friends ?'))
+    {
+        return;
+    }
 
-	link.update();
+    link.update();
 
-	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
-	{
-		parameters: params.toQueryString(),
-		onSuccess: function(xhr)
-		{
-			if (reload)
-			{
-				window.location.reload();
-				return;
-			}
+    new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
+    {
+        parameters: params.toQueryString(),
+        onSuccess: function(xhr)
+        {
+            if (reload)
+            {
+                window.location.reload();
+                return;
+            }
 
-			link.removeClassName(link.readAttribute('class'));
-			if (action == 'add')
-			{
-				link.addClassName('cancel');
-				link.update('Cancle friend request');
-			}
-			else if (action == 'cancel' || action == 'remove')
-			{
-				link.addClassName('add');
-				link.update('Add to friends');
-			}
-		}
-	});
+            link.removeClassName(link.readAttribute('class'));
+            if (action == 'add')
+            {
+                link.addClassName('cancel');
+                link.update('Cancle friend request');
+            }
+            else if (action == 'cancel' || action == 'remove')
+            {
+                link.addClassName('add');
+                link.update('Add to friends');
+            }
+        }
+    });
 }
 
 function user_requestFriend(friendId, accept)
 {
-	if (accept)
-	{
-		$('request_' + friendId).update(new Element('span').update('accepted'));
-	}
-	else
-	{
-		$('request_' + friendId).update(new Element('span').update('rejected'));
-	}
+    if (accept)
+    {
+        $('request_' + friendId).update(new Element('span').update('accepted'));
+    }
+    else
+    {
+        $('request_' + friendId).update(new Element('span').update('rejected'));
+    }
 
-	var params = $H(
-	{
-		friendId : friendId,
-		action   : (accept) ? 'accept' : 'cancel'
-	});
+    var params = $H(
+    {
+        friendId : friendId,
+        action   : (accept) ? 'accept' : 'cancel'
+    });
 
-	new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
-	{
-		parameters: params.toQueryString()
-	});
+    new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
+    {
+        parameters: params.toQueryString()
+    });
 }
 
 
@@ -143,19 +143,19 @@ function question_showArchive()
         'page' : question_archivePage,
     };
 
-	new Ajax.Request (ROOT_PATH + 'remote/question_getArchive',
-	{
-		parameters: $H(params).toQueryString(),
-		onSuccess: function(xhr)
-		{
+    new Ajax.Request (ROOT_PATH + 'remote/question_getArchive',
+    {
+        parameters: $H(params).toQueryString(),
+        onSuccess: function(xhr)
+        {
             if ($('morePollsButton'))
             {
                 $('morePollsButton').show();
             }
             $('questionArchiveContainer').insert(xhr.responseText);
             question_archivePage ++;
-		}
-	});
+        }
+    });
 }
 
 function question_initVote(id)
@@ -238,15 +238,15 @@ function question_saveResult()
         });
     });
 
-	new Ajax.Request (ROOT_PATH + 'remote/question_saveResult',
-	{
-		parameters: $H(params).toQueryString(),
-		onSuccess: function(xhr)
-		{
+    new Ajax.Request (ROOT_PATH + 'remote/question_saveResult',
+    {
+        parameters: $H(params).toQueryString(),
+        onSuccess: function(xhr)
+        {
             // TODO : the page is the same after reload, maybe we don't need to reload the page
             window.location.reload();
-		}
-	});
+        }
+    });
 }
 
 ///////////////////
@@ -387,7 +387,7 @@ function user_edit_submit()
     }
     else
     {
-		form_disable($('user_edit'));
+        form_disable($('user_edit'));
         return true;
     }
 }
@@ -455,8 +455,8 @@ function user_password_submit()
     }
     else
     {
-		form_disable($('user_password'));
-		return true;
+        form_disable($('user_password'));
+        return true;
     }
 }
 
@@ -643,14 +643,14 @@ function register_submit()
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
             {
-				if (xhr.responseText == '0')
-				{
-					alert('Error while registerging, this login is not allowed !');
-				}
-				else
-				{
-					window.location = ROOT_PATH + 'login/confirm';
-				}
+                if (xhr.responseText == '0')
+                {
+                    alert('Error while registerging, this login is not allowed !');
+                }
+                else
+                {
+                    window.location = ROOT_PATH + 'login/confirm';
+                }
             }
         });
     }

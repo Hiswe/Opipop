@@ -4,9 +4,9 @@
     header("Cache-Control: no-cache");
 
     DB::update('
-		UPDATE `category`
-		SET `position` = `position` + 1
-	');
+        UPDATE `category`
+        SET `position` = `position` + 1
+    ');
 
     $id = DB::insert('INSERT INTO `category` (`status`, `position`, `label`) VALUES
     (

@@ -3,7 +3,7 @@
 
             <h1 id="question">{question_label}</h1>
 
-			<p id="questionInfo">This question started on the {question_start_date} and ended on the {question_end_date}.</p>
+            <p id="questionInfo">This question started on the {question_start_date} and ended on the {question_end_date}.</p>
 
             <div id="graph">
                 <script type="text/javascript+protovis">

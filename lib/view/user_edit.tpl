@@ -3,8 +3,8 @@
 
         <h2>Edit you informations:</h2>
         <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user_edit_submit" onsubmit="return user_edit_submit();" enctype="multipart/form-data">
-			<input type="hidden" name="id" value="{profile_id}" />
-			<input type="hidden" name="login" value="{profile_login}" />
+            <input type="hidden" name="id" value="{profile_id}" />
+            <input type="hidden" name="login" value="{profile_login}" />
             <div>
                 <label>Gender:
                     <select id="user_edit_gender" name="gender" value="">
@@ -117,12 +117,12 @@
             </div>
             <div>
                 <label>Avatar: <input type="file" name="avatar" /></label>
-				<p>
-					You can upload a JPG, GIF or PNG file<br />
-					Max size : 450 KB<br />
-					Max width : 1680 px<br />
-					Max height : 1680 px
-				</p>
+                <p>
+                    You can upload a JPG, GIF or PNG file<br />
+                    Max size : 450 KB<br />
+                    Max width : 1680 px<br />
+                    Max height : 1680 px
+                </p>
             </div>
             <div><input type="submit" name="submit" value="save"></div>
         </form>
@@ -130,8 +130,8 @@
 
         <h2>Change your password:</h2>
         <form id="user_password" method="post" name="user_password" action="{ROOT_PATH}remote/user_password_submit" onsubmit="return user_password_submit();">
-			<input type="hidden" name="id" value="{profile_id}" />
-			<input type="hidden" name="login" value="{profile_login}" />
+            <input type="hidden" name="id" value="{profile_id}" />
+            <input type="hidden" name="login" value="{profile_login}" />
             <div><label>Current password: <input id="user_password_password_0" type="password" maxlength="128" name="password_1" value="" /></label></div>
             <div><label>New password: <input id="user_password_password_1" type="password" maxlength="128" name="password_1" value="" /></label></div>
             <div><label>Confirm new password: <input id="user_password_password_2" type="password" maxlength="128" name="password_2" value="" /></label></div>

@@ -6,10 +6,10 @@
         </div>
 
         <div id="userBox">
-			<!-- SECTION logged -->
+            <!-- SECTION logged -->
             <a href="{ROOT_PATH}{user_login}">{user_login}</a> (<a href="{ROOT_PATH}logout">logout</a>)
             <!-- END logged -->
-			<!-- SECTION notLogged -->
+            <!-- SECTION notLogged -->
             <span id="login_link" class="link">Login</span>
             <form id="login" method="post" name="login" action="javascript:login_submit();">
                 <div><label>Login: <input id="login_login" type="text" maxlength="32" name="login" value="" /></label></div>

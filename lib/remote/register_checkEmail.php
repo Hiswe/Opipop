@@ -8,5 +8,5 @@
         WHERE `email`="' . $_POST['email'] . '" AND `valided`=1
     ');
 
-	echo ($rs['total'] != 0) ? 0 : 1;
+    echo ($rs['total'] != 0) ? 0 : 1;
 

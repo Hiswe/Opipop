@@ -46,6 +46,6 @@ if (isOk($_GET['u']) && isOk($_GET['k']))
 }
 else
 {
-	$tpl->assignSection('confirm_wait');
+    $tpl->assignSection('confirm_wait');
 }
 

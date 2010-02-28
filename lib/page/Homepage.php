@@ -2,19 +2,19 @@
 
 class Page_Homepage extends Page
 {
-	public function configureView()
-	{
-		$this->tpl->assignTemplate('lib/view/header.tpl');
-		$this->tpl->assignTemplate('lib/view/top.tpl');
-		$this->tpl->assignTemplate('lib/view/question_active_list.tpl');
-		$this->tpl->assignTemplate('lib/view/footer.tpl');
-	}
+    public function configureView()
+    {
+        $this->tpl->assignTemplate('lib/view/header.tpl');
+        $this->tpl->assignTemplate('lib/view/top.tpl');
+        $this->tpl->assignTemplate('lib/view/question_active_list.tpl');
+        $this->tpl->assignTemplate('lib/view/footer.tpl');
+    }
 
-	public function configureData()
-	{
+    public function configureData()
+    {
         // Configure top block
-		$top = new Block_Top($this->tpl);
-		$top->configure();
+        $top = new Block_Top($this->tpl);
+        $top->configure();
 
         // Init category
         $category = new Model_Category(MAIN_CATEGORY);
@@ -52,6 +52,6 @@ class Page_Homepage extends Page
                 ));
             }
         }
-	}
+    }
 }
 

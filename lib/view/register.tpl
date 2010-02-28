@@ -1,5 +1,5 @@
 
-		<!-- SECTION login -->
+        <!-- SECTION login -->
         <h2>Register a new user</h2>
         <form id="register" method="post" name="register" action="javascript:register_submit();">
             <div><label>Login: <input id="register_login" type="text" maxlength="32" name="login" value="" /></label></div>
@@ -121,9 +121,9 @@
             <div><input type="submit" name="submit" value="register"></div>
         </form>
         <script type="text/javascript">register_init();</script>
-		<!-- END login -->
+        <!-- END login -->
 
-		<!-- SECTION noLogin -->
-		<p>You are already logged in.</p>
-		<!-- END noLogin -->
+        <!-- SECTION noLogin -->
+        <p>You are already logged in.</p>
+        <!-- END noLogin -->
 

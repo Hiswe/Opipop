@@ -2,21 +2,21 @@
 
 class Page_User_Edit extends Page
 {
-	public function configureView()
-	{
-		$this->tpl->assignTemplate('lib/view/header.tpl');
-		$this->tpl->assignTemplate('lib/view/top.tpl');
-		$this->tpl->assignTemplate('lib/view/user_header.tpl');
-		$this->tpl->assignTemplate('lib/view/user_menu.tpl');
-		$this->tpl->assignTemplate('lib/view/user_edit.tpl');
-		$this->tpl->assignTemplate('lib/view/footer.tpl');
-	}
+    public function configureView()
+    {
+        $this->tpl->assignTemplate('lib/view/header.tpl');
+        $this->tpl->assignTemplate('lib/view/top.tpl');
+        $this->tpl->assignTemplate('lib/view/user_header.tpl');
+        $this->tpl->assignTemplate('lib/view/user_menu.tpl');
+        $this->tpl->assignTemplate('lib/view/user_edit.tpl');
+        $this->tpl->assignTemplate('lib/view/footer.tpl');
+    }
 
-	public function configureData()
-	{
+    public function configureData()
+    {
         // Configure top block
-		$top = new Block_Top($this->tpl);
-		$top->configure();
+        $top = new Block_Top($this->tpl);
+        $top->configure();
 
         // If no user is logged or this page's user is not logged
         if (!Tool::isOk($_SESSION['user']) || strtolower($_SESSION['user']['login']) == strtolower($this->getParameter('login')))

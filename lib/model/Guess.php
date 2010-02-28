@@ -4,18 +4,18 @@ class Model_Guess
 {
     protected $data;
 
-	public function Model_Guess($id, $data = array())
-	{
-		if (preg_match('/^(\d+)$/', $id) != 0)
-		{
-			$this->data = $data;
+    public function Model_Guess($id, $data = array())
+    {
+        if (preg_match('/^(\d+)$/', $id) != 0)
+        {
+            $this->data = $data;
             $this->data['id'] = $id;
-		}
-		else
-		{
+        }
+        else
+        {
             // TODO : Error 500
-		}
-	}
+        }
+    }
 
     public function getId()
     {
@@ -29,10 +29,10 @@ class Model_Guess
 
     public function getUser()
     {
-		if (!isset($this->data['user']))
-		{
+        if (!isset($this->data['user']))
+        {
             // TODO : Error 500
-		}
+        }
         return $this->data['user'];
     }
 }

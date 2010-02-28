@@ -7,10 +7,10 @@
     ini_set("memory_limit",'16M');
 
     $rs = DB::select('
-		SELECT `id`, `status`, `label`
-		FROM `category`
-		ORDER BY `position` ASC
-	');
+        SELECT `id`, `status`, `label`
+        FROM `category`
+        ORDER BY `position` ASC
+    ');
 
     echo json_encode($rs['data']);
 

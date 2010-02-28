@@ -16,6 +16,6 @@
             WHERE `login`="' . $_POST['login'] . '" AND `valided`=1
         ');
 
-		echo ($rs['total'] != 0) ? 0 : 1;
+        echo ($rs['total'] != 0) ? 0 : 1;
     }
 

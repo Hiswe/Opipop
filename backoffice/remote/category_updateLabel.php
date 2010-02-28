@@ -1,8 +1,8 @@
 <?php
 
     DB::update('
-		UPDATE `category`
+        UPDATE `category`
         SET `label` = "' . $_POST['label'] . '"
         WHERE `id` = "' . $_POST['id'] . '"
-	');
+    ');
 

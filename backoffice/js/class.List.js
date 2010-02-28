@@ -36,10 +36,10 @@ var List = function(param)
 
         this.showPage(this.param.page);
 
-		if (this.param.autoLoad && this.itemList.length != 0)
-		{
-			this.itemList[0].clickCallback();
-		}
+        if (this.param.autoLoad && this.itemList.length != 0)
+        {
+            this.itemList[0].clickCallback();
+        }
     };
 
     this.initTools = function()

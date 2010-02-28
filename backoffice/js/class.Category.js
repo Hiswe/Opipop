@@ -24,7 +24,7 @@ var Category = function(param)
                 }
             });
         }
-		this.loaded = true;
+        this.loaded = true;
         this.list.init();
     };
 
