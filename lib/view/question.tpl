@@ -10,29 +10,28 @@
                     var vis = new pv.Panel()
                         .width(300)
                         .height(300);
-                    vis.s = 0;
 
                     var wedge = vis.add(pv.Wedge)
-                        .data(pv.normalize([33.3, 66.7]))
+                        .data(pv.normalize({question_data}))
                         .left(150)
                         .bottom(150)
-                        .innerRadius(function() 50 * vis.s)
-                        .outerRadius(function() 150 * vis.s)
+                        .innerRadius(function() 50)
+                        .outerRadius(function() 150)
                         .angle(function(d) d * 2 * Math.PI)
                         .lineWidth(8)
                         .strokeStyle('white')
-                        .fillStyle(function(d) (d > 0.5) ? 'CornflowerBlue' : 'fuchsia');
+                        .fillStyle(vis_colorList());
 
                     wedge.add(pv.Label)
                         .font('22px sans-serif')
                         .textStyle('white')
                         .text(function(d) (d * 100).toFixed(1) + '%')
-                        .left(function() (95 * vis.s) * Math.cos(wedge.midAngle()) + 150)
-                        .bottom(function() (-95 * vis.s) * Math.sin(wedge.midAngle()) + 150)
+                        .left(function() 95 * Math.cos(wedge.midAngle()) + 150)
+                        .bottom(function() -95 * Math.sin(wedge.midAngle()) + 150)
                         .textAlign("center")
                         .textBaseline("middle");
 
-                    vis_render(vis, 1000, 'easeOutQuint');
+                    vis.render();
                 </script>
             </div>
 

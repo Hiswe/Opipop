@@ -28,7 +28,12 @@ a:hover, span.link:hover { text-decoration: underline; }
 #morePollsButton { font-size: 16px; }
 
 #questionArchiveList { margin: 20px; }
-#questionArchiveList li.question { border: solid 1px #ccc; padding: 10px; margin: 20px; text-align: center; }
+#questionArchiveList li.question { margin: 20px 0; width: 50%; float: left; text-align: center; }
+#questionArchiveList li.question div.graph { margin: 10px 0 0 0; }
+#questionArchiveList li.question ul.answers { margin: -75px 0 0 0; height: 75px; }
+#questionArchiveList li.question ul.answers li.answer { width: 50%; float: left; font-size: 18px; }
+#questionArchiveList li.question ul.answers li.answer.key0 { color: fuchsia; }
+#questionArchiveList li.question ul.answers li.answer.key1 { color: CornflowerBlue; }
 
 #question { text-align: center; margin: 20px; }
 

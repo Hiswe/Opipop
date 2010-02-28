@@ -71,6 +71,7 @@ class Page_Question extends Page
 
         // Get answers
         $answers = $question->getAnswers();
+        $data = array();
 
         foreach ($answers as $key => $answer)
         {
@@ -80,7 +81,7 @@ class Page_Question extends Page
                 'label'           => $answer->getLabel(),
                 'id'              => $answer->getId(),
                 'key'             => $key,
-                'percentFormated' => number_format($answer->getPercent($question->getId()), 1, ',', ' '),
+                'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
                 'percent'         => round($answer->getPercent()),
             ));
 
@@ -132,7 +133,11 @@ class Page_Question extends Page
                     }
                 }
             }
+
+            $data[] = $answer->getPercent();
         }
+
+        $this->tpl->assignVar('question_data', json_encode(array_reverse($data)));
 	}
 }
 

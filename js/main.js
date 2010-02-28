@@ -6,9 +6,8 @@ window.onload = function () {
 // VIS
 ///////////////////
 
-function vis_render(vis, duration, ease)
+function vis_animate(vis, duration, ease)
 {
-    vis.s = 0;
     var t = 0;
     var clock = setInterval(function()
     {
@@ -20,6 +19,30 @@ function vis_render(vis, duration, ease)
             clearInterval(clock);
         }
     }, 33);
+}
+
+function vis_colorList()
+{
+    return pv.colors('CornflowerBlue', 'fuchsia');
+}
+
+function vis_simplePie(target, width, height, data)
+{
+    new pv.Panel()
+        .canvas(target)
+        .width(width)
+        .height(height)
+    .add(pv.Wedge)
+        .data(pv.normalize(data))
+        .left(width / 2)
+        .bottom(height / 2)
+        .innerRadius(width / 8)
+        .outerRadius(width / 2)
+        .angle(function(d){ return d * 2 * Math.PI; })
+        .lineWidth(width / 40)
+        .strokeStyle('white')
+        .fillStyle(vis_colorList())
+    .root.render();
 }
 
 
