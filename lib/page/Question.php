@@ -22,13 +22,10 @@ class Page_Question extends Page
         // If a user is logged
         if (Tool::isOk($_SESSION['user']))
         {
-            $user = new Model_User($_SESSION['user']['id']);
-            $userAnswer = $user->getAnswer($question->getId());
-            if ($userAnswer !== false)
-            {
-                $userGuess               = $user->getGuess($question);
-                $userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
-            }
+            $user                    = new Model_User($_SESSION['user']['id']);
+            $userAnswer              = $user->getAnswer($question);
+            $userGuess               = $user->getGuess($question);
+            $userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
         }
 
         // Assign question infos

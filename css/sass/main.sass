@@ -18,10 +18,15 @@ span.link
     font-weight: bold
     text-decoration: none
     cursor: pointer
+    img
+        border: none
 
 a:hover,
 span.link:hover
     text-decoration: underline
+
+div.clear
+    clear: both
 
 
 /////////////////////////
@@ -71,7 +76,9 @@ span.link:hover
 #questionActiveList
     margin: 40px
     li.question
+        clear: both
         margin: 30px 10px
+        position: relative
         div.label
             text-align: center
             font-size: 18px
@@ -80,20 +87,47 @@ span.link:hover
             padding: 10px
             img.star
                 float: right
+        div.message
+            clear: both
+            font-weight: bold
+            text-align: center
+            padding: 5px
+        div.save
+            text-align: center
+            font-size: 16px
+            clear: both
+        div.infos
+            font-style: italic
+            position: absolute
         ul.answers
             position: relative
+            li.user
+                margin: 5px
             li.answer
-                background: #f0f0f0
                 text-align: center
                 float: left
                 width: 50%
-                padding: 20px 0
                 font-size: 14px
                 font-weight: bold
+            li.answer button
+                font-size: 14px
+                font-weight: bold
+                margin: 10px 0
+                padding: 10px 20px
+                background-color: #f0f0f0
+                border-width: 1px
+            li.answer button.on
+                background-color: #ffff99
+            li.answer span.label
+                display: block
+                margin: 10px 0
+                padding: 10px 20px
         div.share
+            position: absolute
+            right: 0
+            margin: 4px 0 0 0
             a
                 margin: 0 0 0 5px
-                float: right
 
 
 /////////////////////////

@@ -121,7 +121,6 @@ function user_requestFriend(friendId, accept)
 // QUESTION
 ///////////////////
 
-var question_questionId = {};
 var question_archivePage = 1;
 
 function question_initList()
@@ -160,82 +159,119 @@ function question_showArchive()
 
 function question_initVote(id)
 {
-    question_questionId = id;
+    var votted = true;
+    var guessed = true;
 
-    $('saveButton').hide();
-    $('saveButton').observe('click', question_saveResult);
+    // Hide save button
+    var saveButton = $('question_' + id).down('div.save');
+    saveButton.hide();
 
-    var userRecievers = new Array();
-    var friendRecievers = new Array();
-
-    $$('#result li.answer').each(function(item)
+    // Look for vote buttons
+    var voteButtons = $$('#question_' + id + ' button.vote');
+    voteButtons.each(function(item)
     {
-        userRecievers.push(item);
-        friendRecievers.push(item);
+        item.observe('click', function()
+        {
+            voteButtons.each(function(item)
+            {
+                item.removeClassName('on');
+            });
+            this.addClassName('on');
+            saveButton.show();
+        });
+        item.removeClassName('disabled');
+        votted = false;
     });
-    userRecievers.push($('base_user'));
-    friendRecievers.push($('base_friend'));
 
-    $$('#base li.user').each(function(item)
+    // Look for guess button
+    var guessButtons = $$('#question_' + id + ' button.guess');
+    guessButtons.each(function(item)
     {
-        item.observe('mousedown', function(e)
+        // If no vote button has been found
+        if (votted)
         {
-            dragdrop.grab(e, this, userRecievers, question_userDropCallback);
-        });
-        item.setStyle(
+            item.observe('click', function()
+            {
+                guessButtons.each(function(item)
+                {
+                    item.removeClassName('on');
+                });
+                this.addClassName('on');
+                saveButton.show();
+            });
+            item.show();
+        }
+        else
         {
-            cursor : 'pointer'
-        });
+            item.hide();
+        }
+        item.removeClassName('disabled');
+        guessed = false;
     });
-    $$('#base li.friend').each(function(item)
-    {
-        item.observe('mousedown', function(e)
-        {
-            dragdrop.grab(e, this, friendRecievers, question_userDropCallback);
-        });
-        item.setStyle(
-        {
-            cursor : 'pointer'
-        });
-    });
-}
 
-function question_userDropCallback(user, reciever)
-{
-    reciever.insert(user);
-
-    if ($$('#base_user li.user.unregistered').length === 0)
+    // Fill message
+    var message = $$('#question_' + id + ' div.message')[0];
+    if (!votted)
     {
-        $('saveButton').show();
+        message.update('Give your opinion :');
+    }
+    else if (!guessed)
+    {
+        message.update('Guess what will be the most popual answer :');
     }
     else
     {
-        $('saveButton').hide();
+        message.update('Your vote has been registered');
+    }
+
+    // Display labels if we foud no buttons
+    var anserLabels = $$('#question_' + id + ' span.label');
+    if (votted && guessed)
+    {
+        saveButton.remove();
+        anserLabels.each(function(item)
+        {
+            item.show();
+        });
+    }
+    else
+    {
+        anserLabels.each(function(item)
+        {
+            item.hide();
+        });
     }
 }
 
-function question_saveResult()
+function question_saveResult(id)
 {
-    $('saveButton').hide();
-
     var params =
     {
-        'question_id' : question_questionId
+        'question_id' : id
     };
-    $$('#result li.answer').each(function(answer)
+    var voteId  = 0;
+    var guessId = 0;
+
+    $('question_' + id).down('div.save').hide();
+
+    // Collect votes
+    $$('#question_' + id + ' button.vote.on').each(function(item)
     {
-        answer.select('li.user.unregistered.voted').each(function(user)
-        {
-            params['user[' + user.readAttribute('name').split('_')[1] + '][vote]'] = answer.readAttribute('name').split('_')[1];
-        });
-        answer.select('li.user.unregistered.guessed').each(function(user)
-        {
-            params['user[' + user.readAttribute('name').split('_')[1] + '][guess]'] = answer.readAttribute('name').split('_')[1];
-        });
-        answer.select('li.friend.unregistered.guessed').each(function(friend)
-        {
-            params['friend[' + friend.readAttribute('name').split('_')[1] + '][guess]'] = answer.readAttribute('name').split('_')[1];
-        });
+        params['data[vote]'] = item.readAttribute('id').split('_')[1];
+        voteId               = item.readAttribute('id').split('_')[1];
+    });
+
+    // Collect guesses
+    $$('#question_' + id + ' button.guess.on').each(function(item)
+    {
+        params['data[guess]'] = item.readAttribute('id').split('_')[1];
+        guessId               = item.readAttribute('id').split('_')[1];
+    });
+
+    // Disable buttons
+    $$('#question_' + id + ' button').each(function(item)
+    {
+        item.addClassName('disabled');
     });
 
     new Ajax.Request (ROOT_PATH + 'remote/question_saveResult',
@@ -243,68 +279,29 @@ function question_saveResult()
         parameters: $H(params).toQueryString(),
         onSuccess: function(xhr)
         {
-            // TODO : the page is the same after reload, maybe we don't need to reload the page
-            window.location.reload();
+            // If we votted remove vote buttons
+            if (voteId !== 0)
+            {
+                $$('#question_' + id + ' button.vote').each(function(item)
+                {
+                    item.remove();
+                });
+                $('answer_' + id + '_' + voteId).down('ul.users').insert(user_getVoteBox(question_userId, question_userLogin));
+            }
+            // If we guessed remove guess buttons
+            if (guessId !== 0)
+            {
+                $$('#question_' + id + ' button.guess').each(function(item)
+                {
+                    item.remove();
+                });
+                $('answer_' + id + '_' + guessId).down('ul.users').insert(user_getGuessBox(question_userId, question_userLogin));
+            }
+            // Start again !
+            question_initVote(id);
         }
     });
 }
-
-///////////////////
-// FORM
-///////////////////
-
-function form_disable(form)
-{
-    form.down('input[type=submit]').writeAttribute('disabled');
-}
-
-function form_enable(form)
-{
-    form.down('input[type=submit]').writeAttribute('disabled', false);
-}
-
-function form_setError(input, message)
-{
-    var form = input.up('form');
-
-    form.error = (form.error) ? form.error + 1 : 0;
-
-    if (!form.hasClassName('error'))
-    {
-        form.addClassName('error');
-        form.down('input[type=submit]').writeAttribute('disabled');
-    }
-    if (!input.hasClassName('error'))
-    {
-        var warning = new Element('span').update(message);
-        input.addClassName('error');
-        input.warning = warning;
-        input.up('div').insert(warning);
-    }
-}
-
-function form_cleanError(input)
-{
-    var form = input.up('form');
-
-    form.error = (form.error) ? form.error - 1 : 0;
-
-    if (form.error == 0 && form.hasClassName('error'))
-    {
-        form.removeClassName('error');
-        form.down('input[type=submit]').removeAttribute('disabled');
-    }
-    if (form.error != 0 && !form.hasClassName('error'))
-    {
-        form.addClassName('error');
-    }
-    if (input.hasClassName('error'))
-    {
-        input.removeClassName('error');
-        input.warning.remove();
-    }
-}
-
 
 ///////////////////
 // LOGIN
@@ -364,6 +361,50 @@ function login_submit()
             }
         });
     }
+}
+
+
+///////////////////
+// USER
+///////////////////
+
+function user_getVoteBox(id, login)
+{
+    var box = user_getBox(id, login);
+    box.addClassName('guess');
+    return box;
+}
+
+function user_getGuessBox(id, login)
+{
+    var box = user_getBox(id, login);
+    box.addClassName('vote');
+    return box;
+}
+
+function user_getBox(id, login)
+{
+    var item = new Element('li',
+    {
+        'class' : 'user',
+        'name'  : 'user_' + id
+    });
+    var link = new Element('a',
+    {
+        'href' : ROOT_PATH + login
+    });
+    var img = new Element('img',
+    {
+        'alt' : login,
+        'src' : ROOT_PATH + 'media/avatar/25x25/' + id + '.jpg'
+    });
+    var label = new Element('span').update(login);
+
+    link.insert(img);
+    link.insert(label);
+    item.update(link);
+
+    return item;
 }
 
 
@@ -655,3 +696,61 @@ function register_submit()
         });
     }
 }
+
+
+///////////////////
+// FORM
+///////////////////
+
+function form_disable(form)
+{
+    form.down('input[type=submit]').writeAttribute('disabled');
+}
+
+function form_enable(form)
+{
+    form.down('input[type=submit]').writeAttribute('disabled', false);
+}
+
+function form_setError(input, message)
+{
+    var form = input.up('form');
+
+    form.error = (form.error) ? form.error + 1 : 0;
+
+    if (!form.hasClassName('error'))
+    {
+        form.addClassName('error');
+        form.down('input[type=submit]').writeAttribute('disabled');
+    }
+    if (!input.hasClassName('error'))
+    {
+        var warning = new Element('span').update(message);
+        input.addClassName('error');
+        input.warning = warning;
+        input.up('div').insert(warning);
+    }
+}
+
+function form_cleanError(input)
+{
+    var form = input.up('form');
+
+    form.error = (form.error) ? form.error - 1 : 0;
+
+    if (form.error == 0 && form.hasClassName('error'))
+    {
+        form.removeClassName('error');
+        form.down('input[type=submit]').removeAttribute('disabled');
+    }
+    if (form.error != 0 && !form.hasClassName('error'))
+    {
+        form.addClassName('error');
+    }
+    if (input.hasClassName('error'))
+    {
+        input.removeClassName('error');
+        input.warning.remove();
+    }
+}
+

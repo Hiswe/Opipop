@@ -9,7 +9,6 @@
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/prototype.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/protovis-r3.1.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/transition.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/dragdrop.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/function.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/main.js?{VERSION}"></script>
 

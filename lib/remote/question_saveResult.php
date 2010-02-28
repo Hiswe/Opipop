@@ -1,73 +1,42 @@
 <?php
 
-    // If the question specified is out of date or does not exists exit
-    $rs_question = DB::select('SELECT `date` FROM `question` WHERE `id`="' . $_POST['question_id'] . '"');
-    if ($rs_question['total'] == 0 || $rs_question['data'][0]['date'] < time() - POLL_DURATION)
+    if (!Tool::isOk($_SESSION['user']))
     {
         exit();
     }
 
-    foreach($_POST['user'] as $user_id => $data)
+    $question = new Model_Question($_POST['question_id']);
+
+    if ($question->getEndDate() < time())
     {
-        // If the user specified is not logged exit
-        if (!Tool::isOk($_SESSION['user']) || $_SESSION['user']['id'] != $user_id)
+        exit();
+    }
+
+    $user = new Model_User($_SESSION['user']['id']);
+
+    foreach ($_POST['data'] as $type => $value)
+    {
+        if ($type == 'vote')
         {
-            continue;
+            $answer = $user->getAnswer($question);
+
+            if ($answer == false && $value != 0)
+            {
+                $user->vote($question->getId(), $value);
+            }
         }
-
-        foreach ($data as $type => $value)
+        else if ($type == 'guess')
         {
-            switch ($type)
-            {
-                case 'vote':
-                    $table = 'user_result';
-                    $answer_id = $value;
-                    break;
-                case 'guess':
-                    $table = 'user_guess';
-                    $answer_id = $value;
-                    break;
-                default:
-                    continue;
-            }
+            $guess = $user->getGuess($question);
 
-            // Select user's results if there is some
-            $rs = DB::select('SELECT `answer_id` FROM `' . $table . '` WHERE `question_id`="' . $_POST['question_id'] . '" AND `user_id`="' . $user_id . '"');
-
-            // If the user did not vote for this question
-            if ($rs['total'] == 0)
+            if ($guess == false && $value != 0)
             {
-                // If he voted for an answer
-                if ($answer_id != 0)
-                {
-                    // Remember his answer
-                    DB::insert('INSERT INTO `' . $table . '` (`question_id`, `answer_id`, `user_id`, `date`) VALUES
-                    (
-                        "' . $_POST['question_id'] . '",
-                        "' . $answer_id . '",
-                        "' . $user_id . '",
-                        "' . time() . '"
-                    )');
-                }
+                $user->guess($question->getId(), $value);
             }
-            // Else if the user voted blank
-            // WE DO NOT ALLOW THIS
-            //else if ($answer_id == 0)
-            //{
-                //// Remove his answer
-                //DB::delete('DELETE FROM `' . $table . '` WHERE `question_id`=' . $_POST['question_id'] . ' AND `user_id`=' . $user_id);
-            //}
-            // Else if he already voted but changed his minde
-            // WE DO NOT ALLOW THIS
-            //else if ($answer_id != $rs['data'][0]['answer_id'])
-            //{
-                // Change his answer
-                //DB::update('UPDATE `' . $table . '`
-                    //SET `answer_id` = ' . $answer_id . '
-                    //WHERE `question_id`=' . $_POST['question_id'] . ' AND `user_id`=' . $user_id);
-            //}
         }
     }
+
+    exit();
 
     // Dress friends id list
     $friendIds = array();

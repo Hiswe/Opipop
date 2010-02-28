@@ -81,13 +81,13 @@ class Model_User
         }
     }
 
-    public function getAnswer($questionId)
+    public function getAnswer($question)
     {
         $rs = DB::select
         ('
             SELECT `answer_id`
             FROM `user_result`
-            WHERE `question_id`=' . $questionId . ' AND `user_id`="' . $this->data['id'] . '"
+            WHERE `question_id`=' . $question->getId() . ' AND `user_id`="' . $this->data['id'] . '"
         ');
         if ($rs['total'] != 0)
         {
@@ -362,6 +362,52 @@ class Model_User
             }
         }
         return $this->feelings;
+    }
+
+    public function vote($questionId, $answerId)
+    {
+        DB::insert('INSERT INTO `user_result` (`question_id`, `answer_id`, `user_id`, `date`) VALUES
+        (
+            "' . $questionId . '",
+            "' . $answerId . '",
+            "' . $this->data['id'] . '",
+            "' . time() . '"
+        )');
+    }
+
+    public function guess($questionId, $answerId)
+    {
+        DB::insert('INSERT INTO `user_guess` (`question_id`, `answer_id`, `user_id`, `date`) VALUES
+        (
+            "' . $questionId . '",
+            "' . $answerId . '",
+            "' . $this->data['id'] . '",
+            "' . time() . '"
+        )');
+    }
+
+    public function removeVote($questionId)
+    {
+        DB::delete('DELETE FROM `user_result` WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+    }
+
+    public function removeGuess($questionId)
+    {
+        DB::delete('DELETE FROM `user_guess` WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+    }
+
+    public function updateVote($questionId, $answerId)
+    {
+        DB::update('UPDATE `user_result`
+            SET `answer_id` = ' . $answerId . '
+            WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+    }
+
+    public function updateGuess($questionId, $answerId)
+    {
+        DB::update('UPDATE `user_guess`
+            SET `answer_id` = ' . $answerId . '
+            WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
     }
 
     public function getId()
