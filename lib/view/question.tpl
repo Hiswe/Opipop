@@ -5,42 +5,40 @@
 
 			<p id="questionInfo">This question started on the {question_start_date} and ended on the {question_end_date}.</p>
 
-            <ul id="result">
-                <div id="graph">
+            <div id="graph">
                 <script type="text/javascript+protovis">
-                    var s = 0;
-
                     var vis = new pv.Panel()
                         .width(300)
                         .height(300);
+                    vis.s = 0;
 
                     var wedge = vis.add(pv.Wedge)
                         .data(pv.normalize([33.3, 66.7]))
                         .left(150)
                         .bottom(150)
-                        .innerRadius(20)
-                        //.outerRadius(function(d) Math.sqrt(d) * 150)
-                        .outerRadius(150)
+                        .innerRadius(function() 50 * vis.s)
+                        .outerRadius(function() 150 * vis.s)
                         .angle(function(d) d * 2 * Math.PI)
-                        .lineWidth(20)
+                        .lineWidth(8)
                         .strokeStyle('white')
                         .fillStyle(function(d) (d > 0.5) ? 'CornflowerBlue' : 'fuchsia');
 
                     wedge.add(pv.Label)
                         .font('22px sans-serif')
                         .textStyle('white')
-                        .text(function(d) (d * 100).toFixed(1) + ' %')
-                        .left(function() 75 * Math.cos(wedge.midAngle()) + 150)
-                        .bottom(function() -75 * Math.sin(wedge.midAngle()) + 150)
+                        .text(function(d) (d * 100).toFixed(1) + '%')
+                        .left(function() (95 * vis.s) * Math.cos(wedge.midAngle()) + 150)
+                        .bottom(function() (-95 * vis.s) * Math.sin(wedge.midAngle()) + 150)
                         .textAlign("center")
                         .textBaseline("middle");
 
-                    vis.root.render();
+                    vis_render(vis, 1000, 'easeOutQuint');
                 </script>
-                </div>
+            </div>
+
+            <ul id="result">
                 <!-- LOOP answer -->
-                <li name="answer_{answer.id}" class="answer">
-                    <div class="percent">{answer.percentFormated}%</div>
+                <li name="answer_{answer.id}" class="answer key{answer.key}">
                     <div class="label">{answer.label}</div>
                     <ul>
                         <!-- LOOP answer.user -->

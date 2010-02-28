@@ -3,6 +3,27 @@ window.onload = function () {
 
 
 ///////////////////
+// VIS
+///////////////////
+
+function vis_render(vis, duration, ease)
+{
+    vis.s = 0;
+    var t = 0;
+    var clock = setInterval(function()
+    {
+        t += 1 / (duration / 33);
+        vis.s = Transition[ease](0, t, 0, -1, 1);
+        vis.render();
+        if (t > 1)
+        {
+            clearInterval(clock);
+        }
+    }, 33);
+}
+
+
+///////////////////
 // USER
 ///////////////////
 

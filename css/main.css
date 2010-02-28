@@ -34,11 +34,14 @@ a:hover, span.link:hover { text-decoration: underline; }
 
 #questionInfo { text-align: center; font-style: italic; }
 
-#result { margin: 20px; text-align: center; }
-#result li.answer { padding: 50px 0; width: 50%; float: left; }
-#result li.answer div.label { font-size: 22px; }
-#result li.answer div.percent { font-size: 22px; font-weight: bold; }
+#result { margin: 20px; text-align: center; margin: -195px 0 0 0; height: 200px; }
+#result li.answer { width: 40%; float: left; }
+#result li.answer div.label { font-size: 38px; }
 #result li.answer ul li.user { margin: 10px; }
+#result li.answer.key0 { margin-right: 10%; color: fuchsia; }
+#result li.answer.key1 { margin-left: 10%; color: CornflowerBlue; }
+
+#graph { text-align: center; margin: 20px; }
 
 li.user { border: solid 1px #ccc; padding: 2px 10px; display: inline-block; }
 li.user span { display: block; }

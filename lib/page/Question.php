@@ -72,13 +72,14 @@ class Page_Question extends Page
         // Get answers
         $answers = $question->getAnswers();
 
-        foreach ($answers as $answer)
+        foreach ($answers as $key => $answer)
         {
             // Assign answer's infos
             $this->tpl->assignLoopVar('answer', array
             (
                 'label'           => $answer->getLabel(),
                 'id'              => $answer->getId(),
+                'key'             => $key,
                 'percentFormated' => number_format($answer->getPercent($question->getId()), 1, ',', ' '),
                 'percent'         => round($answer->getPercent()),
             ));
