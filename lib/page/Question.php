@@ -43,39 +43,30 @@ class Page_Question extends Page
             'question_end_date'         => date('d/m/Y', $question->getEndDate()),
         ));
 
-        if (!$question->isActive())
+        // If a user is logged and did not vote
+        if (Tool::isOk($_SESSION['user']) && $userAnswer === false)
         {
-            $this->tpl->assignSection('inactive');
-        }
-        else
-        {
-            $this->tpl->assignSection('active');
+            // Select all user's friends
+            $friends = $user->getFriends();
 
-            // If a user is logged and did not vote
-            if (Tool::isOk($_SESSION['user']) && $userAnswer === false)
+            // Assign friends infos
+            foreach ($friends as $friend)
             {
-                // Select all user's friends
-                $friends = $user->getFriends();
-
-                // Assign friends infos
-                foreach ($friends as $friend)
-                {
-                    $this->tpl->assignLoopVar('friend', array
-                    (
-                        'id'     => $friend->getId(),
-                        'login'  => $friend->getLogin(),
-                        'avatar' => $friend->getAvatarUri('small'),
-                    ));
-                }
-
-                // Assing user's infos
-                $this->tpl->assignLoopVar('user', array
+                $this->tpl->assignLoopVar('friend', array
                 (
-                    'id'     => $user->getId(),
-                    'login'  => $user->getLogin(),
-                    'avatar' => $user->getAvatarUri('small'),
+                    'id'     => $friend->getId(),
+                    'login'  => $friend->getLogin(),
+                    'avatar' => $friend->getAvatarUri('small'),
                 ));
             }
+
+            // Assing user's infos
+            $this->tpl->assignLoopVar('user', array
+            (
+                'id'     => $user->getId(),
+                'login'  => $user->getLogin(),
+                'avatar' => $user->getAvatarUri('small'),
+            ));
         }
 
         // Get answers
@@ -83,30 +74,14 @@ class Page_Question extends Page
 
         foreach ($answers as $answer)
         {
-            if ($question->isActive())
-            {
-                // Assign answer's infos
-                $this->tpl->assignLoopVar('answer', array
-                (
-                    'id'    => $answer->getId(),
-                    'label' => $answer->getLabel(),
-                ));
-            }
-
-            if (!$question->isActive())
-            {
-                // Assign answer's infos
-                $this->tpl->assignLoopVar('answer', array
-                (
-                    'label'           => $answer->getLabel(),
-                    'id'              => $answer->getId(),
-                    'percentFormated' => number_format($answer->getPercent($question->getId()), 1, ',', ' '),
-                    'percent'         => round($answer->getPercent()),
-                    'percent_male'    => round($answer->getPercentMale()),
-                    'percent_female'  => round($answer->getPercentFemale()),
-                ));
-
-            }
+            // Assign answer's infos
+            $this->tpl->assignLoopVar('answer', array
+            (
+                'label'           => $answer->getLabel(),
+                'id'              => $answer->getId(),
+                'percentFormated' => number_format($answer->getPercent($question->getId()), 1, ',', ' '),
+                'percent'         => round($answer->getPercent()),
+            ));
 
             // If a user is logged and voted
             if (Tool::isOk($_SESSION['user']))
@@ -120,7 +95,7 @@ class Page_Question extends Page
                         'id'     => $user->getId(),
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),
-                        'class'  => 'voted',
+                        'class'  => 'vote',
                     ));
                 }
 
@@ -133,7 +108,7 @@ class Page_Question extends Page
                         'id'     => $user->getId(),
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),
-                        'class'  => 'guessed',
+                        'class'  => 'guess',
                     ));
                 }
 

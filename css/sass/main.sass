@@ -121,13 +121,48 @@ span.link:hover
 /////////////////////////
 
 #question
-    border: solid 1px red
     text-align: center
     margin: 20px
 
 #questionInfo
     text-align: center
     font-style: italic
+
+
+/////////////////////////
+// RESULT
+/////////////////////////
+
+#result
+    margin: 20px
+    text-align: center
+    li.answer
+        padding: 50px 0
+        width: 50%
+        float: left
+        div.label
+            font-size: 22px
+        div.percent
+            font-size: 22px
+            font-weight: bold
+        ul
+            li.user
+                margin: 10px
+
+
+/////////////////////////
+// USER
+/////////////////////////
+
+li.user
+    border: solid 1px #ccc
+    padding: 2px 10px
+    display: inline-block
+    span
+        display: block
+
+li.user.guess
+    border-style: dashed
 
 
 /////////////////////////
