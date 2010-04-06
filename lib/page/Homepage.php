@@ -6,7 +6,7 @@ class Page_Homepage extends Page
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/question_active_list.tpl');
+        $this->tpl->assignTemplate('lib/view/homepage.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }
 
@@ -40,96 +40,43 @@ class Page_Homepage extends Page
         // Loop through all questions
         foreach ($questions as $question)
         {
-            // Assign question infos
-            $this->tpl->assignLoopVar('question', array
-            (
-                'id'               => $question->getId(),
-                'label'            => $question->getLabel(),
-                'label_urlencoded' => urlencode($question->getLabel()),
-                'guid'             => Tool::makeGuid($question->getLabel()),
-                'date'             => date('d-m-Y', $question->getStartDate()),
-                'time'             => 'ends ' . Tool::timeWarp($question->getEndDate()),
-            ));
-
             if (isset($user))
             {
                 $userAnswer = $user->getAnswer($question);
                 $userGuess  = $user->getGuess($question);
-            }
-
-            // Get question's answers
-            $answers = $question->getAnswers();
-
-            // If the user already voted and guessed
-            if (isset($user) && $userAnswer != false && $userGuess != false)
-            {
-                foreach ($answers as $answer)
+                if (!$userAnswer)
                 {
-                    $this->tpl->assignLoopVar('question.answer', array
-                    (
-                        'label' => $answer->getLabel(),
-                        'id'    => $answer->getId(),
-                    ));
-
-                    if ($userAnswer->getId() == $answer->getId())
-                    {
-                        $this->tpl->assignLoopVar('question.answer.user', array
-                        (
-                            'id'     => $user->getId(),
-                            'login'  => $user->getLogin(),
-                            'avatar' => $user->getAvatarUri('small'),
-                            'class'  => 'vote',
-                        ));
-                    }
-
-                    if ($userGuess->getId() == $answer->getId())
-                    {
-                        $this->tpl->assignLoopVar('question.answer.user', array
-                        (
-                            'id'     => $user->getId(),
-                            'login'  => $user->getLogin(),
-                            'avatar' => $user->getAvatarUri('small'),
-                            'class'  => 'guess',
-                        ));
-                    }
+                    $block  = new Block_Question_Active_Vote();
+                    $class  = 'active';
+                }
+                else if (!$userGuess)
+                {
+                    $block  = new Block_Question_Active_Guess();
+                    $class  = 'active';
+                }
+                else
+                {
+                    $block  = new Block_Question_Active_Wait();
+                    $class  = 'inactive';
                 }
             }
             else
             {
-                $this->tpl->assignLoopVar('question.active', array());
-
-                foreach ($answers as $answer)
-                {
-                    $this->tpl->assignLoopVar('question.answer', array
-                    (
-                        'label' => $answer->getLabel(),
-                        'id'    => $answer->getId(),
-                    ));
-                }
-
-                if (!isset($userAnswer) || $userAnswer == false)
-                {
-                    foreach ($answers as $answer)
-                    {
-                        $this->tpl->assignLoopVar('question.vote', array
-                        (
-                            'label' => $answer->getLabel(),
-                            'id'    => $answer->getId(),
-                        ));
-                    }
-                }
-                if (!isset($userGuess) || $userGuess == false)
-                {
-                    foreach ($answers as $answer)
-                    {
-                        $this->tpl->assignLoopVar('question.guess', array
-                        (
-                            'label' => $answer->getLabel(),
-                            'id'    => $answer->getId(),
-                        ));
-                    }
-                }
+                $block = new Block_Question_Active_Idle();
+                $class  = 'active';
             }
+            $block->setQuestion($question);
+            $block->configure();
+            $this->tpl->assignLoopVar('question', array
+            (
+                'class'            => $class,
+                'content'          => $block->render(),
+                'id'               => $question->getId(),
+                'label'            => $question->getLabel(),
+                'label_urlencoded' => urlencode($question->getLabel()),
+                'guid'             => Tool::makeGuid($question->getLabel()),
+                'time'             => 'ends ' . Tool::timeWarp($question->getEndDate()),
+            ));
         }
     }
 }

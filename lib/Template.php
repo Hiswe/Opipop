@@ -264,12 +264,12 @@
             $includes = array_unique ($includes[1]);
 
             while (list ($key, $item) = each ($includes)){
-                in_array ($item, $this->LATEST_INCLUDE)?
-                    NULL:
+                //in_array ($item, $this->LATEST_INCLUDE)?
+                    //NULL:
                     $code = strtr ($code, array ('<!-- INCLUDE '.$item.' -->' => $this->include_exec ($item)));
             }
 
-            $this->LATEST_INCLUDE = $includes;
+            //$this->LATEST_INCLUDE = $includes;
 
             return $code;
         }

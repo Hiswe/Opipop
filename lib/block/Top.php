@@ -27,6 +27,14 @@ class Block_Top extends Block
             unset($_SESSION['feedback']);
         }
 
+        // If a feedback should be displayed
+        if (Tool::isOk($_SESSION['warning']))
+        {
+            $this->tpl->assignSection('warning');
+            $this->tpl->assignVar('warning', $_SESSION['warning']);
+            unset($_SESSION['warning']);
+        }
+
         // Did you know ?
         $question   = Model_Question::getRandomQuestion();
         $answers    = $question->getAnswers();

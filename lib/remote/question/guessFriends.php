@@ -2,11 +2,12 @@
 
     if (!Tool::isOk($_SESSION['user']))
     {
+        $_SESSION['warning'] = 'You need to be logged to vote and have friendes';
+        echo 'register';
         exit();
     }
 
     $question = new Model_Question($_POST['question_id']);
-
     if ($question->getEndDate() < time())
     {
         exit();
@@ -22,7 +23,7 @@
 
             if ($answer == false && $value != 0)
             {
-                $user->vote($question->getId(), $value);
+                //$user->vote($question->getId(), $value);
             }
         }
         else if ($type == 'guess')
@@ -31,7 +32,7 @@
 
             if ($guess == false && $value != 0)
             {
-                $user->guess($question->getId(), $value);
+                //$user->guess($question->getId(), $value);
             }
         }
     }

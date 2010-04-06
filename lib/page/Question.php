@@ -25,7 +25,7 @@ class Page_Question extends Page
             $user                    = new Model_User($_SESSION['user']['id']);
             $userAnswer              = $user->getAnswer($question);
             $userGuess               = $user->getGuess($question);
-            $userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
+            //$userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
         }
 
         // Assign question infos
@@ -115,7 +115,7 @@ class Page_Question extends Page
 
                 // If the user guessed for his friends
                 // Loop through all guesses
-                if ($userGuessesAboutFriends)
+                /* if ($userGuessesAboutFriends)
                 {
                     foreach ($userGuessesAboutFriends as $guess)
                     {
@@ -133,7 +133,7 @@ class Page_Question extends Page
                             ));
                         }
                     }
-                }
+                }*/
             }
 
             $data[] = $answer->getPercent();

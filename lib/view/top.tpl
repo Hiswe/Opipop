@@ -25,3 +25,7 @@
         <p><i>{feedback}</i></p>
         <!-- END feedback -->
 
+        <!-- SECTION warning -->
+        <p><i>{warning}</i></p>
+        <!-- END warning -->
+
