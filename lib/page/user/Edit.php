@@ -6,9 +6,9 @@ class Page_User_Edit extends Page
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/user_header.tpl');
-        $this->tpl->assignTemplate('lib/view/user_menu.tpl');
-        $this->tpl->assignTemplate('lib/view/user_edit.tpl');
+        $this->tpl->assignTemplate('lib/view/user/header.tpl');
+        $this->tpl->assignTemplate('lib/view/user/menu.tpl');
+        $this->tpl->assignTemplate('lib/view/user/edit.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }
 

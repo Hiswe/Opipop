@@ -67,7 +67,7 @@ function user_addToFriend(friendId, reload)
 
     link.update();
 
-    new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
+    new Ajax.Request (ROOT_PATH + 'remote/user/addToFriend',
     {
         parameters: params.toQueryString(),
         onSuccess: function(xhr)
@@ -110,7 +110,7 @@ function user_requestFriend(friendId, accept)
         action   : (accept) ? 'accept' : 'cancel'
     });
 
-    new Ajax.Request (ROOT_PATH + 'remote/user_addToFriend',
+    new Ajax.Request (ROOT_PATH + 'remote/user/addToFriend',
     {
         parameters: params.toQueryString()
     });
@@ -232,7 +232,7 @@ function question_save(button, questionId, action)
         //'question_id' : id
     //};
 
-    //new Ajax.Request (ROOT_PATH + 'remote/question_loadUserFriendGuess',
+    //new Ajax.Request (ROOT_PATH + 'remote/question/loadUserFriendGuess',
     //{
         //parameters: $H(params).toQueryString(),
         //onSuccess: function(xhr)
@@ -297,7 +297,7 @@ function login_submit()
             password: password
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/login_submit',
+        new Ajax.Request (ROOT_PATH + 'remote/login/submit',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
@@ -465,7 +465,7 @@ function register_checkLogin()
             login: input.value
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/register_checkLogin',
+        new Ajax.Request (ROOT_PATH + 'remote/register/checkLogin',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)
@@ -503,7 +503,7 @@ function register_checkEmail()
                 email : input.value
             });
 
-            new Ajax.Request (ROOT_PATH + 'remote/register_checkEmail',
+            new Ajax.Request (ROOT_PATH + 'remote/register/checkEmail',
             {
                 parameters: params.toQueryString(),
                 onSuccess: function(xhr)
@@ -586,7 +586,7 @@ function register_submit()
             password : password
         });
 
-        new Ajax.Request (ROOT_PATH + 'remote/register_submit',
+        new Ajax.Request (ROOT_PATH + 'remote/register/submit',
         {
             parameters: params.toQueryString(),
             onSuccess: function(xhr)

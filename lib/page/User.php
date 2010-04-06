@@ -6,8 +6,8 @@ class Page_User extends Page
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/user_header.tpl');
-        $this->tpl->assignTemplate('lib/view/user_menu.tpl');
+        $this->tpl->assignTemplate('lib/view/user/header.tpl');
+        $this->tpl->assignTemplate('lib/view/user/menu.tpl');
         $this->tpl->assignTemplate('lib/view/user.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }

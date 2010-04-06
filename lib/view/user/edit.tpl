@@ -2,7 +2,7 @@
         <script type="text/javascript">var user_id = {profile_id};</script>
 
         <h2>Edit you informations:</h2>
-        <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user_edit_submit" onsubmit="return user_edit_submit();" enctype="multipart/form-data">
+        <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user/edit/submit" onsubmit="return user_edit_submit();" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{profile_id}" />
             <input type="hidden" name="login" value="{profile_login}" />
             <div>
