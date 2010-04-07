@@ -1,6 +1,6 @@
 
     <!-- LOOP answer -->
-    <li>
+    <li class="answer">
         <span>{answer.label}</span>
         <ul>
             <!-- LOOP answer.user -->

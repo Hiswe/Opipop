@@ -1,7 +1,5 @@
 
-    <li>
-        <!-- LOOP answer -->
-        <span>{answer.label}</span>
-        <!-- END answer -->
-    </li>
+    <!-- LOOP answer -->
+    <li class="answer"><span>{answer.label}</span></li>
+    <!-- END answer -->
 

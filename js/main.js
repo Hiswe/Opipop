@@ -170,26 +170,17 @@ var question_data =
 
 function question_selectAnswer(button, questionId, answerId, action)
 {
-    var oppositButton = button.adjacent('button.answer')[0];
-    var saveButton    = button.adjacent('button.save')[0];
+    var answerButtons = $$('#question_' + questionId + ' button.answer');
+    var saveButton    = $$('#question_' + questionId + ' button.save')[0];
 
-    if (button.hasClassName('selected'))
+    answerButtons.each(function(item)
     {
-        button.removeClassName('selected');
-        saveButton.addClassName('hide');
-        question_data[action][questionId] = null;
-    }
-    else
-    {
-        button.addClassName('selected');
-        saveButton.removeClassName('hide');
-        question_data[action][questionId] = answerId;
-    }
+        item.removeClassName('selected');
+    });
 
-    if (oppositButton.hasClassName('selected'))
-    {
-        oppositButton.removeClassName('selected');
-    }
+    button.addClassName('selected');
+    saveButton.removeClassName('hide');
+    question_data[action][questionId] = answerId;
 }
 
 function question_save(button, questionId, action)

@@ -6,7 +6,7 @@
 
         <ul id="questions">
             <!-- LOOP question -->
-            <dl id="question_{question.id}">
+            <dl id="question_{question.id}" class="question">
                 <dt>
                     <h2 class="{question.class}">{question.label}</h2>
                     <span>{question.time}</span>
@@ -16,7 +16,7 @@
                     </div>
                 </dt>
                 <div class="content">{question.content}</div>
-            <dl>
+            </dl>
             <!-- END question -->
         </ul>
 
