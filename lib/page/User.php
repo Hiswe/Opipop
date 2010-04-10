@@ -115,7 +115,7 @@ class Page_User extends Page
             {
                 $this->tpl->assignVar(array
                 (
-                    'profile_global_distance' => round((($profileAGS['votes'] - $profileAGS['popularVotes']) / $profileAGS['votes']) * $totalQuestions),
+                    'profile_global_distance' => round((($profileAGS['votes'] - $profileAGS['goodVotes']) / $profileAGS['votes']) * $totalQuestions),
                 ));
             }
 
@@ -125,7 +125,7 @@ class Page_User extends Page
             {
                 $this->tpl->assignVar(array
                 (
-                    'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['popularVotes']) / $profileAFS['votes']) * $totalQuestions),
+                    'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['goodVotes']) / $profileAFS['votes']) * $totalQuestions),
                 ));
             }
 
@@ -135,9 +135,9 @@ class Page_User extends Page
             {
                 $this->tpl->assignVar(array
                 (
-                    'profile_totalPredictionWon'  => $profileGGS['popularGuesses'],
-                    'profile_totalPredictionLost' => $profileGGS['unpopularGuesses'],
-                    'profile_predictionAccuracy'  => round(($profileGGS['popularGuesses'] / $profileGGS['guesses']) * 100),
+                    'profile_totalPredictionWon'  => $profileGGS['goodGuesses'],
+                    'profile_totalPredictionLost' => $profileGGS['badGuesses'],
+                    'profile_predictionAccuracy'  => round(($profileGGS['goodGuesses'] / $profileGGS['guesses']) * 100),
                 ));
             }
 
@@ -149,7 +149,7 @@ class Page_User extends Page
                 (
                     'id'      => $friend['user']->getId(),
                     'login'   => $friend['user']->getLogin(),
-                    'percent' => round(($friend['guesses'] == 0) ? 0 : ($friend['popularGuesses'] / $friend['guesses']) * 100),
+                    'percent' => round(($friend['guesses'] == 0) ? 0 : ($friend['goodGuesses'] / $friend['guesses']) * 100),
                 ));
             }
 

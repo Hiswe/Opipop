@@ -34,7 +34,7 @@
             </li>
         </ul>
         <ul>
-            <li><strong>personality:</strong>
+            <li>
                 <ul>
                     <!-- LOOP feeling -->
                     <li><strong>{feeling.label}:</strong> {feeling.percent}%</li>

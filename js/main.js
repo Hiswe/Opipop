@@ -229,9 +229,6 @@ function question_guessFriend(button, questionId)
 
     guesses.each(function(item)
     {
-        console.log(item);
-        console.log('checked: ' + item.checked);
-        console.log('disabled: ' + item.disabled);
         if (item.checked && !item.disabled)
         {
             data = item.value.split('-');

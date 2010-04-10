@@ -150,22 +150,31 @@ class Model_User
         if (!isset($this->answerGlobalStats))
         {
             $rs = DB::select('
-                SELECT
-                    COUNT(rg.answer_id) AS `votes`,
-                    SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `popularVotes`,
-                    SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `unpopularVotes`
-                FROM `user_result` AS `rg`
-                JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
-                JOIN `question` AS `q` ON q.id=rg.question_id
-                WHERE q.date < ' . (time() - QUESTION_DURATION) . '
+				SELECT
+					COUNT(*) AS votes,
+					SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
+					SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
+				FROM
+				(
+					SELECT
+						COUNT(rg.answer_id) AS `votes`,
+						SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
+						SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
+					FROM `user_result` AS `rg`
+					JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+					JOIN `question` AS `q` ON q.id=rg.question_id
+					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+					GROUP BY q.id
+				)
+				AS d
             ');
             if ($rs['total'] == 0)
             {
                 $this->answerGlobalStats = array
                 (
-                    'votes'          => 0,
-                    'popularVotes'   => 0,
-                    'unpopularVotes' => 0
+                    'votes'     => 0,
+                    'goodVotes' => 0,
+                    'badVotes'  => 0
                 );
             }
             else
@@ -181,25 +190,34 @@ class Model_User
         if (!isset($this->answerFriendStats))
         {
             $rs = DB::select('
-                SELECT
-                    COUNT(rg.answer_id) AS `votes`,
-                    SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `popularVotes`,
-                    SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `unpopularVotes`
-                FROM `user_result` AS `rg`
-                JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
-                JOIN `question` AS `q` ON q.id=rg.question_id
-                JOIN `friend` AS f
-                    ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
-                    OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
-                WHERE q.date < ' . (time() - QUESTION_DURATION) . '
+				SELECT
+					COUNT(*) AS votes,
+					SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
+					SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
+				FROM
+				(
+					SELECT
+						COUNT(rg.answer_id) AS `votes`,
+						SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
+						SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
+					FROM `user_result` AS `rg`
+					JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+					JOIN `question` AS `q` ON q.id=rg.question_id
+					JOIN `friend` AS f
+						ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
+						OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+					GROUP BY q.id
+				)
+				AS d
             ');
             if ($rs['total'] == 0)
             {
                 $this->answerFriendStats = array
                 (
-                    'votes'          => 0,
-                    'popularVotes'   => 0,
-                    'unpopularVotes' => 0
+                    'votes'     => 0,
+                    'goodVotes' => 0,
+                    'badVotes'  => 0
                 );
             }
             else
@@ -215,22 +233,31 @@ class Model_User
         if (!isset($this->guessGlobalStats))
         {
             $rs = DB::select('
-                SELECT
-                    COUNT(rg.answer_id) AS `guesses`,
-                    SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `popularGuesses`,
-                    SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `unpopularGuesses`
-                FROM `user_result` AS `rg`
-                JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
-                JOIN `question` AS `q` ON q.id=rg.question_id
-                WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+				SELECT
+					COUNT(*) AS guesses,
+					SUM(IF(d.goodGuesses>=d.badGuesses, 1, 0)) AS goodGuesses,
+					SUM(IF(d.goodGuesses<d.badGuesses, 1, 0)) AS badGuesses
+				FROM
+				(
+					SELECT
+						COUNT(rg.answer_id) AS `guesses`,
+						SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `goodGuesses`,
+						SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `badGuesses`
+					FROM `user_result` AS `rg`
+					JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
+					JOIN `question` AS `q` ON q.id=rg.question_id
+					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+					GROUP BY q.id
+				)
+				AS d
             ');
             if ($rs['total'] == 0)
             {
                 $this->guessGlobalStats = array
                 (
-                    'guesses'          => 0,
-                    'popularGuesses'   => 0,
-                    'unpopularGuesses' => 0
+                    'guesses'     => 0,
+                    'goodGuesses' => 0,
+                    'badGuesses'  => 0
                 );
             }
             else
@@ -246,36 +273,36 @@ class Model_User
         if (!isset($this->guessFriendsStats))
         {
             $rs = DB::select('
-                SELECT
-                    u.login,
-                    u.id,
-                    u.male,
-                    u.zip,
-                    u.email,
-                    u.valided,
-                    COUNT(g.question_id) AS `guesses`,
-                    SUM(IF(g.answer_id=r.answer_id, 1, 0)) AS `popularGuesses`,
-                    SUM(IF(g.answer_id!=r.answer_id, 1, 0)) AS `unpopularGuesses`
-                FROM `user_guess_friend` AS `g`
-                JOIN `user` AS `u` ON g.friend_id=u.id
-                JOIN `user_result` AS `r` ON g.question_id=r.question_id
-                JOIN `question` AS `q` ON q.id=g.question_id
-                JOIN `friend` AS f
-                    ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
-                    OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
-                WHERE g.user_id="' . $this->data['id'] . '"
-                AND q.date < ' . (time() - QUESTION_DURATION - 3600) . '
-                GROUP BY g.friend_id
+				SELECT
+					u.login,
+					u.id,
+					u.male,
+					u.zip,
+					u.email,
+					u.valided,
+					COUNT(r.answer_id) AS `guesses`,
+					SUM(IF(r.answer_id=g.answer_id, 1, 0)) AS `goodGuesses`,
+					SUM(IF(r.answer_id!=g.answer_id, 1, 0)) AS `badGuesses`
+				FROM `user_guess_friend` AS `g`
+				JOIN `user` AS `u` ON g.friend_id=u.id
+				JOIN `user_result` AS `r` ON g.question_id=r.question_id AND r.user_id=g.friend_id
+				JOIN `question` AS `q` ON q.id=g.question_id
+				JOIN `friend` AS f
+					ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
+					OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+				WHERE g.user_id="' . $this->data['id'] . '"
+				AND q.date < ' . (time() - QUESTION_DURATION - 3600) . '
+				GROUP BY u.id
             ');
             $this->guessFriendsStats = array();
             foreach ($rs['data'] as $friend)
             {
                 $this->guessFriendsStats[] = array
                 (
-                    'guesses'          => $friend['guesses'],
-                    'popularGuesses'   => $friend['popularGuesses'],
-                    'unpopularGuesses' => $friend['unpopularGuesses'],
-                    'user'             => new Model_User($friend['id'], array
+                    'guesses'     => $friend['guesses'],
+                    'goodGuesses' => $friend['goodGuesses'],
+                    'badGuesses'  => $friend['badGuesses'],
+                    'user'        => new Model_User($friend['id'], array
                     (
                         'login' => $friend['login'],
                         'zip'   => $friend['zip'],

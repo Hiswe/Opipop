@@ -18,7 +18,7 @@
     $answer = $user->getAnswer($question);
     if ($answer == false && Tool::isOk($_POST['answer_id']))
     {
-        //$user->vote($question->getId(), $_POST['answer_id']);
+        $user->vote($question->getId(), $_POST['answer_id']);
     }
 
     $guess = new Block_Question_Active_Guess();

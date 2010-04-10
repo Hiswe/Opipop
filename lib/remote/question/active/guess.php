@@ -15,10 +15,10 @@
 
     $user = new Model_User($_SESSION['user']['id']);
 
-    $answer = $user->getAnswer($question);
-    if ($answer == false && Tool::isOk($_POST['answer_id']))
+    $guess = $user->getGuess($question);
+    if ($guess == false && Tool::isOk($_POST['answer_id']))
     {
-        //$user->guess($question->getId(), $_POST['answer_id']);
+        $user->guess($question->getId(), $_POST['answer_id']);
     }
 
     $guess = new Block_Question_Active_Wait();
