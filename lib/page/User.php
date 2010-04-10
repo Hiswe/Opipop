@@ -48,7 +48,7 @@ class Page_User extends Page
                     (
                         'id'     => $friend->getId(),
                         'login'  => $friend->getLogin(),
-                        'avatar' => $friend->getAvatarUri(),
+                        'avatar' => $friend->getAvatarUri('small'),
                     ));
                 }
             }
