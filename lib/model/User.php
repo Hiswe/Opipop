@@ -410,6 +410,30 @@ class Model_User
             WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
     }
 
+	public function guessAboutFriend($questionId, $friendId, $answerId)
+	{
+		DB::insert('INSERT INTO `user_guess_friend` (`question_id`, `friend_id`, `answer_id`, `user_id`, `date`) VALUES
+		(
+			"' . $questionId . '",
+			"' . $friendId . '",
+			"' . $answerId . '",
+			"' . $this->data['id'] . '",
+			"' . time() . '"
+		)');
+	}
+
+	public function removeGuessAboutFriend($questionId, $friendId)
+	{
+        DB::delete('DELETE FROM `user_guess_friend` WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
+	}
+
+	public function updateGuessAboutFriend($questionId, $friendId, $answerId)
+	{
+        DB::update('UPDATE `user_guess_friend`
+            SET `answer_id` = ' . $answerId . '
+            WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
+	}
+
     public function getId()
     {
         return $this->data['id'];

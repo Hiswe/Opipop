@@ -198,7 +198,7 @@ function question_save(button, questionId, action)
         'answer_id'   : question_data[action][questionId],
     };
 
-    new Ajax.Request (ROOT_PATH + 'remote/question/' + action,
+    new Ajax.Request (ROOT_PATH + 'remote/question/active/' + action,
     {
         parameters: $H(params).toQueryString(),
         onSuccess: function(xhr)
@@ -216,35 +216,46 @@ function question_save(button, questionId, action)
     });
 }
 
-//function question_loadUserFriendGuess(id)
-//{
-    //var params =
-    //{
-        //'question_id' : id
-    //};
+function question_guessFriend(button, questionId)
+{
+    var params =
+    {
+        'question_id' : questionId
+    };
+    var guesses = $$('#question_' + questionId + ' .friends input.guess');
+    var data    = null;
 
-    //new Ajax.Request (ROOT_PATH + 'remote/question/loadUserFriendGuess',
-    //{
-        //parameters: $H(params).toQueryString(),
-        //onSuccess: function(xhr)
-        //{
-            //if (xhr.responseText == 'register')
-            //{
-                //window.location = ROOT_PATH + 'register';
-                //return;
-            //}
-            //else
-            //{
-                //var container = $('question_' + id).down('.friends');
-                //container.update();
-                //$A(xhr.responseJSON).each(function(item)
-                //{
-                    //container.insert(user_getBox(item.id, item.login));
-                //});
-            //}
-        //}
-    //});
-//}
+    button.remove();
+
+    guesses.each(function(item)
+    {
+        console.log(item);
+        console.log('checked: ' + item.checked);
+        console.log('disabled: ' + item.disabled);
+        if (item.checked && !item.disabled)
+        {
+            data = item.value.split('-');
+            params['guess[' + data[0] + ']'] = data[1];
+        }
+    });
+
+    new Ajax.Request (ROOT_PATH + 'remote/question/active/friends',
+    {
+        parameters: $H(params).toQueryString(),
+        onSuccess: function(xhr)
+        {
+            if (xhr.responseText == 'register')
+            {
+                window.location = ROOT_PATH + 'register';
+                return;
+            }
+            else
+            {
+                $$('#question_' + questionId + ' .friends')[0].update(xhr.responseText);
+            }
+        }
+    });
+}
 
 ///////////////////
 // LOGIN

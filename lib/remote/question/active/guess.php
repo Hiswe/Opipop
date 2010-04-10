@@ -21,7 +21,7 @@
         //$user->guess($question->getId(), $_POST['answer_id']);
     }
 
-    $guess = new Block_Question_Active_Wait($tpl);
+    $guess = new Block_Question_Active_Wait();
     $guess->setQuestion($question);
     $guess->configure();
 

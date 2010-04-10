@@ -16,6 +16,9 @@
                     </div>
                 </dt>
                 <div class="content">{question.content}</div>
+                <div class="friends">
+                    <span class="link" onclick="javascript:question_guessFriend(this, {question.id});">Guess what your friend will answer ...</span>
+                </div>
             </dl>
             <!-- END question -->
         </ul>
