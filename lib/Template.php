@@ -14,7 +14,7 @@
             $this->CONTENT = '';
 
             // default setings
-            $this->cacheFolder = ROOT_DIR . 'cache/';
+            $this->cacheFolder = Conf::get('ROOT_DIR') . 'cache/';
             $this->cacheTimeCoef = 1;
             $this->cacheTimeGlobal = 0;
             $this->renderCompress = false;
@@ -293,11 +293,11 @@
                         return $this->getFile ($this->cacheFolder.$cacheName);
                     }
 
-                    return '<!-- CACHE '.$cacheName.' -->'.$this->include_render ($this->getFile (ROOT_DIR.$info[0])).'<!-- END '.$cacheName.' -->';
+                    return '<!-- CACHE '.$cacheName.' -->'.$this->include_render ($this->getFile (Conf::get('ROOT_DIR').$info[0])).'<!-- END '.$cacheName.' -->';
                 }
             }
 
-            return $this->include_render ($this->getFile (ROOT_DIR.$info[0]));
+            return $this->include_render ($this->getFile (Conf::get('ROOT_DIR').$info[0]));
         }
 
         // save the cache of an included file

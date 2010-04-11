@@ -2,7 +2,7 @@
 
     if (!Tool::isOk($_POST['id']) || !Tool::isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !Tool::isOk($_POST['old_password']) || !Tool::isOk($_POST['new_password']))
     {
-        header('Location: ' . ROOT_PATH);
+        header('Location: ' . Conf::get('ROOT_PATH'));
         exit();
     }
 
@@ -21,5 +21,5 @@
             WHERE `id`="' . $_POST['id'] . '"');
     }
 
-    header('Location: ' . ROOT_PATH . $_POST['login']);
+    header('Location: ' . Conf::get('ROOT_PATH'). $_POST['login']);
 

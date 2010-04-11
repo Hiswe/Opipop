@@ -17,7 +17,7 @@ class Page_Homepage extends Page
         $top->configure();
 
         // Init category
-        $category = new Model_Category(MAIN_CATEGORY);
+        $category = new Model_Category(Conf::get('MAIN_CATEGORY'));
         if ($category->getTotalQuestions() == 0)
         {
             return;

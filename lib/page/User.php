@@ -161,7 +161,8 @@ class Page_User extends Page
                 $maxFeelingScore = ($maxFeelingScore < $total) ? $total : $maxFeelingScore;
             }
             $feelings = array('personality', 'surroundings', 'knowledge', 'experience', 'thoughts');
-            $values   = array();
+            $colors   = Conf::get('GRAPH_COLORS');
+            $data     = array();
             foreach ($feelings as $id => $label)
             {
                 $this->tpl->assignLoopVar('feeling', array
@@ -169,43 +170,14 @@ class Page_User extends Page
                     'label'   => $label,
                     'percent' => round(($maxFeelingScore == 0) ? 0 : ($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
                 ));
-                $values[] = number_format(($profileFeelings[$id + 1] / $maxFeelingScore) * 5 + 1, 2);
+                $data[] = array
+                (
+                    'value' => $profileFeelings[$id + 1] / $maxFeelingScore,
+                    'label' => $label,
+                    'color' => $colors[$id],
+                );
             }
-
-            include 'inc/pChart.1.27d/pChart/pData.class';
-            include 'inc/pChart.1.27d/pChart/pChart.class';
-            include 'inc/pChart.1.27d/pChart/pCache.class';
-
-            error_reporting(0);
-
-            // Dataset definition
-            $DataSet = new pData;
-            $DataSet->AddPoint($feelings, 'Label');
-            $DataSet->AddPoint($values, 'Serie1');
-            $DataSet->AddSerie('Serie1');
-            $DataSet->SetAbsciseLabelSerie('Label');
-            $DataSet->SetSerieName('Personality', 'Serie1');
-
-            // Init cahce
-            $Cache = new pCache(ROOT_DIR . 'media/chart/');
-            if (!$Cache->isInCache('personality', $DataSet->GetData()))
-            {
-                // Initialise the graph
-                $Chart = new pChart(400, 400);
-                $Chart->setFontProperties('inc/pChart.1.27d/Fonts/tahoma.ttf',10);
-                $Chart->setGraphArea(50, 50, 350, 350);
-                $Chart->setColorPalette(0, 120, 120, 230);
-
-                // Draw the radar graph
-                $Chart->drawRadarAxis($DataSet->GetData(),$DataSet->GetDataDescription(),TRUE,20,120,120,120,230,230,230);
-                $Chart->drawFilledRadar($DataSet->GetData(),$DataSet->GetDataDescription(),50,20);
-
-                // Cache the graph
-                $Cache->WriteToCache('personality', $DataSet->GetData(), $Chart);
-            }
-            $this->tpl->assignVar('personality_chart', $Cache->GetFromCache('personality', $DataSet->GetData(), true));
-
-            error_reporting(E_ALL);
+            $this->tpl->assignVar('feeling_data', json_encode($data));
         }
     }
 }

@@ -23,7 +23,8 @@ function vis_animate(vis, duration, ease)
 
 function vis_colorList()
 {
-    return pv.colors('CornflowerBlue', 'fuchsia');
+    //return pv.colors('CornflowerBlue', 'Fuchsia', 'AliceBlue', 'Lavender', 'PaleGreen');
+    return pv.colors('red', 'yellow', 'green', 'blue', 'black');
 }
 
 function vis_simplePie(target, width, height, data)

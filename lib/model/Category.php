@@ -46,11 +46,11 @@ class Model_Category
     {
         if ($this->isArchive)
         {
-            $where = 'q.date < ' . (time() - QUESTION_DURATION);
+            $where = 'q.date < ' . (time() - Conf::get('QUESTION_DURATION'));
         }
         else
         {
-            $where = 'q.date > ' . (time() - QUESTION_DURATION);
+            $where = 'q.date > ' . (time() - Conf::get('QUESTION_DURATION'));
         }
         // TODO : retrun an array of question
         $rs = DB::select
@@ -108,8 +108,8 @@ class Model_Category
         {
             $this->fetchQuestions();
         }
-        $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
-        $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
+        $from = ((!$page) ? 0 : $page - 1) * Conf::get('QUESTION_PER_PAGE');
+        $max = ($page === false) ? 0 : Conf::get('QUESTION_PER_PAGE');
         return array_slice($this->questions, $from, $max);
     }
 }

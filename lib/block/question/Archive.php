@@ -13,7 +13,7 @@ class Block_Question_Archive extends Block
     public function configure()
     {
         // Init category
-        $category = new Model_Category(MAIN_CATEGORY);
+        $category = new Model_Category(Conf::get('MAIN_CATEGORY'));
         $category->setIsArchive(true);
         if ($category->getTotalQuestions() == 0)
         {
@@ -23,7 +23,7 @@ class Block_Question_Archive extends Block
         // Get questions
         $questions = $category->getQuestions($this->page);
 
-        if ($this->isAjax() && $category->getTotalQuestions() <= $this->page * QUESTION_PER_PAGE)
+        if ($this->isAjax() && $category->getTotalQuestions() <= $this->page * Conf::get('QUESTION_PER_PAGE'))
         {
             header('X-JSON: (removeMorePollButton())');
         }

@@ -91,7 +91,7 @@ class Model_Question
         {
             $this->fetchData();
         }
-        return $this->data['date'] + QUESTION_DURATION;
+        return $this->data['date'] + Conf::get('QUESTION_DURATION');
     }
 
     public function isActive()
@@ -100,7 +100,7 @@ class Model_Question
         {
             $this->fetchData();
         }
-        return ($this->data['date'] > time() - QUESTION_DURATION);
+        return ($this->data['date'] > time() - Conf::get('QUESTION_DURATION'));
     }
 
     public function getAnswers()
@@ -117,8 +117,8 @@ class Model_Question
         $rs = DB::select('
             SELECT COUNT(*) AS `total`
             FROM `question`
-            WHERE `date` < ' . (time() - QUESTION_DURATION) . '
-            AND `category_id`="' . MAIN_CATEGORY . '"
+            WHERE `date` < ' . (time() - Conf::get('QUESTION_DURATION')) . '
+            AND `category_id`="' . Conf::get('MAIN_CATEGORY') . '"
         ');
         return $rs['data'][0]['total'];
     }
@@ -131,7 +131,7 @@ class Model_Question
             FROM `question` AS `q`
             JOIN `category` AS `c` ON c.id=q.category_id
             WHERE q.status=1 AND c.status=1
-            AND q.category_id="' . MAIN_CATEGORY . '"
+            AND q.category_id="' . Conf::get('MAIN_CATEGORY') . '"
             ORDER BY RAND()
         ');
         if ($rs['total'] == 0)

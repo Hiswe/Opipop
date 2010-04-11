@@ -14,7 +14,7 @@
 
         static function connect()
         {
-            if (!self::$CON = @mysql_connect(DB_HOST, DB_USER, DB_PASS))
+            if (!self::$CON = @mysql_connect(Conf::get('DB_HOST'), Conf::get('DB_USER'), Conf::get('DB_PASS')))
             {
                 echo '<html><head><title>Map Factory - service unavailable</title></head><body><h1><b>Map Factory</b> is temporarily unavailable.</h1><h2><i>come back in a few minutes ...</i></h2></body></html>';
                 exit();
@@ -25,7 +25,7 @@
 
         static function select_db()
         {
-            mysql_select_db(DB_NAME, self::$CON);
+            mysql_select_db(Conf::get('DB_NAME'), self::$CON);
         }
 
         static function query($query)

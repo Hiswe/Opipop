@@ -150,23 +150,23 @@ class Model_User
         if (!isset($this->answerGlobalStats))
         {
             $rs = DB::select('
-				SELECT
-					COUNT(*) AS votes,
-					SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
-					SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
-				FROM
-				(
-					SELECT
-						COUNT(rg.answer_id) AS `votes`,
-						SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
-						SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
-					FROM `user_result` AS `rg`
-					JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
-					JOIN `question` AS `q` ON q.id=rg.question_id
-					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
-					GROUP BY q.id
-				)
-				AS d
+                SELECT
+                    COUNT(*) AS votes,
+                    SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
+                    SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
+                FROM
+                (
+                    SELECT
+                        COUNT(rg.answer_id) AS `votes`,
+                        SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
+                        SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
+                    FROM `user_result` AS `rg`
+                    JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+                    JOIN `question` AS `q` ON q.id=rg.question_id
+                    WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    GROUP BY q.id
+                )
+                AS d
             ');
             if ($rs['total'] == 0)
             {
@@ -190,26 +190,26 @@ class Model_User
         if (!isset($this->answerFriendStats))
         {
             $rs = DB::select('
-				SELECT
-					COUNT(*) AS votes,
-					SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
-					SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
-				FROM
-				(
-					SELECT
-						COUNT(rg.answer_id) AS `votes`,
-						SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
-						SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
-					FROM `user_result` AS `rg`
-					JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
-					JOIN `question` AS `q` ON q.id=rg.question_id
-					JOIN `friend` AS f
-						ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
-						OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
-					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
-					GROUP BY q.id
-				)
-				AS d
+                SELECT
+                    COUNT(*) AS votes,
+                    SUM(IF(d.goodVotes>=d.badVotes, 1, 0)) AS goodVotes,
+                    SUM(IF(d.goodVotes<d.badVotes, 1, 0)) AS badVotes
+                FROM
+                (
+                    SELECT
+                        COUNT(rg.answer_id) AS `votes`,
+                        SUM(IF(rg.answer_id=ru.answer_id, 1, 0)) AS `goodVotes`,
+                        SUM(IF(rg.answer_id!=ru.answer_id, 1, 0)) AS `badVotes`
+                    FROM `user_result` AS `rg`
+                    JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
+                    JOIN `question` AS `q` ON q.id=rg.question_id
+                    JOIN `friend` AS f
+                        ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
+                        OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+                    WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    GROUP BY q.id
+                )
+                AS d
             ');
             if ($rs['total'] == 0)
             {
@@ -233,23 +233,23 @@ class Model_User
         if (!isset($this->guessGlobalStats))
         {
             $rs = DB::select('
-				SELECT
-					COUNT(*) AS guesses,
-					SUM(IF(d.goodGuesses>=d.badGuesses, 1, 0)) AS goodGuesses,
-					SUM(IF(d.goodGuesses<d.badGuesses, 1, 0)) AS badGuesses
-				FROM
-				(
-					SELECT
-						COUNT(rg.answer_id) AS `guesses`,
-						SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `goodGuesses`,
-						SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `badGuesses`
-					FROM `user_result` AS `rg`
-					JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
-					JOIN `question` AS `q` ON q.id=rg.question_id
-					WHERE q.date < ' . (time() - QUESTION_DURATION - 3600) . '
-					GROUP BY q.id
-				)
-				AS d
+                SELECT
+                    COUNT(*) AS guesses,
+                    SUM(IF(d.goodGuesses>=d.badGuesses, 1, 0)) AS goodGuesses,
+                    SUM(IF(d.goodGuesses<d.badGuesses, 1, 0)) AS badGuesses
+                FROM
+                (
+                    SELECT
+                        COUNT(rg.answer_id) AS `guesses`,
+                        SUM(IF(rg.answer_id=gu.answer_id, 1, 0)) AS `goodGuesses`,
+                        SUM(IF(rg.answer_id!=gu.answer_id, 1, 0)) AS `badGuesses`
+                    FROM `user_result` AS `rg`
+                    JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
+                    JOIN `question` AS `q` ON q.id=rg.question_id
+                    WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    GROUP BY q.id
+                )
+                AS d
             ');
             if ($rs['total'] == 0)
             {
@@ -273,26 +273,26 @@ class Model_User
         if (!isset($this->guessFriendsStats))
         {
             $rs = DB::select('
-				SELECT
-					u.login,
-					u.id,
-					u.male,
-					u.zip,
-					u.email,
-					u.valided,
-					COUNT(r.answer_id) AS `guesses`,
-					SUM(IF(r.answer_id=g.answer_id, 1, 0)) AS `goodGuesses`,
-					SUM(IF(r.answer_id!=g.answer_id, 1, 0)) AS `badGuesses`
-				FROM `user_guess_friend` AS `g`
-				JOIN `user` AS `u` ON g.friend_id=u.id
-				JOIN `user_result` AS `r` ON g.question_id=r.question_id AND r.user_id=g.friend_id
-				JOIN `question` AS `q` ON q.id=g.question_id
-				JOIN `friend` AS f
-					ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
-					OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
-				WHERE g.user_id="' . $this->data['id'] . '"
-				AND q.date < ' . (time() - QUESTION_DURATION - 3600) . '
-				GROUP BY u.id
+                SELECT
+                    u.login,
+                    u.id,
+                    u.male,
+                    u.zip,
+                    u.email,
+                    u.valided,
+                    COUNT(r.answer_id) AS `guesses`,
+                    SUM(IF(r.answer_id=g.answer_id, 1, 0)) AS `goodGuesses`,
+                    SUM(IF(r.answer_id!=g.answer_id, 1, 0)) AS `badGuesses`
+                FROM `user_guess_friend` AS `g`
+                JOIN `user` AS `u` ON g.friend_id=u.id
+                JOIN `user_result` AS `r` ON g.question_id=r.question_id AND r.user_id=g.friend_id
+                JOIN `question` AS `q` ON q.id=g.question_id
+                JOIN `friend` AS f
+                    ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
+                    OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+                WHERE g.user_id="' . $this->data['id'] . '"
+                AND q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                GROUP BY u.id
             ');
             $this->guessFriendsStats = array();
             foreach ($rs['data'] as $friend)
@@ -437,29 +437,29 @@ class Model_User
             WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
     }
 
-	public function guessAboutFriend($questionId, $friendId, $answerId)
-	{
-		DB::insert('INSERT INTO `user_guess_friend` (`question_id`, `friend_id`, `answer_id`, `user_id`, `date`) VALUES
-		(
-			"' . $questionId . '",
-			"' . $friendId . '",
-			"' . $answerId . '",
-			"' . $this->data['id'] . '",
-			"' . time() . '"
-		)');
-	}
+    public function guessAboutFriend($questionId, $friendId, $answerId)
+    {
+        DB::insert('INSERT INTO `user_guess_friend` (`question_id`, `friend_id`, `answer_id`, `user_id`, `date`) VALUES
+        (
+            "' . $questionId . '",
+            "' . $friendId . '",
+            "' . $answerId . '",
+            "' . $this->data['id'] . '",
+            "' . time() . '"
+        )');
+    }
 
-	public function removeGuessAboutFriend($questionId, $friendId)
-	{
+    public function removeGuessAboutFriend($questionId, $friendId)
+    {
         DB::delete('DELETE FROM `user_guess_friend` WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
-	}
+    }
 
-	public function updateGuessAboutFriend($questionId, $friendId, $answerId)
-	{
+    public function updateGuessAboutFriend($questionId, $friendId, $answerId)
+    {
         DB::update('UPDATE `user_guess_friend`
             SET `answer_id` = ' . $answerId . '
             WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
-	}
+    }
 
     public function getId()
     {
@@ -516,18 +516,18 @@ class Model_User
         switch ($type)
         {
             case 'small':
-                $size = AVATAR_SMALL_SIZE;
+                $size = Conf::get('AVATAR_SMALL_SIZE');
                 break;
 
             case 'medium':
-                $size = AVATAR_MEDIUM_SIZE;
+                $size = Conf::get('AVATAR_MEDIUM_SIZE');
                 break;
 
             case 'large':
-                $size = AVATAR_LARGE_SIZE;
+                $size = Conf::get('AVATAR_LARGE_SIZE');
                 break;
         }
-        if (file_exists(ROOT_DIR . 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
+        if (file_exists(Conf::get('ROOT_DIR'). 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
         {
             return 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg';
         }
@@ -536,8 +536,8 @@ class Model_User
 
     public static function search($page = false, $query = false)
     {
-        $from = ((!$page) ? 0 : $page - 1) * QUESTION_PER_PAGE;
-        $max = ($page === false) ? 0 : QUESTION_PER_PAGE;
+        $from = ((!$page) ? 0 : $page - 1) * Conf::get('QUESTION_PER_PAGE');
+        $max = ($page === false) ? 0 : Conf::get('QUESTION_PER_PAGE');
 
         $rs = DB::select('
             SELECT u.id, u.login, u.valided, u.male, u.email, u.zip

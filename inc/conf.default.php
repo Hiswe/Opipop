@@ -33,3 +33,13 @@
     $conf['QUESTION_PER_PAGE'] = 4;
     $conf['MAIN_CATEGORY']     = 1;
 
+    // GRAPH
+    $conf['GRAPH_COLORS'] = array
+    (
+        'CornflowerBlue',
+        'Fuchsia',
+        'AliceBlue',
+        'Lavender',
+        'PaleGreen',
+    );
+

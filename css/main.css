@@ -58,4 +58,6 @@ li.user.vote { border: solid 1px #ccc; }
 
 li.user.guess { border: dashed 1px #ccc; }
 
+#userFeeling { width: 300px; }
+
 #share { text-align: right; margin: 10px; }

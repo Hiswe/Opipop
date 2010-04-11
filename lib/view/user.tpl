@@ -42,5 +42,42 @@
                 </ul>
             </li>
         </ul>
-        <div><img src="{ROOT_PATH}media/chart/{personality_chart}" /></div>
+
+        <div id="userFeeling">
+            <script type="text/javascript+protovis">
+                var vis = new pv.Panel()
+                    .width(300)
+                    .height(300);
+
+                var wedge = vis.add(pv.Wedge)
+                    .data({feeling_data})
+                    .left(150)
+                    .bottom(150)
+                    .outerRadius(function(d) Math.sqrt(d.value) * 150)
+                    .angle(2 * Math.PI / 5)
+                    .lineWidth(8)
+                    .strokeStyle('white')
+                    .fillStyle(function(d) d.color);
+
+                wedge.add(pv.Label)
+                    .left(function() 45 * Math.cos(wedge.midAngle()) + 150)
+                    .bottom(function() -45 * Math.sin(wedge.midAngle()) + 150)
+                    .text(function(d) d.value)
+                    .textAlign("center")
+                    .textBaseline("middle")
+                    .font('14px sans-serif')
+                    .textStyle('Grey');
+
+                wedge.add(pv.Label)
+                    .left(function() 110 * Math.cos(wedge.midAngle()) + 150)
+                    .bottom(function() -110 * Math.sin(wedge.midAngle()) + 150)
+                    .textAlign("center")
+                    .textBaseline("middle")
+                    .font('10px sans-serif')
+                    .textStyle('Grey')
+                    .text(function(d) d.label);
+
+                vis.render();
+            </script>
+        </div>
 

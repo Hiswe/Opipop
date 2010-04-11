@@ -3,10 +3,8 @@
     // CONF
     include 'inc/conf.default.php';
     include 'inc/conf.local.php';
-    foreach($conf as $key => $value)
-    {
-        DEFINE($key, $value);
-    }
+    include 'lib/Conf.php';
+    Conf::register($conf);
 
     // PHP
     ini_set('session.use_trans_sid', '0');    // remove PHPSSID
@@ -17,18 +15,18 @@
     // AUTOLOADER
     function __autoload($className)
     {
-        include ROOT_DIR . 'lib/' . str_replace('_', '/', $className) . '.php';
+        include Conf::get('ROOT_DIR') . 'lib/' . str_replace('_', '/', $className) . '.php';
     }
 
     // TEMPLATE ENGINE
     $tpl = new Template();
-    $tpl->cacheTimeCoef = CACHE_TIMECOEF;
+    $tpl->cacheTimeCoef = Conf::get('CACHE_TIMECOEF');
     $tpl->assignVar (array(
-        'PAGE_TITLE'       => PAGE_TITLE,
-        'PAGE_DESCRIPTION' => PAGE_DESCRIPTION,
-        'PAGE_KEYWORDS'    => PAGE_KEYWORDS,
-        'ROOT_PATH'        => ROOT_PATH,
-        'VERSION'          => VERSION
+        'PAGE_TITLE'       => Conf::get('PAGE_TITLE'),
+        'PAGE_DESCRIPTION' => Conf::get('PAGE_DESCRIPTION'),
+        'PAGE_KEYWORDS'    => Conf::get('PAGE_KEYWORDS'),
+        'ROOT_PATH'        => Conf::get('ROOT_PATH'),
+        'VERSION'          => Conf::get('VERSION')
     ));
 
     // REMOTES
