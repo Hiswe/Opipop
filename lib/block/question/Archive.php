@@ -28,6 +28,8 @@ class Block_Question_Archive extends Block
             header('X-JSON: (removeMorePollButton())');
         }
 
+        $colors = Conf::get('GRAPH_COLORS');
+
         // Loop through all questions
         foreach ($questions as $key => $question)
         {
@@ -35,9 +37,13 @@ class Block_Question_Archive extends Block
             $answers = $question->getAnswers();
 
             $data = array();
-            foreach ($answers as $answer)
+            foreach (array_reverse($answers) as $key => $answer)
             {
-                $data[] = $answer->getPercent() + 1; // TODO : remove the +1
+                $data[] = array
+                (
+                    'value' => $answer->getPercent() / 100,
+                    'color' => $colors[$key],
+                );
             }
 
             // Assign question infos
@@ -46,7 +52,7 @@ class Block_Question_Archive extends Block
                 'id'    => $question->getId(),
                 'label' => $question->getLabel(),
                 'guid'  => Tool::makeGuid($question->getLabel()),
-                'data'  => json_encode(array_reverse($data)),
+                'data'  => json_encode($data),
             ));
 
             // Assign answers infos

@@ -12,20 +12,26 @@
                         .height(300);
 
                     var wedge = vis.add(pv.Wedge)
-                        .data(pv.normalize({question_data}))
+                        .data({question_data})
                         .left(150)
                         .bottom(150)
                         .innerRadius(function() 50)
                         .outerRadius(function() 150)
-                        .angle(function(d) d * 2 * Math.PI)
+                        .angle(function(d) d.value * 2 * Math.PI)
                         .lineWidth(8)
                         .strokeStyle('white')
-                        .fillStyle(vis_colorList());
+                        .fillStyle(function(d) d.color);
+
+                    //var anchor = wedge.anchor('center')
+                    //    .add(pv.Label)
+                    //    .font('22px sans-serif')
+                    //    .textStyle('white')
+                    //    .text(function(d) (d.value * 100).toFixed(1) + '%');
 
                     wedge.add(pv.Label)
                         .font('22px sans-serif')
                         .textStyle('white')
-                        .text(function(d) (d * 100).toFixed(1) + '%')
+                        .text(function(d) (d.value * 100).toFixed(1) + '%')
                         .left(function() 95 * Math.cos(wedge.midAngle()) + 150)
                         .bottom(function() -95 * Math.sin(wedge.midAngle()) + 150)
                         .textAlign("center")

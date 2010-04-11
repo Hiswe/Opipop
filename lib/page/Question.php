@@ -68,7 +68,8 @@ class Page_Question extends Page
 
         // Get answers
         $answers = $question->getAnswers();
-        $data = array();
+        $colors  = Conf::get('GRAPH_COLORS');
+        $data    = array();
 
         foreach ($answers as $key => $answer)
         {
@@ -81,8 +82,6 @@ class Page_Question extends Page
                 'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
                 'percent'         => round($answer->getPercent()),
             ));
-
-            // TODO !!
 
             // If a user is logged and voted
             if (Tool::isOk($_SESSION['user']))
@@ -135,11 +134,18 @@ class Page_Question extends Page
                     }
                 }*/
             }
-
-            $data[] = $answer->getPercent();
         }
 
-        $this->tpl->assignVar('question_data', json_encode(array_reverse($data)));
+        foreach (array_reverse($answers) as $key => $answer)
+        {
+            $data[] = array
+            (
+                'value' => $answer->getPercent() / 100,
+                'color' => $colors[$key],
+            );
+        }
+
+        $this->tpl->assignVar('question_data', json_encode($data));
     }
 }
 

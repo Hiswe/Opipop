@@ -219,11 +219,10 @@
                         $this->getFile ($item['name']);
 
                     $result = $this->section_render ($result);
-                    $result = $this->loop_render ($result);
                     $result = $this->include_render ($result);
                     $result = $this->section_render ($result);
-                    $result = $this->loop_render ($result);
                     $result = $this->variable_render ($result);
+                    $result = $this->loop_render ($result);
 
                     ($this->renderCompress)?
                         $result = strtr ($result, array (chr(9) => '', chr(13).chr(10) => '', chr(10) => '')):
@@ -414,7 +413,7 @@
 
         // look for all variables
         function variable_render ($code){
-            preg_match_all ('#{(.*)}#isU', $code, $variables);
+            preg_match_all ('#{([^\.]*)}#isU', $code, $variables);
 
             while (list ($key, $item) = each ($variables[1])){
                 $code = strtr ($code, array ('{'.$item.'}' => $this->variable_exec ($item)));
