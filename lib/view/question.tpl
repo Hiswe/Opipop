@@ -62,3 +62,6 @@
                 <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>
             </ul>
 
+            <div id="map"></div>
+            <script type="text/javascript" src="{ROOT_PATH}js/vis/map.js.php?questionId={question_id}"></script>
+

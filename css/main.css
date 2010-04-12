@@ -42,6 +42,8 @@ div.clear { clear: both; }
 
 #questionInfo { text-align: center; font-style: italic; }
 
+#map { text-align: center; width: 545px; height: 540px; margin: auto; }
+
 #result { margin: 20px; text-align: center; margin: -195px 0 0 0; height: 200px; }
 #result li.answer { width: 40%; float: left; }
 #result li.answer div.label { font-size: 38px; }
