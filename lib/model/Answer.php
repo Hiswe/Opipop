@@ -35,6 +35,7 @@ class Model_Answer
 
     private function fetchStats()
     {
+        // TODO : check if !$this->stats here and not in each method that uses fetchStats
         if (!$this->data['question_id'])
         {
             // TODO : Error 500
@@ -44,7 +45,7 @@ class Model_Answer
             SELECT
                 COUNT(r.question_id) AS total,
                 SUM(if(r.answer_id="' . $this->data['id'] . '", 1, 0)) AS total_matching,
-                SUM(u.male) AS total_male
+                SUM(if(r.answer_id="' . $this->data['id'] . '" AND u.male, 1, 0)) AS total_male
             FROM `user_result` AS `r`
             JOIN `user` AS `u` ON r.user_id=u.id
             WHERE r.question_id="' . $this->data['question_id'] . '"

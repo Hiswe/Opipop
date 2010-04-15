@@ -83,6 +83,16 @@ class Page_Question extends Page
                 'percent'         => round($answer->getPercent()),
             ));
 
+            // Assign answer's details
+            $this->tpl->assignLoopVar('details', array
+            (
+                'label'                 => $answer->getLabel(),
+                'percentMaleFormated'   => number_format($answer->getPercentMale(), 1, ',', ' '),
+                'percentMale'           => round($answer->getPercentMale()),
+                'percentFemaleFormated' => number_format($answer->getPercentFemale(), 1, ',', ' '),
+                'percentFemale'         => round($answer->getPercentFemale()),
+            ));
+
             // If a user is logged and voted
             if (Tool::isOk($_SESSION['user']))
             {
@@ -114,6 +124,7 @@ class Page_Question extends Page
 
                 // If the user guessed for his friends
                 // Loop through all guesses
+                // TODO : what I guessed for my friend, what my friend answered, what they guessed for me
                 /* if ($userGuessesAboutFriends)
                 {
                     foreach ($userGuessesAboutFriends as $guess)

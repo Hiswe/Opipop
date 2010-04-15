@@ -98,6 +98,9 @@ div.clear
 /////////////////////////
 
 #questionResults
+    margin: -110px 0 0 0
+    width: 100%
+    position: absolute
     ul.menu
         margin: 10px auto
         width: 258px
@@ -154,7 +157,7 @@ div.clear
 
 #question
     text-align: center
-    margin: 20px
+    margin: 20px 20px 5px 20px
 
 #questionInfo
     text-align: center
@@ -173,13 +176,12 @@ div.clear
 #result
     margin: 20px
     text-align: center
-    margin: 175px 0 0 0
-    position: absolute
-    height: 200px
+    margin: 10px 0 0 0
+    height: 115px
     display: block
     width: 100%
     li.answer
-        width: 40%
+        width: 20%
         float: left
         div.label
             font-size: 38px
@@ -187,16 +189,38 @@ div.clear
             li.user
                 margin: 10px
     li.answer.key0
-        margin-right: 10%
+        margin-right: 30%
         color: fuchsia
     li.answer.key1
-        margin-left: 10%
+        margin-left: 30%
         color: CornflowerBlue
 
 #questionResults
     div.graph
         text-align: center
         margin: 20px
+    div.title
+        font-weight: bold
+        font-size: 16px
+        margin: 10px 0
+    div.label
+        font-weight: bold
+        font-size: 14px
+        margin: 10px 0
+    div.sexRepartition
+        width: 400px
+        height: 25px
+        margin: 10px auto 30px auto
+        div
+            float: left
+            height: 25px
+            padding: 5px 0 0 0
+            color: #fff
+            font-weight: bold
+        div.progress1
+            background: CornflowerBlue
+        div.progress2
+            background: fuchsia
 
 
 /////////////////////////

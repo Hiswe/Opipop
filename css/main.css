@@ -26,6 +26,7 @@ div.clear { clear: both; }
 #questions dl.question div.content li.answer { width: 20%; margin: 0 15%; float: left; }
 #questions dl.question div.friends { clear: both; }
 
+#questionResults { margin: -110px 0 0 0; width: 100%; position: absolute; }
 #questionResults ul.menu { margin: 10px auto; width: 258px; height: 20px; }
 #questionResults ul.menu li { border: solid 1px #ccc; float: left; width: 80px; margin: 0 2px; text-align: center; cursor: pointer; }
 #questionResults div.tab { text-align: center; clear: both; margin: 10px 0 0 0; }
@@ -42,20 +43,26 @@ div.clear { clear: both; }
 #questionArchiveList li.question ul.answers li.answer.key0 { color: fuchsia; }
 #questionArchiveList li.question ul.answers li.answer.key1 { color: CornflowerBlue; }
 
-#question { text-align: center; margin: 20px; }
+#question { text-align: center; margin: 20px 20px 5px 20px; }
 
 #questionInfo { text-align: center; font-style: italic; }
 
 #map { text-align: center; width: 545px; height: 540px; margin: auto; }
 
-#result { margin: 20px; text-align: center; margin: 175px 0 0 0; position: absolute; height: 200px; display: block; width: 100%; }
-#result li.answer { width: 40%; float: left; }
+#result { margin: 20px; text-align: center; margin: 10px 0 0 0; height: 115px; display: block; width: 100%; }
+#result li.answer { width: 20%; float: left; }
 #result li.answer div.label { font-size: 38px; }
 #result li.answer ul li.user { margin: 10px; }
-#result li.answer.key0 { margin-right: 10%; color: fuchsia; }
-#result li.answer.key1 { margin-left: 10%; color: CornflowerBlue; }
+#result li.answer.key0 { margin-right: 30%; color: fuchsia; }
+#result li.answer.key1 { margin-left: 30%; color: CornflowerBlue; }
 
 #questionResults div.graph { text-align: center; margin: 20px; }
+#questionResults div.title { font-weight: bold; font-size: 16px; margin: 10px 0; }
+#questionResults div.label { font-weight: bold; font-size: 14px; margin: 10px 0; }
+#questionResults div.sexRepartition { width: 400px; height: 25px; margin: 10px auto 30px auto; }
+#questionResults div.sexRepartition div { float: left; height: 25px; padding: 5px 0 0 0; color: #fff; font-weight: bold; }
+#questionResults div.sexRepartition div.progress1 { background: CornflowerBlue; }
+#questionResults div.sexRepartition div.progress2 { background: fuchsia; }
 
 li.user { padding: 2px 10px; display: inline-block; }
 li.user span { display: block; }

@@ -75,7 +75,14 @@
                 </div>
 
                 <div class="tab">
-                    DETAILS
+                    <div class="title">Men / Women</div>
+                    <!-- LOOP details -->
+                    <div class="label">{details.label}</div>
+                    <div class="sexRepartition">
+                        <div class="progress1" style="width: {details.percentMale}%">{details.percentMaleFormated}%</div>
+                        <div class="progress2" style="width: {details.percentFemale}%">{details.percentFemaleFormated}%</div>
+                    </div>
+                    <!-- END details -->
                 </div>
             </div>
 
