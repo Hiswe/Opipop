@@ -154,7 +154,48 @@ function question_showArchive()
 
 
 ///////////////////
-// QUESTION
+// QUESTION ARCHIVE
+///////////////////
+
+
+function question_initResults()
+{
+    $$('#questionResults ul.menu li.button').each(function(item, index)
+    {
+        item.observe('click', function()
+        {
+            question_resultSelectTab(index);
+        });
+    });
+    $$('#questionResults div.tab').each(function(item, index)
+    {
+        if (index > 0)
+        {
+            item.hide();
+        }
+    });
+}
+
+function question_resultSelectTab(n)
+{
+    var container = $('questionResults');
+
+    container.select('div.tab').each(function(item)
+    {
+        item.hide()
+    });
+    container.select('div.tab')[n].show();
+
+    container.select('ul.menu li.button').each(function(item)
+    {
+        item.removeClassName('selected')
+    });
+    container.select('ul.menu li.button')[n].addClassName('selected');
+}
+
+
+///////////////////
+// QUESTION ACTIVE
 ///////////////////
 
 var question_data =

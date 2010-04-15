@@ -26,6 +26,10 @@ div.clear { clear: both; }
 #questions dl.question div.content li.answer { width: 20%; margin: 0 15%; float: left; }
 #questions dl.question div.friends { clear: both; }
 
+#questionResults ul.menu { margin: 10px auto; width: 258px; height: 20px; }
+#questionResults ul.menu li { border: solid 1px #ccc; float: left; width: 80px; margin: 0 2px; text-align: center; cursor: pointer; }
+#questionResults div.tab { text-align: center; clear: both; margin: 10px 0 0 0; }
+
 #morePolls { text-align: center; margin: 20px; }
 
 #morePollsButton { font-size: 16px; }
@@ -44,14 +48,14 @@ div.clear { clear: both; }
 
 #map { text-align: center; width: 545px; height: 540px; margin: auto; }
 
-#result { margin: 20px; text-align: center; margin: -195px 0 0 0; height: 200px; }
+#result { margin: 20px; text-align: center; margin: 175px 0 0 0; position: absolute; height: 200px; display: block; width: 100%; }
 #result li.answer { width: 40%; float: left; }
 #result li.answer div.label { font-size: 38px; }
 #result li.answer ul li.user { margin: 10px; }
 #result li.answer.key0 { margin-right: 10%; color: fuchsia; }
 #result li.answer.key1 { margin-left: 10%; color: CornflowerBlue; }
 
-#graph { text-align: center; margin: 20px; }
+#questionResults div.graph { text-align: center; margin: 20px; }
 
 li.user { padding: 2px 10px; display: inline-block; }
 li.user span { display: block; }

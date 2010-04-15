@@ -94,6 +94,28 @@ div.clear
 
 
 /////////////////////////
+// QUESTION
+/////////////////////////
+
+#questionResults
+    ul.menu
+        margin: 10px auto
+        width: 258px
+        height: 20px
+        li
+            border: solid 1px #ccc
+            float: left
+            width: 80px
+            margin: 0 2px
+            text-align: center
+            cursor: pointer
+    div.tab
+        text-align: center
+        clear: both
+        margin: 10px 0 0 0
+
+
+/////////////////////////
 // QUESTION ARCHIVE
 /////////////////////////
 
@@ -151,8 +173,11 @@ div.clear
 #result
     margin: 20px
     text-align: center
-    margin: -195px 0 0 0
+    margin: 175px 0 0 0
+    position: absolute
     height: 200px
+    display: block
+    width: 100%
     li.answer
         width: 40%
         float: left
@@ -168,9 +193,10 @@ div.clear
         margin-left: 10%
         color: CornflowerBlue
 
-#graph
-    text-align: center
-    margin: 20px
+#questionResults
+    div.graph
+        text-align: center
+        margin: 20px
 
 
 /////////////////////////
