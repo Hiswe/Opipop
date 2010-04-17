@@ -72,6 +72,15 @@ class Tool
         return $searched_list;
     }
 
+    static function percent($value, $total)
+    {
+        if ($total == 0)
+        {
+            return 0;
+        }
+        return ($value / $total) * 100;
+    }
+
     static function cutText($text, $max)
     {
         if (strlen($text) >= $max)

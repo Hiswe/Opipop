@@ -58,11 +58,10 @@ div.clear { clear: both; }
 
 #questionResults div.graph { text-align: center; margin: 20px; }
 #questionResults div.title { font-weight: bold; font-size: 16px; margin: 10px 0; }
-#questionResults div.label { font-weight: bold; font-size: 14px; margin: 10px 0; }
 #questionResults div.sexRepartition { width: 400px; height: 25px; margin: 10px auto 30px auto; }
 #questionResults div.sexRepartition div { float: left; height: 25px; padding: 5px 0 0 0; color: #fff; font-weight: bold; }
-#questionResults div.sexRepartition div.progress1 { background: CornflowerBlue; }
-#questionResults div.sexRepartition div.progress2 { background: fuchsia; }
+#questionResults div.sexRepartition div.progress_0 { background: fuchsia; }
+#questionResults div.sexRepartition div.progress_1 { background: CornflowerBlue; }
 
 li.user { padding: 2px 10px; display: inline-block; }
 li.user span { display: block; }

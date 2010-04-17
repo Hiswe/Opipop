@@ -12,7 +12,7 @@ class Page_Question extends Page
 
     public function configureData()
     {
-        // Configure top block
+        //Configure top block
         $top = new Block_Top($this->tpl);
         $top->configure();
 
@@ -83,16 +83,6 @@ class Page_Question extends Page
                 'percent'         => round($answer->getPercent()),
             ));
 
-            // Assign answer's details
-            $this->tpl->assignLoopVar('details', array
-            (
-                'label'                 => $answer->getLabel(),
-                'percentMaleFormated'   => number_format($answer->getPercentMale(), 1, ',', ' '),
-                'percentMale'           => round($answer->getPercentMale()),
-                'percentFemaleFormated' => number_format($answer->getPercentFemale(), 1, ',', ' '),
-                'percentFemale'         => round($answer->getPercentFemale()),
-            ));
-
             // If a user is logged and voted
             if (Tool::isOk($_SESSION['user']))
             {
@@ -154,6 +144,28 @@ class Page_Question extends Page
                 'value' => $answer->getPercent() / 100,
                 'color' => $colors[$key],
             );
+        }
+
+        // Percent MALE
+        foreach ($answers as $key => $answer)
+        {
+            $this->tpl->assignLoopVar('detailsMale', array
+            (
+                'percentFormated' => number_format(Tool::percent($answer->getTotalMale(), $question->getTotalMale()), 1, ',', ' '),
+                'percent'         => round(Tool::percent($answer->getTotalMale(), $question->getTotalMale())),
+                'key'             => $key,
+            ));
+        }
+
+        // Percent FEMALE
+        foreach ($answers as $key => $answer)
+        {
+            $this->tpl->assignLoopVar('detailsFemale', array
+            (
+                'percentFormated' => number_format(Tool::percent($answer->getTotalFemale(), $question->getTotalFemale()), 1, ',', ' '),
+                'percent'         => round(Tool::percent($answer->getTotalFemale(), $question->getTotalFemale())),
+                'key'             => $key,
+            ));
         }
 
         $this->tpl->assignVar('question_data', json_encode($data));

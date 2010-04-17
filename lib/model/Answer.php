@@ -45,7 +45,7 @@ class Model_Answer
             SELECT
                 COUNT(r.question_id) AS total,
                 SUM(if(r.answer_id="' . $this->data['id'] . '", 1, 0)) AS total_matching,
-                SUM(if(r.answer_id="' . $this->data['id'] . '" AND u.male, 1, 0)) AS total_male
+                SUM(if(r.answer_id="' . $this->data['id'] . '" AND u.male=1, 1, 0)) AS total_male
             FROM `user_result` AS `r`
             JOIN `user` AS `u` ON r.user_id=u.id
             WHERE r.question_id="' . $this->data['question_id'] . '"
@@ -91,6 +91,24 @@ class Model_Answer
         return ($this->stats['total_matching'] / $this->stats['total']) * 100;
     }
 
+    public function getTotalMale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total_male'];
+    }
+
+    public function getTotalFemale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total_matching'] - $this->stats['total_male'];
+    }
+
     public function getPercentMale()
     {
         if (!isset($this->stats))
@@ -101,7 +119,7 @@ class Model_Answer
         {
             return 0;
         }
-        return ($this->stats['total_male'] / $this->stats['total']) * 100;
+        return ($this->stats['total_male'] / $this->stats['total_matching']) * 100;
     }
 
     public function getPercentFemale()
@@ -114,7 +132,7 @@ class Model_Answer
         {
             return 0;
         }
-        return (($this->stats['total'] - $this->stats['total_male']) / $this->stats['total']) * 100;
+        return (($this->stats['total_matching'] - $this->stats['total_male']) / $this->stats['total_matching']) * 100;
     }
 }
 

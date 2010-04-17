@@ -75,14 +75,19 @@
                 </div>
 
                 <div class="tab">
-                    <div class="title">Men / Women</div>
-                    <!-- LOOP details -->
-                    <div class="label">{details.label}</div>
+                    <div class="title">Men</div>
                     <div class="sexRepartition">
-                        <div class="progress1" style="width: {details.percentMale}%">{details.percentMaleFormated}%</div>
-                        <div class="progress2" style="width: {details.percentFemale}%">{details.percentFemaleFormated}%</div>
+                        <!-- LOOP detailsMale -->
+                        <div class="progress_{detailsMale.key}" style="width: {detailsMale.percent}%">{detailsMale.percentFormated}%</div>
+                        <!-- END detailsMale -->
                     </div>
-                    <!-- END details -->
+
+                    <div class="title">Women</div>
+                    <div class="sexRepartition">
+                        <!-- LOOP detailsFemale -->
+                        <div class="progress_{detailsFemale.key}" style="width: {detailsFemale.percent}%">{detailsFemale.percentFormated}%</div>
+                        <!-- END detailsFemale -->
+                    </div>
                 </div>
             </div>
 

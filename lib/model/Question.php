@@ -3,6 +3,7 @@
 class Model_Question
 {
     protected $data;
+    protected $stats;
     protected $answers;
 
     public function Model_Question($id, $data = array())
@@ -32,6 +33,30 @@ class Model_Question
             // TODO : Error 500
         }
         $this->data = $rs['data'][0];
+    }
+
+    private function fetchStats()
+    {
+        $rs = DB::select
+        ('
+            SELECT
+                COUNT(r.question_id) AS total,
+                SUM(u.male=1) AS total_male
+            FROM `user_result` AS `r`
+            JOIN `user` AS `u` ON r.user_id=u.id
+            WHERE r.question_id="' . $this->data['id'] . '"
+            GROUP BY r.question_id
+        ');
+        $this->stats = array
+        (
+            'total'          => 0,
+            'total_male'     => 0,
+        );
+        if ($rs['total'] != 0)
+        {
+            $this->stats = $rs['data'][0];
+        }
+        return $this->stats;
     }
 
     private function fetchAnswers()
@@ -110,6 +135,50 @@ class Model_Question
             $this->fetchAnswers();
         }
         return $this->answers;
+    }
+
+    public function getTotalMale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total_male'];
+    }
+
+    public function getTotalFemale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total'] - $this->stats['total_male'];
+    }
+
+    public function getPercentMale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        if ($this->stats['total'] == 0)
+        {
+            return 0;
+        }
+        return ($this->stats['total_male'] / $this->stats['total']) * 100;
+    }
+
+    public function getPercentFemale()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        if ($this->stats['total'] == 0)
+        {
+            return 0;
+        }
+        return (($this->stats['total'] - $this->stats['total_male']) / $this->stats['total']) * 100;
     }
 
     static public function getTotalQuestions()
