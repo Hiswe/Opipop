@@ -16,7 +16,7 @@
         {
             if (!self::$CON = @mysql_connect(Conf::get('DB_HOST'), Conf::get('DB_USER'), Conf::get('DB_PASS')))
             {
-                echo '<html><head><title>Map Factory - service unavailable</title></head><body><h1><b>Map Factory</b> is temporarily unavailable.</h1><h2><i>come back in a few minutes ...</i></h2></body></html>';
+                echo '<html><head><title>' . Conf::get('PAGE_TITLE') . ' - service unavailable</title></head><body><h1><b>' . Conf::get('PAGE_TITLE') . '</b> is temporarily unavailable.</h1><h2><i>Please come back in a few minutes ...</i></h2></body></html>';
                 exit();
             }
 

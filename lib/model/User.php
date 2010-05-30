@@ -555,5 +555,48 @@ class Model_User
         }
         return $users;
     }
+
+    public static function isKeyValid($id, $key)
+    {
+        $rs = DB::select
+        ('
+            SELECT `id`,`login`
+            FROM `user`
+            WHERE `id`="' . $id . '" AND `key`="' . $key . '" AND `valided`=1
+        ');
+        return $rs['total'] != 0;
+    }
+
+    public static function getLoggedUser()
+    {
+        // If a user is connected get its infos
+        if (Tool::isOk($_SESSION['user']))
+        {
+            return new Model_User($_SESSION['user']['id'], array
+            (
+                'login' => $_SESSION['user']['login'],
+            ));
+        }
+        // If there is a login cookie
+        else if (Tool::isOk($_COOKIE['opipop_login']))
+        {
+            // If the cookie's data matches
+            if (preg_match('/([0-9]+)-([a-z0-9]{32})/s', $_COOKIE['opipop_login'], $matches))
+            {
+                if (Model_User::isKeyValid($matches[1], $matches[2]))
+                {
+                    $user = new Model_User($matches[1]);
+                    $_SESSION['user'] = array
+                    (
+                        'id'    => $user->getId(),
+                        'login' => $user->getLogin(),
+                    );
+                    return $user;
+                }
+            }
+            setcookie ('opipop_login', '', time() - 3600);
+        }
+        return false;
+    }
 }
 
