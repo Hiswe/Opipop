@@ -26,6 +26,7 @@
     $conf['AVATAR_LARGE_SIZE']  = '140x140';
 
     // CONTENT
+    $conf['SITE_NAME']         = 'Opipop';
     $conf['PAGE_TITLE']        = utf8_encode ('Opipop');
     $conf['PAGE_DESCRIPTION']  = utf8_encode ('');
     $conf['PAGE_KEYWORDS']     = utf8_encode ('');

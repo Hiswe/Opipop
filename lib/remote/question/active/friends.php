@@ -1,6 +1,6 @@
 <?php
 
-    if (!Tool::isOk($_SESSION['user']))
+    if (!($user = Model_User::getLoggedUser()))
     {
         $_SESSION['warning'] = 'You need to be logged to participate';
         echo 'register';
@@ -13,7 +13,6 @@
         exit();
     }
 
-    $user    = new Model_User($_SESSION['user']['id']);
     $guesses = $user->getGuessesAboutFriends($question);
 
     if (isset($_POST['guess']))

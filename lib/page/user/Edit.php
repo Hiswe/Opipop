@@ -19,12 +19,10 @@ class Page_User_Edit extends Page
         $top->configure();
 
         // If no user is logged or this page's user is not logged
-        if (!Tool::isOk($_SESSION['user']) || strtolower($_SESSION['user']['login']) == strtolower($this->getParameter('login')))
+        if (!($user = Model_User::getLoggedUser()) || strtolower($user->getLogin()) == strtolower($this->getParameter('login')))
         {
             // TODO : 500
         }
-
-        $user = new Model_User($_SESSION['user']['id']);
 
         $this->tpl->assignSection('private');
         $this->tpl->assignVar(array

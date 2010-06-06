@@ -27,9 +27,8 @@ class Page_Homepage extends Page
         $questions = $category->getQuestions($this->getPage());
 
         // If a user is logged
-        if (Tool::isOk($_SESSION['user']))
+        if ($user = Model_User::getLoggedUser())
         {
-            $user = new Model_User($_SESSION['user']['id']);
             $this->tpl->assignVar(array
             (
                 'user_login' => $user->getLogin(),

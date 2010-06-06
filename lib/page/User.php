@@ -28,10 +28,8 @@ class Page_User extends Page
         ));
 
         // If a user is logged
-        if (Tool::isOk($_SESSION['user']))
+        if ($user = Model_User::getLoggedUser())
         {
-            $user = new Model_User($_SESSION['user']['id']);
-
             // If I'm on my profile
             if ($user->getId() == $profile->getId())
             {

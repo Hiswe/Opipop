@@ -1,11 +1,11 @@
 <?php
 
-    if (!Tool::isOk($_SESSION['user']))
+    if (!($user = Model_User::getLoggedUser()))
     {
         exit();
     }
 
-    $userId   = $_SESSION['user']['id'];
+    $userId   = $user->getId();
     $friendId = $_POST['friendId'];
 
     if ($userId == $friendId)

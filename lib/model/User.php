@@ -578,10 +578,10 @@ class Model_User
             ));
         }
         // If there is a login cookie
-        else if (Tool::isOk($_COOKIE['opipop_login']))
+        else if (Tool::isOk($_COOKIE[Conf::get('SITE_NAME') . '_login']))
         {
             // If the cookie's data matches
-            if (preg_match('/([0-9]+)-([a-z0-9]{32})/s', $_COOKIE['opipop_login'], $matches))
+            if (preg_match('/([0-9]+)-([a-z0-9]{32})/s', $_COOKIE[Conf::get('SITE_NAME') . '_login'], $matches))
             {
                 if (Model_User::isKeyValid($matches[1], $matches[2]))
                 {
@@ -594,7 +594,7 @@ class Model_User
                     return $user;
                 }
             }
-            setcookie ('opipop_login', '', time() - 3600);
+            setcookie (Conf::get('SITE_NAME') . '_login', '', time() - 3600);
         }
         return false;
     }

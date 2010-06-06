@@ -22,7 +22,7 @@
             'id'    => (int)$user['id'],
             'login' => $user['login'],
         );
-        setCookie('opipop_login', $user['id'] . '-' . $user['key'], time() + 86400 * 8, '/');
+        setCookie(Conf::get('SITE_NAME') . '_login', $user['id'] . '-' . $user['key'], time() + 86400 * 8, '/');
 
         echo '1';
     }

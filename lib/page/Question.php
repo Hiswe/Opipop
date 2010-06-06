@@ -20,9 +20,8 @@ class Page_Question extends Page
         $question = new Model_Question($this->getParameter('id'));
 
         // If a user is logged
-        if (Tool::isOk($_SESSION['user']))
+        if ($user = Model_User::getLoggedUser())
         {
-            $user                    = new Model_User($_SESSION['user']['id']);
             $userAnswer              = $user->getAnswer($question);
             $userGuess               = $user->getGuess($question);
             //$userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
@@ -41,7 +40,7 @@ class Page_Question extends Page
         ));
 
         // If a user is logged and did not vote
-        if (Tool::isOk($_SESSION['user']) && $userAnswer === false)
+        if ($user && $userAnswer === false)
         {
             // Select all user's friends
             $friends = $user->getFriends();
@@ -84,7 +83,7 @@ class Page_Question extends Page
             ));
 
             // If a user is logged and voted
-            if (Tool::isOk($_SESSION['user']))
+            if ($user)
             {
                 // If the user answered and the result is about this answer
                 if ($userAnswer && $userAnswer->getId() == $answer->getId())

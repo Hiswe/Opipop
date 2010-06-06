@@ -1,6 +1,6 @@
 <?php
 
-    if (!Tool::isOk($_POST['id']) || !Tool::isOk($_SESSION['user']) || $_SESSION['user']['id'] != $_POST['id'] || !Tool::isOk($_POST['zip']) || !isset($_POST['gender']) || !Tool::isOk($_POST['login']))
+    if (!Tool::isOk($_POST['id']) || !($user = Model_User::getLoggedUser()) || $user->getId() != $_POST['id'] || !Tool::isOk($_POST['zip']) || !isset($_POST['gender']) || !Tool::isOk($_POST['login']))
     {
         header('Location: ' . Conf::get('ROOT_PATH'));
         exit();

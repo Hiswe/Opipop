@@ -4,9 +4,9 @@
     if (isset($_SESSION['user']))
     {
         unset($_SESSION['user']);
-        if (Tool::isOk($_COOKIE['opipop_login']))
+        if (Tool::isOk($_COOKIE[Conf::get('SITE_NAME') . '_login']))
         {
-            setcookie ('opipop_login', '', time() - 3600, '/');
+            setcookie (Conf::get('SITE_NAME') . '_login', '', time() - 3600, '/');
         }
     }
 
