@@ -3,10 +3,8 @@
     // CONF
     include '../inc/conf.default.php';
     include '../inc/conf.local.php';
-    foreach($conf as $key => $value)
-    {
-        DEFINE($key, $value);
-    }
+    include '../lib/Conf.php';
+    Conf::register($conf);
 
     // PHP
     ini_set('session.use_trans_sid', '0');    // remove PHPSSID
@@ -31,20 +29,22 @@
     <title>Backoffice</title>
 
     <script language="javascript" type="text/javascript">var ROOT_PATH = '<?php echo Conf::get('ROOT_PATH'); ?>';</script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>js/lib/prototype.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/main.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.List.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Item.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Category.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/class.Question.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Form.js"></script>
-    <script language="javascript" type="text/javascript" src="<?php echo ROOT_PATH; ?>backoffice/js/static.Job.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>js/lib/prototype.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/main.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.List.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.Item.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.Category.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.Question.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.Submition.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/static.Form.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/static.Job.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo ROOT_PATH; ?>backoffice/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/css/main.css">
 </head>
 <body>
 
     <div id="working"></div>
+    <div id="list_0" class="list"></div>
     <div id="list_1" class="list"></div>
     <div id="list_2" class="list"></div>
     <div id="form"></div>

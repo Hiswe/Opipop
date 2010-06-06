@@ -445,6 +445,133 @@ function user_password_submit()
 
 
 ///////////////////
+// PROPOSE
+///////////////////
+
+var propose_checkQuestionTimeout = 0;
+var propose_checkResponse1Timeout = 0;
+var propose_checkResponse2Timeout = 0;
+
+function propose_init()
+{
+    $('propose_question').observe('keydown', propose_scheduleCheckQuestion);
+    $('propose_question').observe('change', propose_scheduleCheckQuestion);
+    $('propose_response1').observe('keydown', propose_scheduleCheckResponse1);
+    $('propose_response1').observe('change', propose_scheduleCheckResponse1);
+    $('propose_response2').observe('keydown', propose_scheduleCheckResponse2);
+    $('propose_response2').observe('change', propose_scheduleCheckResponse2);
+}
+
+function propose_scheduleCheckQuestion()
+{
+    clearTimeout(propose_checkQuestionTimeout);
+    propose_checkQuestionTimeout = setTimeout(propose_checkQuestion, 500);
+}
+
+function propose_scheduleCheckResponse1()
+{
+    clearTimeout(propose_checkResponse1Timeout);
+    propose_checkResponse1Timeout = setTimeout(propose_checkResponse1, 500);
+}
+
+function propose_scheduleCheckResponse2()
+{
+    clearTimeout(propose_checkResponse2Timeout);
+    propose_checkResponse2Timeout = setTimeout(propose_checkResponse2, 500);
+}
+
+function propose_checkQuestion()
+{
+    var input = $('propose_question');
+    var value = input.value.strip().stripScripts().stripTags();
+
+    if (value.blank())
+    {
+        form_setError(input, 'The question field is required');
+    }
+    else if (value.lenght > 32)
+    {
+        form_setError(input, 'The question must be 32 chars long max');
+    }
+    else
+    {
+        form_cleanError(input);
+    }
+}
+
+function propose_checkResponse1()
+{
+    var input = $('propose_response1');
+    var value = input.value.strip().stripScripts().stripTags();
+
+    if (value.blank())
+    {
+        form_setError(input, 'The response field is required');
+    }
+    else if (value.lenght > 32)
+    {
+        form_setError(input, 'The response must be 32 chars long max');
+    }
+    else
+    {
+        form_cleanError(input);
+    }
+}
+
+function propose_checkResponse2()
+{
+    var input = $('propose_response2');
+    var value = input.value.strip().stripScripts().stripTags();
+
+    if (value.blank())
+    {
+        form_setError(input, 'The response field is required');
+    }
+    else if (value.lenght > 32)
+    {
+        form_setError(input, 'The response must be 32 chars long max');
+    }
+    else
+    {
+        form_cleanError(input);
+    }
+}
+
+function propose_submit()
+{
+    form_disable($('propose'));
+
+    var question = $('propose_question').value.stripScripts().stripTags().strip();
+    var response1 = $('propose_response1').value.stripScripts().stripTags().strip();
+    var response2 = $('propose_response2').value.stripScripts().stripTags().strip();
+
+    if (question.blank() || response1.blank() || response2.blank())
+    {
+        alert('You must fill all the form\'s field to submit a survey !');
+        return;
+    }
+    else
+    {
+        var params = $H(
+        {
+            question  : question,
+            response1 : response1,
+            response2 : response2
+        });
+
+        new Ajax.Request (ROOT_PATH + 'remote/propose/submit',
+        {
+            parameters: params.toQueryString(),
+            onSuccess: function(xhr)
+            {
+                window.location = ROOT_PATH;
+            }
+        });
+    }
+}
+
+
+///////////////////
 // REGISTER
 ///////////////////
 
@@ -658,8 +785,6 @@ function form_setError(input, message)
 {
     var form = input.up('form');
 
-    form.error = (form.error) ? form.error + 1 : 0;
-
     if (!form.hasClassName('error'))
     {
         form.addClassName('error');
@@ -667,6 +792,7 @@ function form_setError(input, message)
     }
     if (!input.hasClassName('error'))
     {
+        form.error = (form.error) ? form.error + 1 : 1;
         var warning = new Element('span').update(message);
         input.addClassName('error');
         input.warning = warning;
@@ -678,21 +804,20 @@ function form_cleanError(input)
 {
     var form = input.up('form');
 
-    form.error = (form.error) ? form.error - 1 : 0;
-
+    if (input.hasClassName('error'))
+    {
+        form.error = (form.error) ? form.error - 1 : 0;
+        input.removeClassName('error');
+        input.warning.remove();
+    }
     if (form.error == 0 && form.hasClassName('error'))
     {
         form.removeClassName('error');
         form.down('input[type=submit]').removeAttribute('disabled');
     }
-    if (form.error != 0 && !form.hasClassName('error'))
+    if (form.error && !form.hasClassName('error'))
     {
         form.addClassName('error');
-    }
-    if (input.hasClassName('error'))
-    {
-        input.removeClassName('error');
-        input.warning.remove();
     }
 }
 

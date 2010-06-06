@@ -1,6 +1,7 @@
 window.onload = function ()
 {
     init('category');
+    init('submition');
 };
 
 var lists = {};
@@ -25,7 +26,27 @@ function init(type)
                     editStatus   : true,
                     editPosition : true,
                     page         : 0,
-                    itemPerPage  : 10
+                    itemPerPage  : 10,
+                    autoLoad     : true,
+                    interactive  : true,
+                    addItem      : true
+                });
+            }
+            lists[type].init();
+            break;
+
+        case 'submition':
+            if (!lists[type])
+            {
+                lists[type] = new List(
+                {
+                    script       : 'backoffice/remote/submition_list',
+                    container    : 'list_0',
+                    model        : Submition,
+                    page         : 0,
+                    itemPerPage  : 5,
+                    interactive  : false,
+                    addItem      : false
                 });
             }
             lists[type].init();

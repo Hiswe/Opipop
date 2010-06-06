@@ -18,7 +18,11 @@ var Item = function(param)
         });
 
         this.container = new Element('li');
-        this.container.observe('click', this.clickCallback.bind(this));
+
+        if (this.param.list.param.interactive)
+        {
+            this.container.observe('click', this.clickCallback.bind(this));
+        }
 
         if (this.param.list.param.editStatus)
         {
@@ -71,6 +75,11 @@ var Item = function(param)
         if (Job.working())
             return;
 
+        this.open();
+    };
+
+    this.open = function()
+    {
         this.param.list.focusItem(this);
         this.model.toggle();
     };

@@ -1,6 +1,4 @@
 
-            <!-- INCLUDE block/top.tpl -->
-
             <ul id="share">
                 <li><a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{ROOT_PATH}media/layout/tshare.png" /></a></li>
                 <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>

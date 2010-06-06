@@ -17,7 +17,9 @@ var Category = function(param)
                 page        : 0,
                 itemPerPage : 10,
                 editStatus  : true,
-                autoLoad    : true,
+                autoLoad    : false,
+                interactive : true,
+                addItem     : true,
                 parameters  :
                 {
                     categoryId : this.param.item.getData('id')

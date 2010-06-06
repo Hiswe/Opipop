@@ -69,8 +69,8 @@
                 $page = new Page_User_Edit($tpl);
                 break;
 
-            case 'user_list':
-                $page = new Page_User_List($tpl);
+            case 'submit':
+                $page = new Page_Submit($tpl);
                 break;
 
             default :
