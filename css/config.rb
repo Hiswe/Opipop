@@ -5,6 +5,7 @@ http_path = "/"
 css_dir = "."
 sass_dir = "sass"
 #images_dir = "images"
+fonts_dir = "../media/layout/fonts/"
 output_style = :compact
 # To enable relative paths to assets via compass helper functions. Uncomment:
-# relative_assets = true
+relative_assets = true

@@ -4,4 +4,5 @@ inc/conf.local.php
 media/avatar/*/*
 !media/avatar/*/*.txt
 !media/avatar/*/0.jpg
+css/.sass-cache/
 

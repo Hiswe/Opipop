@@ -6,25 +6,26 @@
 
         <ul id="questions">
             <!-- LOOP question -->
-			<li>
-            	<dl id="question_{question.id}" class="question">
-				
+			<li class="question">
+			    <h2 class="{question.class} questionTitle">{question.label}</h2>
+            	<dl id="question_{question.id}" class="questionContent">
+                        <!-- <span>{question.time}</span> -->
 	                <dt>
-	                    <h2 class="{question.class}">{question.label}</h2>
-	                    <span>{question.time}</span>
 	                    
 	                </dt>
-	                <dd class="content">{question.content}</dd>
-	                <dd class="friends">
-	                    <span class="link" onclick="javascript:question_guessFriend(this, {question.id});">Guess what your friend will answer ...</span>
+	                <dd>
+	                    <p class="questionLabel">Mon opinion :</p>
+	                    {question.content}
 	                </dd>
-	                <dd class="misc">
-	                    <div class="share">
-	                        <a href="http://twitter.com/home?status={question.label_urlencoded} {ROOT_PATH}question/p-{question.id}" target="_blank" title="share this question on Twitter !"><img src="{ROOT_PATH}media/layout/tshare.png" /></a>
-	                        <a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question.guid}-{question.id}&t={question.label_urlencoded}" target="_blank" title="share this question on Facebook !"><img src="{ROOT_PATH}media/layout/fbshare.png" /></a>
-	                    </div>
-	                </dd>	                
+	                <!-- <dd class="friends">
+	                                       <span class="link" onclick="javascript:question_guessFriend(this, {question.id});">Guess what your friend will answer ...</span>
+	                                   </dd> -->
 	            </dl>
+	            <div class="share">
+                    <span class="dureeSondage">Fin du sondage dans ## jours</span>
+                    <a href="http://twitter.com/home?status={question.label_urlencoded} {ROOT_PATH}question/p-{question.id}" target="_blank" title="share this question on Twitter !"><img src="{ROOT_PATH}media/layout/tshare.png" /></a>
+                    <a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question.guid}-{question.id}&t={question.label_urlencoded}" target="_blank" title="share this question on Facebook !"><img src="{ROOT_PATH}media/layout/fbshare.png" /></a>
+                </div>
 			</li>
             <!-- END question -->
         </ul>

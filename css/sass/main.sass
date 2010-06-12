@@ -1,6 +1,10 @@
 $default-border-radius = 4px
-@import "compass/css3/border-radius"
-@import "compass/css3/gradient"
+
+@import compass/css3
+// font-url(""')
+// @include font-face("Subway-Black", "../media/layout/font/Subway-Black.ttf")
++font-face("Subway-Black", font-files("Subway-Black.ttf", truetype))
+
 
 *
     margin: 0
@@ -8,8 +12,9 @@ $default-border-radius = 4px
 html
     min-height: 100%
 body
+    // background: url(../media/layout/star.png)
     margin: 0
-    padding: 0
+    padding: 0 5%
     font-family: arial, sans-serif
     font-size: 12px
     color: #999
@@ -81,25 +86,52 @@ div.clear
 /////////////////////////
 // QUESTION
 /////////////////////////
-
-#questions
-    text-align: center
-    dl.question
-        margin: 10px
-        padding: 5px
-        border: solid 1px #f0f0f0
-        +border-radius()
-        +linear-gradient(color-stops(#ffffff, #ebebeb))
-        div.content
-            margin: 10px 0 0 0
-            height: 60px
-            li.answer
-                width: 20%
-                margin: 0 15%
-                float: left
-        div.friends
-            clear: both
-
+.question
+    margin: 0  0 25px
+    padding: 5px 10px
+    position: relative
+    border: solid 1px #f0f0f0
+    +border-radius()
+    +linear-gradient(color-stops(#ffffff, #ebebeb))
+     
+.questionTitle
+    float: left
+    padding: 0 12em 0.5em 0
+    
+.share
+    position: absolute
+    top: 5px
+    right: 5px
+    
+    span,
+    img
+        vertical-align: middle
+    
+.questionContent
+    position: relative
+    clear: both
+    
+    dt
+        background: rgba(0,0,0,0.1)
+        width: 315px
+        height: 145px
+        position: absolute
+        left: 0
+        top: 0
+    dd
+        padding: 5px 5px 5px 330px
+        height: 145px
+        
+    p
+        font-weight: normal
+        font-family: "Subway-Black", Arial
+        
+    .questionLabel
+        padding: 10px 0
+        font-size: 1.2em
+        
+    .questionChoice
+        font-size: 3em
 
 /////////////////////////
 // QUESTION
