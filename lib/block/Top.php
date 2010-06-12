@@ -15,6 +15,11 @@ class Block_Top extends Block
         }
         else
         {
+            $this->tpl->assignVar(array
+            (
+                'user_login' => '',
+                'user_id'    => 0,
+            ));
             $this->tpl->assignSection('notLogged');
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+    header("Cache-Control: no-cache");
+
     if (!($user = Model_User::getLoggedUser()))
     {
         $_SESSION['warning'] = 'You need to be logged to vote';
@@ -16,12 +18,15 @@
     $guess = $user->getGuess($question);
     if ($guess == false && Tool::isOk($_POST['answer_id']))
     {
-        $user->guess($question->getId(), $_POST['answer_id']);
+		$user->guess($question->getId(), $_POST['answer_id']);
     }
 
-    $guess = new Block_Question_Active_Wait();
-    $guess->setQuestion($question);
-    $guess->configure();
+    $block = new Block_Question_Active_Wait();
+    $block->setQuestion($question);
+    $block->configure();
 
-    echo $guess->render();
+    echo json_encode(array(
+		'questionId' => $_POST['question_id'],
+		'content'    => $block->render(),
+	));
 

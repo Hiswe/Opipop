@@ -1,5 +1,7 @@
 <?php
 
+    header("Cache-Control: no-cache");
+
     if (!($user = Model_User::getLoggedUser()))
     {
         $_SESSION['warning'] = 'You need to be logged to participate';
@@ -28,7 +30,7 @@
                     continue;
                 }
             }
-            $user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
+			$user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
         }
     }
 
@@ -36,6 +38,9 @@
     $block->setQuestion($question);
     $block->configure();
 
-    echo $block->render();
+    echo json_encode(array(
+		'questionId' => $_POST['question_id'],
+		'content'    => $block->render(),
+	));
 
 
