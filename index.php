@@ -57,10 +57,6 @@
                 $page = new Page_Question($tpl);
                 break;
 
-            case 'question_list':
-                $page = new Page_Question_List($tpl);
-                break;
-
             case 'user':
                 $page = new Page_User($tpl);
                 break;
