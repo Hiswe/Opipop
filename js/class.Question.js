@@ -116,6 +116,25 @@ var Question =
 			data = $.parseJSON(data);
 			$('#question_' + data.questionId + ' .friends').html(data.content);
 		}
+	},
+
+	initResults : function()
+	{
+		$('#questionResults ul.menu li.button').bind('click', Question.resultSelectTab);
+		$('#questionResults div.tabs div.tab:not(:first-child)').hide();
+	},
+
+	resultSelectTab : function(n)
+	{
+		var n = $(this).attr('name');
+
+		var tabs = $('#questionResults div.tabs div.tab');
+		tabs.hide();
+		tabs.eq(n).show();
+
+		var buttons = $('#questionResults ul.menu li.button');
+		buttons.removeClass('selected');
+		buttons.eq(2).addClass('selected');
 	}
 
 };

@@ -124,7 +124,6 @@ var Submit =
 				response1 : response1,
 				response2 : response2
 			};
-
             $.post(ROOT_PATH + 'remote/propose/submit', params, Submit.submitCallback);
 		}
 	},

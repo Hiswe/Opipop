@@ -2,7 +2,7 @@
         <script type="text/javascript">var user_id = {profile_id};</script>
 
         <h2>Edit you informations:</h2>
-        <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user/edit/submit" onsubmit="return user_edit_submit();" enctype="multipart/form-data">
+        <form id="user_edit" method="post" name="user_edit" action="{ROOT_PATH}remote/user/edit/submit" onsubmit="return User_edit.submit();" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{profile_id}" />
             <input type="hidden" name="login" value="{profile_login}" />
             <div>
@@ -52,10 +52,10 @@
             </div>
             <div><input type="submit" name="submit" value="save"></div>
         </form>
-        <script type="text/javascript">user_edit_init();</script>
+        <script type="text/javascript">User_edit.init();</script>
 
         <h2>Change your password:</h2>
-        <form id="user_password" method="post" name="user_password" action="{ROOT_PATH}remote/user_password_submit" onsubmit="return user_password_submit();">
+        <form id="user_password" method="post" name="user_password" action="{ROOT_PATH}remote/user_password_submit" onsubmit="return User_password.submit();">
             <input type="hidden" name="id" value="{profile_id}" />
             <input type="hidden" name="login" value="{profile_login}" />
             <div><label>Current password: <input id="user_password_password_0" type="password" maxlength="128" name="password_1" value="" /></label></div>
@@ -63,4 +63,4 @@
             <div><label>Confirm new password: <input id="user_password_password_2" type="password" maxlength="128" name="password_2" value="" /></label></div>
             <div><input type="submit" name="submit" value="change"></div>
         </form>
-        <script type="text/javascript">user_password_init();</script>
+        <script type="text/javascript">User_password.init();</script>

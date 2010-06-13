@@ -12,12 +12,15 @@
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/raphael-min.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/transition.js?{VERSION}"></script>
 
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/main.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Vis.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Login.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Form.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Question.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Submit.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Register.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User_edit.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User_password.js?{VERSION}"></script>
 
     <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
 </head>

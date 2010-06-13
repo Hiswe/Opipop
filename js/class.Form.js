@@ -1,6 +1,8 @@
 var Form =
 {
 
+    emailFilter : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+
     disable : function(form)
     {
         form.children('input[type=submit]').attr('disabled', 'disabled');
@@ -20,17 +22,18 @@ var Form =
             form.addClass('error');
             Form.disable(form);
         }
-        if (!input.hasClass('error'))
+        if (input.hasClass('error'))
         {
-            var warning = $('<span/>',
-            {
-                'text' : message
-            });
-            form.data('error', (form.data('error')) ? form.data('error') + 1 : 1);
-            input.data('warning', warning);
-            input.addClass('error');
-            input.parentsUntil('div').append(warning);
+            Form.cleanError(input);
         }
+        var warning = $('<span/>',
+        {
+            'text' : message
+        });
+        form.data('error', (form.data('error')) ? form.data('error') + 1 : 1);
+        input.data('warning', warning);
+        input.addClass('error');
+        input.parentsUntil('div').append(warning);
     },
 
     cleanError : function(input)
@@ -59,6 +62,12 @@ var Form =
         input.val(input.val().replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, ''));
         input.val(input.val().replace(new RegExp('<script[^>]*>([\\S\\s]*?)<\/script>', 'img'), ''));
         input.val(input.val().replace(/^\s+/, '').replace(/\s+$/, ''));
+    },
+
+    getCleanInputValue : function(input)
+    {
+        Form.cleanInput(input);
+        return input.val();
     }
 
 };
