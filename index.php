@@ -1,8 +1,8 @@
 <?php
 
     // CONF
-    include 'inc/conf.default.php';
-    include 'inc/conf.local.php';
+    include 'conf/default.php';
+    include 'conf/local.php';
     include 'lib/Conf.php';
     Conf::register($conf);
 

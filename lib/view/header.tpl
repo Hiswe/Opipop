@@ -8,8 +8,8 @@
     <script language="javascript" type="text/javascript">var ROOT_PATH = '{ROOT_PATH}';</script>
 
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/jquery-1.4.2.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/protovis-r3.1.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/raphael-min.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/protovis-d3.2.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/raphael.js?{VERSION}"></script>
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/transition.js?{VERSION}"></script>
 
     <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Vis.js?{VERSION}"></script>

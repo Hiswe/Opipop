@@ -1,6 +1,6 @@
 .DS_Store
 Icon*
-inc/conf.local.php
+conf/local.php
 media/avatar/*/*
 !media/avatar/*/*.txt
 !media/avatar/*/0.jpg
