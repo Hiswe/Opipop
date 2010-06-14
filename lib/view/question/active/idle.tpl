@@ -1,5 +1,5 @@
 
     <!-- LOOP answer -->
-    <li class="answer"><span>{answer.label}</span></li>
+    <p class="questionChoice">{answer.label}</p>
     <!-- END answer -->
 
