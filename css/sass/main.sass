@@ -1,9 +1,9 @@
 $default-border-radius = 4px
 
 @import compass/css3
-// font-url(""')
-// @include font-face("Subway-Black", "../media/layout/font/Subway-Black.ttf")
-+font-face("Subway-Black", font-files("Subway-Black.ttf", truetype))
+// +font-face("typoQuestion", font-files("KRONIKA_.ttf", truetype))
++font-face("typoQuestion", font-files("Folks-Bold.ttf", truetype))
+// +font-face("typoQuestion", font-files("Geometry-Soft-Pro-Bold-N.otf", opentype))
 
 
 *
@@ -124,7 +124,8 @@ div.clear
         
     p
         font-weight: normal
-        font-family: "Subway-Black", Arial
+        font-family: "typoQuestion", Arial
+        letter-spacing: 0.05em
         
     .questionLabel
         padding: 10px 0
@@ -132,6 +133,7 @@ div.clear
         
     .questionChoice
         font-size: 3em
+        text-shadow: rgba(0,0,0,0.5) -1px -1px 0
 
 /////////////////////////
 // QUESTION
