@@ -62,6 +62,7 @@ class Page_Homepage extends Page
                 'content'          => $block->render(),
                 'id'               => $question->getId(),
                 'label'            => $question->getLabel(),
+                'image'            => $question->getImageUri('medium'),
                 'label_urlencoded' => urlencode($question->getLabel()),
                 'guid'             => Tool::makeGuid($question->getLabel()),
                 'time'             => 'ends ' . Tool::timeWarp($question->getEndDate()),
