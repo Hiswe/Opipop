@@ -1,7 +1,7 @@
 
         <ul id="questions">
             <!-- LOOP question -->
-            <li class="question">
+            <li class="question frame">
                 <h2 class="{question.class} questionTitle">{question.label}</h2>
                 <dl id="question_{question.id}" class="questionContent">
                         <!-- <span>{question.time}</span> -->
