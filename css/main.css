@@ -30,115 +30,128 @@ div.clear { clear: both; }
 #main { max-width: 1050px; min-width: 800px; margin: 0 auto; position: relative; }
 
 /* line 62, sass/main.sass */
-#header { padding: 10px; font-size: 32px; }
+#header { padding: 10px; position: relative; }
 /* line 65, sass/main.sass */
 #header p { font-style: italic; font-size: 12px; margin: 0 0 0 20px; }
 
-/* line 75, sass/main.sass */
-#userBox { position: absolute; top: 0; right: 10px; padding: 10px; border: solid 1px #cccccc; border-width: 0 1px 1px 1px; background: #f0f0f0; font-size: 16px; }
+/* ___________________ USER BOX */
+/* line 74, sass/main.sass */
+#userBox { position: absolute; top: 10px; right: 0; z-index: 2; padding: 10px; border: solid 1px #cccccc; border-width: 0 1px 1px 1px; background: #f0f0f0; font-size: 16px; }
 
-/* line 89, sass/main.sass */
+/* line 85, sass/main.sass */
+#login { position: absolute; padding: 2em 2em 1em; top: 10px; right: 0; z-index: 2; -moz-box-shadow: #333333 1px 1px 5px; -webkit-box-shadow: #333333 1px 1px 5px; -o-box-shadow: #333333 1px 1px 5px; box-shadow: #333333 1px 1px 5px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -o-border-radius: 4px; -ms-border-radius: 4px; -khtml-border-radius: 4px; border-radius: 4px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ebebeb)); background-image: -moz-linear-gradient(top, #ffffff 0%, #ebebeb 100%); }
+/* line 95, sass/main.sass */
+#login input { display: block; padding: 0.2em; }
+/* line 99, sass/main.sass */
+#login input[type=text], #login input[type=password] { width: 20em; border: 1px solid #999999; }
+/* line 105, sass/main.sass */
+#login input[type=password] { margin: 1em 0; }
+
+/* line 108, sass/main.sass */
+#register { position: absolute; right: 2em; bottom: 1em; }
+
+/* line 115, sass/main.sass */
 .question { margin: 0 0 25px; padding: 5px 10px; position: relative; border: solid 1px #f0f0f0; -moz-border-radius: 4px; -webkit-border-radius: 4px; -o-border-radius: 4px; -ms-border-radius: 4px; -khtml-border-radius: 4px; border-radius: 4px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ebebeb)); background-image: -moz-linear-gradient(top, #ffffff 0%, #ebebeb 100%); }
 
-/* line 97, sass/main.sass */
+/* line 123, sass/main.sass */
 .questionTitle { float: left; padding: 0 12em 0.5em 0; }
 
-/* line 101, sass/main.sass */
+/* line 127, sass/main.sass */
 .share { position: absolute; top: 5px; right: 5px; }
-/* line 106, sass/main.sass */
+/* line 132, sass/main.sass */
 .share span, .share img { vertical-align: middle; }
 
-/* line 110, sass/main.sass */
+/* line 136, sass/main.sass */
 .questionContent { position: relative; clear: both; }
-/* line 114, sass/main.sass */
+/* line 140, sass/main.sass */
 .questionContent dt { background: rgba(0, 0, 0, 0.1); width: 315px; height: 145px; position: absolute; left: 0; top: 0; }
-/* line 121, sass/main.sass */
+/* line 147, sass/main.sass */
 .questionContent dd { padding: 5px 5px 5px 330px; height: 145px; }
-/* line 125, sass/main.sass */
+/* line 151, sass/main.sass */
 .questionContent p { font-weight: normal; font-family: "typoQuestion", Arial; letter-spacing: 0.05em; }
-/* line 130, sass/main.sass */
+/* line 156, sass/main.sass */
 .questionContent .questionLabel { padding: 10px 0; font-size: 1.2em; }
-/* line 134, sass/main.sass */
+/* line 160, sass/main.sass */
 .questionContent .questionChoice { font-size: 3em; text-shadow: rgba(0, 0, 0, 0.5) -1px -1px 0; }
 
-/* line 142, sass/main.sass */
+/* line 168, sass/main.sass */
 #questionResults { margin: -110px 0 0 0; width: 100%; position: absolute; }
-/* line 146, sass/main.sass */
+/* line 172, sass/main.sass */
 #questionResults ul.menu { margin: 10px auto; width: 258px; height: 20px; }
-/* line 150, sass/main.sass */
+/* line 176, sass/main.sass */
 #questionResults ul.menu li { border: solid 1px #cccccc; float: left; width: 80px; margin: 0 2px; text-align: center; cursor: pointer; }
-/* line 157, sass/main.sass */
+/* line 183, sass/main.sass */
 #questionResults div.tab { text-align: center; clear: both; margin: 10px 0 0 0; }
 
-/* line 167, sass/main.sass */
+/* line 193, sass/main.sass */
 #morePolls { text-align: center; margin: 20px; }
 
-/* line 171, sass/main.sass */
+/* line 197, sass/main.sass */
 #morePollsButton { font-size: 16px; }
 
-/* line 174, sass/main.sass */
+/* line 200, sass/main.sass */
 #questionArchiveList { margin: 20px; }
-/* line 176, sass/main.sass */
+/* line 202, sass/main.sass */
 #questionArchiveList li.question { margin: 20px 0; width: 50%; float: left; text-align: center; }
-/* line 181, sass/main.sass */
+/* line 207, sass/main.sass */
 #questionArchiveList li.question div.graph { margin: 10px 0 0 0; }
-/* line 183, sass/main.sass */
+/* line 209, sass/main.sass */
 #questionArchiveList li.question ul.answers { margin: -75px 0 0 0; height: 75px; }
-/* line 186, sass/main.sass */
+/* line 212, sass/main.sass */
 #questionArchiveList li.question ul.answers li.answer { width: 50%; float: left; font-size: 18px; }
-/* line 190, sass/main.sass */
+/* line 216, sass/main.sass */
 #questionArchiveList li.question ul.answers li.answer.key0 { color: fuchsia; }
-/* line 192, sass/main.sass */
+/* line 218, sass/main.sass */
 #questionArchiveList li.question ul.answers li.answer.key1 { color: CornflowerBlue; }
 
-/* line 200, sass/main.sass */
+/* line 226, sass/main.sass */
 #question { text-align: center; margin: 20px 20px 5px 20px; }
 
-/* line 204, sass/main.sass */
+/* line 230, sass/main.sass */
 #questionInfo { text-align: center; font-style: italic; }
 
-/* line 208, sass/main.sass */
+/* line 234, sass/main.sass */
 #map { text-align: center; width: 545px; height: 540px; margin: auto; }
 
-/* line 218, sass/main.sass */
+/* line 244, sass/main.sass */
 #result { margin: 20px; text-align: center; margin: 10px 0 0 0; height: 115px; display: block; width: 100%; }
-/* line 225, sass/main.sass */
+/* line 251, sass/main.sass */
 #result li.answer { width: 20%; float: left; }
-/* line 228, sass/main.sass */
+/* line 254, sass/main.sass */
 #result li.answer div.label { font-size: 38px; }
-/* line 231, sass/main.sass */
+/* line 257, sass/main.sass */
 #result li.answer ul li.user { margin: 10px; }
-/* line 233, sass/main.sass */
+/* line 259, sass/main.sass */
 #result li.answer.key0 { margin-right: 30%; color: fuchsia; }
-/* line 236, sass/main.sass */
+/* line 262, sass/main.sass */
 #result li.answer.key1 { margin-left: 30%; color: CornflowerBlue; }
 
-/* line 241, sass/main.sass */
+/* line 267, sass/main.sass */
 #questionResults div.graph { text-align: center; margin: 20px; }
-/* line 244, sass/main.sass */
+/* line 270, sass/main.sass */
 #questionResults div.title { font-weight: bold; font-size: 16px; margin: 10px 0; }
-/* line 248, sass/main.sass */
+/* line 274, sass/main.sass */
 #questionResults div.sexRepartition { width: 400px; height: 25px; margin: 10px auto 30px auto; }
-/* line 252, sass/main.sass */
+/* line 278, sass/main.sass */
 #questionResults div.sexRepartition div { float: left; height: 25px; padding: 5px 0 0 0; color: white; font-weight: bold; }
-/* line 258, sass/main.sass */
+/* line 284, sass/main.sass */
 #questionResults div.sexRepartition div.progress_0 { background: fuchsia; }
-/* line 260, sass/main.sass */
+/* line 286, sass/main.sass */
 #questionResults div.sexRepartition div.progress_1 { background: CornflowerBlue; }
 
-/* line 268, sass/main.sass */
+/* line 294, sass/main.sass */
 li.user { padding: 2px 10px; display: inline-block; }
-/* line 271, sass/main.sass */
+/* line 297, sass/main.sass */
 li.user span { display: block; }
 
-/* line 274, sass/main.sass */
+/* line 300, sass/main.sass */
 li.user.vote { border: solid 1px #cccccc; }
 
-/* line 277, sass/main.sass */
+/* line 303, sass/main.sass */
 li.user.guess { border: dashed 1px #cccccc; }
 
-/* line 280, sass/main.sass */
+/* line 306, sass/main.sass */
 #userFeeling { width: 300px; }
 
-/* line 287, sass/main.sass */
+/* line 313, sass/main.sass */
 #share { text-align: right; margin: 10px; }
