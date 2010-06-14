@@ -53,7 +53,7 @@ class Model_User
     private function fetchFriends()
     {
         $rs = DB::select('
-            SELECT u.login, u.id, u.male, u.zip, u.email, u.valided
+            SELECT u.login, u.key, u.id, u.male, u.zip, u.email, u.valided
             FROM `friend` AS `f`
             JOIN `user` AS `u` ON u.id=f.user_id_1 OR u.id=f.user_id_2
             WHERE f.valided="1" AND (f.user_id_1="' . $this->data['id'] . '" OR f.user_id_2="' . $this->data['id'] . '")
@@ -475,6 +475,15 @@ class Model_User
         return $this->data['login'];
     }
 
+    public function getKey()
+    {
+        if (!isset($this->data['key']))
+        {
+            $this->fetchData();
+        }
+        return $this->data['key'];
+    }
+
     public function getActive()
     {
         if (!isset($this->data['active']))
@@ -591,12 +600,32 @@ class Model_User
                         'id'    => $user->getId(),
                         'login' => $user->getLogin(),
                     );
+                    setCookie(Conf::get('SITE_NAME') . '_login', $user->getId() . '-' . $user->getKey(), time() + 86400 * 8, '/');
                     return $user;
                 }
             }
             setcookie (Conf::get('SITE_NAME') . '_login', '', time() - 3600);
         }
         return false;
+    }
+
+    public static function validateRegistration($id)
+    {
+        $rs = DB::update
+        (
+            'UPDATE `user` SET `valided`=1 WHERE `id`="' . $id . '"'
+        );
+    }
+
+    public static function login($id)
+    {
+        $user = new Model_User($id);
+        $_SESSION['user'] = array
+        (
+            'id'    => $user->getId(),
+            'login' => $user->getLogin(),
+        );
+        setCookie(Conf::get('SITE_NAME') . '_login', $user->getId() . '-' . $user->getKey(), time() + 86400 * 8, '/');
     }
 }
 
