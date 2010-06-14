@@ -1,19 +1,37 @@
 
         <!-- SECTION login -->
+        <div class="frame">
         <h2>Register a new user</h2>
         <form id="register" method="post" name="register" action="javascript:Register.submit();">
-            <div><label>Login: <input id="register_login" type="text" maxlength="32" name="login" value="" /></label></div>
-            <div>
-                <label>Gender:
+            <fieldset>
+            <label>
+                <em>Login :</em>
+                <input id="register_login" type="text" maxlength="32" name="login" value="" />
+            </label>
+            <label>
+                <em>Password:</em> 
+                <input id="register_password_1" type="password" maxlength="128" name="password_1" value="" />
+            </label>
+            <label>
+                <em>Confirm password:</em> 
+                <input id="register_password_2" type="password" maxlength="128" name="password_2" value="" />
+            </label>
+            <label>
+                <em>Email:</em>
+                <input id="register_email" type="text" maxlength="320" name="email" value="" />
+            </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    <em>Gender:</em>
                     <select id="register_gender" name="gender" value="">
                         <option value="" disabled="disabled">-- SELECT --</option>
                         <option value="0">Male</option>
                         <option value="1">Female</option>
                     </select>
                 </label>
-            </div>
-            <div>
-                <label>Zip:
+                <label>
+                    <em>Zip:</em>
                     <select id="register_zip" name="zip" value="">
                         <option value="0" disabled="disabled">-- SELECT --</option>
                         <option value="1">Alsace</option>
@@ -40,12 +58,10 @@
                         <option value="23">Rhône-Alpes</option>
                     </select>
                 </label>
-            </div>
-            <div><label>Email: <input id="register_email" type="text" maxlength="320" name="email" value="" /></label></div>
-            <div><label>Password: <input id="register_password_1" type="password" maxlength="128" name="password_1" value="" /></label></div>
-            <div><label>Confirm password: <input id="register_password_2" type="password" maxlength="128" name="password_2" value="" /></label></div>
-            <div><input type="submit" name="submit" value="register"></div>
+                </fieldset>
+                <fieldset><input type="submit" name="submit" value="register"></fieldset>
         </form>
+        </div>
         <script type="text/javascript">Register.init();</script>
         <!-- END login -->
 

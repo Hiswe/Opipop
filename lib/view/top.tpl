@@ -9,7 +9,7 @@
                 <a href="{ROOT_PATH}{user_login}">{user_login}</a> (<a href="{ROOT_PATH}logout">logout</a>)
                 <!-- END logged -->
                 <!-- SECTION notLogged -->
-                <span id="login_link" class="bouton">Login</span>
+                <span id="login_link" class="button">Login</span>
                 <!-- END notLogged -->
             </div>
                 <!-- SECTION notLogged -->            
@@ -17,7 +17,7 @@
                 <input id="login_login" type="text" maxlength="32" name="login" value="" />
                 <input id="login_password" type="password" maxlength="128" name="password" value="" />
                 <input type="submit" name="submit" value="login">
-                <a id="register" href="{ROOT_PATH}register">register</a>
+                <a id="registerLink" href="{ROOT_PATH}register">register</a>
             </form>
                 <script type="text/javascript">Login.init();</script>            
                 <!-- END notLogged -->        

@@ -2,17 +2,14 @@ $default-border-radius = 4px
 $rose : #F9C
 
 @import compass/css3
+@import compass/reset
 +font-face("typoQuestion", font-files("Folks-Bold.ttf", truetype))
 
++global-reset
 
-*
-    margin: 0
-    padding: 0
 html
     min-height: 100%
 body
-    // background: url(../media/layout/star.png)
-    margin: 0
     padding: 0 5%
     font-family: arial, sans-serif
     font-size: 12px
@@ -26,13 +23,20 @@ ul
 /////////////////////////
 // Fonts
 /////////////////////////
+label em
+    font-weight: bold
+    font-style: normal    
     
 .bouton
     font-size: 1.2em
     font-weight: bold
     
+.frame h2
+    font-size: 1.6em
+    font-weight: bold    
+    
 /////////////////////////
-// UTILITY
+// Utility
 /////////////////////////
 
 a,
@@ -53,8 +57,8 @@ div.clear
 
 .hide
     display: none
-
-.bouton
+/* ___________________ Buttons */
+.button
     display: inline-block
     cursor: pointer
     padding: 0.5em 1em
@@ -63,19 +67,53 @@ div.clear
     +border-radius()
     +linear-gradient(color-stops(#FFF, #CCC))
     
-.bouton:hover
+.button:hover
     color: $rose
     border-color: $rose
     +linear-gradient(color-stops(#FFF, #DDD))    
     
-.bouton:active
+.button:active
     color: black
     border-color: black
-    +linear-gradient(color-stops(#CCC, #FFF))    
+    +linear-gradient(color-stops(#CCC, #FFF))  
+    
+/* ___________________ Frame*/    
+.frame,
+.question
+    margin: 0  0 25px
+    padding: 5px 10px
+    position: relative
+    border: solid 1px #f0f0f0
+    +border-radius()
+    +linear-gradient(color-stops(#ffffff, #ebebeb))
+
+    h2
+        float: left
+        padding: 0 12em 0.5em 0      
+
+/* ___________________ Forms */
+fieldset
+    clear: both
+label
+    display: block
+    em
+        display: block
+        padding: 0.3em 0
+            
+input[type=text], 
+input[type=password]
+    display: block
+    padding: 0.2em
+    width: 20em
+    border: 1px solid #999
+
+input[type=text]:focus, 
+input[type=password]:focus
+    border-color: $rose
+    
 /////////////////////////
 // MAIN
 /////////////////////////
-
 #main
     max-width: 1050px
     min-width: 800px
@@ -108,43 +146,23 @@ div.clear
 #login
     position: absolute
     padding: 2em 2em 1em 
-    top: 4em
+    top: 3em
     right: 0
     z-index: 2
     +box-shadow()    
     +border-radius()
     +linear-gradient(color-stops(#ffffff, #ebebeb))
     
-    input
-        display: block
-        padding: 0.2em
-        
-    input[type=text], 
-    input[type=password]
-        width: 20em
-        border: 1px solid #999
-    
     input[type=password]
         margin: 1em 0
         
-#register
+#registerLink
     position: absolute
     right: 2em
     bottom: 1em
 /////////////////////////
 // QUESTION
 /////////////////////////
-.question
-    margin: 0  0 25px
-    padding: 5px 10px
-    position: relative
-    border: solid 1px #f0f0f0
-    +border-radius()
-    +linear-gradient(color-stops(#ffffff, #ebebeb))
-     
-.questionTitle
-    float: left
-    padding: 0 12em 0.5em 0
     
 .share
     position: absolute
