@@ -17,6 +17,9 @@
     // CACHE
     $conf['CACHE_TIMECOEF'] = 0;
 
+    // ENV
+    $conf['PROD'] = false;
+
     // EMAIL
     $conf['ADMIN_EMAIL'] = '';
 
