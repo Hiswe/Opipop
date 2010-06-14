@@ -3,7 +3,7 @@
     // Select the user corresponding to the this login and password
     $rs = DB::select
     ('
-        SELECT `id`,`login`,`email`,`register_date`
+        SELECT `id`,`login`, `key`
         FROM `user`
         WHERE `login`="' . $_POST['login'] . '" AND `password`="' . md5($_POST['password']) . '" AND `valided`=1
     ');
@@ -22,6 +22,7 @@
             'id'    => (int)$user['id'],
             'login' => $user['login'],
         );
+        setCookie(Conf::get('SITE_NAME') . '_login', $user['id'] . '-' . $user['key'], time() + 86400 * 8, '/');
 
         echo '1';
     }

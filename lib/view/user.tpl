@@ -10,7 +10,7 @@
         <h4>Friend requests:</h4>
         <ul>
             <!-- LOOP request -->
-            <li class="user"><a href="{ROOT_PATH}{request.login}"><img src="{ROOT_PATH}{request.avatar}" alt="{request.login}" /> {request.login}</a>: <span id="request_{request.id}"><a href="javascript:user_requestFriend({request.id}, true);">accept</a> / <a href="javascript:user_requestFriend({request.id}, false);">reject</a></span></li>
+            <li class="user"><a href="{ROOT_PATH}{request.login}"><img src="{ROOT_PATH}{request.avatar}" alt="{request.login}" /> {request.login}</a>: <span id="request_{request.id}"><a href="javascript:User.requestFriend({request.id}, true);">accept</a> / <a href="javascript:User.requestFriend({request.id}, false);">reject</a></span></li>
             <!-- END request -->
         </ul>
         <!-- END friendPendingRequest -->

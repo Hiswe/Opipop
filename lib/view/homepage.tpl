@@ -1,9 +1,4 @@
 
-        <script type="text/javascript">
-            var question_userLogin = '{user_login}';
-            var question_userId = {user_id};
-        </script>
-
         <ul id="questions">
             <!-- LOOP question -->
 			<li class="question">
@@ -18,8 +13,8 @@
 	                    {question.content}
 	                </dd>
 	                <!-- <dd class="friends">
-	                                       <span class="link" onclick="javascript:question_guessFriend(this, {question.id});">Guess what your friend will answer ...</span>
-	                                   </dd> -->
+	                                                                             <span class="link" onclick="javascript:Question.guessFriend($(this), {question.id});">Guess what your friend will answer ...</span>
+	                                                                         </dd> -->
 	            </dl>
 	            <div class="share">
                     <span class="dureeSondage">Fin du sondage dans ## jours</span>
@@ -33,5 +28,5 @@
         <div id="questionArchiveContainer"></div>
 
         <div id="morePolls"><a href="javascript:return false;" id="morePollsButton">More polls</a></div>
-        <script type="text/javascript">question_initList();</script>
+        <script type="text/javascript">Question.initList();</script>
 

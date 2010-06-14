@@ -1,6 +1,18 @@
 <?php
 
-    $forbidenLogins = array('remote', 'backoffice', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
+    $forbidenLogins = array
+    (
+        'remote',
+        'backoffice',
+        'login',
+        'logout',
+        'register',
+        'submit',
+        'category',
+        'poll',
+        'users',
+        'infos'
+    );
 
     // If the login is not allowed exit
     if (in_array($_POST['login'], $forbidenLogins))

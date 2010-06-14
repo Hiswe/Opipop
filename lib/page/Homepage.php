@@ -26,21 +26,10 @@ class Page_Homepage extends Page
         // Get questions
         $questions = $category->getQuestions($this->getPage());
 
-        // If a user is logged
-        if (Tool::isOk($_SESSION['user']))
-        {
-            $user = new Model_User($_SESSION['user']['id']);
-            $this->tpl->assignVar(array
-            (
-                'user_login' => $user->getLogin(),
-                'user_id'    => $user->getId(),
-            ));
-        }
-
         // Loop through all questions
         foreach ($questions as $question)
         {
-            if (isset($user))
+            if ($user = Model_User::getLoggedUser())
             {
                 $userAnswer = $user->getAnswer($question);
                 $userGuess  = $user->getGuess($question);

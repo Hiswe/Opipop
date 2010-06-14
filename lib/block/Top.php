@@ -4,18 +4,22 @@ class Block_Top extends Block
 {
     public function configure()
     {
-        // If a user is connected get its infos
-        if (Tool::isOk($_SESSION['user']))
+        if ($user = Model_User::getLoggedUser())
         {
             $this->tpl->assignVar(array
             (
-                'user_login' => $_SESSION['user']['login'],
-                'user_id'    => $_SESSION['user']['id'],
+                'user_login' => $user->getLogin(),
+                'user_id'    => $user->getId(),
             ));
             $this->tpl->assignSection('logged');
         }
         else
         {
+            $this->tpl->assignVar(array
+            (
+                'user_login' => '',
+                'user_id'    => 0,
+            ));
             $this->tpl->assignSection('notLogged');
         }
 

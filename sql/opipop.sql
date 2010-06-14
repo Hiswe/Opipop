@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2010 at 11:24 PM
+-- Generation Time: Jun 06, 2010 at 07:40 PM
 -- Server version: 5.0.67
 -- PHP Version: 5.3.1
 
@@ -104,6 +104,20 @@ CREATE TABLE IF NOT EXISTS `question_answer_feeling` (
   KEY `answer_id` (`answer_id`),
   KEY `feeling_id` (`feeling_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submition`
+--
+
+CREATE TABLE IF NOT EXISTS `submition` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `question` varchar(32) collate utf8_unicode_ci NOT NULL,
+  `response1` varchar(32) collate utf8_unicode_ci NOT NULL,
+  `response2` varchar(32) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 

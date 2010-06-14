@@ -11,7 +11,7 @@
         </li>
         <!-- END friend -->
         <!-- SECTION save -->
-        <div><button type="button" onclick="javascript:question_guessFriend(this, {question_id});">save</button></div>
+        <div><button type="button" onclick="javascript:Question.guessFriend($(this), {question_id});">save</button></div>
         <!-- END save -->
     </ul>
 

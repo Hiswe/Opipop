@@ -44,9 +44,12 @@ var List = function(param)
 
     this.initTools = function()
     {
-        var addButton = new Element('li');
-        addButton.update('Add item');
-        addButton.observe('click', this.addItem.bind(this));
+        if (this.param.addItem)
+        {
+            var addButton = new Element('li');
+            addButton.update('Add item');
+            addButton.observe('click', this.addItem.bind(this));
+        }
 
         var nextButton = new Element('li');
         nextButton.update('&#62;&#62;');

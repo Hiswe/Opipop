@@ -1,6 +1,8 @@
 <?php
 
-    if (!Tool::isOk($_SESSION['user']))
+    header("Cache-Control: no-cache");
+
+    if (!($user = Model_User::getLoggedUser()))
     {
         $_SESSION['warning'] = 'You need to be logged to participate';
         echo 'register';
@@ -13,7 +15,6 @@
         exit();
     }
 
-    $user    = new Model_User($_SESSION['user']['id']);
     $guesses = $user->getGuessesAboutFriends($question);
 
     if (isset($_POST['guess']))
@@ -29,7 +30,7 @@
                     continue;
                 }
             }
-            $user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
+			$user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
         }
     }
 
@@ -37,6 +38,9 @@
     $block->setQuestion($question);
     $block->configure();
 
-    echo $block->render();
+    echo json_encode(array(
+		'questionId' => $_POST['question_id'],
+		'content'    => $block->render(),
+	));
 
 

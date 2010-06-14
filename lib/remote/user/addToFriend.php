@@ -1,15 +1,19 @@
 <?php
 
-    if (!Tool::isOk($_SESSION['user']))
+    if (!($user = Model_User::getLoggedUser()))
     {
+        $_SESSION['warning'] = 'You need to be logged to add users to your friends';
+		echo 'register';
         exit();
     }
 
-    $userId   = $_SESSION['user']['id'];
+    $userId   = $user->getId();
     $friendId = $_POST['friendId'];
 
     if ($userId == $friendId)
     {
+        $_SESSION['warning'] = 'You are allready friend with this persone';
+		echo 'reload';
         exit();
     }
 
@@ -43,4 +47,11 @@
             OR (`user_id_1`="' . $userId . '" AND `user_id_2`="' . $friendId . '")
         ');
     }
+
+	echo json_encode(array
+	(
+		'friendId' => $friendId,
+		'userId'   => $userId,
+		'action'   => $_POST['action'],
+	));
 

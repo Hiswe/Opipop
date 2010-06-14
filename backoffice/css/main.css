@@ -44,11 +44,19 @@ h2
     list-style: none;
 }
 
+#list_0
+{
+    margin: 10px;
+    width: 914px;
+    height: 140px;
+}
+
 #list_1
 {
 		float: left;
     margin: 10px;
     width: 220px;
+    height: 250px;
 }
 
 #list_2
@@ -56,11 +64,11 @@ h2
 		float: left;
     margin: 10px;
     width: 672px;
+    height: 250px;
 }
 
 div.list
 {
-    height: 250px;
     position: relative;
 }
 
@@ -109,8 +117,13 @@ div.list ul.items li
     border-width: 1px 0;
     margin: 0 8px;
     padding: 2px 4px;
-    cursor: pointer;
     color: #333;
+}
+
+#list_1 ul.items li,
+#list_2 ul.items li
+{
+    cursor: pointer;
 }
 
 div.list ul.items li.on
@@ -118,7 +131,8 @@ div.list ul.items li.on
     background: #ffddff;
 }
 
-div.list ul.items li:hover
+#list_1 ul.items li:hover,
+#list_2 ul.items li:hover
 {
     background: #ffffdd;
 }

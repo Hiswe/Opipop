@@ -11,15 +11,17 @@
             <!-- END logged -->
             <!-- SECTION notLogged -->
             <span id="login_link" class="link">Login</span>
-            <form id="login" method="post" name="login" action="javascript:login_submit();">
+            <form id="login" method="post" name="login" action="javascript:Login.submit();">
                 <div><label>Login: <input id="login_login" type="text" maxlength="32" name="login" value="" /></label></div>
                 <div><label>Password: <input id="login_password" type="password" maxlength="128" name="password" value="" /></label></div>
                 <div><input type="submit" name="submit" value="login"></div>
                 <div><a href="{ROOT_PATH}register">register</a></div>
             </form>
-            <script type="text/javascript">login_init();</script>
+            <script type="text/javascript">Login.init();</script>
             <!-- END notLogged -->
         </div>
+
+		<div><a href="{ROOT_PATH}submit">>> Propose a survey</a></div>
 
         <!-- SECTION feedback -->
         <p><i>{feedback}</i></p>

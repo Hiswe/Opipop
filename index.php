@@ -1,8 +1,8 @@
 <?php
 
     // CONF
-    include 'inc/conf.default.php';
-    include 'inc/conf.local.php';
+    include 'conf/default.php';
+    include 'conf/local.php';
     include 'lib/Conf.php';
     Conf::register($conf);
 
@@ -57,10 +57,6 @@
                 $page = new Page_Question($tpl);
                 break;
 
-            case 'question_list':
-                $page = new Page_Question_List($tpl);
-                break;
-
             case 'user':
                 $page = new Page_User($tpl);
                 break;
@@ -69,8 +65,8 @@
                 $page = new Page_User_Edit($tpl);
                 break;
 
-            case 'user_list':
-                $page = new Page_User_List($tpl);
+            case 'submit':
+                $page = new Page_Submit($tpl);
                 break;
 
             default :

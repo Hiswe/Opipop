@@ -16,7 +16,7 @@ class Page_Register extends Page
         $top->configure();
 
         // If some user are connected
-        if (Tool::isOk($_SESSION['user']))
+        if ($user = Model_User::getLoggedUser())
         {
             $this->tpl->assignSection('noLogin');
         }
