@@ -7,20 +7,14 @@
 
     <script language="javascript" type="text/javascript">var ROOT_PATH = '{ROOT_PATH}';</script>
 
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/jquery-1.4.2.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/protovis-d3.2.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/raphael.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/lib/transition.js?{VERSION}"></script>
+	<!-- section prod_environement -->
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/_prod/lib.js?{VERSION}"></script>
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/_prod/base.js?{VERSION}"></script>
+	<!-- END prod_environement -->
 
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Vis.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Login.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Form.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Question.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Submit.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.Register.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User_edit.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/class.User_password.js?{VERSION}"></script>
+	<!-- LOOP dev_script_list -->
+    <script language="javascript" type="text/javascript" src="{ROOT_PATH}{dev_script_list.file}?{VERSION}"></script>
+	<!-- END dev_script_list -->
 
     <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
 </head>

@@ -9,7 +9,7 @@
                 <a href="{ROOT_PATH}{user_login}">{user_login}</a> (<a href="{ROOT_PATH}logout">logout</a>)
                 <!-- END logged -->
                 <!-- SECTION notLogged -->
-                <span id="login_link" class="link">Login</span>
+                <span id="login_link" class="bouton">Login</span>
                 <!-- END notLogged -->
             </div>
                 <!-- SECTION notLogged -->            

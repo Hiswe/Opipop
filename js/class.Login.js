@@ -3,20 +3,18 @@ var Login =
 
     init : function()
     {
-        $('#login_link').bind('click', Login.show);
+        $('#login_link').bind('click', Login.toggle);
         Login.hide();
     },
 
-    show : function()
+    toggle : function()
     {
-        $('#login').show();
-        $('#login_link').hide();
+        $('#login').toggle('normal');
     },
 
     hide : function()
     {
         $('#login').hide();
-        $('#login_link').show();
     },
 
     submit : function()

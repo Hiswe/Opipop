@@ -2,7 +2,7 @@
 
     // CONF
     include '../conf/default.php';
-    include '../cong/local.php';
+    include '../conf/local.php';
     include '../lib/Conf.php';
     Conf::register($conf);
 
@@ -29,7 +29,8 @@
     <title>Backoffice</title>
 
     <script language="javascript" type="text/javascript">var ROOT_PATH = '<?php echo Conf::get('ROOT_PATH'); ?>';</script>
-    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>js/lib/prototype.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/lib/prototype.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/lib/swfupload.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/main.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.List.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/class.Item.js"></script>

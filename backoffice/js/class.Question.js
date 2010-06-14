@@ -4,6 +4,7 @@ var Question = function(param)
     this.data  = {};
     this.loaded = false;
     this.container = null;
+    this.swfu = null;
 
     this.init = function()
     {
@@ -76,6 +77,17 @@ var Question = function(param)
             values    : feelings
         }));
 
+        this.container.insert(Form.newUpload(
+        {
+            label          : 'Photo',
+            buttonId       : 'question_upload',
+            progressId     : 'question_upload_progress',
+            previewImageId : 'question_upload_preview_image',
+            previewBoxId   : 'question_upload_preview_box',
+            imageLink      : ROOT_PATH + 'media/question/original/' + this.data['id'] + '.jpg',
+            src            : ROOT_PATH + 'backoffice/image/preview/question_' + this.data['id'] + '.jpg'
+        }));
+
         this.container.insert(Form.newInputSubmit('save'));
         this.container.observe('submit', this.save.bind(this));
     };
@@ -129,6 +141,7 @@ var Question = function(param)
     {
         $('form').update(this.container);
         $('form').show();
+        this.initUpload();
     };
 
     this.save = function()
@@ -156,6 +169,10 @@ var Question = function(param)
             onSuccess: function(xhr)
             {
                 this.param.item.updateLabel(this.data['label']);
+                if (this.swfu.getStats().files_queued > 0)
+                {
+                    this.swfu.startUpload();
+                }
             }.bind(this)
         });
     };
@@ -171,6 +188,60 @@ var Question = function(param)
             parameters: $H(param).toQueryString(),
             onSuccess: callback
         });
+    };
+
+    this.initUpload = function()
+    {
+        this.swfu = new SWFUpload(
+        {
+            flash_url   : ROOT_PATH + 'backoffice/js/lib/swfupload.swf',
+            upload_url  : ROOT_PATH + 'backoffice/remote/question_upload',
+            post_params :
+            {
+                id : this.data['id']
+            },
+
+            file_size_limit        : '2 MB',
+            file_types             : '*.jpg;*.gif;*.png',
+            file_types_description : 'JPG/GIF/PNG image, 2Mb maximum',
+            file_upload_limit      : 0,
+            file_queue_limit       : 1,
+            custom_settings        : {},
+
+            debug: false,
+
+            button_image_url      : ROOT_PATH + 'backoffice/image/xp_pload_61x22.png',
+            button_width          : '61',
+            button_height         : '22',
+            button_placeholder_id : 'question_upload',
+
+            file_queued_handler       : this.fileQueued.bind(this),
+            file_dialog_start_handler : this.fileDialogStart.bind(this),
+            upload_progress_handler   : this.uploadProgress.bind(this),
+            upload_success_handler    : this.uploadSuccess.bind(this)
+        });
+    };
+
+    this.fileDialogStart = function()
+    {
+        this.swfu.cancelUpload();
+    };
+
+    this.fileQueued = function(file)
+    {
+        $('question_upload_progress').update('* ' + this.swfu.getStats().files_queued);
+    };
+
+    this.uploadProgress = function(file, bytesLoaded)
+    {
+        $('question_upload_progress').update('Envoi ' + Math.ceil((bytesLoaded / file.size) * 100) + ' % (' + Math.ceil(bytesLoaded / 1024) +' / ' + Math.ceil(file.size / 1024) + 'ko)');
+    };
+
+    this.uploadSuccess = function(file, data)
+    {
+        $('question_upload_progress').update();
+        $('question_upload_preview_image').writeAttribute('src', ROOT_PATH + 'backoffice/image/preview/question_' + this.data['id'] + '.jpg?' + Math.random());
+        Job.endJob();
     };
 };
 
