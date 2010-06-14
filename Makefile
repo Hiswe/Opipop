@@ -1,13 +1,15 @@
-JS_GEN_LIST := $(shell find js -path . -prune -o -type f -name "*.js" -print | grep -v "^js/_prod/" | grep -v "^js/_gen/" | xargs | sed "s/js\//js\/_gen\//g")
+JS_LIB  := $(shell ls - js/lib/*.js | sed "s/js\//--js js\//g" | xargs)
+JS_BASE := $(shell ls - js/*.js | sed "s/js\//--js js\//g" | xargs)
 
-all: $(JS_GEN_LIST) jspack css
+all: js/_prod/base.js js/_prod/lib.js css
 
-js/_gen/%: js/%
-	@echo '... compressing $@'
-	java -jar exec/yuicompressor-2.4.2.jar $(shell echo "$@" | sed "s/js\/_gen\//js\//g") -o $@ --type js --charset utf-8
+js/_prod/base.js: js/*.js
+	@echo '... compressing base.js'
+	java -jar exec/compiler.jar $(JS_BASE) --js_output_file=js/_prod/base.js
 
-jspack:
-	ruby exec/make_jspacks.rb
+js/_prod/lib.js: js/lib/*.js
+	@echo '... compressing lib.js'
+	java -jar exec/compiler.jar $(JS_LIB) --js_output_file=js/_prod/lib.js --warning_level QUIET
 
 css:
 	compass compile css

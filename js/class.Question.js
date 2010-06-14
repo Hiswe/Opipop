@@ -29,7 +29,7 @@ var Question =
 
 		var params =
 		{
-			'page' : Question.archivePage,
+			'page' : Question.archivePage
 		};
 
 		$.post(ROOT_PATH + 'remote/question/archive', params, Question.showArchiveCallback);
@@ -66,7 +66,7 @@ var Question =
 		var params =
 		{
 			'question_id' : questionId,
-			'answer_id'   : Question.data[action][questionId],
+			'answer_id'   : Question.data[action][questionId]
 		};
 
 		$.post(ROOT_PATH + 'remote/question/active/' + action, params, Question.saveCallback);
