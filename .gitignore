@@ -1,10 +1,16 @@
 .DS_Store
 Icon*
 conf/local.php
+backoffice/image/preview/*.jpg
+backoffice/.htaccess
+backoffice/.htpasswd
 js/_prod/*.js
 js/_gen/*.js
 js/_gen/lib/*.js
 media/avatar/*/*
 !media/avatar/*/*.txt
 !media/avatar/*/0.jpg
+media/question/*/*
+!media/question/*/*.txt
+!media/question/*/0.jpg
 

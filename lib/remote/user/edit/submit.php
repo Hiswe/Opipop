@@ -18,7 +18,7 @@
 
         if ($size[0] <= 1680 && $size[1] <= 1680 && $stat['size'] <= 450 * 1024)
         {
-            $extention = strtolower(preg_replace ('#.+\.([a-zA-Z]+)$#isU', '$1', $_FILES['avatar']['name']));
+            $extention = strtolower(preg_replace('#.+\.([a-zA-Z]+)$#isU', '$1', $_FILES['avatar']['name']));
             $original  = Conf::get('ROOT_DIR'). 'media/avatar/original/' . $_POST['id'] . '.' . $extention;
 
             move_uploaded_file($_FILES['avatar']['tmp_name'], $original);

@@ -242,24 +242,24 @@ div.list ul.items li span.down:hover
 #form embed
 {
     position: absolute;
-    top: 112px;
+    top: 48px;
     left: 280px;
 }
 
-#photo_upload_preview_box
+#question_upload_preview_box
 {
     border: solid 2px #fff;
     padding: 4px !important;
     margin: 0 10px 0 130px !important;
     width: 120px;
-    height: 120px;
+    height: 55px;
 }
 
-#photo_upload_preview_image
+#question_upload_preview_image
 {
 }
 
-#photo_upload_progress
+#question_upload_progress
 {
     color: #999;
     font-size: 12px;
