@@ -3,6 +3,7 @@ $rose : #F9C
 
 @import compass/css3
 @import compass/reset
+@import compass/utilities/general
 +font-face("typoQuestion", font-files("Folks-Bold.ttf", truetype))
 
 +global-reset
@@ -28,10 +29,14 @@ label em
     font-style: normal    
 #header a
     font-size: 1.1em
-    font-weight: bold
-    
+    font-weight: bold   
 .bouton
     font-size: 1.2em
+    font-weight: bold
+    
+#questionArchiveList h3 a,
+#questionArchiveList .answer
+    font-size: 1.4em
     font-weight: bold
     
 .frame h2
@@ -73,6 +78,7 @@ div.clear
 .button:hover
     color: $rose
     border-color: $rose
+    text-decoration: none
     +linear-gradient(color-stops(#FFF, #DDD))    
     
 .button:active
@@ -203,7 +209,69 @@ input[type=password]:focus
     .questionChoice
         font-size: 3em
         text-shadow: rgba(0,0,0,0.5) -1px -1px 0
+        
+        
+/* ___________________ Archives */
 
+#morePolls
+    text-align: center
+    margin: 20px
+
+#morePollsButton
+    font-size: 16px
+
+#questionArchiveList
+    text-align: center
+    
+    li
+        width: 45%
+        display: inline-block
+        text-align: center
+        position: relative
+        margin-bottom : 1.5em
+        pqdding-bottom: 1.5em
+        
+        h3
+            padding: 0.5em 0
+            text-align: left
+            a
+                color: #999
+        .graph
+            margin: 10px 0 0 0
+            
+        .answer
+            position: absolute
+            height: 2em
+            width: 50%
+            top: 50%
+            left: 0
+            margin: -1em 0 0
+            text-align: center
+            
+        .key0
+            color: fuchsia
+            
+        .key1
+            color: CornflowerBlue
+            left: 50%
+            
+    li:nth-child(odd)
+        padding-right: 4%
+        border-right: 1px solid #CCC
+
+    li:nth-child(even)
+        padding-left: 4%    
+                
+    li:nth-child(1):after,
+    li:nth-child(2):after
+        content: ' '
+        width: 90%
+        display: block
+        position: absolute
+        bottom: -1em
+        left: 5%
+        border-bottom: 1px solid #CCC
+        
 /////////////////////////
 // QUESTION
 /////////////////////////
@@ -227,40 +295,6 @@ input[type=password]:focus
         text-align: center
         clear: both
         margin: 10px 0 0 0
-
-
-/////////////////////////
-// QUESTION ARCHIVE
-/////////////////////////
-
-#morePolls
-    text-align: center
-    margin: 20px
-
-#morePollsButton
-    font-size: 16px
-
-#questionArchiveList
-    margin: 20px
-    li.question
-        margin: 20px 0
-        width: 50%
-        float: left
-        text-align: center
-        div.graph
-            margin: 10px 0 0 0
-        ul.answers
-            margin: -75px 0 0 0
-            height: 75px
-            li.answer
-                width: 50%
-                float: left
-                font-size: 18px
-            li.answer.key0
-                color: fuchsia
-            li.answer.key1
-                color: CornflowerBlue
-
 
 /////////////////////////
 // QUESTION

@@ -1,8 +1,8 @@
 
-        <ul id="questionArchiveList">
+        <ul id="questionArchiveList" class="frame">
             <!-- LOOP question -->
-            <li class="question">
-                <div class="label"><a href="{ROOT_PATH}question/{question.guid}-{question.id}">{question.label}</a></div>
+            <li class="questionArchives">
+                <h3 class="label"><a href="{ROOT_PATH}question/{question.guid}-{question.id}">{question.label}</a></h3>
                 <div id="graph{question.id}" class="graph">
                     <script type="text/javascript">
                         new pv.Panel()
@@ -22,11 +22,9 @@
                         .root.render();
                     </script>
                 </div>
-                <ul class="answers">
-                    <!-- LOOP question.answer -->
-                    <li class="answer key{question.answer.key}">{question.answer.label}<br/>{question.answer.percentFormated}</li>
-                    <!-- END question.answer -->
-                </ul>
+                <!-- LOOP question.answer -->
+                <p class="answer key{question.answer.key}">{question.answer.label}<br/>{question.answer.percentFormated}</p>
+                <!-- END question.answer -->
             </li>
             <!-- END question -->
         </ul>
