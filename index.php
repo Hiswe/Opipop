@@ -49,6 +49,10 @@
                 $page = new Page_Register($tpl);
                 break;
 
+            case 'register_confirm':
+                $page = new Page_Register_Confirm($tpl);
+                break;
+
             case 'logout':
                 $page = new Page_Logout($tpl);
                 break;

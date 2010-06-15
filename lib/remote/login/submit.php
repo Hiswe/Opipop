@@ -17,12 +17,8 @@
     else
     {
         $user = $rs['data'][0];
-        $_SESSION['user'] = array
-        (
-            'id'    => (int)$user['id'],
-            'login' => $user['login'],
-        );
-        setCookie(Conf::get('SITE_NAME') . '_login', $user['id'] . '-' . $user['key'], time() + 86400 * 8, '/');
+
+		Model_User::login((int)$user['id']);
 
         echo '1';
     }

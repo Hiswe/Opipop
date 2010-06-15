@@ -145,11 +145,11 @@ var Register =
     {
         Form.disable($('register'));
 
-		var login    = Form.getCleanloginValue($('#register_login'));
-		var gender   = Form.getCleangenderValue($('#register_gender'));
-		var zip      = Form.getCleanzipValue($('#register_zip'));
-		var email    = Form.getCleanemailValue($('#register_email'));
-		var password = Form.getCleanpasswordValue($('#register_password_1'));
+		var login    = Form.getCleanInputValue($('#register_login'));
+		var gender   = Form.getCleanInputValue($('#register_gender'));
+		var zip      = Form.getCleanInputValue($('#register_zip'));
+		var email    = Form.getCleanInputValue($('#register_email'));
+		var password = Form.getCleanInputValue($('#register_password_1'));
 
         if (login.length == 0 || email.length == 0 || password.length == 0 || zip.length == 0 || gender.length == 0)
         {
