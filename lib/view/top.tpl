@@ -1,7 +1,6 @@
 
         <div id="header">
-            <a href="{ROOT_PATH}">OpipPop</a>
-            <p>Did you know ?</p>
+            <h1><a id="logo" href="{ROOT_PATH}">OpipPop</a></h1>
             <p><a href="{ROOT_PATH}question/{didyouknow_guid}-{didyouknow_id}">{didyouknow_label}</a></p>
             
             <div id="userBox">
