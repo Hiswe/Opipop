@@ -1,13 +1,8 @@
 
-    <dt>Guess what will be the most popual answer:</dt>
+    <p class="questionLabel">Devinez quelle sera la réponse la plus populaire :</p>
 
     <!-- LOOP answer -->
-    <li class="answer">
-        <button type="button" onclick="javascript:Question.selectAnswer($(this), {question_id}, {answer.id}, 'guess');" class="answer">{answer.label}</button>
-    </li>
+    <a href="#" class="questionChoice" onclick="javascript:Question.selectAnswer($(this), {question_id}, {answer.id}, 'guess');" class="answer">{answer.label}</a>
     <!-- END answer -->
-
-    <li>
-        <button type="button" onclick="javascript:Question.save($(this), {question_id}, 'guess');" class="save hide">save</button>
-    </li>
+    <button type="button" onclick="javascript:Question.save($(this), {question_id}, 'guess');" class="save hide">save</button>
 
