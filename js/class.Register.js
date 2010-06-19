@@ -39,7 +39,7 @@ var Register =
     {
         var value = Form.getCleanInputValue($('#register_login'));
 
-		if (value.length != 0)
+        if (value.length != 0)
         {
             if (value.match(/([^a-zA-Z0-9_])/g))
             {
@@ -74,9 +74,9 @@ var Register =
 
     checkEmail : function()
     {
-		var value = Form.getCleanInputValue($('#register_email'));
+        var value = Form.getCleanInputValue($('#register_email'));
 
-		if (value.length != 0)
+        if (value.length != 0)
         {
             if (Form.emailFilter.test(value))
             {
@@ -113,8 +113,8 @@ var Register =
 
     checkPassword : function()
     {
-		var input_1_value = Form.getCleanInputValue($('#register_password_1'));
-		var input_2_value = Form.getCleanInputValue($('#register_password_2'));
+        var input_1_value = Form.getCleanInputValue($('#register_password_1'));
+        var input_2_value = Form.getCleanInputValue($('#register_password_2'));
 
         if (input_1_value.length == 0)
         {
@@ -145,11 +145,11 @@ var Register =
     {
         Form.disable($('register'));
 
-		var login    = Form.getCleanInputValue($('#register_login'));
-		var gender   = Form.getCleanInputValue($('#register_gender'));
-		var zip      = Form.getCleanInputValue($('#register_zip'));
-		var email    = Form.getCleanInputValue($('#register_email'));
-		var password = Form.getCleanInputValue($('#register_password_1'));
+        var login    = Form.getCleanInputValue($('#register_login'));
+        var gender   = Form.getCleanInputValue($('#register_gender'));
+        var zip      = Form.getCleanInputValue($('#register_zip'));
+        var email    = Form.getCleanInputValue($('#register_email'));
+        var password = Form.getCleanInputValue($('#register_password_1'));
 
         if (login.length == 0 || email.length == 0 || password.length == 0 || zip.length == 0 || gender.length == 0)
         {
