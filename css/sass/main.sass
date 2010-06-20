@@ -1,5 +1,6 @@
-$default-border-radius = 4px
-$rose : #F9C
+$default-border-radius: 4px
+$rose: #F9C
+$grey: #999
 
 @import compass/css3
 @import compass/reset
@@ -12,15 +13,14 @@ html
     min-height: 100%
 body
     padding: 0 4%
-    font-family: arial, sans-serif
+    font-family: tahoma, Arial, sans-serif
     font-size: 12px
     color: #000
     min-height: 100%
     +linear-gradient(color-stops(#6699cc, #c2e4f6 200px, #dbecf5 800px))
 
-
 #main
-    color: #999 /* keep body's text black for debug purpose */
+    color: $grey /* keep body's text black for debug purpose */
 
 ul
     list-style: none
@@ -30,6 +30,9 @@ ul
 // Fonts
 /////////////////////////
 
+#footer a
+    font-family: typoQuestion, tahoma, Arial, sans-serif
+    font-weight: normal
 label em
     font-weight: bold
     font-style: normal
@@ -39,15 +42,14 @@ label em
 .bouton
     font-size: 1.2em
     font-weight: bold
-
 #questionArchiveList h3 a,
 #questionArchiveList .answer
     font-size: 1.4em
-    font-weight: bold
-
 .frame h2
-    font-size: 2.0em
-    font-weight: bold
+    font-size: 1.8em
+#questions .questionChoice
+    font-family: typoQuestion, tahoma, Arial, sans-serif
+    font-size: 2.4em
 
 
 /////////////////////////
@@ -221,6 +223,29 @@ input[type=password]:focus
     bottom: 1em
 
 
+/////////////////////////
+// FOOTER
+/////////////////////////
+
+#footer
+    margin: 40px 0 20px 0
+    padding: 1em
+    border-bottom: 1px solid rgba(255,255,255,0.75)
+    -moz-box-shadow: inset 0px 1px 2px #46829c
+    -webkit-box-shadow: inset 0px 1px 2px #46829c
+    box-shadow: inset 0px 1px 2px #46829c
+    +border-radius()
+    +linear-gradient(color-stops(#60b3d7, #56a0c0))
+    color: #FFF
+    ul
+        float: right
+    li
+        display: inline-block
+    li:not(:first-child)::before
+        content: ' - '
+    a
+        color: #FFF
+
 
 /////////////////////////
 // QUESTION LIST
@@ -260,23 +285,28 @@ input[type=password]:focus
             height: 135px
         p
             font-weight: normal
-            font-family: "typoQuestion", Arial, sans-serif
             letter-spacing: 0.05em
 
         .questionLabel
-            margin: 0 0 10px 0
+            margin: 10px 0
             font-size: 1.2em
 
         .questionChoice
-            font-size: 3.5em
-            margin: 0 0 0 50px
+            margin: 10px 0 0 50px
             +text-shadow(#fff)
+
+        .questionChoice:hover
+            color: $rose
+            text-decoration: none
+        .questionChoice:active
+            color: black
+
 
 /* ___________________ Archives */
 
 #morePolls
     text-align: center
-    margin: 20px
+    margin: 20px 0 0 0
 
 #questionArchiveContainer
     margin: 25px 0 0 0

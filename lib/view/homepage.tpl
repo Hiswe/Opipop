@@ -9,7 +9,6 @@
                         <img src="{ROOT_PATH}{question.image}" alt="{question.label}" />
                     </dt>
                     <dd>
-                        <p class="questionLabel">Mon opinion :</p>
                         {question.content}
                     </dd>
                     <!-- <dd class="friends">
