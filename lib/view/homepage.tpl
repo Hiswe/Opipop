@@ -27,6 +27,5 @@
 
         <div id="questionArchiveContainer"></div>
 
-        <div id="morePolls"><a href="javascript:return false;" id="morePollsButton" class="button">More polls</a></div>
-        <script type="text/javascript">Question.initList();</script>
+        <div id="morePolls"><a href="#" id="morePollsButton" class="button">More polls</a></div>
 

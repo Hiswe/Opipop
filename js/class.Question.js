@@ -19,8 +19,10 @@ var Question =
         $('#morePollsButton').remove();
     },
 
-    showArchive : function()
+    showArchive : function(event)
     {
+        event.preventDefault();
+
         if (Question.working)
         {
             return;

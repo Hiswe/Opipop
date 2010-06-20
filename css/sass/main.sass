@@ -14,9 +14,12 @@ body
     padding: 0 5%
     font-family: arial, sans-serif
     font-size: 12px
-    color: #999
+    color: #000
     min-height: 100%
     +linear-gradient(color-stops(#5badd4, #c5e8fa))
+
+#main
+    color: #999 /* keep body's text black for debug purpose */
 
 ul
     list-style: none
@@ -26,23 +29,23 @@ ul
 /////////////////////////
 label em
     font-weight: bold
-    font-style: normal    
+    font-style: normal
 #header a
     font-size: 1.1em
-    font-weight: bold   
+    font-weight: bold
 .bouton
     font-size: 1.2em
     font-weight: bold
-    
+
 #questionArchiveList h3 a,
 #questionArchiveList .answer
     font-size: 1.4em
     font-weight: bold
-    
+
 .frame h2
     font-size: 1.6em
-    font-weight: bold    
-    
+    font-weight: bold
+
 /////////////////////////
 // Utility
 /////////////////////////
@@ -74,19 +77,19 @@ div.clear
     color: #666
     +border-radius()
     +linear-gradient(color-stops(#FFF, #CCC))
-    
+
 .button:hover
     color: $rose
     border-color: $rose
     text-decoration: none
-    +linear-gradient(color-stops(#FFF, #DDD))    
-    
+    +linear-gradient(color-stops(#FFF, #DDD))
+
 .button:active
     color: black
     border-color: black
-    +linear-gradient(color-stops(#CCC, #FFF))  
-    
-/* ___________________ Frame*/    
+    +linear-gradient(color-stops(#CCC, #FFF))
+
+/* ___________________ Frame*/
 .frame,
 .question
     margin: 0  0 25px
@@ -98,7 +101,7 @@ div.clear
 
     h2
         float: left
-        padding: 0 12em 0.5em 0      
+        padding: 0 12em 0.5em 0
 
 /* ___________________ Forms */
 fieldset
@@ -108,18 +111,18 @@ label
     em
         display: block
         padding: 0.3em 0
-            
-input[type=text], 
+
+input[type=text],
 input[type=password]
     display: block
     padding: 0.2em
     width: 20em
     border: 1px solid #999
 
-input[type=text]:focus, 
+input[type=text]:focus,
 input[type=password]:focus
     border-color: $rose
-    
+
 /////////////////////////
 // main + Header
 /////////////////////////
@@ -154,17 +157,17 @@ input[type=password]:focus
 
 #login
     position: absolute
-    padding: 2em 2em 1em 
+    padding: 2em 2em 1em
     top: 3em
     right: 0
     z-index: 2
-    +box-shadow()    
+    +box-shadow()
     +border-radius()
     +linear-gradient(color-stops(#ffffff, #ebebeb))
-    
+
     input[type=password]
         margin: 1em 0
-        
+
 #registerLink
     position: absolute
     right: 2em
@@ -172,20 +175,20 @@ input[type=password]:focus
 /////////////////////////
 // QUESTION
 /////////////////////////
-    
+
 .share
     position: absolute
     top: 5px
     right: 5px
-    
+
     span,
     img
         vertical-align: middle
-    
+
 .questionContent
     position: relative
     clear: both
-    
+
     dt
         background: rgba(0,0,0,0.1)
         width: 315px
@@ -196,21 +199,21 @@ input[type=password]:focus
     dd
         padding: 5px 5px 5px 330px
         height: 145px
-        
+
     p
         font-weight: normal
         font-family: "typoQuestion", Arial
         letter-spacing: 0.05em
-        
+
     .questionLabel
         padding: 10px 0
         font-size: 1.2em
-        
+
     .questionChoice
         font-size: 3em
         text-shadow: rgba(0,0,0,0.5) -1px -1px 0
-        
-        
+
+
 /* ___________________ Archives */
 
 #morePolls
@@ -222,7 +225,7 @@ input[type=password]:focus
 
 #questionArchiveList
     text-align: center
-    
+
     li
         width: 45%
         display: inline-block
@@ -230,7 +233,7 @@ input[type=password]:focus
         position: relative
         margin-bottom : 1.5em
         pqdding-bottom: 1.5em
-        
+
         h3
             padding: 0.5em 0
             text-align: left
@@ -238,7 +241,7 @@ input[type=password]:focus
                 color: #999
         .graph
             margin: 10px 0 0 0
-            
+
         .answer
             position: absolute
             height: 2em
@@ -247,21 +250,21 @@ input[type=password]:focus
             left: 0
             margin: -1em 0 0
             text-align: center
-            
+
         .key0
             color: fuchsia
-            
+
         .key1
             color: CornflowerBlue
             left: 50%
-            
+
     li:nth-child(odd)
         padding-right: 4%
         border-right: 1px solid #CCC
 
     li:nth-child(even)
-        padding-left: 4%    
-                
+        padding-left: 4%
+
     li:nth-child(1):after,
     li:nth-child(2):after
         content: ' '
@@ -271,7 +274,7 @@ input[type=password]:focus
         bottom: -1em
         left: 5%
         border-bottom: 1px solid #CCC
-        
+
 /////////////////////////
 // QUESTION
 /////////////////////////
