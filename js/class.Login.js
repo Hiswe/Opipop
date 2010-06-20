@@ -1,25 +1,9 @@
 var Login =
 {
 
-    init : function()
-    {
-        $('#login_link').bind('click', Login.toggle);
-        Login.hide();
-    },
-
-    toggle : function()
-    {
-        $('#login').toggle('normal');
-    },
-
-    hide : function()
-    {
-        $('#login').hide();
-    },
-
     submit : function()
     {
-        Form.disable($('#login'));
+        Form.disable($('#login_form'));
 
         Form.cleanInput($('#login_login'));
         Form.cleanInput($('#login_password'));
@@ -54,7 +38,7 @@ var Login =
         {
             alert('Error: wrond login or password');
             Form.clean($('#login_password'));
-            Form.enable($('#login'));
+            Form.enable($('#login_form'));
         }
     }
 

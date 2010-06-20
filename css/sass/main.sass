@@ -31,14 +31,10 @@ ul
 /////////////////////////
 
 #footer a
-    font-family: typoQuestion, tahoma, Arial, sans-serif
     font-weight: normal
 label em
     font-weight: bold
     font-style: normal
-#header a
-    font-size: 1.1em
-    font-weight: bold
 .bouton
     font-size: 1.2em
     font-weight: bold
@@ -48,7 +44,6 @@ label em
 .frame h2
     font-size: 1.8em
 #questions .questionChoice
-    font-family: typoQuestion, tahoma, Arial, sans-serif
     font-size: 2.4em
 
 
@@ -60,7 +55,6 @@ a,
 a *,
 span.link,
 span.link *
-    color: #084661
     text-decoration: none
     cursor: pointer
     img
@@ -76,14 +70,40 @@ div.clear
 .hide
     display: none
 
+/* ___________________ Lighbox */
+
+#nyroModalContent
+    background: #fff
+    padding: 2em 2em 1em
+    border: solid 5px #eee
+    +box-shadow(#999999, 5px, 5px, 15px)
+    +border-radius(8px)
+
+#nyroModalWrapper
+    .nyroModalClose
+        background: url(../media/layout/close_button.png)
+        width: 32px
+        height: 32px
+        float: right
+        display: block
+        content: ""
+        margin: 5px 5px 0 0
+    .nyroModalClose:hover
+        background: url(../media/layout/close_button-hover.png)
+
 /* ___________________ Buttons */
 
 .button
+    a
+        color: #666
+    a:hover
+        text-decoration: none
+
+    color: #666
     display: inline-block
     cursor: pointer
     padding: 0.5em 1em
     border: solid 1px #AAA
-    color: #666
     font-size: 1.8em
     font-weight: bold
     +text-shadow(#fff)
@@ -110,7 +130,7 @@ div.clear
     border: solid 2px #f0f0f0
     +border-radius()
     +box-shadow(#6699cc)
-    +linear-gradient(color-stops(#ffffff, #ebebeb))
+    +linear-gradient(color-stops(#ffffff 50%, #ededed))
 
     h2
         float: left
@@ -166,6 +186,7 @@ input[type=password]:focus
 
     .baseLine
         color: #fff
+        font-weight: bold
         +text-shadow(#aaa)
 
 #logo
@@ -205,15 +226,10 @@ input[type=password]:focus
     z-index: 2
 
 #login
-    position: absolute
-    padding: 2em 2em 1em
-    top: 3em
-    right: 0
-    z-index: 2
-    +box-shadow()
-    +border-radius()
-    +linear-gradient(color-stops(#ffffff, #ebebeb))
-
+    display: none
+#login_form
+    width: 300px
+    height: 200px
     input[type=password]
         margin: 1em 0
 

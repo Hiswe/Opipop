@@ -14,14 +14,15 @@
             <!-- END logged -->
 
             <!-- SECTION notLogged -->
-            <span id="login_link" class="button">Login</span>
-            <form id="login" method="post" name="login" action="javascript:Login.submit();">
-                <input id="login_login" type="text" maxlength="32" name="login" value="" />
-                <input id="login_password" type="password" maxlength="128" name="password" value="" />
-                <input type="submit" name="submit" value="login">
-                <a id="registerLink" href="{ROOT_PATH}register">register</a>
-            </form>
-            <script type="text/javascript">Login.init();</script>
+            <a href="#login" class="nyroModal button" id="login_link">Login</a>
+            <div id="login">
+                <form id="login_form" method="post" name="login" action="javascript:Login.submit();">
+                    <input id="login_login" type="text" maxlength="32" name="login" value="" />
+                    <input id="login_password" type="password" maxlength="128" name="password" value="" />
+                    <input type="submit" name="submit" value="login">
+                    <a id="registerLink" href="{ROOT_PATH}register" class="button">register</a>
+                </form>
+            </div>
             <!-- END notLogged -->
         </div>
 
