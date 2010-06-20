@@ -68,6 +68,11 @@ var Form =
     {
         Form.cleanInput(input);
         return input.val();
+    },
+
+    clean : function(input)
+    {
+        input.val('');
     }
 
 };

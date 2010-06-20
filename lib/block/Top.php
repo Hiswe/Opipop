@@ -8,8 +8,9 @@ class Block_Top extends Block
         {
             $this->tpl->assignVar(array
             (
-                'user_login' => $user->getLogin(),
-                'user_id'    => $user->getId(),
+                'user_login'     => $user->getLogin(),
+                'user_id'        => $user->getId(),
+                'user_avatarUri' => $user->getAvatarUri('medium'),
             ));
             $this->tpl->assignSection('logged');
         }

@@ -25,7 +25,7 @@
             <!-- END question -->
         </ul>
 
-        <div id="questionArchiveContainer"></div>
+        <ul id="questionArchiveContainer"></ul>
 
         <div id="morePolls"><a href="#" id="morePollsButton" class="button">More polls</a></div>
 

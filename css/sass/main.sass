@@ -16,7 +16,7 @@ body
     font-size: 12px
     color: #000
     min-height: 100%
-    +linear-gradient(color-stops(#5badd4, #c5e8fa))
+    +linear-gradient(color-stops(#6699cc, #c2e4f6 200px, #dbecf5 800px))
 
 #main
     color: #999 /* keep body's text black for debug purpose */
@@ -24,9 +24,11 @@ body
 ul
     list-style: none
 
+
 /////////////////////////
 // Fonts
 /////////////////////////
+
 label em
     font-weight: bold
     font-style: normal
@@ -46,14 +48,16 @@ label em
     font-size: 1.6em
     font-weight: bold
 
+
 /////////////////////////
 // Utility
 /////////////////////////
 
 a,
-span.link
-    color: #ff99cc
-    font-weight: bold
+a *,
+span.link,
+span.link *
+    color: #084661
     text-decoration: none
     cursor: pointer
     img
@@ -68,7 +72,9 @@ div.clear
 
 .hide
     display: none
+
 /* ___________________ Buttons */
+
 .button
     display: inline-block
     cursor: pointer
@@ -90,20 +96,28 @@ div.clear
     +linear-gradient(color-stops(#CCC, #FFF))
 
 /* ___________________ Frame*/
+
 .frame,
 .question
-    margin: 0  0 25px
-    padding: 5px 10px
+    padding: 5px
     position: relative
-    border: solid 1px #f0f0f0
+    border: solid 2px #f0f0f0
     +border-radius()
+    +box-shadow(#6699cc)
     +linear-gradient(color-stops(#ffffff, #ebebeb))
 
     h2
         float: left
         padding: 0 12em 0.5em 0
 
+    a,
+    a *,
+    span.link,
+    span.link *
+        color: #6d6d6d
+
 /* ___________________ Forms */
+
 fieldset
     clear: both
 label
@@ -123,13 +137,24 @@ input[type=text]:focus,
 input[type=password]:focus
     border-color: $rose
 
+
 /////////////////////////
-// main + Header
+// MAIN
 /////////////////////////
+
 #main
     max-width: 1050px
     min-width: 800px
     margin: 0 auto
+    position: relative
+
+
+/////////////////////////
+// HEADER
+/////////////////////////
+
+#header
+    padding: 10px 0
     position: relative
 
 #logo
@@ -140,16 +165,29 @@ input[type=password]:focus
     text-indent: -9999em
     background: url(../media/layout/logoOpipop.png)
 
-#header
-    padding: 10px 0
-    position: relative
-    a
-        color: #FFF
-        margin: 0
-
 /* ___________________ USER BOX */
 
 #userBox
+
+    a.avatar
+        margin: 0 8px 0 0
+        float: left
+
+    div.info
+        float: left
+
+    a.login
+        font-size: 2em
+        display: block
+        margin: 20px 0 0 0
+
+    p.linkList
+        margin: 10px 0 0 0
+        span
+            margin: 0 5px
+
+#userBox,
+#login_link
     position: absolute
     top: 1em
     right: 0
@@ -172,47 +210,54 @@ input[type=password]:focus
     position: absolute
     right: 2em
     bottom: 1em
+
+
+
 /////////////////////////
-// QUESTION
+// QUESTION LIST
 /////////////////////////
 
-.share
-    position: absolute
-    top: 5px
-    right: 5px
+#questions
 
-    span,
-    img
-        vertical-align: middle
+    .frame
+        margin: 25px 0 0 0
 
-.questionContent
-    position: relative
-    clear: both
-
-    dt
-        background: rgba(0,0,0,0.1)
-        width: 315px
-        height: 145px
+    .share
         position: absolute
-        left: 0
-        top: 0
-    dd
-        padding: 5px 5px 5px 330px
-        height: 145px
+        top: 5px
+        right: 5px
 
-    p
-        font-weight: normal
-        font-family: "typoQuestion", Arial
-        letter-spacing: 0.05em
+        span,
+        img
+            vertical-align: middle
 
-    .questionLabel
-        padding: 10px 0
-        font-size: 1.2em
+    .questionContent
+        position: relative
+        clear: both
 
-    .questionChoice
-        font-size: 3em
-        text-shadow: rgba(0,0,0,0.5) -1px -1px 0
+        dt
+            background: rgba(0,0,0,0.1)
+            width: 315px
+            height: 145px
+            position: absolute
+            left: 0
+            top: 0
+        dd
+            padding: 5px 5px 5px 330px
+            height: 145px
 
+        p
+            font-weight: normal
+            font-family: "typoQuestion", Arial
+            letter-spacing: 0.05em
+
+        .questionLabel
+            padding: 10px 0
+            font-size: 1.2em
+
+        .questionChoice
+            font-size: 3em
+            text-shadow: rgba(0,0,0,0.5) -1px -1px 0
 
 /* ___________________ Archives */
 
@@ -222,6 +267,9 @@ input[type=password]:focus
 
 #morePollsButton
     font-size: 16px
+
+#questionArchiveContainer
+    margin: 25px 0 0 0
 
 #questionArchiveList
     text-align: center
@@ -275,6 +323,7 @@ input[type=password]:focus
         left: 5%
         border-bottom: 1px solid #CCC
 
+
 /////////////////////////
 // QUESTION
 /////////////////////////
@@ -299,10 +348,6 @@ input[type=password]:focus
         clear: both
         margin: 10px 0 0 0
 
-/////////////////////////
-// QUESTION
-/////////////////////////
-
 #question
     text-align: center
     margin: 20px 20px 5px 20px
@@ -316,6 +361,7 @@ input[type=password]:focus
     width: 545px
     height: 540px
     margin: auto
+
 
 /////////////////////////
 // RESULT

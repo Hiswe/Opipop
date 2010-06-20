@@ -18,7 +18,7 @@
     {
         $user = $rs['data'][0];
 
-		Model_User::login((int)$user['id']);
+        Model_User::login((int)$user['id']);
 
         echo '1';
     }

@@ -53,6 +53,8 @@ var Login =
         else
         {
             alert('Error: wrond login or password');
+            Form.clean($('#login_password'));
+            Form.enable($('#login'));
         }
     }
 

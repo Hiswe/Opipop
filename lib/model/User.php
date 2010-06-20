@@ -39,7 +39,7 @@ class Model_User
             $where = '`id`="' . $this->data['id'] . '"';
         }
         $rs = DB::select('
-            SELECT `id`, `login`, `valided`, `male`, `email`, `zip`
+            SELECT `id`, `key`, `login`, `valided`, `male`, `email`, `zip`
             FROM `user`
             WHERE ' . $where . '
         ');

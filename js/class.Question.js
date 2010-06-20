@@ -41,7 +41,7 @@ var Question =
     {
         Question.working = false;
         Question.archivePage ++;
-        $('#questionArchiveContainer').html(data);
+        $('#questionArchiveContainer').append(data);
     },
 
     selectAnswer : function(button, questionId, answerId, action)
