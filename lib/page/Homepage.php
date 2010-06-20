@@ -65,7 +65,7 @@ class Page_Homepage extends Page
                 'image'            => $question->getImageUri('medium'),
                 'label_urlencoded' => urlencode($question->getLabel()),
                 'guid'             => Tool::makeGuid($question->getLabel()),
-                'time'             => 'ends ' . Tool::timeWarp($question->getEndDate()),
+                'time'             => Tool::timeWarp($question->getEndDate()),
             ));
         }
     }

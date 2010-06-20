@@ -133,7 +133,7 @@ class Tool
 
         if ($diff < 60)
         {
-            $unit = 'second';
+            $unit = 'seconde';
             $n = $diff;
         }
         elseif ($diff < 3600)
@@ -143,17 +143,17 @@ class Tool
         }
         elseif ($diff < 86400)
         {
-            $unit = 'hour';
+            $unit = 'heur';
             $n = round($diff / 3600);
         }
         elseif ($diff < 604800)
         {
-            $unit = 'day';
+            $unit = 'jour';
             $n = round($diff / 86400);
         }
         elseif ($diff < 1814400)
         {
-            $unit = 'week';
+            $unit = 'semaine';
             $n = round($diff / 604800);
         }
         else
@@ -172,11 +172,11 @@ class Tool
 
         if ($time > time())
         {
-            return 'in ' . $n . ' ' . $unit . $s;
+            return 'dans ' . $n . ' ' . $unit . $s;
         }
         else
         {
-            return $n . ' ' . $unit . $s . ' ago';
+            return 'il y a ' . $n . ' ' . $unit . $s;
         }
     }
 
