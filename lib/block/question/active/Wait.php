@@ -23,35 +23,13 @@ class Block_Question_Active_Wait extends Block
             return;
         }
 
-        $userAnswer = $user->getAnswer($this->question);
-        $userGuess  = $user->getGuess($this->question);
-
-        foreach ($this->question->getAnswers() as $answer)
-        {
-            $this->tpl->assignLoopVar('answer', array
-            (
-                'label' => $answer->getLabel(),
-            ));
-
-            if ($userAnswer && $userAnswer->getId() == $answer->getId())
-            {
-                $this->tpl->assignLoopVar('answer.user', array
-                (
-                    'class'  => 'vote',
-                    'login'  => $user->getLogin(),
-                    'avatar' => $user->getAvatarUri('small'),
-                ));
-            }
-            if ($userGuess && $userGuess->getId() == $answer->getId())
-            {
-                $this->tpl->assignLoopVar('answer.user', array
-                (
-                    'class'  => 'guess',
-                    'login'  => $user->getLogin(),
-                    'avatar' => $user->getAvatarUri('small'),
-                ));
-            }
-        }
+        $this->tpl->assignVar(array
+        (
+            'user_login'  => $user->getLogin(),
+            'user_avatar' => $user->getAvatarUri('small'),
+            'user_vote'   => $user->getAnswer($this->question)->getLabel(),
+            'user_guess'  => $user->getGuess($this->question)->getAnswer()->getLabel(),
+        ));
     }
 }
 

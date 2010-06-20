@@ -1,14 +1,9 @@
 
-    <!-- LOOP answer -->
-    <li class="answer">
-        <span>{answer.label}</span>
-        <ul>
-            <!-- LOOP answer.user -->
-            <li class="user {answer.user.class}">
-                <a href="{ROOT_PATH}{answer.user.login}"><img src="{ROOT_PATH}{answer.user.avatar}" alt="{answer.user.login}" /><span>{answer.user.login}</span></a>
-            </li>
-            <!-- END answer.user -->
-        </ul>
+    <li class="user vote">
+        <a href="{ROOT_PATH}{user_login}"><img src="{ROOT_PATH}{user_avatar}" alt="{user_login}" /><span>{user_login}</span></a>
+        <p>mon opinion: <strong>{user_vote}</strong></p>
     </li>
-    <!-- END answer -->
+    <li class="user guess">
+        <p>mon pronostique: <strong>{user_guess}</strong></p>
+    </li>
 
