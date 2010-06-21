@@ -502,13 +502,13 @@ class Model_User
         return $this->data['email'];
     }
 
-    public function getMale()
+    public function getGender()
     {
         if (!isset($this->data['male']))
         {
             $this->fetchData();
         }
-        return $this->data['male'];
+        return ($this->data['male']) ? 'homme' : 'femme';
     }
 
     public function getZip()
@@ -518,6 +518,40 @@ class Model_User
             $this->fetchData();
         }
         return $this->data['zip'];
+    }
+
+    public function getZipName()
+    {
+        if (!isset($this->data['zip']))
+        {
+            $this->fetchData();
+        }
+        $names = array
+        (
+            '1'  => 'Alsace',
+            '2'  => 'Aquitaine',
+            '3'  => 'Auvergne',
+            '4'  => 'Basse-Normandie',
+            '5'  => 'Bourgogne',
+            '6'  => 'Bretagne',
+            '7'  => 'Centre',
+            '8'  => 'Champagne-Ardenne',
+            '9'  => 'Corse',
+            '10' => 'Franche-Comté',
+            '11' => 'Haute-Normandie',
+            '12' => 'Île-de-France',
+            '13' => 'Languedoc-Roussillon',
+            '14' => 'Limousin',
+            '16' => 'Lorraine',
+            '17' => 'Midi-Pyrénées',
+            '18' => 'Nord-Pas-de-Calais',
+            '19' => 'Pays de la Loire',
+            '20' => 'Picardie',
+            '21' => 'Poitou-Charentes',
+            '22' => 'Provence-Alpes-Côte d\'Azur',
+            '23' => 'Rhône-Alpes',
+        );
+        return $names[$this->data['zip']];
     }
 
     public function getAvatarUri($type)

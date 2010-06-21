@@ -26,7 +26,7 @@
     // IMAGES
     $conf['AVATAR_SMALL_SIZE']    = '25x25';
     $conf['AVATAR_MEDIUM_SIZE']   = '50x50';
-    $conf['AVATAR_LARGE_SIZE']    = '140x140';
+    $conf['AVATAR_LARGE_SIZE']    = '200x200';
     $conf['QUESTION_MEDIUM_SIZE'] = '315x145';
 
     // CONTENT

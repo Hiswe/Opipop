@@ -6,8 +6,6 @@ class Page_User extends Page
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/user/header.tpl');
-        $this->tpl->assignTemplate('lib/view/user/menu.tpl');
         $this->tpl->assignTemplate('lib/view/user.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }
@@ -25,6 +23,8 @@ class Page_User extends Page
             'profile_id'     => $profile->getId(),
             'profile_login'  => $profile->getLogin(),
             'profile_avatar' => $profile->getAvatarUri('large'),
+            'profile_region' => $profile->getZipName(),
+            'profile_gender' => $profile->getGender(),
         ));
 
         // If a user is logged
@@ -147,6 +147,7 @@ class Page_User extends Page
                 (
                     'id'      => $friend['user']->getId(),
                     'login'   => $friend['user']->getLogin(),
+                    'avatar'  => $friend['user']->getAvatarUri('medium'),
                     'percent' => round(($friend['guesses'] == 0) ? 0 : ($friend['goodGuesses'] / $friend['guesses']) * 100),
                 ));
             }
