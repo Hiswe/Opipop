@@ -122,21 +122,22 @@ var Question =
 
     initResults : function()
     {
-        $('#questionResults ul.menu li.button').bind('click', Question.resultSelectTab);
-        $('#questionResults div.tabs div.tab:not(:first-child)').hide();
+        $('ul.menu li.button').bind('click', Question.resultSelectTab);
+        $('#questionResults div.tab:not(:first-child)').hide();
     },
 
-    resultSelectTab : function(n)
+    resultSelectTab : function()
     {
-        var n = $(this).attr('name');
+        var $currentButton = $(this);
+        var $buttons = $('ul.menu li.button');
+        var $tabs = $('#questionResults div.tab');
+        var index = $(this).index();
+        
+        $tabs.hide();
+        $tabs.eq(index).show();
 
-        var tabs = $('#questionResults div.tabs div.tab');
-        tabs.hide();
-        tabs.eq(n).show();
-
-        var buttons = $('#questionResults ul.menu li.button');
-        buttons.removeClass('selected');
-        buttons.eq(2).addClass('selected');
+        $buttons.filter('selected').removeClass('selected');
+        $currentButton.addClass('selected');
     }
 
 };

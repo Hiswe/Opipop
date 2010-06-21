@@ -52,16 +52,12 @@ label em
 /////////////////////////
 
 a,
-a *,
-span.link,
-span.link *
+a *
     text-decoration: none
-    cursor: pointer
     img
         border: none
 
-a:hover,
-span.link:hover
+a:hover
     text-decoration: underline
 
 div.clear
@@ -140,6 +136,21 @@ input[type=submit]:active
 
 input[type=submit]:disabled
     opacity: 0.3
+    
+.menu 
+    .button:first-child 
+        +border-radius(4px 0 0 4px)
+    .button
+        +border-radius(0)
+        float: left
+        margin-left: -1px
+        z-index: 1
+        position: relative
+    .button:last-child 
+        +border-radius(0 4px 4px 0)  
+    .button:hover 
+        z-index: 2
+           
 
 /* ___________________ Frame*/
 
@@ -148,6 +159,7 @@ input[type=submit]:disabled
     padding: 5px
     position: relative
     border: solid 2px #f0f0f0
+    +clearfix()
     +border-radius()
     +box-shadow(#6699cc)
     +linear-gradient(color-stops(#ffffff 50%, #ededed))
@@ -461,9 +473,6 @@ form
 /////////////////////////
 
 #questionResults
-    margin: -110px 0 0 0
-    width: 100%
-    position: absolute
     ul.menu
         margin: 10px auto
         width: 258px
@@ -544,4 +553,8 @@ form
         div.progress_1
             background: CornflowerBlue
 
-
+#share
+    float: right
+    li
+        display: inline-block
+    
