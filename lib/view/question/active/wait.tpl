@@ -1,9 +1,12 @@
 
-    <li class="user vote">
-        <a href="{ROOT_PATH}{user_login}"><img src="{ROOT_PATH}{user_avatar}" alt="{user_login}" /><span>{user_login}</span></a>
-        <p>mon opinion: <strong>{user_vote}</strong></p>
+    <li class="userVote">
+        <a href="{ROOT_PATH}{user_login}"><img src="{ROOT_PATH}{user_avatar}" alt="{user_login}" /></a>
+        <span>mon opinion:</span>
+        <strong>{user_vote}</strong>
     </li>
-    <li class="user guess">
-        <p>mon pronostique: <strong>{user_guess}</strong></p>
+    <li class="userGuess">
+        <img src="{ROOT_PATH}media/layout/others.png" />
+        <span>mon pronostique:</span>
+        <strong>{user_guess}</strong>
     </li>
 

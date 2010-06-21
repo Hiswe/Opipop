@@ -1,5 +1,5 @@
 $default-border-radius: 4px
-$rose: #F9C
+$pink: #FF0066
 $grey: #999
 
 @import compass/css3
@@ -12,15 +12,12 @@ $grey: #999
 html
     min-height: 100%
 body
-    padding: 0 4%
+    padding: 0 20px
     font-family: tahoma, Arial, sans-serif
     font-size: 12px
-    color: #000
+    color: $grey
     min-height: 100%
     +linear-gradient(color-stops(#6699cc, #c2e4f6 200px, #dbecf5 800px))
-
-#main
-    color: $grey /* keep body's text black for debug purpose */
 
 ul
     list-style: none
@@ -45,6 +42,9 @@ label em
     font-size: 1.8em
 #questions .questionChoice
     font-size: 2.4em
+#questions .userVote strong,
+#questions .userGuess strong
+    font-size: 1.8em
 
 
 /////////////////////////
@@ -74,7 +74,7 @@ div.clear
 
 #nyroModalContent
     background: #fff
-    padding: 2em 2em 1em
+    padding: 2em
     border: solid 5px #eee
     +box-shadow(#999999, 5px, 5px, 15px)
     +border-radius(8px)
@@ -111,8 +111,8 @@ div.clear
     +linear-gradient(color-stops(#FFF, #CCC))
 
 .button:hover
-    color: $rose
-    border-color: $rose
+    color: $pink
+    border-color: $pink
     text-decoration: none
     +linear-gradient(color-stops(#FFF, #DDD))
 
@@ -149,20 +149,26 @@ fieldset
     clear: both
 label
     display: block
+    margin: 0 0 1.5em 0
     em
+        font-size: 1.4em
         display: block
-        padding: 0.3em 0
+        padding: 0 0 0.3em 0
 
 input[type=text],
 input[type=password]
     display: block
-    padding: 0.2em
-    width: 20em
+    padding: 0.4em
+    width: 100%
     border: 1px solid #999
+    font-size: 1.2em
+    font-weight: bold
+    color: $pink
+    +border-radius()
 
 input[type=text]:focus,
 input[type=password]:focus
-    border-color: $rose
+    border-color: $pink
 
 
 /////////////////////////
@@ -171,7 +177,7 @@ input[type=password]:focus
 
 #main
     max-width: 1050px
-    min-width: 800px
+    min-width: 850px
     margin: 0 auto
     position: relative
 
@@ -211,10 +217,9 @@ input[type=password]:focus
     a.login
         font-size: 2em
         display: block
-        margin: 20px 0 0 0
 
     p.linkList
-        margin: 10px 0 0 0
+        margin: 12px 0 0 0
         span
             margin: 0 5px
 
@@ -227,16 +232,31 @@ input[type=password]:focus
 
 #login
     display: none
-#login_form
-    width: 300px
-    height: 200px
-    input[type=password]
-        margin: 1em 0
 
-#registerLink
-    position: absolute
-    right: 2em
-    bottom: 1em
+#loginContent
+    width: 48em
+
+    .side1
+        display: inline-block
+        width: 20em
+        padding: 0 1em 0 0
+        border-right: solid 1px #ccc
+
+        form
+            input[type=text],
+            input[type=password]
+                width: 15em
+
+    .side2
+        display: inline-block
+        width: 24em
+        padding: 0 0 0 1em
+        vertical-align: top
+
+        p
+            margin: 0 0 2em 0
+            font-size: 1.2em
+            line-height: 1.6em
 
 
 /////////////////////////
@@ -304,18 +324,48 @@ input[type=password]:focus
             letter-spacing: 0.05em
 
         .questionLabel
-            margin: 10px 0
+            margin: 5px 0 0 0
             font-size: 1.2em
 
         .questionChoice
-            margin: 10px 0 0 50px
+            margin: 10px 0 0 0
+            padding: 4px 0 0 55px
+            height: 34px
+            display: inline
+            float: left
+            clear: left
+            cursor: pointer
+            background-image: url(../media/layout/check.png)
+            background-position: left top
+            background-repeat: no-repeat
             +text-shadow(#fff)
+        .questionChoice:hover
+            background-image: url(../media/layout/check-hover.png)
 
         .questionChoice:hover
-            color: $rose
+            color: $pink
             text-decoration: none
         .questionChoice:active
             color: black
+
+        .userVote
+            margin: 10px 0 0 0px
+        .userGuess
+            margin: 20px 0 0 0px
+
+        .userVote,
+        .userGuess
+            clear: both
+
+            a,
+            img
+                margin: 0 5px 0 0
+                float: left
+
+            span
+                font-size: 1.2em
+                display: block
+                margin: 0 0 5px 0
 
 
 /* ___________________ Archives */

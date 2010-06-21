@@ -26,7 +26,7 @@ class Block_Question_Active_Wait extends Block
         $this->tpl->assignVar(array
         (
             'user_login'  => $user->getLogin(),
-            'user_avatar' => $user->getAvatarUri('small'),
+            'user_avatar' => $user->getAvatarUri('medium'),
             'user_vote'   => $user->getAnswer($this->question)->getLabel(),
             'user_guess'  => $user->getGuess($this->question)->getAnswer()->getLabel(),
         ));
