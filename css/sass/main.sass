@@ -101,7 +101,8 @@ div.clear
 
 /* ___________________ Buttons */
 
-.button
+.button,
+input[type=submit]
     a
         color: #666
     a:hover
@@ -110,24 +111,35 @@ div.clear
     color: #666
     display: inline-block
     cursor: pointer
-    padding: 0.5em 1em
     border: solid 1px #AAA
-    font-size: 1.8em
     font-weight: bold
     +text-shadow(#fff)
     +border-radius()
     +linear-gradient(color-stops(#FFF, #CCC))
 
-.button:hover
+.button
+    padding: 0.5em 1em
+    font-size: 1.8em
+
+input[type=submit]
+    padding: 0.2em 0.5em
+    font-size: 1.0em
+
+.button:hover,
+input[type=submit]:hover
     color: $pink
     border-color: $pink
     text-decoration: none
     +linear-gradient(color-stops(#FFF, #DDD))
 
-.button:active
+.button:active,
+input[type=submit]:active
     color: black
     border-color: black
     +linear-gradient(color-stops(#CCC, #FFF))
+
+input[type=submit]:disabled
+    opacity: 0.3
 
 /* ___________________ Frame*/
 
@@ -153,30 +165,38 @@ div.clear
 
 /* ___________________ Forms */
 
-fieldset
-    clear: both
-label
-    display: block
-    margin: 0 0 1.5em 0
-    em
-        font-size: 1.4em
+form
+    span
+        color: #ff0000
+        font-size: 0.7em
+        font-weight: normal
+        margin: 0 0 0 5px
+        font-style: italic
+
+    fieldset
+        clear: both
+    label
         display: block
-        padding: 0 0 0.3em 0
+        margin: 0 0 1.5em 0
+        em
+            font-size: 1.4em
+            display: block
+            padding: 0 0 0.3em 0
 
-input[type=text],
-input[type=password]
-    display: block
-    padding: 0.4em
-    width: 100%
-    border: 1px solid #999
-    font-size: 1.2em
-    font-weight: bold
-    color: $pink
-    +border-radius()
+    input[type=text],
+    input[type=password]
+        display: block
+        padding: 0.4em
+        width: 100%
+        border: 1px solid #999
+        font-size: 1.2em
+        font-weight: bold
+        color: $pink
+        +border-radius()
 
-input[type=text]:focus,
-input[type=password]:focus
-    border-color: $pink
+    input[type=text]:focus,
+    input[type=password]:focus
+        border-color: $pink
 
 
 /////////////////////////
@@ -238,8 +258,14 @@ input[type=password]:focus
     right: 0
     z-index: 2
 
-#login
+#login,
+#register
     width: 48em
+
+    p
+        margin: 0 0 2em 0
+        font-size: 1.2em
+        line-height: 1.6em
 
     .side1
         display: inline-block
@@ -257,11 +283,6 @@ input[type=password]:focus
         width: 24em
         padding: 0 0 0 1em
         vertical-align: top
-
-        p
-            margin: 0 0 2em 0
-            font-size: 1.2em
-            line-height: 1.6em
 
 
 /////////////////////////

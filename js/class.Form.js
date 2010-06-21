@@ -5,17 +5,17 @@ var Form =
 
     disable : function(form)
     {
-        form.children('input[type=submit]').attr('disabled', 'disabled');
+        form.find('input[type=submit]').attr('disabled', 'disabled');
     },
 
     enable : function(form)
     {
-        form.children('input[type=submit]').attr('disabled', '');
+        form.find('input[type=submit]').attr('disabled', '');
     },
 
     setError : function(input, message)
     {
-        var form = input.parent('form');
+        var form = input.parents('form');
 
         if (!form.hasClass('error'))
         {
@@ -38,7 +38,7 @@ var Form =
 
     cleanError : function(input)
     {
-        var form = input.parent('form');
+        var form = input.parents('form');
 
         if (input.hasClass('error'))
         {

@@ -143,7 +143,7 @@ var Register =
 
     submit : function()
     {
-        Form.disable($('#register'));
+        Form.disable($('#register_form'));
 
         var login    = Form.getCleanInputValue($('#register_login'));
         var gender   = Form.getCleanInputValue($('#register_gender'));
@@ -154,7 +154,7 @@ var Register =
         if (login.length == 0 || email.length == 0 || password.length == 0 || zip.length == 0 || gender.length == 0)
         {
             alert('You must fill all the form\'s field to register !');
-            Form.enable($('#register'));
+            Form.enable($('#register_form'));
             return;
         }
         else
