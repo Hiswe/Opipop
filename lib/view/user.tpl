@@ -1,9 +1,51 @@
 
-        <h4>Friends:</h4>
-        <ul>
+        <div id="colRight">
+            <div id="user" class="frame">
+                <img class="avatar" src="{ROOT_PATH}{profile_avatar}" alt="{profile_login}" />
+                <ul class="info">
+                    <li><h1>{profile_login}</h1></li>
+                    <li>{profile_gender} - {profile_region}</li>
+                    <li>{profile_totalVote} votes</li>
+                </ul>
+                <p class="distance_global">Distance par rapport a l'opinion public:<strong>{profile_global_distance} mètres</strong></p>
+                <p class="distance_friend">Distance par rapport a vos amis:<strong>{profile_friend_distance} mètres</strong></p>
+            </div>
+
+            <h4>Friends:</h4>
+            <ul id="friends">
+                <!-- LOOP friendPredictionAccuracy -->
+                <li class="frame">
+                    <a href="{ROOT_PATH}{friendPredictionAccuracy.login}" title="{friendPredictionAccuracy.login}">
+                        <img src="{ROOT_PATH}{friendPredictionAccuracy.avatar}" />
+                        <strong>{friendPredictionAccuracy.login}</strong>
+                    </a>
+                    <span>précision de vos prédictions: {friendPredictionAccuracy.percent}%</span>
+                </li>
+                <!-- END friendPredictionAccuracy -->
+            </ul>
+        </div>
+
+        <div id="colLeft">
+            <h4>Statistiques:</h4>
+        </div>
+
+        <!-- DONt TOUCH ABOVE I WILL MAKE IT RIGHT LATER :) -->
+
+        <!--
+        <ul id="friends">
             <!-- LOOP friend -->
             <li class="user"><a href="{ROOT_PATH}{friend.login}"><img src="{ROOT_PATH}{friend.avatar}" alt="{friend.login}" /> {friend.login}</a></li>
             <!-- END friend -->
+        </ul>
+
+        <ul id="menu">
+            <!-- SECTION friendRequest -->
+            <li><a href="javascript:User.addToFriend({profile_id}, true);" id="addToFriend_{profile_id}" class="{friendRequest_action}">{friendRequest_message}</a></li>
+            <!-- END friendRequest -->
+            <!-- SECTION private -->
+            <li><a href="{ROOT_PATH}{profile_login}">profile</a></li>
+            <li><a href="{ROOT_PATH}{profile_login}/edit">edit infos</a></li>
+            <!-- END private -->
         </ul>
 
         <!-- SECTION friendPendingRequest -->
@@ -25,13 +67,6 @@
         </ul>
         <ul>
             <li><strong>distance from your friends opinion:</strong> {profile_friend_distance}m</li>
-            <li><strong>prediction accuracy toward your friends:</strong>
-                <ul>
-                    <!-- LOOP friendPredictionAccuracy -->
-                    <li><strong>{friendPredictionAccuracy.login}:</strong> {friendPredictionAccuracy.percent}%</li>
-                    <!-- END friendPredictionAccuracy -->
-                </ul>
-            </li>
         </ul>
         <ul>
             <li>
@@ -80,4 +115,5 @@
                 vis.render();
             </script>
         </div>
+        -->
 
