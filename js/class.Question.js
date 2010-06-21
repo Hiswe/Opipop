@@ -3,15 +3,10 @@ var Question =
 
     archivePage : 1,
     workin      : false,
-    data        :
-    {
-        vote  : {},
-        guess : {}
-    },
 
     initList : function()
     {
-        $('#morePollsButton').bind('mousedown', Question.showArchive);
+        $('#morePollsButton').bind('click', Question.showArchive);
     },
 
     removeMorePollButton : function()
@@ -44,34 +39,20 @@ var Question =
         $('#questionArchiveContainer').append(data);
     },
 
-    selectAnswer : function(button, questionId, answerId, action)
+    save : function(button, questionId, answerId, action)
     {
-        var answerButtons = $('#question_' + questionId + ' button.answer');
-        var saveButton    = $('#question_' + questionId + ' button.save');
-
-        answerButtons.removeClass('selected');
-        button.addClass('selected');
-        saveButton.removeClass('hide');
-
-        Question.data[action][questionId] = answerId;
-    },
-
-    save : function(button, questionId, action)
-    {
-        if (!Question.data[action][questionId])
-        {
-            return false;
-        }
-
-        button.remove();
+        $('#question_' + questionId + ' .content').html('').addClass('loading');
 
         var params =
         {
             'question_id' : questionId,
-            'answer_id'   : Question.data[action][questionId]
+            'answer_id'   : answerId
         };
 
-        $.post(ROOT_PATH + 'remote/question/active/' + action, params, Question.saveCallback);
+        setTimeout(function()
+        {
+            $.post(ROOT_PATH + 'remote/question/active/' + action, params, Question.saveCallback);
+        }, 800);
     },
 
     saveCallback : function(data)
@@ -83,7 +64,7 @@ var Question =
         else
         {
             data = $.parseJSON(data);
-            $('#question_' + data.questionId + ' .content').html(data.content);
+            $('#question_' + data.questionId + ' .content').html(data.content).removeClass('loading');
         }
     },
 

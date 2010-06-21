@@ -8,7 +8,7 @@
                     <dt>
                         <img src="{ROOT_PATH}{question.image}" alt="{question.label}" />
                     </dt>
-                    <dd>
+                    <dd class="content">
                         {question.content}
                     </dd>
                     <!-- <dd class="friends">
@@ -26,5 +26,5 @@
 
         <ul id="questionArchiveContainer"></ul>
 
-        <div id="morePolls"><a href="#" id="morePollsButton" class="button">More polls</a></div>
+        <div id="morePolls"><a href="{ROOT_PATH}" id="morePollsButton" class="button">More polls</a></div>
 

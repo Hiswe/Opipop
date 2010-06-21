@@ -158,7 +158,7 @@ class Tool
         }
         else
         {
-            return date('d/m/Y', $time);
+            return 'le ' . date('d/m/Y', $time);
         }
 
         if ($n > 1)

@@ -53,6 +53,7 @@ class Block_Question_Archive extends Block
                 'label' => $question->getLabel(),
                 'guid'  => Tool::makeGuid($question->getLabel()),
                 'data'  => json_encode($data),
+                'time'  => Tool::timeWarp($question->getEndDate()),
             ));
 
             // Assign answers infos

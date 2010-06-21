@@ -14,11 +14,7 @@ class Block_Question_Active_Wait extends Block
     public function configure()
     {
         // If a user is logged
-        if (Tool::isOk($_SESSION['user']))
-        {
-            $user = new Model_User($_SESSION['user']['id']);
-        }
-        else
+        if (!($user = Model_User::getLoggedUser()))
         {
             return;
         }

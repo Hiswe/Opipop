@@ -370,6 +370,9 @@ form
             font-weight: normal
             letter-spacing: 0.05em
 
+        .loading
+            background: url(../media/layout/ajaxLoader.gif) 350px center no-repeat
+
         .questionLabel
             margin: 5px 0 0 0
             font-size: 1.2em
@@ -422,59 +425,51 @@ form
     margin: 20px 0 0 0
 
 #questionArchiveContainer
-    margin: 25px 0 0 0
-
-#questionArchiveList
-    text-align: center
+    margin: 30px 0 0 0
 
     li
-        width: 45%
+        width: 48%
+        padding: 0
         display: inline-block
-        text-align: center
         position: relative
-        margin-bottom : 1.5em
-        pqdding-bottom: 1.5em
+        margin-bottom: 15px
 
-        h3
-            padding: 0.5em 0
-            text-align: left
-            a
-                color: #999
-        .graph
-            margin: 10px 0 0 0
+        .content
+            height: 60px
+            padding: 5px
 
-        .answer
-            position: absolute
-            height: 2em
-            width: 50%
-            top: 50%
-            left: 0
-            margin: -1em 0 0
-            text-align: center
+            h3
+                text-align: left
+                font-size: 1.4em
+                a
+                    color: #999
 
-        .key0
-            color: fuchsia
+            .info
+                position: absolute
+                bottom: 5px
 
-        .key1
-            color: CornflowerBlue
-            left: 50%
+            .graph
+                position: absolute
+                top: 5px
+                right: 10px
+
+            .answer
+                position: absolute
+                right: 80px
+
+            .key0
+                color: fuchsia
+                top: 30px
+
+            .key1
+                color: CornflowerBlue
+                top: 48px
 
     li:nth-child(odd)
-        padding-right: 4%
-        border-right: 1px solid #CCC
+        margin-right: 1%
 
     li:nth-child(even)
-        padding-left: 4%
-
-    li:nth-child(1):after,
-    li:nth-child(2):after
-        content: ' '
-        width: 90%
-        display: block
-        position: absolute
-        bottom: -1em
-        left: 5%
-        border-bottom: 1px solid #CCC
+        margin-left: 1%
 
 
 /////////////////////////
