@@ -1,5 +1,5 @@
-JS_LIB  := $(shell ls - js/lib/*.js | sed "s/js\//--js js\//g" | xargs)
-JS_BASE := $(shell ls - js/*.js | sed "s/js\//--js js\//g" | xargs)
+JS_LIB  := $(shell ls js/lib/*.js | sed "s/js\//--js js\//g" | xargs)
+JS_BASE := $(shell ls js/*.js | sed "s/js\//--js js\//g" | xargs)
 
 all: js/_prod/base.js js/_prod/lib.js css
 
