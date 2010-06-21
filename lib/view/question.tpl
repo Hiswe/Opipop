@@ -81,9 +81,7 @@
             </div>
             
             <ul class="menu">
-                <li class="button"><span>Graph</span></li>
-                <li class="button"><span>Map</span></li>
-                <li class="button"><span>Details</span></li>
+                <li class="button"><span>Graph</span></li><li class="button"><span>Map</span></li><li class="button"><span>Details</span></li>
             </ul>
 
             <script type="text/javascript">Question.initResults();</script>

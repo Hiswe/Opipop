@@ -29,19 +29,26 @@ ul
 
 #footer a
     font-weight: normal
+    
 label em
     font-weight: bold
     font-style: normal
+    
 .bouton
     font-size: 1.2em
     font-weight: bold
+    
 #questionArchiveList h3 a,
 #questionArchiveList .answer
     font-size: 1.4em
+    
 .frame h2
     font-size: 1.4em
+    
+h1,
 #questions .questionChoice
     font-size: 2.4em
+    
 #questions .userVote strong,
 #questions .userGuess strong
     font-size: 1.8em
@@ -138,11 +145,11 @@ input[type=submit]:disabled
     opacity: 0.3
     
 .menu 
+    text-align: center
     .button:first-child 
         +border-radius(4px 0 0 4px)
     .button
         +border-radius(0)
-        float: left
         margin-left: -1px
         z-index: 1
         position: relative
@@ -487,7 +494,7 @@ form
     div.tab
         text-align: center
         clear: both
-        margin: 10px 0 0 0
+        margin: 3em 0
 
 #question
     text-align: center
@@ -514,7 +521,10 @@ form
     margin: 10px 0 0 0
     height: 115px
     display: block
+    position: absolute
     width: 100%
+    top: 45%
+    
     li.answer
         width: 20%
         float: left
