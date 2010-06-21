@@ -1,8 +1,5 @@
-
-            <ul id="share">
-                <li><a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{ROOT_PATH}media/layout/tshare.png" /></a></li>
-                <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>
-            </ul>
+<div class="frame">
+           
 
             <h1 id="question">{question_label}</h1>
 
@@ -25,13 +22,6 @@
             </ul>
 
             <div id="questionResults">
-                <ul class="menu">
-                    <li class="button" name="0"><span class="link">Graph</span></li>
-                    <li class="button" name="1"><span class="link">Map</span></li>
-                    <li class="button" name="2"><span class="link">Details</span></li>
-                </ul>
-
-                <div class="tabs">
 					<div class="tab">
 						<script type="text/javascript+protovis">
 							var vis = new pv.Panel()
@@ -87,9 +77,16 @@
 							<div class="progress_{detailsFemale.key}" style="width: {detailsFemale.percent}%">{detailsFemale.percentFormated}%</div>
 							<!-- END detailsFemale -->
 						</div>
-					</div>
 				</div>
             </div>
+            
+            <ul class="menu">
+                <li class="button"><span>Graph</span></li><li class="button"><span>Map</span></li><li class="button"><span>Details</span></li>
+            </ul>
 
             <script type="text/javascript">Question.initResults();</script>
-
+             <ul id="share">
+                    <li><a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{ROOT_PATH}media/layout/tshare.png" /></a></li>
+                    <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>
+                </ul>
+</div>
