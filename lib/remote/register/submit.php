@@ -49,6 +49,6 @@
         )');
 
         // TODO : register informations should be sent by email
-        echo $key . chr(13) . $ROO_PATH . 'login/confirm?u=' . $id . '&k=' . $key;
+        echo $key . chr(13) . $ROO_PATH . $_POST['login'] . '/confirm?u=' . $id . '&k=' . $key;
     }
 

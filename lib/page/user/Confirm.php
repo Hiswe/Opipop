@@ -1,12 +1,12 @@
 <?php
 
-class Page_Register_Confirm extends Page
+class Page_User_Confirm extends Page
 {
     public function configureView()
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/register/confirm.tpl');
+        $this->tpl->assignTemplate('lib/view/user/confirm.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }
 

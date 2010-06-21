@@ -30,7 +30,7 @@
                     continue;
                 }
             }
-			$user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
+            $user->guessAboutFriend($_POST['question_id'], $friendId, $answerId);
         }
     }
 
@@ -39,8 +39,8 @@
     $block->configure();
 
     echo json_encode(array(
-		'questionId' => $_POST['question_id'],
-		'content'    => $block->render(),
-	));
+        'questionId' => $_POST['question_id'],
+        'content'    => $block->render(),
+    ));
 
 

@@ -1,6 +1,4 @@
 [
     "lib/jquery-1.4.2.js",
-    "lib/jquery.ui.core.js",
-    "lib/jquery.ui.widget.js"
+    "lib/jquery.nyroModal-1.6.2.js"
 ]
-

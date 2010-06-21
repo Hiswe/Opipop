@@ -6,8 +6,8 @@ class Page_Homepage extends Page
     {
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/homepage.tpl');
-        $this->tpl->assignTemplate('lib/view/footer.tpl');
+        //$this->tpl->assignTemplate('lib/view/homepage.tpl');
+        //$this->tpl->assignTemplate('lib/view/footer.tpl');
     }
 
     public function configureData()

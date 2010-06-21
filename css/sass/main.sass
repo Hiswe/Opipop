@@ -72,12 +72,17 @@ div.clear
 
 /* ___________________ Lighbox */
 
-#nyroModalContent
+.modal
     background: #fff
     padding: 2em
     border: solid 5px #eee
     +box-shadow(#999999, 5px, 5px, 15px)
     +border-radius(8px)
+
+#nyroModalLoading
+    width: 150px
+    height: 150px
+    background: #fff url(../media/layout/ajaxLoader.gif) no-repeat center center
 
 #nyroModalWrapper
     .nyroModalClose
@@ -232,9 +237,6 @@ input[type=password]:focus
     z-index: 2
 
 #login
-    display: none
-
-#loginContent
     width: 48em
 
     .side1

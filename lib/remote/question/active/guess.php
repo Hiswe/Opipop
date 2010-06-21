@@ -18,7 +18,7 @@
     $guess = $user->getGuess($question);
     if ($guess == false && Tool::isOk($_POST['answer_id']))
     {
-		$user->guess($question->getId(), $_POST['answer_id']);
+        $user->guess($question->getId(), $_POST['answer_id']);
     }
 
     $block = new Block_Question_Active_Wait();
@@ -26,7 +26,7 @@
     $block->configure();
 
     echo json_encode(array(
-		'questionId' => $_POST['question_id'],
-		'content'    => $block->render(),
-	));
+        'questionId' => $_POST['question_id'],
+        'content'    => $block->render(),
+    ));
 

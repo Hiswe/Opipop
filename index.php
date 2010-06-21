@@ -49,10 +49,6 @@
                 $page = new Page_Register($tpl);
                 break;
 
-            case 'register_confirm':
-                $page = new Page_Register_Confirm($tpl);
-                break;
-
             case 'logout':
                 $page = new Page_Logout($tpl);
                 break;
@@ -67,6 +63,10 @@
 
             case 'user_edit':
                 $page = new Page_User_Edit($tpl);
+                break;
+
+            case 'user_confirm':
+                $page = new Page_User_Confirm($tpl);
                 break;
 
             case 'submit':

@@ -1,19 +1,17 @@
 
         <!-- SECTION login -->
-        <div class="frame">
-        <h2>Register a new user</h2>
-        <form id="register" method="post" name="register" action="javascript:Register.submit();">
+        <form id="register" class="modal" method="post" name="register" action="javascript:Register.submit();">
             <fieldset>
             <label>
                 <em>Login :</em>
                 <input id="register_login" type="text" maxlength="32" name="login" value="" />
             </label>
             <label>
-                <em>Password:</em> 
+                <em>Password:</em>
                 <input id="register_password_1" type="password" maxlength="128" name="password_1" value="" />
             </label>
             <label>
-                <em>Confirm password:</em> 
+                <em>Confirm password:</em>
                 <input id="register_password_2" type="password" maxlength="128" name="password_2" value="" />
             </label>
             <label>
@@ -61,11 +59,5 @@
                 </fieldset>
                 <fieldset><input type="submit" name="submit" value="register"></fieldset>
         </form>
-        </div>
-        <script type="text/javascript">Register.init();</script>
         <!-- END login -->
-
-        <!-- SECTION noLogin -->
-        <p>You are already logged in.</p>
-        <!-- END noLogin -->
 
