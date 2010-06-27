@@ -19,14 +19,6 @@ class Page_Question extends Page
         // Get question
         $question = new Model_Question($this->getParameter('id'));
 
-        // If a user is logged
-        if ($user = Model_User::getLoggedUser())
-        {
-            $userAnswer              = $user->getAnswer($question);
-            $userGuess               = $user->getGuess($question);
-            //$userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
-        }
-
         // Assign question infos
         $this->tpl->assignVar(array
         (
@@ -40,34 +32,8 @@ class Page_Question extends Page
             'question_image'            => $question->getImageUri('medium'),
         ));
 
-        // If a user is logged and did not vote
-        if ($user && $userAnswer === false)
-        {
-            // Select all user's friends
-            $friends = $user->getFriends();
-
-            // Assign friends infos
-            foreach ($friends as $friend)
-            {
-                $this->tpl->assignLoopVar('friend', array
-                (
-                    'id'     => $friend->getId(),
-                    'login'  => $friend->getLogin(),
-                    'avatar' => $friend->getAvatarUri('small'),
-                ));
-            }
-
-            // Assing user's infos
-            $this->tpl->assignLoopVar('user', array
-            (
-                'id'     => $user->getId(),
-                'login'  => $user->getLogin(),
-                'avatar' => $user->getAvatarUri('small'),
-            ));
-        }
-
         // Get answers
-        $answers   = $question->getAnswers();
+        $answers = $question->getAnswers();
 
         foreach ($answers as $key => $answer)
         {
@@ -80,75 +46,76 @@ class Page_Question extends Page
                 'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
                 'percent'         => round($answer->getPercent()),
             ));
+        }
 
-            /* TODO
-            // If a user is logged and voted
-            if ($user)
+        $colors = Conf::get('GRAPH_COLORS');
+        $data   = array();
+
+        foreach (array_reverse($answers) as $key => $answer)
+        {
+            $data[] = array
+            (
+                'value' => $answer->getPercent() / 100,
+                'color' => $colors[$key],
+            );
+        }
+
+        $this->tpl->assignVar('question_data', json_encode($data));
+
+        // If a user is logged
+        if ($user = Model_User::getLoggedUser())
+        {
+            // User's vote and guess
+            $answer = $user->getAnswer($question);
+            $guess  = $user->getGuess($question);
+            $this->tpl->assignVar(array
+            (
+                'user_vote'  => ($answer) ? $answer->getLabel() : '',
+                'user_guess' => ($guess) ? $guess->getAnswer()->getLabel() : '',
+            ));
+
+            // User's guess concerning his friends
+            $userGuessesAboutFriends = $user->getGuessesAboutFriends($question);
+            foreach ($userGuessesAboutFriends as $guess)
             {
-                // If the user answered and the result is about this answer
-                if ($userAnswer && $userAnswer->getId() == $answer->getId())
-                {
-                    // Assing user's infos
-                    $this->tpl->assignLoopVar('answer.user', array
-                    (
-                        'id'     => $user->getId(),
-                        'login'  => $user->getLogin(),
-                        'avatar' => $user->getAvatarUri('small'),
-                        'class'  => 'vote',
-                    ));
-                }
-
-                // If the user guessed and the result is about this answer
-                if ($userGuess && $userGuess->getId() == $answer->getId())
-                {
-                    // Assing user's infos
-                    $this->tpl->assignLoopVar('answer.user', array
-                    (
-                        'id'     => $user->getId(),
-                        'login'  => $user->getLogin(),
-                        'avatar' => $user->getAvatarUri('small'),
-                        'class'  => 'guess',
-                    ));
-                }
-
-                // If the user guessed for his friends
-                // Loop through all guesses
-                // TODO : what I guessed for my friend, what my friend answered, what they guessed for me
-                if ($userGuessesAboutFriends)
-                {
-                    foreach ($userGuessesAboutFriends as $guess)
-                    {
-                        // If the result is about this answer
-                        if ($guess->getId() == $answer->getId())
-                        {
-                            // Assing friend's infos
-                            $this->tpl->assignLoopVar('answer.friend', array
-                            (
-                                'id'     => $guess->getUser()->getId(),
-                                'login'  => $guess->getUser()->getLogin(),
-                                'avatar' => $guess->getUser()->getAvatarUri('small'),
-                                'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
-                                'class'  => 'friend',
-                            ));
-                        }
-                    }
-                }
-            }
-            */
-
-            $colors = Conf::get('GRAPH_COLORS');
-            $data   = array();
-
-            foreach (array_reverse($answers) as $key => $answer)
-            {
-                $data[] = array
+                // Assing friend's infos
+                $this->tpl->assignLoopVar('userGuessesAboutFriends', array
                 (
-                    'value' => $answer->getPercent() / 100,
-                    'color' => $colors[$key],
-                );
+                    'label'  => $guess->getAnswer()->getLabel(),
+                    'login'  => $guess->getUser()->getLogin(),
+                    'avatar' => $guess->getUser()->getAvatarUri('small'),
+                    'guid'   => Tool::makeGuid($guess->getUser()->getLogin()),
+                ));
             }
 
-            $this->tpl->assignVar('question_data', json_encode($data));
+            // User's friends votes and guess concerning me
+            $friends = $user->getFriends();
+            foreach ($friends as $friend)
+            {
+                $answer = $friend->getAnswer($question);
+                if ($answer)
+                {
+                    $this->tpl->assignLoopVar('userFriendsVotes', array
+                    (
+                        'label'  => $answer->getLabel(),
+                        'login'  => $friend->getLogin(),
+                        'avatar' => $friend->getAvatarUri('small'),
+                        'guid'   => Tool::makeGuid($friend->getLogin()),
+                    ));
+                }
+
+                $guess = $friend->getGuessAboutFriend($question, $user);
+                if ($guess)
+                {
+                    $this->tpl->assignLoopVar('userFriendsGuessAboutMe', array
+                    (
+                        'label'  => $guess->getAnswer()->getLabel(),
+                        'login'  => $friend->getLogin(),
+                        'avatar' => $friend->getAvatarUri('small'),
+                        'guid'   => Tool::makeGuid($friend->getLogin()),
+                    ));
+                }
+            }
         }
     }
 }

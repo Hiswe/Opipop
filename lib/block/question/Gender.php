@@ -21,7 +21,7 @@ class Block_Question_Gender extends Block
         $dataMen   = array();
 
         // Percent MALE
-        foreach ($answers as $key => $answer)
+        foreach (array_reverse($answers) as $key => $answer)
         {
             $dataMen[] = array
             (
@@ -29,9 +29,18 @@ class Block_Question_Gender extends Block
                 'color' => $colors[$key],
             );
         }
+        foreach ($answers as $key => $answer)
+        {
+            $this->tpl->assignLoopVar('question_men', array
+            (
+                'key'     => $key,
+                'label'   => $answer->getLabel(),
+                'percent' => number_format(Tool::percent($answer->getTotalMale(), $this->question->getTotalMale()), 1, ',', ' '),
+            ));
+        }
 
         // Percent FEMALE
-        foreach ($answers as $key => $answer)
+        foreach (array_reverse($answers) as $key => $answer)
         {
             $dataWomen[] = array
             (
@@ -39,9 +48,18 @@ class Block_Question_Gender extends Block
                 'color' => $colors[$key],
             );
         }
+        foreach ($answers as $key => $answer)
+        {
+            $this->tpl->assignLoopVar('question_women', array
+            (
+                'key'     => $key,
+                'label'   => $answer->getLabel(),
+                'percent' => number_format(Tool::percent($answer->getTotalFemale(), $this->question->getTotalFemale()), 1, ',', ' '),
+            ));
+        }
 
-        $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
         $this->tpl->assignVar('question_men_data', json_encode($dataMen));
+        $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
     }
 }
 

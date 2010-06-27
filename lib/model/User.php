@@ -145,6 +145,39 @@ class Model_User
         return $guesses;
     }
 
+    public function getGuessAboutFriend($question, $friend)
+    {
+        $rs = DB::select
+        ('
+            SELECT g.answer_id, u.login, u.id, u.male, u.zip, u.email, u.valided
+            FROM `user_guess_friend` AS `g`
+            JOIN `friend` AS `f`
+                ON (f.user_id_1=g.user_id AND f.user_id_2=g.friend_id)
+                OR (f.user_id_1=g.friend_id AND f.user_id_2=g.user_id)
+            JOIN `user` AS `u`
+                ON u.id=g.friend_id
+            WHERE `question_id`=' . $question->getId() . '
+                AND `user_id`="' . $this->data['id'] . '"
+                AND `friend_id`="' . $friend->getId() . '"
+        ');
+        if ($rs['total'] != 0)
+        {
+            return new Model_Guess($rs['data'][0]['answer_id'], array
+            (
+                'user' => new Model_User($rs['data'][0]['id'], array
+                (
+                    'login'   => $rs['data'][0]['login'],
+                    'valided' => $rs['data'][0]['valided'],
+                    'email'   => $rs['data'][0]['email'],
+                    'zip'     => $rs['data'][0]['zip'],
+                    'male'    => $rs['data'][0]['male'],
+                ))
+            ));
+        }
+        return false;
+    }
+
+
     public function getAnswerGlobalStats()
     {
         if (!isset($this->answerGlobalStats))
