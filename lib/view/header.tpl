@@ -3,20 +3,20 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>{PAGE_TITLE}</title>
+    <title>{{PAGE_TITLE}}</title>
 
-    <script language="javascript" type="text/javascript">var ROOT_PATH = '{ROOT_PATH}';</script>
+    <script language="javascript" type="text/javascript">var ROOT_PATH = '{{ROOT_PATH}}';</script>
 
-	<!-- section prod_environement -->
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/_prod/lib.js?{VERSION}"></script>
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}js/_prod/base.js?{VERSION}"></script>
-	<!-- END prod_environement -->
+    <!-- section prod_environement -->
+    <script language="javascript" type="text/javascript" src="{{ROOT_PATH}}js/_prod/lib.js?{{VERSION}}"></script>
+    <script language="javascript" type="text/javascript" src="{{ROOT_PATH}}js/_prod/base.js?{{VERSION}}"></script>
+    <!-- END prod_environement -->
 
-	<!-- LOOP dev_script_list -->
-    <script language="javascript" type="text/javascript" src="{ROOT_PATH}{dev_script_list.file}?{VERSION}"></script>
-	<!-- END dev_script_list -->
+    <!-- LOOP dev_script_list -->
+    <script language="javascript" type="text/javascript" src="{{ROOT_PATH}}{{dev_script_list.file}}?{{VERSION}}"></script>
+    <!-- END dev_script_list -->
 
-    <link rel="stylesheet" type="text/css" href="{ROOT_PATH}css/main.css?{VERSION}">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_PATH}}css/main.css?{{VERSION}}">
 </head>
 <body>
 

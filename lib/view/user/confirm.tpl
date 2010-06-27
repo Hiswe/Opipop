@@ -5,7 +5,7 @@
         <!-- END confirm_wait -->
 
         <!-- SECTION confirm_ok -->
-        <p>Welcome ! your acount is valided, you can start ajoying youSurvey right now so <a href="{ROOT_PATH}">let's go !</a></p>
+        <p>Welcome ! your acount is valided, you can start ajoying youSurvey right now so <a href="{{ROOT_PATH}}">let's go !</a></p>
         <!-- END confirm_ok -->
 
         <!-- SECTION confirm_error -->

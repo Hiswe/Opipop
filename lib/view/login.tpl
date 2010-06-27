@@ -15,7 +15,7 @@
                 </div>
                 <div class="side2">
                     <p>Vous n'étez pas encore inscrit ?<br/><br/>Créez un compte et en moins d'une minute partagez vos opinions avec tous vos amis.</p>
-                    <a href="{ROOT_PATH}remote/register" class="nyroModal button">Créer un compte</a>
+                    <a href="{{ROOT_PATH}}remote/register" class="nyroModal button">Créer un compte</a>
                 </div>
             </div>
 

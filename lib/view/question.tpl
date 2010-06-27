@@ -1,8 +1,8 @@
 
         <div class="frame" id="question">
 
-            <h1>{question_label}</h1>
-            <p class="info">This question started on the {question_start_date} and ended on the {question_end_date}.</p>
+            <h1>{{question_label}}</h1>
+            <p class="info">This question started on the {{question_start_date}} and ended on the {{question_end_date}}.</p>
 
             <div class="graph_women">
                 <p>Femmes :</p>
@@ -12,7 +12,7 @@
                         .height(120);
 
                     var wedge = vis.add(pv.Wedge)
-                        .data({question_women_data})
+                        .data({{question_women_data}})
                         .left(60)
                         .bottom(60)
                         .innerRadius(function() 20)
@@ -34,7 +34,7 @@
                         .height(120);
 
                     var wedge = vis.add(pv.Wedge)
-                        .data({question_men_data})
+                        .data({{question_men_data}})
                         .left(60)
                         .bottom(60)
                         .innerRadius(function() 20)
@@ -48,7 +48,7 @@
                 </script>
             </div>
 
-            <a class="button nyroModal mapLink" href="{ROOT_PATH}js/vis/map.js.php?questionId={question_id}">Carte de france</a>
+            <a class="button nyroModal mapLink" href="{{ROOT_PATH}}remote/question/map?questionId={{question_id}}">Carte de france</a>
 
             <div class="graph_global">
                 <script type="text/javascript+protovis">
@@ -57,7 +57,7 @@
                         .height(250);
 
                     var wedge = vis.add(pv.Wedge)
-                        .data({question_data})
+                        .data({{question_data}})
                         .left(125)
                         .bottom(125)
                         .innerRadius(function() 50)
@@ -73,8 +73,8 @@
 
             <ul class="answers">
                 <!-- LOOP answer -->
-                <li class="key{answer.key}">
-                    <div class="label">{answer.percentFormated}%<strong>{answer.label}</strong></div>
+                <li class="key{{answer.key}}">
+                    <div class="label">{{answer.percentFormated}}%<strong>{{answer.label}}</strong></div>
                 </li>
                 <!-- END answer -->
             </ul>
@@ -84,7 +84,7 @@
         <script type="text/javascript">Question.initResults();</script>
 
         <ul id="share">
-            <li><a href="http://twitter.com/home?status={question_label_urlencoded} {ROOT_PATH}question/p-{question_id}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{ROOT_PATH}media/layout/tshare.png" /></a></li>
-            <li><a href="http://www.facebook.com/sharer.php?u={ROOT_PATH}question/{question_guid}-{question_id}&t={question_label_urlencoded}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{ROOT_PATH}media/layout/fbshare.png" /></a></li>
+            <li><a href="http://twitter.com/home?status={{question_label_urlencoded}} {{ROOT_PATH}}question/p-{{question_id}}" target="_blank" title="share this question on Twitter !">Tweet this ! <img src="{{ROOT_PATH}}media/layout/tshare.png" /></a></li>
+            <li><a href="http://www.facebook.com/sharer.php?u={{ROOT_PATH}}question/{{question_guid}}-{{question_id}}&t={{question_label_urlencoded}}" target="_blank" title="share this question on Facebook !">Post on facebook <img src="{{ROOT_PATH}}media/layout/fbshare.png" /></a></li>
         </ul>
 

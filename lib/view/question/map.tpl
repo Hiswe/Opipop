@@ -1,13 +1,13 @@
 
-    <div id="map"></div>
+    <div id="map" class="modal"></div>
     <script type="text/javascript">
         var Map =
         {
             'paper'        : Raphael(document.getElementById('map'), 545, 540),
             'regions'      : [],
-            'regionNames'  : {map_regionNames},
-            'regionColors' : {map_regionColors},
-            'regionValues' : {map_regionValues},
+            'regionNames'  : {{map_regionNames}},
+            'regionColors' : {{map_regionColors}},
+            'regionValues' : {{map_regionValues}},
 
             'init' : function()
             {
