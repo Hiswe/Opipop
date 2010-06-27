@@ -41,10 +41,7 @@
     // GRAPH
     $conf['GRAPH_COLORS'] = array
     (
-        'CornflowerBlue',
-        'Fuchsia',
-        'AliceBlue',
-        'Lavender',
-        'PaleGreen',
+        '#0099FF',
+        '#FF0066',
     );
 

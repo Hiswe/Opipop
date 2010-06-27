@@ -66,9 +66,11 @@ class Page_Question extends Page
         }
 
         // Get answers
-        $answers = $question->getAnswers();
-        $colors  = Conf::get('GRAPH_COLORS');
-        $data    = array();
+        $answers   = $question->getAnswers();
+        $colors    = Conf::get('GRAPH_COLORS');
+        $data      = array();
+        $dataWomen = array();
+        $dataMen   = array();
 
         foreach ($answers as $key => $answer)
         {
@@ -82,6 +84,7 @@ class Page_Question extends Page
                 'percent'         => round($answer->getPercent()),
             ));
 
+            /* TODO
             // If a user is logged and voted
             if ($user)
             {
@@ -114,7 +117,7 @@ class Page_Question extends Page
                 // If the user guessed for his friends
                 // Loop through all guesses
                 // TODO : what I guessed for my friend, what my friend answered, what they guessed for me
-                /* if ($userGuessesAboutFriends)
+                if ($userGuessesAboutFriends)
                 {
                     foreach ($userGuessesAboutFriends as $guess)
                     {
@@ -132,8 +135,9 @@ class Page_Question extends Page
                             ));
                         }
                     }
-                }*/
+                }
             }
+            */
         }
 
         foreach (array_reverse($answers) as $key => $answer)
@@ -148,26 +152,26 @@ class Page_Question extends Page
         // Percent MALE
         foreach ($answers as $key => $answer)
         {
-            $this->tpl->assignLoopVar('detailsMale', array
+            $dataMen[] = array
             (
-                'percentFormated' => number_format(Tool::percent($answer->getTotalMale(), $question->getTotalMale()), 1, ',', ' '),
-                'percent'         => round(Tool::percent($answer->getTotalMale(), $question->getTotalMale())),
-                'key'             => $key,
-            ));
+                'value' => Tool::percent($answer->getTotalMale(), $question->getTotalMale()) / 100,
+                'color' => $colors[$key],
+            );
         }
 
         // Percent FEMALE
         foreach ($answers as $key => $answer)
         {
-            $this->tpl->assignLoopVar('detailsFemale', array
+            $dataWomen[] = array
             (
-                'percentFormated' => number_format(Tool::percent($answer->getTotalFemale(), $question->getTotalFemale()), 1, ',', ' '),
-                'percent'         => round(Tool::percent($answer->getTotalFemale(), $question->getTotalFemale())),
-                'key'             => $key,
-            ));
+                'value' => Tool::percent($answer->getTotalFemale(), $question->getTotalFemale()) / 100,
+                'color' => $colors[$key],
+            );
         }
 
         $this->tpl->assignVar('question_data', json_encode($data));
+        $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
+        $this->tpl->assignVar('question_men_data', json_encode($dataMen));
     }
 }
 
