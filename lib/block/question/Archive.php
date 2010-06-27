@@ -3,7 +3,8 @@
 class Block_Question_Archive extends Block
 {
     protected $_TEMPLATE = 'lib/view/question/archive.tpl';
-    protected $page = 0;
+
+    private $page = 0;
 
     public function setPage($page)
     {

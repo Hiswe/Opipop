@@ -37,6 +37,7 @@ class Page_Question extends Page
             'question_label_urlencoded' => urlencode($question->getLabel()),
             'question_start_date'       => date('d/m/Y', $question->getStartDate()),
             'question_end_date'         => date('d/m/Y', $question->getEndDate()),
+            'question_image'            => $question->getImageUri('medium'),
         ));
 
         // If a user is logged and did not vote
@@ -67,10 +68,6 @@ class Page_Question extends Page
 
         // Get answers
         $answers   = $question->getAnswers();
-        $colors    = Conf::get('GRAPH_COLORS');
-        $data      = array();
-        $dataWomen = array();
-        $dataMen   = array();
 
         foreach ($answers as $key => $answer)
         {
@@ -138,40 +135,21 @@ class Page_Question extends Page
                 }
             }
             */
-        }
 
-        foreach (array_reverse($answers) as $key => $answer)
-        {
-            $data[] = array
-            (
-                'value' => $answer->getPercent() / 100,
-                'color' => $colors[$key],
-            );
-        }
+            $colors = Conf::get('GRAPH_COLORS');
+            $data   = array();
 
-        // Percent MALE
-        foreach ($answers as $key => $answer)
-        {
-            $dataMen[] = array
-            (
-                'value' => Tool::percent($answer->getTotalMale(), $question->getTotalMale()) / 100,
-                'color' => $colors[$key],
-            );
-        }
+            foreach (array_reverse($answers) as $key => $answer)
+            {
+                $data[] = array
+                (
+                    'value' => $answer->getPercent() / 100,
+                    'color' => $colors[$key],
+                );
+            }
 
-        // Percent FEMALE
-        foreach ($answers as $key => $answer)
-        {
-            $dataWomen[] = array
-            (
-                'value' => Tool::percent($answer->getTotalFemale(), $question->getTotalFemale()) / 100,
-                'color' => $colors[$key],
-            );
+            $this->tpl->assignVar('question_data', json_encode($data));
         }
-
-        $this->tpl->assignVar('question_data', json_encode($data));
-        $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
-        $this->tpl->assignVar('question_men_data', json_encode($dataMen));
     }
 }
 

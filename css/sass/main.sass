@@ -501,37 +501,47 @@ form
 // QUESTION
 /////////////////////////
 
+#question_gender
+    width: 300px
+    height: 300px
+
 #question
     margin: 20px 0 0 0
 
     .info
         font-style: italic
+        margin: 5px 0 0 0
+
+    .details
+        position: absolute
+        right: 0
+        bottom: 5px
+
+    .image
+        float: left
+        margin: 10px 10px 0 0
+
+    .links
+        position: absolute
+        left: 330px
+        bottom: 5px
+        div
+            margin: 10px 0 0 0
+            a
+                width: 175px
+                text-align: center
 
     .graph_global
         margin: 10px 20px 0 20px
-
-    .graph_women,
-    .graph_men
         float: right
-        margin: 120px 20px 0 0
-        p
-            text-align: center
-            margin: 0 0 8px 0
-
-    .mapLink
-        float: right
-        margin: 210px 40px 0 0
 
     .answers
-        position: absolute
-        top: 50px
-        left: 310px
+        float: right
+        text-align: right
+        margin: 10px 0 0 0
         li
-            margin: 35px 0 0 0
-            font-size: 2.8em
-            strong
-                display: block
-                font-size: 0.5em
+            margin: 15px 0 0 0
+            font-size: 2.0em
 
         li.key0
             color: $pink
