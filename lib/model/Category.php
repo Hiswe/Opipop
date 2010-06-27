@@ -108,7 +108,7 @@ class Model_Category
         {
             $this->fetchQuestions();
         }
-        $from = ((!$page) ? 0 : $page - 1) * Conf::get('QUESTION_PER_PAGE');
+        $from = ((!$page) ? 0 : $page) * Conf::get('QUESTION_PER_PAGE');
         $max = ($page === false) ? 0 : Conf::get('QUESTION_PER_PAGE');
         return array_slice($this->questions, $from, $max);
     }

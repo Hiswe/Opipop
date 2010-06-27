@@ -1,20 +1,52 @@
 var Question =
 {
 
-    archivePage : 1,
-    workin      : false,
+    archivePage : 0,
+    working     : false,
+    endReached  : false,
 
     initList : function()
     {
-        $('#morePollsButton').bind('click', Question.showArchive);
+        $('#nextQuestionButton').bind('click', Question.showNextArchive);
+        $('#previousQuestionButton').bind('click', Question.showPreviousArchive);
     },
 
-    removeMorePollButton : function()
+    setEndReached : function()
     {
-        $('#morePollsButton').remove();
+        Question.endReached = true;
+        $('#nextQuestionButton').addClass('disable');
     },
 
-    showArchive : function(event)
+    showNextArchive : function(event)
+    {
+        event.preventDefault();
+        if (Question.endReached)
+        {
+            return;
+        }
+        $('#previousQuestionButton').removeClass('disable');
+        Question.archivePage ++;
+        Question.showArchive();
+    },
+
+    showPreviousArchive : function(event)
+    {
+        event.preventDefault();
+        if (Question.archivePage == 0)
+        {
+            return;
+        }
+        Question.endReached = false;
+        Question.archivePage = (Question.archivePage > 0) ? Question.archivePage - 1 : 0;
+        if (Question.archivePage == 0)
+        {
+            $('#previousQuestionButton').addClass('disable');
+        }
+        $('#nextQuestionButton').removeClass('disable');
+        Question.showArchive();
+    },
+
+    showArchive : function()
     {
         event.preventDefault();
 
@@ -35,8 +67,11 @@ var Question =
     showArchiveCallback : function(data)
     {
         Question.working = false;
-        Question.archivePage ++;
-        $('#questionArchiveContainer').append(data);
+        $('#questionArchiveContainer').replaceWith(data);
+        if ($('#questionArchiveContainer li').length == 0)
+        {
+            Question.setEndReached();
+        }
     },
 
     save : function(button, questionId, answerId, action)
@@ -113,7 +148,7 @@ var Question =
         var $buttons = $('ul.menu li.button');
         var $tabs = $('#questionResults div.tab');
         var index = $(this).index();
-        
+
         $tabs.hide();
         $tabs.eq(index).show();
 

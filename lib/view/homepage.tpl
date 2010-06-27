@@ -24,7 +24,3 @@
             <!-- END question -->
         </ul>
 
-        <ul id="questionArchiveContainer"></ul>
-
-        <div id="morePolls"><a href="{ROOT_PATH}" id="morePollsButton" class="button">More polls</a></div>
-

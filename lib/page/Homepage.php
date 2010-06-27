@@ -7,6 +7,7 @@ class Page_Homepage extends Page
         $this->tpl->assignTemplate('lib/view/header.tpl');
         $this->tpl->assignTemplate('lib/view/top.tpl');
         $this->tpl->assignTemplate('lib/view/homepage.tpl');
+        $this->tpl->assignTemplate('lib/view/question/archive.tpl');
         $this->tpl->assignTemplate('lib/view/footer.tpl');
     }
 
@@ -14,6 +15,10 @@ class Page_Homepage extends Page
     {
         // Configure top block
         $top = new Block_Top($this->tpl);
+        $top->configure();
+
+        // Configure archive block
+        $top = new Block_Question_Archive($this->tpl);
         $top->configure();
 
         // Init category

@@ -12,6 +12,11 @@ class Block_Question_Archive extends Block
 
     public function configure()
     {
+        if (!$this->isAjax())
+        {
+            $this->tpl->assignSection('question_archive_navigation');
+        }
+
         // Init category
         $category = new Model_Category(Conf::get('MAIN_CATEGORY'));
         $category->setIsArchive(true);
@@ -25,7 +30,8 @@ class Block_Question_Archive extends Block
 
         if ($this->isAjax() && $category->getTotalQuestions() <= $this->page * Conf::get('QUESTION_PER_PAGE'))
         {
-            header('X-JSON: (removeMorePollButton())');
+            //header('X-JSON: (Question.setEndReached())');
+            return;
         }
 
         $colors = Conf::get('GRAPH_COLORS');
@@ -47,7 +53,7 @@ class Block_Question_Archive extends Block
             }
 
             // Assign question infos
-            $this->tpl->assignLoopVar('question', array
+            $this->tpl->assignLoopVar('question_archive', array
             (
                 'id'    => $question->getId(),
                 'label' => $question->getLabel(),
@@ -59,7 +65,7 @@ class Block_Question_Archive extends Block
             // Assign answers infos
             foreach ($answers as $key => $answer)
             {
-                $this->tpl->assignLoopVar('question.answer', array
+                $this->tpl->assignLoopVar('question_archive.answer', array
                 (
                     'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
                     'label'           => $answer->getLabel(),
