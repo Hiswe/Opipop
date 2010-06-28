@@ -26,7 +26,7 @@ var Question =
         }
         $('#previousQuestionButton').removeClass('disable');
         Question.archivePage ++;
-        Question.showArchive();
+        Question.showArchive(event);
     },
 
     showPreviousArchive : function(event)
@@ -43,10 +43,10 @@ var Question =
             $('#previousQuestionButton').addClass('disable');
         }
         $('#nextQuestionButton').removeClass('disable');
-        Question.showArchive();
+        Question.showArchive(event);
     },
 
-    showArchive : function()
+    showArchive : function(event)
     {
         event.preventDefault();
 
