@@ -3,9 +3,6 @@ $pink: #FF0066
 $blue: #0099FF
 $grey: #999
 
-
-
-
 @import compass/css3
 @import compass/reset
 @import compass/utilities/general
@@ -24,8 +21,7 @@ body
     +linear-gradient(color-stops(#6699cc, #c2e4f6 200px, #dbecf5 800px))
 
 ul
-    list-style: none
-
+    list-style: none  
 
 /////////////////////////
 // Fonts
@@ -46,16 +42,20 @@ label em
 #questionArchiveList .answer
     font-size: 1.4em
 
+#questions .userVote strong,
+#questions .userGuess strong
+    font-size: 1.8em
+
 .frame h2
-    font-size: 1.4em
+    font-size: 2.2em
+    font-weight: bold
+
+
+
 
 h1,
 #questions .questionChoice
     font-size: 2.4em
-
-#questions .userVote strong,
-#questions .userGuess strong
-    font-size: 1.8em
 
 
 /////////////////////////
@@ -85,6 +85,8 @@ div.clear
     display: none
 
 /* ___________________ Lighbox */
+
+
 
 .modal
     background: #fff
@@ -167,14 +169,15 @@ input[type=submit]:disabled
     .button:last-child
         +border-radius(0 4px 4px 0)
     .button:hover
-        z-index: 2
-
+        z-index: 2          
+        
+        
 
 /* ___________________ Frame*/
 
 .frame,
 .question
-    padding: 5px
+    padding: 1em
     position: relative
     border: solid 2px #f0f0f0
     +clearfix()
@@ -192,6 +195,8 @@ input[type=submit]:disabled
     span.link,
     span.link *
         color: #6d6d6d
+         
+        
 
 /* ___________________ Forms */
 
@@ -239,7 +244,6 @@ form
     margin: 0 auto
     position: relative
 
-
 /////////////////////////
 // COL
 /////////////////////////
@@ -272,7 +276,7 @@ form
     height: 71px
     text-align: left
     text-indent: -9999em
-    background: url(../media/layout/logoOpipop.png)
+    background: image-url("logoOpipop.png")
 
 /* ___________________ USER BOX */
 
@@ -394,7 +398,7 @@ form
             letter-spacing: 0.05em
 
         .loading
-            background: url(../media/layout/ajaxLoader.gif) 350px center no-repeat
+            background: image-url("ajaxLoader.gif") 350px center no-repeat
 
         .questionLabel
             margin: 5px 0 0 0
@@ -408,12 +412,12 @@ form
             float: left
             clear: left
             cursor: pointer
-            background-image: url(../media/layout/check.png)
+            background-image: image-url("check.png")
             background-position: left top
             background-repeat: no-repeat
             +text-shadow(#fff)
         .questionChoice:hover
-            background-image: url(../media/layout/check-hover.png)
+            background-image: image-url("check-hover.png")
 
         .questionChoice:hover
             color: $pink
@@ -601,7 +605,6 @@ form
             margin: 5px 0 0 0
             color: #6d6d6d
 
-
 /////////////////////////
 // FRIENDS
 /////////////////////////
@@ -614,4 +617,3 @@ form
         right: 2px
         bottom: 2px
         font-size: 1.2em
-
