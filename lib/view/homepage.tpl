@@ -1,25 +1,40 @@
 
         <ul id="questions">
             <!-- LOOP question -->
-            <li class="question frame">
+            <li class="question frame" id="{{question.id}}">
                 <h2 class="{{question.class}} questionTitle">{{question.label}}</h2>
-                <dl id="question_{{question.id}}" class="questionContent">
-                        <!-- <span>{{question.time}}</span> -->
-                    <dt>
-                        <img src="{{ROOT_PATH}}{{question.image}}" alt="{{question.label}}" />
-                    </dt>
-                    <dd class="content">
-                        {{question.content}}
-                    </dd>
-                    <!-- <dd class="friends">
-                    <span class="link" onclick="javascript:Question.guessFriend($(this), {{question.id}});">Guess what your friend will answer ...</span>
-                    </dd> -->
-                </dl>
-                <div class="share">
-                    <span class="dureeSondage">Fin du sondage {{question.time}}</span>
-                    <a href="http://twitter.com/home?status={{question.label_urlencoded}} {{ROOT_PATH}}question/p-{{question.id}}" target="_blank" title="share this question on Twitter !"><img src="{{ROOT_PATH}}media/layout/tshare.png" /></a>
-                    <a href="http://www.facebook.com/sharer.php?u={{ROOT_PATH}}question/{{question.guid}}-{{question.id}}&t={{question.label_urlencoded}}" target="_blank" title="share this question on Facebook !"><img src="{{ROOT_PATH}}media/layout/fbshare.png" /></a>
+
+                <div class="clear">
+
+                    <ul>
+                        <!-- LOOP question.answer -->
+                        <li class="answer droppable" id="answer.{{question.id}}.{{question.answer.id}}">
+                            <strong>{{question.answer.label}}</strong>
+                            <ul class="user">
+                                <!-- LOOP question.answer.user -->
+                                <li class="draggable {{question.answer.user.class}}" id="{{question.answer.user.class}}.{{question.id}}.{{question.answer.user.id}}">{{question.answer.user.login}}</li>
+                                <!-- END question.answer.user -->
+                            </ul>
+                            <ul class="friend">
+                                <!-- LOOP question.answer.friend -->
+                                <li class="draggable {{question.answer.friend.class}}" id="friend.{{question.id}}.{{question.answer.friend.userId}}.{{question.answer.friend.id}}">{{question.answer.friend.login}}</li>
+                                <!-- END question.answer.friend -->
+                            </ul>
+                        </li>
+                        <!-- END question.answer -->
+                    </ul>
+
+                    <ul class="pending droppable" id="pendding.{{question.id}}">
+                        <!-- LOOP question.pendingUser -->
+                        <li class="draggable {{question.pendingUser.class}}" id="{{question.pendingUser.class}}.{{question.id}}.{{question.pendingUser.id}}">{{question.pendingUser.label}}</li>
+                        <!-- END question.pendingUser -->
+                        <!-- LOOP question.pendingFriend -->
+                        <li class="draggable {{question.pendingFriend.class}}" id="friend.{{question.id}}.{{question.pendingFriend.userId}}.{{question.pendingFriend.id}}">{{question.pendingFriend.login}}</li>
+                        <!-- END question.pendingFriend -->
+                    </ul>
+
                 </div>
+
             </li>
             <!-- END question -->
         </ul>

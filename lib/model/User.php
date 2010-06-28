@@ -424,74 +424,74 @@ class Model_User
         return $this->feelings;
     }
 
-    public function vote($questionId, $answerId)
+    public function vote($question, $answer)
     {
         DB::insert('INSERT INTO `user_result` (`question_id`, `answer_id`, `user_id`, `date`) VALUES
         (
-            "' . $questionId . '",
-            "' . $answerId . '",
+            "' . $question->getId() . '",
+            "' . $answer->getId() . '",
             "' . $this->data['id'] . '",
             "' . time() . '"
         )');
     }
 
-    public function guess($questionId, $answerId)
+    public function guess($question, $answer)
     {
         DB::insert('INSERT INTO `user_guess` (`question_id`, `answer_id`, `user_id`, `date`) VALUES
         (
-            "' . $questionId . '",
-            "' . $answerId . '",
+            "' . $question->getId() . '",
+            "' . $answer->getId() . '",
             "' . $this->data['id'] . '",
             "' . time() . '"
         )');
     }
 
-    public function removeVote($questionId)
+    public function removeVote($question)
     {
-        DB::delete('DELETE FROM `user_result` WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+        DB::delete('DELETE FROM `user_result` WHERE `question_id`=' . $question->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
-    public function removeGuess($questionId)
+    public function removeGuess($question)
     {
-        DB::delete('DELETE FROM `user_guess` WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+        DB::delete('DELETE FROM `user_guess` WHERE `question_id`=' . $question->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
-    public function updateVote($questionId, $answerId)
+    public function updateVote($question, $answer)
     {
         DB::update('UPDATE `user_result`
-            SET `answer_id` = ' . $answerId . '
-            WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+            SET `answer_id` = ' . $answer->getId() . '
+            WHERE `question_id`=' . $question->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
-    public function updateGuess($questionId, $answerId)
+    public function updateGuess($question, $answer)
     {
         DB::update('UPDATE `user_guess`
-            SET `answer_id` = ' . $answerId . '
-            WHERE `question_id`=' . $questionId . ' AND `user_id`=' . $this->data['id']);
+            SET `answer_id` = ' . $answer->getId() . '
+            WHERE `question_id`=' . $question->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
-    public function guessAboutFriend($questionId, $friendId, $answerId)
+    public function guessAboutFriend($question, $friend, $answer)
     {
         DB::insert('INSERT INTO `user_guess_friend` (`question_id`, `friend_id`, `answer_id`, `user_id`, `date`) VALUES
         (
-            "' . $questionId . '",
-            "' . $friendId . '",
-            "' . $answerId . '",
+            "' . $question->getId() . '",
+            "' . $friend->getId() . '",
+            "' . $answer->getId() . '",
             "' . $this->data['id'] . '",
             "' . time() . '"
         )');
     }
 
-    public function removeGuessAboutFriend($questionId, $friendId)
+    public function removeGuessAboutFriend($question, $friend)
     {
-        DB::delete('DELETE FROM `user_guess_friend` WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
+        DB::delete('DELETE FROM `user_guess_friend` WHERE `question_id`=' . $question->getId() . ' AND `friend_id`=' . $friend->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
-    public function updateGuessAboutFriend($questionId, $friendId, $answerId)
+    public function updateGuessAboutFriend($question, $friend, $answer)
     {
         DB::update('UPDATE `user_guess_friend`
-            SET `answer_id` = ' . $answerId . '
-            WHERE `question_id`=' . $questionId . ' AND `friend_id`=' . $friendId . ' AND `user_id`=' . $this->data['id']);
+            SET `answer_id` = ' . $answer->getId() . '
+            WHERE `question_id`=' . $question->getId() . ' AND `friend_id`=' . $friend->getId() . ' AND `user_id`=' . $this->data['id']);
     }
 
     public function getId()

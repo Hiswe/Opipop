@@ -7,6 +7,75 @@ var Question =
 
     initList : function()
     {
+        $('#questions li.question').each(function(item)
+        {
+            $(this).find('li.draggable').draggable(
+            {
+                scope  : $(this).attr('id'),
+                revert : true
+            });
+            $(this).find('li.droppable').droppable(
+            {
+                scope       : $(this).attr('id'),
+                drop        : Question.save,
+                activeClass : 'active',
+                hoverClass  : 'hover',
+                tolerance   : 'touch'
+            });
+        });
+    },
+
+    save : function(event, ui)
+    {
+        var draggable = ui.draggable.detach();
+        var droppable = $(this);
+
+        droppable.append(draggable);
+
+        var droppableData = droppable.attr('id').split('.');
+        var draggableData = draggable.attr('id').split('.');
+
+        var params =
+        {
+            'question' : droppableData[1]
+        };
+
+        switch (droppableData[0])
+        {
+            case 'answer':
+                params['answer'] = droppableData[2];
+                break;
+
+            case 'pending':
+                params['answer'] = 0;
+                break;
+        }
+
+        switch (draggableData[0])
+        {
+            case 'vote':
+                params['vote'] = droppableData[2];
+                break;
+
+            case 'guess':
+                params['guess'] = droppableData[2];
+                break;
+
+            case 'friend':
+                params['user']   = droppableData[2];
+                params['friend'] = droppableData[3];
+                break;
+        }
+
+        $.post(ROOT_PATH + 'remote/question/save', params, Question.saveCallback);
+    },
+
+    saveCallback : function(data)
+    {
+    },
+
+    initArchiveList : function()
+    {
         $('#nextQuestionButton').bind('click', Question.showNextArchive);
         $('#previousQuestionButton').bind('click', Question.showPreviousArchive);
     },
@@ -72,88 +141,6 @@ var Question =
         {
             Question.setEndReached();
         }
-    },
-
-    save : function(button, questionId, answerId, action)
-    {
-        $('#question_' + questionId + ' .content').html('').addClass('loading');
-
-        var params =
-        {
-            'question_id' : questionId,
-            'answer_id'   : answerId
-        };
-
-        setTimeout(function()
-        {
-            $.post(ROOT_PATH + 'remote/question/active/' + action, params, Question.saveCallback);
-        }, 800);
-    },
-
-    saveCallback : function(data)
-    {
-        if (data == 'register')
-        {
-            window.location = ROOT_PATH + 'register';
-        }
-        else
-        {
-            data = $.parseJSON(data);
-            $('#question_' + data.questionId + ' .content').html(data.content).removeClass('loading');
-        }
-    },
-
-    guessFriend : function(button, questionId)
-    {
-        var guesses = $('#question_' + questionId + ' .friends input.guess:checked:enabled');
-        var data    = null;
-        var params  =
-        {
-            'question_id' : questionId
-        };
-
-        button.remove();
-
-        guesses.each(function(item)
-        {
-            data = $(this).val().split('-');
-            params['guess[' + data[0] + ']'] = data[1];
-        });
-
-        $.post(ROOT_PATH + 'remote/question/active/friends', params, Question.guessFriendCallback);
-    },
-
-    guessFriendCallback : function(data)
-    {
-        if (data == 'register')
-        {
-            window.location = ROOT_PATH + 'register';
-        }
-        else
-        {
-            data = $.parseJSON(data);
-            $('#question_' + data.questionId + ' .friends').html(data.content);
-        }
-    },
-
-    initResults : function()
-    {
-        $('ul.menu li.button').bind('click', Question.resultSelectTab);
-        $('#questionResults div.tab:not(:first-child)').hide();
-    },
-
-    resultSelectTab : function()
-    {
-        var $currentButton = $(this);
-        var $buttons = $('ul.menu li.button');
-        var $tabs = $('#questionResults div.tab');
-        var index = $(this).index();
-
-        $tabs.hide();
-        $tabs.eq(index).show();
-
-        $buttons.filter('selected').removeClass('selected');
-        $currentButton.addClass('selected');
     }
 
 };
