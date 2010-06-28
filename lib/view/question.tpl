@@ -16,7 +16,7 @@
 
             <div class="details">
                 <div class="graph_global">
-                    <script type="text/javascript+protovis">
+                    <script type="text/javascript">
                         var size = 190;
 
                         var vis = new pv.Panel()
@@ -27,12 +27,12 @@
                             .data({{question_data}})
                             .left(size/2)
                             .bottom(size/2)
-                            .innerRadius(function() size/4)
-                            .outerRadius(function() size/2)
-                            .angle(function(d) d.value * 2 * Math.PI)
+                            .innerRadius(function(){ return size/4; })
+                            .outerRadius(function(){ return size/2; })
+                            .angle(function(d){ return d.value * 2 * Math.PI; })
                             .lineWidth(8)
                             .strokeStyle('rgba(255,255,255,0.8)')
-                            .fillStyle(function(d) d.color);
+                            .fillStyle(function(d){ return d.color; });
 
                         vis.render();
                     </script>
