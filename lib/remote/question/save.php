@@ -30,7 +30,7 @@
                 else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
                 {
                     // guess for friend
-                    $user->removeGuessAboutFriend($question, $friend);
+                    $user->removeGuessAboutFriend($question, new Model_User($_POST['friend']));
                 }
             }
             else
@@ -66,8 +66,8 @@
                 else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
                 {
                     // guess for friend
-                    $friend     = new Model_User($_POST['friend']);
-                    $userGuesse = $user->getGuessAboutFriend($question);
+                    $friend    = new Model_User($_POST['friend']);
+                    $userGuess = $user->getGuessAboutFriend($question, $friend);
                     if (!$userGuess)
                     {
                         $user->guessAboutFriend($question, $friend, $answer);

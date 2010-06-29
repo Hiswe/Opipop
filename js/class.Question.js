@@ -7,14 +7,15 @@ var Question =
 
     initList : function()
     {
-        $('#questions li.question').each(function(item)
+        $('#questions .question').each(function(item)
         {
-            $(this).find('li.draggable').draggable(
+            $(this).find('.draggable').draggable(
             {
                 scope  : $(this).attr('id'),
+                zIndex : 100,
                 revert : true
             });
-            $(this).find('li.droppable').droppable(
+            $(this).find('.droppable').droppable(
             {
                 scope       : $(this).attr('id'),
                 drop        : Question.save,
@@ -27,6 +28,11 @@ var Question =
 
     save : function(event, ui)
     {
+        if ($(this).attr('id') == ui.draggable.parentsUntil('.droppable').parent().attr('id'))
+        {
+            return;
+        }
+
         var draggable = ui.draggable.detach();
         var droppable = $(this);
 
@@ -54,16 +60,16 @@ var Question =
         switch (draggableData[0])
         {
             case 'vote':
-                params['vote'] = droppableData[2];
+                params['vote'] = draggableData[2];
                 break;
 
             case 'guess':
-                params['guess'] = droppableData[2];
+                params['guess'] = draggableData[2];
                 break;
 
             case 'friend':
-                params['user']   = droppableData[2];
-                params['friend'] = droppableData[3];
+                params['user']   = draggableData[2];
+                params['friend'] = draggableData[3];
                 break;
         }
 
@@ -72,6 +78,10 @@ var Question =
 
     saveCallback : function(data)
     {
+        if (data == 'register')
+        {
+            window.location = ROOT_PATH + 'register';
+        }
     },
 
     initArchiveList : function()

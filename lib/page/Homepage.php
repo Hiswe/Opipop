@@ -72,9 +72,11 @@ class Page_Homepage extends Page
                 {
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
-                        'class' => 'vote',
-                        'id'    => $user->getId(),
-                        'login' => $user->getLogin(),
+                        'class'  => 'vote',
+                        'label'  => 'Mon vote',
+                        'id'     => $user->getId(),
+                        'login'  => $user->getLogin(),
+                        'avatar' => $user->getAvatarUri('small'),
                     ));
                 }
 
@@ -82,9 +84,11 @@ class Page_Homepage extends Page
                 {
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
-                        'class' => 'guess',
-                        'id'    => $user->getId(),
-                        'login' => $user->getLogin(),
+                        'class'  => 'guess',
+                        'label'  => 'Mon opinion',
+                        'id'     => $user->getId(),
+                        'login'  => $user->getLogin(),
+                        'avatar' => $user->getAvatarUri('small'),
                     ));
                 }
 
@@ -100,6 +104,7 @@ class Page_Homepage extends Page
                                 'userId' => $user->getId(),
                                 'id'     => $guess->getUser()->getId(),
                                 'login'  => $guess->getUser()->getLogin(),
+                                'avatar' => $guess->getUser()->getAvatarUri('small'),
                             ));
                             $friendsVotedId[] = $guess->getUser()->getId();
                         }
@@ -111,9 +116,11 @@ class Page_Homepage extends Page
             {
                 $this->tpl->assignLoopVar('question.pendingUser', array
                 (
-                    'class' => 'vote',
-                    'label' => 'Mon vote',
-                    'id'    => $user->getId(),
+                    'class'  => 'vote',
+                    'label'  => 'Mon vote',
+                    'id'     => $user->getId(),
+                    'login'  => $user->getLogin(),
+                    'avatar' => $user->getAvatarUri('small'),
                 ));
             }
 
@@ -121,9 +128,11 @@ class Page_Homepage extends Page
             {
                 $this->tpl->assignLoopVar('question.pendingUser', array
                 (
-                    'class' => 'guess',
-                    'label' => 'Mon opinion',
-                    'id'    => $user->getId(),
+                    'class'  => 'guess',
+                    'label'  => 'Mon opinion',
+                    'id'     => $user->getId(),
+                    'login'  => $user->getLogin(),
+                    'avatar' => $user->getAvatarUri('small'),
                 ));
             }
 
@@ -140,6 +149,7 @@ class Page_Homepage extends Page
                             'userId' => $user->getId(),
                             'id'     => $friend->getId(),
                             'login'  => $friend->getLogin(),
+                            'avatar' => $friend->getAvatarUri('small'),
                         ));
                     }
                 }
