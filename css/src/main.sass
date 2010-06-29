@@ -3,9 +3,6 @@ $pink: #FF0066
 $blue: #0099FF
 $grey: #999
 
-
-
-
 @import compass/css3
 @import compass/reset
 @import compass/utilities/general
@@ -26,7 +23,6 @@ body
 ul
     list-style: none
 
-
 /////////////////////////
 // Fonts
 /////////////////////////
@@ -46,16 +42,20 @@ label em
 #questionArchiveList .answer
     font-size: 1.4em
 
+#questions .userVote strong,
+#questions .userGuess strong
+    font-size: 1.8em
+
 .frame h2
-    font-size: 1.4em
+    font-size: 2.2em
+    font-weight: bold
+
+
+
 
 h1,
 #questions .questionChoice
     font-size: 2.4em
-
-#questions .userVote strong,
-#questions .userGuess strong
-    font-size: 1.8em
 
 
 /////////////////////////
@@ -86,6 +86,8 @@ div.clear
 
 /* ___________________ Lighbox */
 
+
+
 .modal
     background: #fff
     padding: 2em
@@ -102,7 +104,7 @@ div.clear
 
 #nyroModalWrapper
     .nyroModalClose
-        background: url(../media/layout/close_button.png)
+        background: image-url("close_button.png")
         width: 32px
         height: 32px
         position: absolute
@@ -111,7 +113,7 @@ div.clear
         display: block
         content: ""
     .nyroModalClose:hover
-        background: url(../media/layout/close_button-hover.png)
+        background: image-url("close_button-hover.png")
 
 /* ___________________ Buttons */
 
@@ -169,12 +171,11 @@ input[type=submit]:disabled
     .button:hover
         z-index: 2
 
-
 /* ___________________ Frame*/
 
 .frame,
 .question
-    padding: 5px
+    padding: 1em
     position: relative
     border: solid 2px #f0f0f0
     +clearfix()
@@ -183,9 +184,9 @@ input[type=submit]:disabled
     +linear-gradient(color-stops(#ffffff 50%, #ededed))
 
     h2
-        float: left
-        padding: 0 0 0.4em 0
-        +text-shadow(#ffffff)
+        padding: 0 0 0.1em 0
+        color: $pink
+        +text-shadow(rgba(0,0,0,0.3), -1px, -1px, 0)
 
     a,
     a *,
@@ -239,7 +240,6 @@ form
     margin: 0 auto
     position: relative
 
-
 /////////////////////////
 // COL
 /////////////////////////
@@ -272,7 +272,7 @@ form
     height: 71px
     text-align: left
     text-indent: -9999em
-    background: url(../media/layout/logoOpipop.png)
+    background: image-url("logoOpipop.png")
 
 /* ___________________ USER BOX */
 
@@ -360,66 +360,71 @@ form
 #questions
 
     .frame
-        margin: 25px 0 0 0
+        margin: 2em 0 0 0
 
     .share
-        position: absolute
-        bottom: 5px
-        right: 5px
-
-        a
-            margin: 0 0 0 5px
+        margin: 0 0 1em
 
         span,
         img
             font-size: 1.2em
             vertical-align: middle
 
-    .questionContent
-        position: relative
+    .question
         clear: both
 
         dt
             background: rgba(0,0,0,0.1)
-            width: 315px
-            height: 145px
+            width: 28%
+            height: 100%
+            overflow: hidden
+            position: absolute
+            right: 0
+            top: 0
+            +border-radius()
+
+            img
+                height: 100%
+                float: right
+
+        dt::before
+            content: ''
+            height: 100%
+            width: 0.5em
             position: absolute
             left: 0
             top: 0
-        dd
-            padding: 5px 5px 5px 330px
-            height: 135px
+            +linear-gradient(color-stops(rgba(0,0,0,0.4), rgba(0,0,0,0)), left)
+            +border-radius(4px 0 0 4px)
+
         p
             font-weight: normal
             letter-spacing: 0.05em
 
         .loading
-            background: url(../media/layout/ajaxLoader.gif) 350px center no-repeat
+            background: image-url("ajaxLoader.gif") 350px center no-repeat
 
         .questionLabel
             margin: 5px 0 0 0
             font-size: 1.2em
+            display: none
+            /* TODO : virer le question Label */
 
         .questionChoice
-            margin: 10px 0 0 0
-            padding: 4px 0 0 55px
-            height: 34px
-            display: inline
-            float: left
-            clear: left
+            text-align: center
+            display: inline-block
+            height: 2em
+            padding: 1em
+            width: 30%
             cursor: pointer
-            background-image: url(../media/layout/check.png)
-            background-position: left top
-            background-repeat: no-repeat
+            background: rgba(0,0,0,0.1)
             +text-shadow(#fff)
-        .questionChoice:hover
-            background-image: url(../media/layout/check-hover.png)
+            +border-radius()
 
         .questionChoice:hover
             color: $pink
+            background: rgba(252,7,104,0.1)
             text-decoration: none
-        .questionChoice:active
-            color: black
 
         .userVote
             margin: 10px 0 0 0px
@@ -601,7 +606,6 @@ form
             margin: 5px 0 0 0
             color: #6d6d6d
 
-
 /////////////////////////
 // FRIENDS
 /////////////////////////
@@ -614,4 +618,3 @@ form
         right: 2px
         bottom: 2px
         font-size: 1.2em
-
