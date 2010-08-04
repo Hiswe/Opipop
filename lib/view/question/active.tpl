@@ -3,7 +3,7 @@
             <!-- LOOP question -->
             <li class="question frame" id="{{question.id}}">
 
-                <h2 class="{{question.class}} questionTitle">{{question.label}}</h2>
+                <h2>{{question.label}}</h2>
 
                 <div class="share">
                     <a href="http://twitter.com/home?status={{question.label_urlencoded}} {{ROOT_PATH}}question/p-{{question.id}}" target="_blank" title="share this question on Twitter !"><img src="{{ROOT_PATH}}media/layout/tshare.png" /></a>
@@ -16,7 +16,7 @@
 
                 <div class="clear">
 
-                    <ul>
+                    <ul class="answers">
                         <!-- LOOP question.answer -->
                         <li class="answer droppable" id="answer.{{question.id}}.{{question.answer.id}}">
                             <strong>{{question.answer.label}}</strong>
