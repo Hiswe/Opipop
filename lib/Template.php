@@ -176,7 +176,7 @@
             $n = count ($level);
             $i = 1;
 
-            $key = implode('.', array_slice($level, 0, $size-$n+1));
+            $key = implode('.', array_slice($level, 0, $size-1));
 
             while ($i < $n){
                 (array_key_exists ($key, $this->SIZE))?

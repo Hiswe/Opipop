@@ -1,7 +1,7 @@
 
-        <div id="header">
-            <h1><a id="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
-            <p><a class="baseLine" href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
+        <div id="top">
+            <h1><a class="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
+            <p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
 
             <!-- SECTION logged -->
             <div id="userBox" class="frame">

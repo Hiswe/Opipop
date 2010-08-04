@@ -16,7 +16,7 @@
     <script language="javascript" type="text/javascript" src="{{ROOT_PATH}}{{dev_script_list.file}}?{{VERSION}}"></script>
     <!-- END dev_script_list -->
 
-    <link rel="stylesheet" type="text/css" href="{{ROOT_PATH}}css/stylesheets/main.css?{{VERSION}}">
+    <link rel="stylesheet" type="text/css" href="{{ROOT_PATH}}css/stylesheets/compact.css?{{VERSION}}">
 </head>
 <body>
 
