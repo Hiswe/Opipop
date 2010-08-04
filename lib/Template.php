@@ -137,44 +137,50 @@
         function sizeInc ($name, $n){
             $levels = explode ('.', $name);
             $size = count ($levels);
+            $key = implode('.', array_slice($levels, 0, $size-$n+1));
 
             ($size > $n - 1)?
-                (array_key_exists ($levels[$size-$n], $this->SIZE))?
-                    $this->SIZE[$levels[$size-$n]] ++:
-                    $this->SIZE[$levels[$size-$n]] = 0:
+                (array_key_exists ($key, $this->SIZE))?
+                    $this->SIZE[$key] ++:
+                    $this->SIZE[$key] = 0:
                 NULL;
         }
 
         // count how many times we passed trough a loop
-        function getSize ($name){
-            $levels = explode ('.', $name);
-            $size = count ($levels);
+        //function getSize ($name, $n){
+            //$levels = explode ('.', $name);
+            //$size = count ($levels);
+            //$key = implode('.', array_slice($levels, 0, $size-$n+1));
 
-            return ((array_key_exists ($size-3, $levels))?((array_key_exists ($levels[$size-3], $this->SIZE))?$this->SIZE[$levels[$size-3]]:0):0);
-        }
+            //return ((array_key_exists ($size-$n, $levels))?((array_key_exists ($key, $this->SIZE))?$this->SIZE[$key]:0):0);
+        //}
 
-        function sizeReset ($name, $n){
-            $levels = explode ('.', $name);
-            $size = count ($levels);
+        //function sizeReset ($name, $n){
+            //$levels = explode ('.', $name);
+            //$size = count ($levels);
+            //$key = implode('.', array_slice($levels, 0, $size-$n+1));
 
-            ($size > $n - 1)?
-                (array_key_exists ($levels[$size-$n], $this->SIZE))?
-                    $this->SIZE[$levels[$size-$n]] = 0
-                :NULL
-            :NULL;
-        }
+            //($size > $n - 1)?
+                //(array_key_exists ($key, $this->SIZE))?
+                    //$this->SIZE[$key] = 0
+                //:NULL
+            //:NULL;
+        //}
 
         // return the name of a loop regarding to how deep we are when parsing tpls
         function loopName ($name){
             $level = explode ('.', $name);
+            $size = count ($level);
             $result = $level[0];
 
             $n = count ($level);
             $i = 1;
 
+            $key = implode('.', array_slice($level, 0, $size-$n+1));
+
             while ($i < $n){
-                (array_key_exists ($level[$i-1], $this->SIZE))?
-                    $result .= '.'.$this->SIZE[$level[$i-1]].'.'.$level[$i]:
+                (array_key_exists ($key, $this->SIZE))?
+                    $result .= '.'.$this->SIZE[$key].'.'.$level[$i]:
                     NULL;
 
                 $i ++;
@@ -204,6 +210,8 @@
 
         // compute all templates
         function display ($return = false){
+            //print_r($this->SIZE);
+            //print_r($this->LOOP);
             $this->execTime = (float) array_sum (explode (' ', microtime ()));
 
             $this->SIZE = array ();
@@ -369,21 +377,19 @@
             $loop_name = $this->loopName ($name);
             $loop_originalName = $this->getLoopName ($name);
 
-            //~ echo $loop_name.'<br>';
-
-            if (array_key_exists ($loop_originalName, $this->LOOP_SIZE)){
-                if ($this->LOOP_SIZE[$loop_originalName] < $this->getSize ($loop_name)){
+            //if (array_key_exists ($loop_originalName, $this->LOOP_SIZE)){
+                //if ($this->LOOP_SIZE[$loop_originalName] < $this->getSize ($loop_name, 3)){
 
 
-                    $this->sizeReset ($name, 2);
+                    //$this->sizeReset ($name, 2);
 
-                    $loop_name = $this->loopName ($name);
+                    //$loop_name = $this->loopName ($name);
 
                     //~ echo $name.' <b>reset</b><br></br>';
 
                     //~ $this->loop_exec ($name, $content);
-                }
-            }
+                //}
+            //}
 
             if (array_key_exists ($loop_name, $this->LOOP)){
                 preg_match_all ('#{{'.$name.'\.([^\.]*)}}#isU', $content, $variables);
