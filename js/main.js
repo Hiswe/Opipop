@@ -2,6 +2,7 @@
 function onReady()
 {
     Question.initList();
+    Question.initArchiveList();
 
     // NYROMODAL
     $.fn.nyroModal.settings.debug        = false;

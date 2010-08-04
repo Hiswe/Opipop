@@ -143,8 +143,14 @@ var Question =
         $.post(ROOT_PATH + 'remote/question/archive', params, Question.showArchiveCallback);
     },
 
-    showArchiveCallback : function(data)
+    showArchiveCallback : function(data, message, xhr)
     {
+        var json = xhr.getResponseHeader('X-JSON');
+        if (json)
+        {
+            eval(json);
+        }
+
         Question.working = false;
         $('#questionArchiveContainer').replaceWith(data);
         if ($('#questionArchiveContainer li').length == 0)
