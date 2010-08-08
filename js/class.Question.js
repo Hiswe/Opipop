@@ -7,13 +7,14 @@ var Question =
 
     initList : function()
     {
-        $('#questions .question').each(function(item)
+        $('#question_active .question').each(function(item)
         {
             $(this).find('.draggable').draggable(
             {
-                scope  : $(this).attr('id'),
-                zIndex : 100,
-                revert : true
+                scope          : $(this).attr('id'),
+                zIndex         : 100,
+                revert         : true,
+                revertDuration : 300
             });
             $(this).find('.droppable').droppable(
             {
@@ -21,7 +22,7 @@ var Question =
                 drop        : Question.save,
                 activeClass : 'active',
                 hoverClass  : 'hover',
-                tolerance   : 'touch'
+                tolerance   : 'intersect'
             });
         });
     },
@@ -35,8 +36,27 @@ var Question =
 
         var draggable = ui.draggable.detach();
         var droppable = $(this);
+        var question  = droppable.closest('li.question');
 
-        droppable.append(draggable);
+        droppable.find('ul.group').append(draggable);
+
+        draggable.css(
+        {
+            'left' : 0,
+            'top'  : 0
+        });
+
+        question.find('.droppable').each(function(index, item)
+        {
+            if ($(item).find('.user, .friend').length == 0)
+            {
+                $(item).find('.message').html('Vide ...');
+            }
+            else
+            {
+                $(item).find('.message').html('');
+            }
+        });
 
         var droppableData = droppable.attr('id').split('.');
         var draggableData = draggable.attr('id').split('.');

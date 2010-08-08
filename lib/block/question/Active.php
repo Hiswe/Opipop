@@ -59,6 +59,8 @@ class Block_Question_Active extends Block
             // Loop through all answers
             foreach ($answers as $answer)
             {
+                $answerIsEmpty = true;
+
                 $this->tpl->assignLoopVar('question.answer', array
                 (
                     'id'    => $answer->getId(),
@@ -75,6 +77,7 @@ class Block_Question_Active extends Block
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),
                     ));
+                    $answerIsEmpty = false;
                 }
 
                 if ($user && $userGuess && $answer->getId() == $userGuess->getAnswer()->getId())
@@ -87,6 +90,7 @@ class Block_Question_Active extends Block
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),
                     ));
+                    $answerIsEmpty = false;
                 }
 
                 if ($user)
@@ -103,11 +107,22 @@ class Block_Question_Active extends Block
                                 'login'  => $guess->getUser()->getLogin(),
                                 'avatar' => $guess->getUser()->getAvatarUri('small'),
                             ));
+                            $answerIsEmpty    = false;
                             $friendsVotedId[] = $guess->getUser()->getId();
                         }
                     }
                 }
+
+                if ($answerIsEmpty)
+                {
+                    $this->tpl->assignLoopVar('question.answer.message', array
+                    (
+                        'label' => 'Vide ...'
+                    ));
+                }
             }
+
+            $pendingIsEmpty = true;
 
             if ($user && !$userVote)
             {
@@ -119,6 +134,7 @@ class Block_Question_Active extends Block
                     'login'  => $user->getLogin(),
                     'avatar' => $user->getAvatarUri('small'),
                 ));
+                $pendingIsEmpty = false;
             }
 
             if ($user && !$userGuess)
@@ -131,6 +147,7 @@ class Block_Question_Active extends Block
                     'login'  => $user->getLogin(),
                     'avatar' => $user->getAvatarUri('small'),
                 ));
+                $pendingIsEmpty = false;
             }
 
             if($user)
@@ -148,8 +165,17 @@ class Block_Question_Active extends Block
                             'login'  => $friend->getLogin(),
                             'avatar' => $friend->getAvatarUri('small'),
                         ));
+                        $pendingIsEmpty = false;
                     }
                 }
+            }
+
+            if ($pendingIsEmpty)
+            {
+                $this->tpl->assignLoopVar('question.message', array
+                (
+                    'label' => 'Vide ...'
+                ));
             }
         }
     }

@@ -1,15 +1,25 @@
-$pink: #ff0066
+$pink: #ff0099
 $blue: #0099ff
+$red: #ff9999
 $green: #99ff99
 $yellow: #ffff99
 $grey: #aaa
 $black: #555
+$white: #fff
 
+$light_pink: #ff99cc
+$light_blue: #99ccff
 $light_grey: #f0f0f0
 $light_green: #ccffcc
 $light_yellow: #ffffcc
+$light_red: #ffcccc
 
+$very_light_pink: #ffccff
+$very_light_blue: #ccffff
 $very_light_grey: #f9f9f9
+$very_light_green: #f9fff9
+$very_light_yellow: #fffff9
+$very_light_red: #fff9f9
 
 $font_small: 1.2em
 $font_medium: 1.4em
@@ -17,6 +27,7 @@ $font_big: 1.8em
 $font_huge: 2.4em
 
 $border_size: 2px
+$border_radius: 4px
 
 @import compass/css3
 @import compass/reset
@@ -24,11 +35,13 @@ $border_size: 2px
 
 @import top
 @import view/top
+@import view/question/active
 
 #main
     max-width: 1050px
-    min-width: 800px
+    min-width: 880px
     margin: 0 auto
+    padding: 0 20px
     position: relative
     font-family: tahoma, Arial, sans-serif
     font-size: 10px
@@ -48,4 +61,18 @@ a *
 a:hover,
 a:hover *
     text-decoration: underline
+
+
+///////////////////
+//  UTILS
+///////////////////
+
+.clear
+    clear: both
+
+.clear_left
+    clear: left
+
+.clear_right
+    clear: right
 

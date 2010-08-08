@@ -1,0 +1,71 @@
+#question_active
+    margin: 30px 0
+
+    .question
+        color: $grey
+        border: solid $border_size $light_grey
+        background: $very_light_grey
+        padding: 6px 6px 6px 8px
+        margin: 0 0 20px 0
+        +border-radius($border_radius)
+        +box-shadow($light_grey, -1px, 1px, 4px)
+
+        h2
+            font-size: $font_big
+            color: $black
+            margin: 0 340px 10px 0
+
+        .preview
+            float: right
+            border: solid $border_size $white
+            +border-radius($border_radius)
+
+        .answer,
+        .pending
+            margin: 0 330px 0 0
+            clear: left
+            min-height: 41px
+
+            .label
+                font-size: $font_medium
+                font-weight: bold
+                padding: 14px 0 0 8px
+                margin: 0 6px 0 0
+                float: left
+
+            .message
+                font-style: italic
+                float: left
+                font-size: $font_small
+                margin: 20px 0 0 0
+
+            .user,
+            .friend
+                padding: 2px
+                float: left
+                display: block
+                margin: 4px 4px
+                cursor: move
+                font-size: $font_medium
+                background: $white
+                border: solid $border_size $light_grey
+                +border-radius($border_radius)
+                +box-shadow($light_grey, -1px, 1px, 1px)
+
+                img
+                    float: left
+
+                span
+                    float: left
+                    margin: 5px
+
+            .ui-draggable-dragging,
+            .ui-draggable-dragging
+                +box-shadow($grey, -1px, 1px, 6px)
+
+        .ui-droppable.active
+            background: $very_light_yellow
+
+        .ui-droppable.hover
+            background: $very_light_green
+
