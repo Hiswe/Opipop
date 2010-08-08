@@ -6,8 +6,8 @@
 #top
     .baseLine
         font-weight: bold
-        font-size: 1.2em
-        margin: 10px 0
+        font-size: $font_small
+        margin: 10px 0 20px 0
         +text-shadow($light_grey)
 
 #top
@@ -17,4 +17,50 @@
         height: 36px
         text-indent: -9999em
         background: image-url("logo.png")
+
+#top
+    .userBox
+        color: $grey
+        border: solid $border_size $light_grey
+        background: $very_light_grey
+        +border-radius()
+        float: right
+        height: 50px
+        padding: 4px
+
+        .avatar
+            float: left
+            margin: 0 8px 0 0
+
+        .info
+            float: left
+
+            .login
+                font-size: $font_huge
+                font-weight: bold
+
+            .linkList
+                font-size: $font_small
+                margin: 8px 0 0 0
+
+                span
+                    margin: 0 4px
+
+#top
+    .message
+        padding: 8px
+        margin: 10px 0 0 0
+        +border-radius()
+        color: $grey
+        font-size: $font_medium
+        text-align: center
+
+    .feedback
+        border: solid $border_size $green
+        background: $light_green
+
+    .warning
+        border: solid $border_size $yellow
+        background: $light_yellow
+
 

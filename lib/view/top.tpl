@@ -1,10 +1,7 @@
 
         <div id="top">
-            <h1><a class="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
-            <p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
-
             <!-- SECTION logged -->
-            <div id="userBox" class="frame">
+            <div class="userBox">
                 <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{ROOT_PATH}}{{user_avatarUri}}" /></a>
                 <div class="info">
                     <a href="{{ROOT_PATH}}{{user_login}}" class="login"><span>{{user_login}}</span></a>
@@ -13,16 +10,19 @@
             </div>
             <!-- END logged -->
 
+            <h1><a class="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
+            <p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
+
             <!-- SECTION notLogged -->
             <a href="{{ROOT_PATH}}remote/login" class="button nyroModal" id="login_link">Login</a>
             <!-- END notLogged -->
+
+            <!-- SECTION feedback -->
+            <p class="feedback">{{feedback}}</p>
+            <!-- END feedback -->
+
+            <!-- SECTION warning -->
+            <p class="warning">{{warning}}</p>
+            <!-- END warning -->
         </div>
-
-        <!-- SECTION feedback -->
-        <p><i>{{feedback}}</i></p>
-        <!-- END feedback -->
-
-        <!-- SECTION warning -->
-        <p><i>{{warning}}</i></p>
-        <!-- END warning -->
 
