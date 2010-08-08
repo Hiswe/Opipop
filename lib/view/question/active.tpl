@@ -7,6 +7,7 @@
 
                 <dt class="preview">
                     <img src="{{ROOT_PATH}}{{question.image}}" alt="{{question.label}}" />
+                    <p>fin du sondage dans {{question.time}}</p>
                 </dt>
 
                 <h2>{{question.label}}</h2>
@@ -18,7 +19,7 @@
                 </div>
                 -->
 
-                <div>
+                <div class="right">
 
                     <ul class="answers">
                         <!-- LOOP question.answer -->

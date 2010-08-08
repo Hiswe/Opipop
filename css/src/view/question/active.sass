@@ -13,18 +13,27 @@
         h2
             font-size: $font_big
             color: $black
-            margin: 0 340px 10px 0
+            margin: 0 0 15px 330px
 
         .preview
-            float: right
+            background: $white
             border: solid $border_size $white
             +border-radius($border_radius)
+            position: absolute
+
+            p
+                text-align: center
+                padding: 2px 0
+                font-size: $font_small
+
+        .right
+            margin: 0 0 0 330px
 
         .answer,
         .pending
-            margin: 0 330px 0 0
             clear: left
-            min-height: 41px
+            margin: 2px 0
+            min-height: 42px
 
             .label
                 font-size: $font_medium
@@ -37,7 +46,7 @@
                 font-style: italic
                 float: left
                 font-size: $font_small
-                margin: 20px 0 0 0
+                margin: 16px 0 0 0
 
             .user,
             .friend
