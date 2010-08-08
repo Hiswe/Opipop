@@ -1,7 +1,7 @@
 
         <div id="top">
             <!-- SECTION logged -->
-            <div class="userBox">
+            <div class="userBox box">
                 <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{ROOT_PATH}}{{user_avatarUri}}" /></a>
                 <div class="info">
                     <a href="{{ROOT_PATH}}{{user_login}}" class="login"><span>{{user_login}}</span></a>

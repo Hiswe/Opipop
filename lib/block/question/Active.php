@@ -72,7 +72,7 @@ class Block_Question_Active extends Block
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
                         'class'  => 'vote',
-                        'label'  => 'Mon vote',
+                        'label'  => 'Mon opinion',
                         'id'     => $user->getId(),
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),
@@ -85,7 +85,7 @@ class Block_Question_Active extends Block
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
                         'class'  => 'guess',
-                        'label'  => 'Mon opinion',
+                        'label'  => 'Mon pronostic',
                         'id'     => $user->getId(),
                         'login'  => $user->getLogin(),
                         'avatar' => $user->getAvatarUri('small'),

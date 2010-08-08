@@ -3,7 +3,7 @@
 
         <ul id="question_active">
             <!-- LOOP question -->
-            <li class="question" id="{{question.id}}">
+            <li class="question box" id="{{question.id}}">
 
                 <dt class="preview">
                     <img src="{{ROOT_PATH}}{{question.image}}" alt="{{question.label}}" />

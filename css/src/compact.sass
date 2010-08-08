@@ -17,9 +17,9 @@ $light_red: #ffcccc
 $very_light_pink: #ffccff
 $very_light_blue: #ccffff
 $very_light_grey: #f9f9f9
-$very_light_green: #f9fff9
-$very_light_yellow: #fffff9
-$very_light_red: #fff9f9
+$very_light_green: #f0fff0
+$very_light_yellow: #fffff0
+$very_light_red: #fff0f0
 
 $font_small: 1.2em
 $font_medium: 1.4em
@@ -37,6 +37,10 @@ $border_radius: 4px
 @import view/top
 @import view/question/active
 
+body
+    +linear-gradient(color-stops(#6699CC 0px, #c2e4f6 60px, #DBECF5 120px, #FFFFFF 250px))
+
+
 #main
     max-width: 1050px
     min-width: 880px
@@ -46,6 +50,11 @@ $border_radius: 4px
     font-family: tahoma, Arial, sans-serif
     font-size: 10px
 
+.box
+    border: solid $border_size $light_grey
+    +linear-gradient(color-stops($white 50%, $very_light_grey))
+    +border-radius($border_radius)
+    +box-shadow($light_grey, -1px, 1px, 4px)
 
 ///////////////////
 //  A

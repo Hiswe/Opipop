@@ -7,23 +7,22 @@
         font-weight: bold
         font-size: $font_small
         margin: 10px 0 20px 0
-        +text-shadow($light_grey)
+        +text-shadow($very_light_grey)
+
+        a
+            color: $black
 
 #top
     .logo
         display: block
-        width: 186px
-        height: 36px
+        width: 200px
+        height: 38px
         text-indent: -9999em
         background: image-url("logo.png")
 
 #top
     .userBox
         color: $grey
-        border: solid $border_size $light_grey
-        background: $very_light_grey
-        +border-radius($border_radius)
-        +box-shadow($light_grey, -1px, 1px, 4px)
         float: right
         height: 50px
         padding: 4px

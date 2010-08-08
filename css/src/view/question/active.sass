@@ -3,14 +3,11 @@
 
     .question
         color: $grey
-        border: solid $border_size $light_grey
-        background: $very_light_grey
         padding: 6px 6px 6px 8px
         margin: 0 0 20px 0
-        +border-radius($border_radius)
-        +box-shadow($light_grey, -1px, 1px, 4px)
 
         h2
+            +text-shadow($light_grey)
             font-size: $font_big
             color: $black
             margin: 0 0 15px 330px
@@ -70,7 +67,7 @@
 
             .ui-draggable-dragging,
             .ui-draggable-dragging
-                +box-shadow($grey, -1px, 1px, 6px)
+                +box-shadow($grey, -2px, 2px, 6px)
 
         .ui-droppable.active
             background: $very_light_yellow
