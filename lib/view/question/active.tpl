@@ -1,6 +1,8 @@
 
         <div class="clear"></div>
 
+        <h4>Sondages en cours :</h4>
+
         <ul id="question_active">
             <!-- LOOP question -->
             <li class="question box" id="{{question.id}}">

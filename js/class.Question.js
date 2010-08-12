@@ -172,8 +172,8 @@ var Question =
         }
 
         Question.working = false;
-        $('#questionArchiveContainer').replaceWith(data);
-        if ($('#questionArchiveContainer li').length == 0)
+        $('#question_archive').replaceWith(data);
+        if ($('#question_archive li').length == 0)
         {
             Question.setEndReached();
         }

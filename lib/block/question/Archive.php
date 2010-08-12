@@ -13,11 +13,6 @@ class Block_Question_Archive extends Block
 
     public function configure()
     {
-        if (!$this->isAjax())
-        {
-            $this->tpl->assignSection('question_archive_navigation');
-        }
-
         // Init category
         $category = new Model_Category(Conf::get('MAIN_CATEGORY'));
         $category->setIsArchive(true);

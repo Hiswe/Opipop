@@ -32,9 +32,11 @@
     // REMOTES
     if (isset($_GET['remote']))
     {
+        $tpl->assignSection('AJAX');
         include 'lib/remote/' . $_GET['remote'] . '.php';
         exit();
     }
+    $tpl->assignSection('NOT_AJAX');
 
     // PAGES
     if (isset($_GET['page']))

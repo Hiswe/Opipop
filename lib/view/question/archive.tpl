@@ -1,9 +1,12 @@
 
-        <ul id="questionArchiveContainer">
+        <!-- SECTION NOT_AJAX -->
+        <h4>Sondages passés:</h4>
+        <!-- END NOT_AJAX -->
+
+        <ul id="question_archive">
             <!-- LOOP question_archive -->
-            <li class="Archives frame">
+            <li class="question box">
                 <div class="content">
-                    <h3 class="label"><a href="{{ROOT_PATH}}question/{{question_archive.guid}}-{{question_archive.id}}">{{question_archive.label}}</a></h3>
                     <div id="graph{{question_archive.id}}" class="graph">
                         <script type="text/javascript">
                             new pv.Panel()
@@ -24,6 +27,8 @@
                         </script>
                     </div>
 
+                    <h2 class="label"><a href="{{ROOT_PATH}}question/{{question_archive.guid}}-{{question_archive.id}}">{{question_archive.label}}</a></h2>
+
                     <!-- LOOP question_archive.answer -->
                     <p class="answer key{{question_archive.answer.key}}">{{question_archive.answer.percentFormated}}% {{question_archive.answer.label}}</p>
                     <!-- END question_archive.answer -->
@@ -34,10 +39,10 @@
             <!-- END question_archive -->
         </ul>
 
-        <!-- SECTION question_archive_navigation -->
-        <div id="morePolls">
-            <a href="{{ROOT_PATH}}" id="previousQuestionButton" class="button">&lt;&lt;</a>
-            <a href="{{ROOT_PATH}}" id="nextQuestionButton" class="button">&gt;&gt;</a>
+        <!-- SECTION NOT_AJAX -->
+        <div id="question_archive_navigation">
+            <a href="{{ROOT_PATH}}" id="previousQuestionButton" class="button disable">&lt;&lt; précédent</a>
+            <a href="{{ROOT_PATH}}" id="nextQuestionButton" class="button">suivant &gt;&gt;</a>
         </div>
-        <!-- END question_archive_navigation -->
+        <!-- END NOT_AJAX -->
 

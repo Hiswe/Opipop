@@ -20,5 +20,7 @@
 </head>
 <body>
 
+    <div id="background"></div>
+
     <div id="main">
 
