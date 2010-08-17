@@ -143,7 +143,7 @@ class Tool
         }
         elseif ($diff < 86400)
         {
-            $unit = 'heur';
+            $unit = 'heure';
             $n = round($diff / 3600);
         }
         elseif ($diff < 604800)

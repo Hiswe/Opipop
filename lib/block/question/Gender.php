@@ -60,6 +60,7 @@ class Block_Question_Gender extends Block
 
         $this->tpl->assignVar('question_men_data', json_encode($dataMen));
         $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
+        $this->tpl->assignVar('question_label', $this->question->getLabel());
     }
 }
 

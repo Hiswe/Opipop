@@ -7,6 +7,10 @@
             <!-- LOOP question_archive -->
             <li class="question box">
                 <div class="content">
+                    <!--<p class="info">Terminé {{question_archive.time}}</p>-->
+
+                    <a class="gender link button nyroModal" href="{{ROOT_PATH}}remote/question/gender?questionId={{question_archive.id}}">Répartition H/F</a>
+
                     <div id="graph{{question_archive.id}}" class="graph">
                         <script type="text/javascript">
                             new pv.Panel()
@@ -32,8 +36,6 @@
                     <!-- LOOP question_archive.answer -->
                     <p class="answer key{{question_archive.answer.key}}">{{question_archive.answer.percentFormated}}% {{question_archive.answer.label}}</p>
                     <!-- END question_archive.answer -->
-
-                    <p class="info">Terminé {{question_archive.time}}</p>
                 </div>
             </li>
             <!-- END question_archive -->

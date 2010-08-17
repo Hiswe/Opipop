@@ -37,6 +37,7 @@ $border_radius: 4px
 @import view/top
 @import view/question/active
 @import view/question/archive
+@import view/question/gender
 
 
 #main
@@ -45,8 +46,6 @@ $border_radius: 4px
     margin: 0 auto
     padding: 0 20px
     position: relative
-    font-family: tahoma, Arial, sans-serif
-    font-size: 10px
 
 #background
     height: 250px
@@ -54,13 +53,14 @@ $border_radius: 4px
     position: absolute
     +linear-gradient(color-stops(#6699CC 0px, #c2e4f6 60px, #DBECF5 120px, rgba(255, 255, 255, 0) 250px))
 
-
 ///////////////////
 //  BODY
 ///////////////////
 
 body
     background: #ffffff image-url('background_texture.gif')
+    font-family: tahoma, Arial, sans-serif
+    font-size: 10px
 
 
 ///////////////////
@@ -130,4 +130,31 @@ h4
     opacity: 0.5
     color: $grey
     +box-shadow($light_grey, -1px, 1px, 1px)
+
+
+///////////////////
+//  NYROMODAL
+///////////////////
+
+#nyroModalLoading,
+#nyroModalWrapper
+    +box-shadow(#999999, 5px, 5px, 15px)
+    +border-radius(8px)
+    width: 150px
+    height: 150px
+    background: #fff
+    padding: 30px 10px
+
+    .nyroModalClose
+        background: image-url("close_button.png")
+        width: 32px
+        height: 32px
+        position: absolute
+        top: 5px
+        right: 5px
+        display: block
+        content: ""
+
+    .nyroModalClose:hover
+        background: image-url("close_button-hover.png")
 
