@@ -10,6 +10,7 @@
                     <!--<p class="info">Terminé {{question_archive.time}}</p>-->
 
                     <a class="gender link button nyroModal" href="{{ROOT_PATH}}remote/question/gender?questionId={{question_archive.id}}">Répartition H/F</a>
+                    <a class="map link button nyroModal" href="{{ROOT_PATH}}remote/question/map?questionId={{question_archive.id}}">National</a>
 
                     <div id="graph{{question_archive.id}}" class="graph">
                         <script type="text/javascript">
