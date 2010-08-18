@@ -35,6 +35,7 @@ $border_radius: 4px
 
 @import top
 @import view/top
+@import view/login
 @import view/footer
 @import view/question/active
 @import view/question/archive
@@ -93,6 +94,44 @@ h4
     padding: 20px 0 0 0
     margin: 0 0 10px 0
     +text-shadow($grey)
+
+
+///////////////////
+//  FORM
+///////////////////
+
+form
+    span
+        color: $red
+        font-size: $font_small
+        font-weight: normal
+        margin: 0 0 0 5px
+        font-style: italic
+
+    fieldset
+        clear: both
+    label
+        display: block
+        margin: 0 0 15px 0
+        em
+            font-size: $font_medium
+            display: block
+            padding: 0 0 4px 0
+
+    input[type=text],
+    input[type=password]
+        display: block
+        padding: 4px
+        width: 100%
+        border: 1px solid $grey
+        font-size: $font_small
+        font-weight: bold
+        color: $pink
+        +border-radius()
+
+    input[type=text]:focus,
+    input[type=password]:focus
+        border-color: $pink
 
 
 ///////////////////

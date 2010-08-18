@@ -160,7 +160,7 @@ class Page_User extends Page
                 $maxFeelingScore = ($maxFeelingScore < $total) ? $total : $maxFeelingScore;
             }
             $feelings = array('personality', 'surroundings', 'knowledge', 'experience', 'thoughts');
-            $colors   = Conf::get('GRAPH_COLORS');
+            //$colors   = Conf::get('GRAPH_COLORS');
             $data     = array();
             foreach ($feelings as $id => $label)
             {
@@ -173,7 +173,7 @@ class Page_User extends Page
                 (
                     'value' => $profileFeelings[$id + 1] / $maxFeelingScore,
                     'label' => $label,
-                    'color' => $colors[$id],
+                    //'color' => $colors[$id],
                 );
             }
             $this->tpl->assignVar('feeling_data', json_encode($data));

@@ -10,12 +10,12 @@
             </div>
             <!-- END logged -->
 
+            <!-- SECTION notLogged -->
+            <a href="{{ROOT_PATH}}remote/login" class="login button nyroModal" class="">Connectez vous !</a>
+            <!-- END notLogged -->
+
             <h1><a class="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
             <p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
-
-            <!-- SECTION notLogged -->
-            <a href="{{ROOT_PATH}}remote/login" class="button nyroModal" id="login_link">Login</a>
-            <!-- END notLogged -->
 
             <!-- SECTION feedback -->
             <p class="feedback">{{feedback}}</p>
