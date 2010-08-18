@@ -133,14 +133,6 @@ var Graph =
                 'stroke-width'    : 2,
                 'stroke-linejoin' : 'round'
             });
-
-            region.textValue = paper.text(bbox.x + bbox.width / 2, bbox.y + bbox.height / 2 + 8, regionValues[index] + '%');
-            region.textValue.attr(
-            {
-                'fill'        : '#fff',
-                'font-size'   : '14',
-                'font-weight' : 'bold'
-            });
         });
     },
 

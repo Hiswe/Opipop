@@ -6,19 +6,24 @@ class Block_Question_Map extends Block
 
     private $question = null;
 
-    private function getRandomColor()
+    private function getRandomColor($value, $color)
     {
-        if (rand(0,1))
+        $value /= 100;
+        $value = 1 - $value;
+
+        switch($color)
         {
-            $value1 = dechex(0);
-            $value2 = dechex(rand(99, 255));
-            $value3 = dechex(255);
-        }
-        else
-        {
-            $value1 = dechex(255);
-            $value2 = dechex(0);
-            $value3 = dechex(rand(99, 255));
+            case 0: // 0099FF
+                $value1 = dechex(255 * $value);
+                $value2 = dechex(153 + ((255 - 153) * $value));
+                $value3 = dechex(255);
+                break;
+
+            case 1: // FF0099
+                $value1 = dechex(255);
+                $value2 = dechex(255 * $value);
+                $value3 = dechex(153 + ((255 - 153) * $value));
+                break;
         }
 
         $color = '#';
@@ -66,8 +71,9 @@ class Block_Question_Map extends Block
         $values = array();
         foreach ($regions as $region)
         {
-            $colors[] = $this->getRandomColor();
-            $values[] = rand(0, 100);
+            $v = rand(0, 100);
+            $colors[] = $this->getRandomColor($v, rand(0,1));
+            $values[] = $v;
         }
 
         $this->tpl->assignVar(array(
@@ -75,6 +81,19 @@ class Block_Question_Map extends Block
             'map_regionValues' => json_encode($values),
             'question_label'   => $this->question->getLabel(),
         ));
+
+        // Get answers
+        $answers = $this->question->getAnswers();
+
+        foreach ($answers as $key => $answer)
+        {
+            $this->tpl->assignLoopVar('answer', array
+            (
+                'key'     => $key,
+                'label'   => $answer->getLabel(),
+                'percent' => number_format(Tool::percent($answer->getTotal(), $this->question->getTotal()), 1, ',', ' '),
+            ));
+        }
     }
 }
 

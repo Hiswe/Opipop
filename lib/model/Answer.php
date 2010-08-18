@@ -91,6 +91,15 @@ class Model_Answer
         return ($this->stats['total_matching'] / $this->stats['total']) * 100;
     }
 
+    public function getTotal()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total_matching'];
+    }
+
     public function getTotalMale()
     {
         if (!isset($this->stats))

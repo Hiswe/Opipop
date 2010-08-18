@@ -137,6 +137,15 @@ class Model_Question
         return $this->answers;
     }
 
+    public function getTotal()
+    {
+        if (!isset($this->stats))
+        {
+            $this->fetchStats();
+        }
+        return $this->stats['total'];
+    }
+
     public function getTotalMale()
     {
         if (!isset($this->stats))
