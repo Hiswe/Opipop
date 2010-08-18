@@ -22,5 +22,5 @@
 
     <div id="background"></div>
 
-    <div id="main">
+    <div class="main_content">
 

@@ -35,13 +35,14 @@ $border_radius: 4px
 
 @import top
 @import view/top
+@import view/footer
 @import view/question/active
 @import view/question/archive
 @import view/question/gender
 @import view/question/map
 
 
-#main
+.main_content
     max-width: 1050px
     min-width: 880px
     margin: 0 auto
@@ -53,6 +54,7 @@ $border_radius: 4px
     width: 100%
     position: absolute
     +linear-gradient(color-stops(#6699CC 0px, #c2e4f6 60px, #DBECF5 120px, rgba(255, 255, 255, 0) 250px))
+
 
 ///////////////////
 //  BODY
