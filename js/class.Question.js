@@ -172,7 +172,11 @@ var Question =
         }
 
         Question.working = false;
+
         $('#question_archive').replaceWith(data);
+        $('#question_archive').fadeTo(0, 0);
+        $('#question_archive').fadeTo(800, 1);
+
         if ($('#question_archive li').length == 0)
         {
             Question.setEndReached();

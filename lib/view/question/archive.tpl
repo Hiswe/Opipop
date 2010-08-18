@@ -14,16 +14,18 @@
 
                     <div id="graph{{question_archive.id}}" class="graph">
                         <script type="text/javascript">
+                            var size = 75;
+
                             new pv.Panel()
                                 .canvas('graph{{question_archive.id}}')
-                                .width(60)
-                                .height(60)
+                                .width(size)
+                                .height(size)
                             .add(pv.Wedge)
                                 .data({{question_archive.data}})
-                                .left(30)
-                                .bottom(30)
-                                .innerRadius(12)
-                                .outerRadius(30)
+                                .left(size / 2)
+                                .bottom(size / 2)
+                                .innerRadius(size / 5)
+                                .outerRadius(size / 2)
                                 .angle(function(d){{ return d.value * 2 * Math.PI; }})
                                 .lineWidth(2)
                                 .strokeStyle('white')
