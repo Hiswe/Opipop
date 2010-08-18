@@ -4,7 +4,7 @@
             <div class="userBox box">
                 <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{ROOT_PATH}}{{user_avatarUri}}" /></a>
                 <div class="info">
-                    <a href="{{ROOT_PATH}}{{user_login}}" class="login"><span>{{user_login}}</span></a>
+                    <a href="{{ROOT_PATH}}{{user_login}}" class="name"><span>{{user_login}}</span></a>
                     <p class="linkList"><a href="{{ROOT_PATH}}{{user_login}}">profile</a><span>|</span><a href="{{ROOT_PATH}}logout">déconnexion</a></p>
                 </div>
             </div>

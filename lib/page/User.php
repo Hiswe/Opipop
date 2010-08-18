@@ -39,6 +39,9 @@ class Page_User extends Page
                 // Get pending friend requests
                 $pendingFriends = $profile->getPendingFriends();
 
+                // Get stats on my friends
+                $userFriendsStats = $user->getGuessFriendsStats();
+
                 // Assign friends infos
                 foreach ($pendingFriends as $friend)
                 {
@@ -78,18 +81,6 @@ class Page_User extends Page
             }
         }
 
-        $friends = $profile->getFriends();
-
-        foreach ($friends as $friend)
-        {
-            $this->tpl->assignLoopVar('friend', array
-            (
-                'id'     => $friend->getId(),
-                'login'  => $friend->getLogin(),
-                'avatar' => $friend->getAvatarUri('small'),
-            ));
-        }
-
         $profileTotalVotes = $profile->getTotalVotes();
 
         $this->tpl->assignVar(array
@@ -101,6 +92,46 @@ class Page_User extends Page
             'profile_global_distance'     => 0,
             'profile_firend_distance'     => 0,
         ));
+
+        // Get stats on profil's user guesses according to global votes
+        $profileGGS = $profile->getGuessGlobalStats();
+        if ($profileGGS['guesses'] != 0)
+        {
+            $this->tpl->assignVar(array
+            (
+                'profile_totalPredictionWon'  => $profileGGS['goodGuesses'],
+                'profile_totalPredictionLost' => $profileGGS['badGuesses'],
+                'profile_predictionAccuracy'  => round(($profileGGS['goodGuesses'] / $profileGGS['guesses']) * 100),
+            ));
+        }
+
+        // List all friends
+        $friends = $profile->getFriends();
+        foreach ($friends as $friend)
+        {
+            $this->tpl->assignLoopVar('friend', array
+            (
+                'id'     => $friend->getId(),
+                'login'  => $friend->getLogin(),
+                'avatar' => $friend->getAvatarUri('medium'),
+            ));
+
+            // If I'm on my profile
+            if ($user && $user->getId() == $profile->getId())
+            {
+                foreach ($userFriendsStats as $stat)
+                {
+                    // Get stats on profil's user gusses
+                    if ($friend->getId() == $stat['user']->getId())
+                    {
+                        $this->tpl->assignLoopVar('friend.stat', array
+                        (
+                            'predictionAccuracy' => round(($stat['guesses'] == 0) ? 0 : ($stat['goodGuesses'] / $stat['guesses']) * 100),
+                        ));
+                    }
+                }
+            }
+        }
 
         // If profile's user already voted
         if ($profileTotalVotes != 0)
@@ -124,31 +155,6 @@ class Page_User extends Page
                 $this->tpl->assignVar(array
                 (
                     'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['goodVotes']) / $profileAFS['votes']) * $totalQuestions),
-                ));
-            }
-
-            // Get stats on profil's user guesses according to global votes
-            $profileGGS = $profile->getGuessGlobalStats();
-            if ($profileGGS['guesses'] != 0)
-            {
-                $this->tpl->assignVar(array
-                (
-                    'profile_totalPredictionWon'  => $profileGGS['goodGuesses'],
-                    'profile_totalPredictionLost' => $profileGGS['badGuesses'],
-                    'profile_predictionAccuracy'  => round(($profileGGS['goodGuesses'] / $profileGGS['guesses']) * 100),
-                ));
-            }
-
-            // Get stats on profil's user gusses for each of his friends
-            $profileGFS = $profile->getGuessFriendsStats();
-            foreach ($profileGFS as $friend)
-            {
-                $this->tpl->assignLoopVar('friendPredictionAccuracy', array
-                (
-                    'id'      => $friend['user']->getId(),
-                    'login'   => $friend['user']->getLogin(),
-                    'avatar'  => $friend['user']->getAvatarUri('medium'),
-                    'percent' => round(($friend['guesses'] == 0) ? 0 : ($friend['goodGuesses'] / $friend['guesses']) * 100),
                 ));
             }
 

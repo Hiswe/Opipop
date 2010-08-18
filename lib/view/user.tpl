@@ -1,43 +1,60 @@
 
-        <div id="colRight">
-            <div id="user" class="frame">
+        <div id="user_colRight">
+
+            <h4>Vous :</h4>
+
+            <div id="user_card" class="box">
                 <img class="avatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
+
+                <h1>{{profile_login}}</h1>
+
                 <ul class="info">
-                    <li><h1>{{profile_login}}</h1></li>
                     <li>{{profile_gender}} - {{profile_region}}</li>
                     <li>{{profile_totalVote}} votes</li>
                 </ul>
-                <p class="distance_global">Distance par rapport a l'opinion public:<strong>{{profile_global_distance}} mètres</strong></p>
-                <p class="distance_friend">Distance par rapport a vos amis:<strong>{{profile_friend_distance}} mètres</strong></p>
+
+                <p class="stat">Distance par rapport a l'opinion public : <strong>{{profile_global_distance}} mètres</strong></p>
+                <p class="stat">Distance par rapport a vos amis : <strong>{{profile_friend_distance}} mètres</strong></p>
+                <p class="stat">Nombre de votes : <strong>{{profile_totalVote}}</strong></p>
+                <p class="stat">Nombre de bonnes prédictions : <strong>{{profile_totalPredictionWon}}</strong></p>
+                <p class="stat">Nombre de mauvaises prédictions : <strong>{{profile_totalPredictionLost}}</strong></p>
+                <p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>
+
+                <div class="clear"></div>
             </div>
 
             <h4>Friends:</h4>
-            <ul id="friends">
-                <!-- LOOP friendPredictionAccuracy -->
-                <li class="frame">
-                    <a href="{{ROOT_PATH}}{{friendPredictionAccuracy.login}}" title="{{friendPredictionAccuracy.login}}">
-                        <img src="{{ROOT_PATH}}{{friendPredictionAccuracy.avatar}}" />
-                        <strong>{{friendPredictionAccuracy.login}}</strong>
+
+            <ul id="user_friends">
+                <!-- LOOP friend -->
+                <li class="box">
+                    <!-- SECTION private -->
+                    <ul class="edit">
+                        <li><a href="#" id="friend_{{friend.id}}" class="button" title="remove">effacer</a></li>
+                    </ul>
+                    <ul class="stat">
+                        <!-- LOOP friend.stat -->
+                        <li>précision de mes prédictions : <strong>{{friend.stat.predictionAccuracy}}%</strong></li>
+                        <!-- END friend.stat -->
+                    </ul>
+                    <!-- END private -->
+
+                    <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
+                        <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar}}" />
+                        <strong class="login">{{friend.login}}</strong>
                     </a>
-                    <span>précision de vos prédictions: {{friendPredictionAccuracy.percent}}%</span>
                 </li>
-                <!-- END friendPredictionAccuracy -->
+                <!-- END friend -->
             </ul>
         </div>
 
-        <div id="colLeft">
-            <h4>Statistiques:</h4>
+        <div id="user_colLeft">
+            <h4>Vos statistiques :</h4>
         </div>
 
-        <!-- DONt TOUCH ABOVE I WILL MAKE IT RIGHT LATER :) -->
+        <!-- DONT TOUCH ABOVE I WILL MAKE IT RIGHT LATER :) -->
 
         <!--
-        <ul id="friends">
-            <!-- LOOP friend -->
-            <li class="user"><a href="{{ROOT_PATH}}{{friend.login}}"><img src="{{ROOT_PATH}}{{friend.avatar}}" alt="{{friend.login}}" /> {{friend.login}}</a></li>
-            <!-- END friend -->
-        </ul>
-
         <ul id="menu">
             <!-- SECTION friendRequest -->
             <li><a href="javascript:User.addToFriend({{profile_id}}, true);" id="addToFriend_{{profile_id}}" class="{{friendRequest_action}}">{{friendRequest_message}}</a></li>
@@ -57,17 +74,7 @@
         </ul>
         <!-- END friendPendingRequest -->
 
-        <h4>Stats:</h4>
-        <ul>
-            <li><strong>vote count:</strong> {{profile_totalVote}}</li>
-            <li><strong>prediction won:</strong> {{profile_totalPredictionWon}}</li>
-            <li><strong>prediction lost:</strong> {{profile_totalPredictionLost}}</li>
-            <li><strong>prediction accuracy:</strong> {{profile_predictionAccuracy}}%</li>
-            <li><strong>distance from popular opinion:</strong> {{profile_global_distance}}m</li>
-        </ul>
-        <ul>
-            <li><strong>distance from your friends opinion:</strong> {{profile_friend_distance}}m</li>
-        </ul>
+        <h4>Feelings:</h4>
         <ul>
             <li>
                 <ul>

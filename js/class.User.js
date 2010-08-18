@@ -1,21 +1,32 @@
 var User =
 {
 
-    addToFriend : function(friendId)
+    initFriendList : function()
     {
-        var link   = $('#addToFriend_' + friendId);
-        var action = link.attr('class');
-        var params =
+        $('#user_friends a[title="add"]').bind('click', User.addToFriend);
+        $('#user_friends a[title="cancel"]').bind('click', User.addToFriend);
+        $('#user_friends a[title="remove"]').bind('click', User.addToFriend);
+    },
+
+    addToFriend : function(event)
+    {
+        event.preventDefault();
+
+        var link     = $(this);
+        var friendId = link.attr('id').split('_')[1];
+        var action   = link.attr('title');
+        var params   =
         {
             friendId : friendId,
             action   : action
         };
 
-        if (action == 'remove' && !confirm('Are you sure you want to remove this user from your friends ?'))
+        if (action == 'remove' && !confirm('Êtes vous sur de vouloir retirer cette personne de vos amis ?'))
         {
             return;
         }
 
+        link.fadeTo(0, 0);
         link.html('');
 
         $.post(ROOT_PATH + 'remote/user/addToFriend', params, User.addToFriendCallback);
@@ -36,39 +47,40 @@ var User =
             data = $.parseJSON(data);
         }
 
-        var link = $('#addToFriend_' + data.friendId);
-        link.attr('class', '');
+        var link = $('#friend_' + data.friendId);
 
         if (data.action == 'add')
         {
-            link.addClass('cancel');
-            link.html('Cancle friend request');
+            link.attr('title', 'cancel');
+            link.html('Annuler la demande');
+            link.fadeTo(800, 1);
         }
         else if (data.action == 'cancel' || data.action == 'remove')
         {
-            link.addClass('add');
-            link.html('Add to friends');
+            link.attr('title', 'add');
+            link.html('Ajouter a mes amis');
+            link.fadeTo(800, 1);
         }
     },
 
-    requestFriend : function(friendId, accept)
-    {
-        if (accept)
-        {
-            $('#request_' + friendId).html('<span>accepted</span>');
-        }
-        else
-        {
-            $('#request_' + friendId).html('<span>rejected</span>');
-        }
+    //requestFriend : function(friendId, accept)
+    //{
+        //if (accept)
+        //{
+            //$('#request_' + friendId).html('<span>accepted</span>');
+        //}
+        //else
+        //{
+            //$('#request_' + friendId).html('<span>rejected</span>');
+        //}
 
-        var params =
-        {
-            friendId : friendId,
-            action   : (accept) ? 'accept' : 'cancel'
-        };
-        $.post(ROOT_PATH + 'remote/user/addToFriend', params);
-    }
+        //var params =
+        //{
+            //friendId : friendId,
+            //action   : (accept) ? 'accept' : 'cancel'
+        //};
+        //$.post(ROOT_PATH + 'remote/user/addToFriend', params);
+    //}
 
 };
 

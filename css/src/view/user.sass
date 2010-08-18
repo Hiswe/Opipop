@@ -1,0 +1,87 @@
+#user_colRight
+    width: 65%
+    float: left
+
+#user_colLeft
+    float: left
+    margin: 0 0 0 20px
+
+#user_card
+    margin: 20px 0
+    padding: 10px
+
+    .avatar
+        float: left
+        margin: 0 10px 0 0
+
+    h1
+        font-size: $font_huge
+        color: $black
+        +text-shadow($light_grey)
+
+    .info
+        margin: 5px 0 20px 0
+        font-size: $font_small
+        color: $grey
+
+    .stat
+        margin: 5px 0
+        font-size: $font_medium
+        color: $grey
+
+        strong
+            font-weight: bold
+
+#user_friends
+    margin: 20px 0
+
+    li.box
+        margin: 0 0 10px 0
+        height: 50px
+        position: relative
+
+        .avatar
+            float: left
+            margin: 0 5px 0 0
+
+        .login
+            float: left
+            font-size: $font_medium
+            +text-shadow($light_grey)
+
+        .stat
+            position: absolute
+            left: 55px
+            top: 25px
+            font-size: $font_small
+            color: $grey
+
+            strong
+                font-weight: bold
+
+        .edit
+            height: 50px
+            float: right
+
+            a
+                height: 12px
+                margin: 12px 10px 0 0
+                padding-left: 22px
+                display: block
+                background: 4px 5px no-repeat
+                font-size: $font_small
+
+            a[title="remove"],
+            a[title="cancel"]
+                background-image: image-url('icon12x12/remove.png')
+            a[title="remove"]:hover,
+            a[title="cancel"]:hover
+                background-image: image-url('icon12x12/remove-hover.png')
+                color: $red
+
+            a[title="add"]
+                background-image: image-url('icon12x12/add.png')
+            a[title="add"]:hover
+                background-image: image-url('icon12x12/add-hover.png')
+                color: $green
+

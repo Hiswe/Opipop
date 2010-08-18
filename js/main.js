@@ -3,6 +3,7 @@ function onReady()
 {
     Question.initList();
     Question.initArchiveList();
+    User.initFriendList();
 
     // NYROMODAL
     $.fn.nyroModal.settings.debug        = false;
