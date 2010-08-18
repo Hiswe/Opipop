@@ -49,3 +49,7 @@
         </div>
         <!-- END NOT_AJAX -->
 
+        <!-- SECTION AJAX -->
+        <script type="text/javascript">$('#question_archive a.nyroModal').nyroModal();</script>
+        <!-- END AJAX -->
+
