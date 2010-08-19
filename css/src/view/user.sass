@@ -15,13 +15,30 @@
     background: $white
     margin: 0 0 20px 0
 
+#user_edit
+    width: 590px
+
+    .side1
+        display: inline-block
+        width: 280px
+        padding: 0 10px 0 10px
+        border-right: solid 1px #ccc
+
+    .side2
+        display: inline-block
+        width: 250px
+        padding: 0 0 0 20px
+        vertical-align: top
+
+    h4
+        padding: 0 0 10px 0
+
 #user_distance
     .country,
     .friend
         position: relative
         border: solid 1px $very_light_grey
         padding: 10px
-        margin: 10px 0 20px 0
         height: 64px
 
         .distance
@@ -35,8 +52,10 @@
 
     .country
         background: $white image-url('distance_country.png') no-repeat center center
+        margin: 10px 0 20px 0
     .friend
         background: $white image-url('distance_friend.png') no-repeat center center
+        margin: 10px 0 0 0
 
 #user_card
     margin: 20px 0

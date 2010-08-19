@@ -21,7 +21,7 @@
             <!-- END notLogged -->
 
             <h1><a class="logo" href="{{ROOT_PATH}}">OpipPop</a></h1>
-            <p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>
+            <!--<p class="baseLine"><a href="{{ROOT_PATH}}question/{{didyouknow_guid}}-{{didyouknow_id}}">{{didyouknow_label}}</a></p>-->
 
             <!-- SECTION feedback -->
             <p class="message feedback">{{feedback}}</p>
