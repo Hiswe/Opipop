@@ -535,13 +535,20 @@ class Model_User
         return $this->data['email'];
     }
 
-    public function getGender()
+    public function getGender($french = true)
     {
         if (!isset($this->data['male']))
         {
             $this->fetchData();
         }
-        return ($this->data['male']) ? 'homme' : 'femme';
+        if ($french)
+        {
+            return ($this->data['male']) ? 'homme' : 'femme';
+        }
+        else
+        {
+            return ($this->data['male']) ? 'male' : 'female';
+        }
     }
 
     public function getZip()

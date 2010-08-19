@@ -6,12 +6,37 @@
     width: 320px
     margin: 0 0 0 20px
 
-#user_feelings
+#user_statistiques
     margin: 20px 0
     padding: 10px
 
-    span
+#user_feelings
+    border: solid 1px $very_light_grey
+    background: $white
+    margin: 0 0 20px 0
+
+#user_distance
+    .country,
+    .friend
+        position: relative
         border: solid 1px $very_light_grey
+        padding: 10px
+        margin: 10px 0 20px 0
+        height: 64px
+
+        .distance
+            text-align: center
+            font-size: $font_big
+
+        .user
+            position: absolute
+            top: 15px
+            right: 35px
+
+    .country
+        background: $white image-url('distance_country.png') no-repeat center center
+    .friend
+        background: $white image-url('distance_friend.png') no-repeat center center
 
 #user_card
     margin: 20px 0

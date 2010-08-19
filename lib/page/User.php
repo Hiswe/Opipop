@@ -22,6 +22,7 @@ class Page_User extends Page
         (
             'profile_id'     => $profile->getId(),
             'profile_login'  => $profile->getLogin(),
+            'profile_sex'    => $profile->getGender(false),
             'profile_avatar' => $profile->getAvatarUri('large'),
             'profile_region' => $profile->getZipName(),
             'profile_gender' => $profile->getGender(),

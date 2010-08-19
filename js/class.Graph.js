@@ -52,13 +52,13 @@ var Graph =
     // FEELINGS
     /////////////////////////////
 
-    feeling : function(data)
+    feeling : function(containerId, data)
     {
-        console.log(data);
         var area = 300;
         var size = 280;
 
         var vis = new pv.Panel()
+            .canvas(containerId)
             .width(area)
             .height(area);
 

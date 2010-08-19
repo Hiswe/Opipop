@@ -1,10 +1,27 @@
 
         <div id="user_colRight">
-            <h4>Personnalité :</h4>
+            <h4>Statistiques :</h4>
 
-            <div id="user_feelings" class="box">
-                <script type="text/javascript+protovis">Graph.feeling({{feeling_data}});</script>
+            <div id="user_statistiques" class="box">
+                <h5>Profile :</h5>
+                <div id="user_feelings"></div>
+
+                <div id="user_distance">
+                    <h5>Distance avec l'opinion national :</h5>
+                    <div class="country">
+                        <div class="distance">{{profile_global_distance}}m</div>
+                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                    </div>
+
+                    <h5>Distance avec l'opinion des amis :</h5>
+                    <div class="friend">
+                        <div class="distance">{{profile_friend_distance}}m</div>
+                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                    </div>
+                </div>
             </div>
+
+            <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
         </div>
 
         <div id="user_colLeft">
@@ -20,12 +37,10 @@
                     <li>{{profile_gender}} - {{profile_region}}</li>
                 </ul>
 
-                <!--<p class="stat">Distance par rapport a l'opinion public : <strong>{{profile_global_distance}} mètres</strong></p>-->
-                <!--<p class="stat">Distance par rapport aux amis : <strong>{{profile_friend_distance}} mètres</strong></p>-->
                 <p class="stat">Nombre de votes : <strong>{{profile_totalVote}}</strong></p>
                 <p class="stat">Nombre de bonnes prédictions : <strong>{{profile_totalPredictionWon}}</strong></p>
                 <p class="stat">Nombre de mauvaises prédictions : <strong>{{profile_totalPredictionLost}}</strong></p>
-                <!--<p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>-->
+                <p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>
 
                 <ul class="menu">
                     <!-- SECTION friendRequest -->
