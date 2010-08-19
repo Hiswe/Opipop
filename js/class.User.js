@@ -3,9 +3,21 @@ var User =
 
     initFriendList : function()
     {
-        $('#user_friends a[title="add"]').bind('click', User.addToFriend);
-        $('#user_friends a[title="cancel"]').bind('click', User.addToFriend);
-        $('#user_friends a[title="remove"]').bind('click', User.addToFriend);
+        $(
+            '#user_friends a[title="add"],' +
+            '#user_friends a[title="cancel"],' +
+            '#user_friends a[title="remove"],' +
+            '#user_card a[title="add"],' +
+            '#user_card a[title="cancel"],' +
+            '#user_card a[title="remove"]'
+        )
+        .bind('click', User.addToFriend);
+
+        $(
+            '#user_friends a[title="accept"],' +
+            '#user_friends a[title="reject"]'
+        )
+        .bind('click', User.requestFriend);
     },
 
     addToFriend : function(event)
@@ -21,9 +33,14 @@ var User =
             action   : action
         };
 
-        if (action == 'remove' && !confirm('Êtes vous sur de vouloir retirer cette personne de vos amis ?'))
+        if (action == 'remove')
         {
-            return;
+            if (!confirm('Êtes vous sur de vouloir retirer cette personne de vos amis ?'))
+            {
+                return;
+            }
+            link.parent().parent().addClass('loading');
+            link.remove();
         }
 
         link.fadeTo(0, 0);
@@ -40,7 +57,7 @@ var User =
         }
         else if (data == 'reload')
         {
-            window.location = window.location;
+            window.location = window.location.toString().replace(/(#)/g, '');
         }
         else
         {
@@ -63,24 +80,42 @@ var User =
         }
     },
 
-    //requestFriend : function(friendId, accept)
-    //{
-        //if (accept)
-        //{
-            //$('#request_' + friendId).html('<span>accepted</span>');
-        //}
-        //else
-        //{
-            //$('#request_' + friendId).html('<span>rejected</span>');
-        //}
+    requestFriend : function(event)
+    {
+        event.preventDefault();
 
-        //var params =
-        //{
-            //friendId : friendId,
-            //action   : (accept) ? 'accept' : 'cancel'
-        //};
-        //$.post(ROOT_PATH + 'remote/user/addToFriend', params);
-    //}
+        var link     = $(this);
+        var friendId = link.attr('id').split('_')[1];
+        var action   = link.attr('title');
+
+        if (action == 'reject' && !confirm('Êtes vous sur de vouloir refuser cette personne ?'))
+        {
+            return;
+        }
+
+        link.parent().parent().addClass('loading');
+        link.parent().siblings().remove();
+        link.remove();
+
+        var params =
+        {
+            friendId : friendId,
+            action   : action
+        };
+        $.post(ROOT_PATH + 'remote/user/addToFriend', params, User.addToFriendCallback);
+    },
+
+    addToFriendCallback : function(data)
+    {
+        if (data == 'register')
+        {
+            window.location = ROOT_PATH + 'register';
+        }
+        else
+        {
+            window.location = window.location.toString().replace(/(#)/g, '');
+        }
+    }
 
 };
 

@@ -37,7 +37,7 @@
         $key = md5(rand(0, 1000) + microtime());
 
         // Insert user's infos in the base
-        $id = DB::insert('INSERT INTO `user` (`login`, `zip`, `gender`, `email`, `password`, `key`, `register_date`) VALUES
+        $id = DB::insert('INSERT INTO `user` (`login`, `zip`, `male`, `email`, `password`, `key`, `register_date`) VALUES
         (
             "' . $_POST['login'] . '",
             "' . $_POST['zip'] . '",
@@ -49,6 +49,6 @@
         )');
 
         // TODO : register informations should be sent by email
-        echo $key . chr(13) . $ROO_PATH . $_POST['login'] . '/confirm?u=' . $id . '&k=' . $key;
+        echo $key . chr(13) . Conf::get('ROO_PATH') . $_POST['login'] . '/confirm?u=' . $id . '&k=' . $key;
     }
 

@@ -181,7 +181,7 @@ var Register =
         }
         else
         {
-            window.location = ROOT_PATH + 'login/confirm';
+            //window.location = ROOT_PATH + 'login/confirm';
         }
     }
 

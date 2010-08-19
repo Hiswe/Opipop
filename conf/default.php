@@ -8,11 +8,12 @@
     $conf['ROOT_DIR']  = '/Users/USER_NAME/Sites/sondage/';
 
     // DATABASE
-    $conf['DB_NAME']   = 'sondage';
-    $conf['DB_HOST']   = 'localhost';
-    $conf['DB_USER']   = 'root';
-    $conf['DB_PASS']   = '';
-    $conf['DB_PRE']    = '';
+    $conf['DB_NAME']     = 'sondage';
+    $conf['DB_HOST']     = 'localhost';
+    $conf['DB_USER']     = 'root';
+    $conf['DB_PASS']     = '';
+    $conf['DB_PRE']      = '';
+    $conf['DB_READONLY'] = false;
 
     // CACHE
     $conf['CACHE_TIMECOEF'] = 0;
@@ -31,9 +32,9 @@
 
     // CONTENT
     $conf['SITE_NAME']         = 'Opipop';
-    $conf['PAGE_TITLE']        = utf8_encode ('Opipop');
-    $conf['PAGE_DESCRIPTION']  = utf8_encode ('');
-    $conf['PAGE_KEYWORDS']     = utf8_encode ('');
+    $conf['PAGE_TITLE']        = utf8_encode('Opipop');
+    $conf['PAGE_DESCRIPTION']  = utf8_encode('');
+    $conf['PAGE_KEYWORDS']     = utf8_encode('');
     $conf['QUESTION_DURATION'] = 86400 * 7;
     $conf['QUESTION_PER_PAGE'] = 4;
     $conf['MAIN_CATEGORY']     = 1;

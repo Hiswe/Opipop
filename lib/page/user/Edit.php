@@ -29,12 +29,12 @@ class Page_User_Edit extends Page
         (
             'profile_id'     => $user->getId(),
             'profile_login'  => $user->getLogin(),
-            'profile_male'   => $user->getMale(),
+            'profile_male'   => $user->getGender(),
             'profile_zip'    => $user->getZip(),
             'profile_avatar' => $user->getAvatarUri('large'),
 
             'profile_edit_zip_' . $user->getZip()     => ' selected="selected"',
-            'profile_edit_gender_' . $user->getMale() => ' selected="selected"',
+            'profile_edit_gender_' . $user->getGender() => ' selected="selected"',
         ));
     }
 }

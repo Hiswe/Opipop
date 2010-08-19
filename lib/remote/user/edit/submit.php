@@ -27,9 +27,9 @@
             $sizeMedium = explode('x', Conf::get('AVATAR_MEDIUM_SIZE'));
             $sizeLarge  = explode('x', Conf::get('AVATAR_LARGE_SIZE'));
 
-            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/140x140/' . $_POST['id'] . '.jpg', $sizeLarge[0], (isset ($sizeLarge[1])) ? $sizeLarge[1] : false, true);
-            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/80x80/' . $_POST['id'] . '.jpg', $sizeMedium[0], (isset ($sizeMedium[1])) ? $sizeMedium[1] : false, true);
-            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/25x25/' . $_POST['id'] . '.jpg', $sizeSmall[0], (isset ($sizeSmall[1])) ? $sizeSmall[1] : false, true);
+            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/' . Conf::get('AVATAR_LARGE_SIZE') . '/' . $_POST['id'] . '.jpg', $sizeLarge[0], (isset ($sizeLarge[1])) ? $sizeLarge[1] : false, true);
+            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/' . Conf::get('AVATAR_MEDIUM_SIZE') . '/' . $_POST['id'] . '.jpg', $sizeMedium[0], (isset ($sizeMedium[1])) ? $sizeMedium[1] : false, true);
+            Tool::redimage($original, Conf::get('ROOT_DIR') . 'media/avatar/' . Conf::get('AVATAR_SMALL_SIZE'). '/' . $_POST['id'] . '.jpg', $sizeSmall[0], (isset ($sizeSmall[1])) ? $sizeSmall[1] : false, true);
         }
     }
 

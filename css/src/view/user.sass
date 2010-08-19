@@ -9,6 +9,21 @@
 #user_card
     margin: 20px 0
     padding: 10px
+    position: relative
+
+    .menu
+        position: absolute
+        right: 10px
+        bottom: 10px
+
+        li
+            display: inline
+            margin: 0 0 0 5px
+
+            a
+                height: 12px
+                display: block
+                font-size: $font_small
 
     .avatar
         float: left
@@ -36,13 +51,14 @@
     margin: 20px 0
 
     li.box
+        padding: 2px
         margin: 0 0 10px 0
         height: 50px
         position: relative
 
         .avatar
             float: left
-            margin: 0 5px 0 0
+            margin: 0 10px 0 0
 
         .login
             float: left
@@ -51,7 +67,7 @@
 
         .stat
             position: absolute
-            left: 55px
+            left: 63px
             top: 25px
             font-size: $font_small
             color: $grey
@@ -63,25 +79,45 @@
             height: 50px
             float: right
 
-            a
-                height: 12px
+            li
+                float: right
                 margin: 12px 10px 0 0
-                padding-left: 22px
-                display: block
-                background: 4px 5px no-repeat
-                font-size: $font_small
 
-            a[title="remove"],
-            a[title="cancel"]
-                background-image: image-url('icon12x12/remove.png')
-            a[title="remove"]:hover,
-            a[title="cancel"]:hover
-                background-image: image-url('icon12x12/remove-hover.png')
-                color: $red
+        .loading
+            margin: 8px 10px 0 0
+            width: 32px
+            height: 32px
+            float: right
+            background: image-url('icon32x32/ajax-loader.gif')
 
-            a[title="add"]
-                background-image: image-url('icon12x12/add.png')
-            a[title="add"]:hover
-                background-image: image-url('icon12x12/add-hover.png')
-                color: $green
+#user_card,
+#user_friends
+    a[title="add"],
+    a[title="accept"],
+    a[title="remove"],
+    a[title="reject"],
+    a[title="cancel"]
+        height: 12px
+        padding-left: 22px
+        display: block
+        background: 4px 5px no-repeat
+        font-size: $font_small
+
+    a[title="reject"],
+    a[title="remove"],
+    a[title="cancel"]
+        background-image: image-url('icon12x12/remove.png')
+    a[title="reject"]:hover,
+    a[title="remove"]:hover,
+    a[title="cancel"]:hover
+        background-image: image-url('icon12x12/remove-hover.png')
+        color: $red
+
+    a[title="add"],
+    a[title="accept"]
+        background-image: image-url('icon12x12/add.png')
+    a[title="add"]:hover,
+    a[title="accept"]:hover
+        background-image: image-url('icon12x12/add-hover.png')
+        color: $green
 

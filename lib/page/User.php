@@ -27,6 +27,9 @@ class Page_User extends Page
             'profile_gender' => $profile->getGender(),
         ));
 
+        // Get stats on friends
+        $profileFriendsStats = $profile->getGuessFriendsStats();
+
         // If a user is logged
         if ($user = Model_User::getLoggedUser())
         {
@@ -34,13 +37,9 @@ class Page_User extends Page
             if ($user->getId() == $profile->getId())
             {
                 $this->tpl->assignSection('private');
-                $this->tpl->assignSection('friendPendingRequest');
 
                 // Get pending friend requests
-                $pendingFriends = $profile->getPendingFriends();
-
-                // Get stats on my friends
-                $userFriendsStats = $user->getGuessFriendsStats();
+                $pendingFriends = $user->getPendingFriends();
 
                 // Assign friends infos
                 foreach ($pendingFriends as $friend)
@@ -49,7 +48,7 @@ class Page_User extends Page
                     (
                         'id'     => $friend->getId(),
                         'login'  => $friend->getLogin(),
-                        'avatar' => $friend->getAvatarUri('small'),
+                        'avatar' => $friend->getAvatarUri('medium'),
                     ));
                 }
             }
@@ -61,15 +60,15 @@ class Page_User extends Page
                 switch ($profile->getFriendStatus($user))
                 {
                     case Model_User::FRIEND_STATUS_NONE :
-                        $friendMessage = 'Add to friends';
+                        $friendMessage = 'Ajouter a mes amis';
                         $friendAction  = 'add';
                         break;
                     case Model_User::FRIEND_STATUS_PENDING :
-                        $friendMessage = 'Cancel friend request';
+                        $friendMessage = 'Annuler la demande';
                         $friendAction  = 'cancel';
                         break;
                     case Model_User::FRIEND_STATUS_VALIDED :
-                        $friendMessage = 'Remove from friends';
+                        $friendMessage = 'Effacer de mes amis';
                         $friendAction  = 'remove';
                         break;
                 }
@@ -116,19 +115,15 @@ class Page_User extends Page
                 'avatar' => $friend->getAvatarUri('medium'),
             ));
 
-            // If I'm on my profile
-            if ($user && $user->getId() == $profile->getId())
+            foreach ($profileFriendsStats as $stat)
             {
-                foreach ($userFriendsStats as $stat)
+                // Get stats on profil's user gusses
+                if ($friend->getId() == $stat['user']->getId())
                 {
-                    // Get stats on profil's user gusses
-                    if ($friend->getId() == $stat['user']->getId())
-                    {
-                        $this->tpl->assignLoopVar('friend.stat', array
-                        (
-                            'predictionAccuracy' => round(($stat['guesses'] == 0) ? 0 : ($stat['goodGuesses'] / $stat['guesses']) * 100),
-                        ));
-                    }
+                    $this->tpl->assignLoopVar('friend.stat', array
+                    (
+                        'predictionAccuracy' => round(($stat['guesses'] == 0) ? 0 : ($stat['goodGuesses'] / $stat['guesses']) * 100),
+                    ));
                 }
             }
         }

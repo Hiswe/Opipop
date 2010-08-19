@@ -85,8 +85,15 @@
         {
             if (preg_match("/^\\s*(insert)/i", $query))
             {
-                self::query($query);
-                return mysql_insert_id(self::$CON);
+                if (Conf::get('DB_READONLY'))
+                {
+                    return 0;
+                }
+                else
+                {
+                    self::query($query);
+                    return mysql_insert_id(self::$CON);
+                }
             }
             return false;
         }
@@ -95,8 +102,15 @@
         {
             if (preg_match("/^\\s*(update)/i", $query))
             {
-                self::query($query);
-                return mysql_affected_rows(self::$CON);
+                if (Conf::get('DB_READONLY'))
+                {
+                    return 0;
+                }
+                else
+                {
+                    self::query($query);
+                    return mysql_affected_rows(self::$CON);
+                }
             }
             return false;
         }
@@ -105,8 +119,15 @@
         {
             if (preg_match("/^\\s*(delete)/i", $query))
             {
-                self::query($query);
-                return mysql_affected_rows(self::$CON);
+                if (Conf::get('DB_READONLY'))
+                {
+                    return 0;
+                }
+                else
+                {
+                    self::query($query);
+                    return mysql_affected_rows(self::$CON);
+                }
             }
             return false;
         }

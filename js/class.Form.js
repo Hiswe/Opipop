@@ -33,7 +33,7 @@ var Form =
         form.data('error', (form.data('error')) ? form.data('error') + 1 : 1);
         input.data('warning', warning);
         input.addClass('error');
-        input.prev('em').append(warning);
+        input.parent('label').append(warning);
     },
 
     cleanError : function(input)
