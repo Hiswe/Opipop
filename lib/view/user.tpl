@@ -48,12 +48,12 @@
                     <li>{{profile_gender}} - {{profile_region}}</li>
                 </ul>
 
-                <p class="stat">Distance par rapport a l'opinion public : <strong>{{profile_global_distance}} mètres</strong></p>
-                <p class="stat">Distance par rapport aux amis : <strong>{{profile_friend_distance}} mètres</strong></p>
+                <!--<p class="stat">Distance par rapport a l'opinion public : <strong>{{profile_global_distance}} mètres</strong></p>-->
+                <!--<p class="stat">Distance par rapport aux amis : <strong>{{profile_friend_distance}} mètres</strong></p>-->
                 <p class="stat">Nombre de votes : <strong>{{profile_totalVote}}</strong></p>
                 <p class="stat">Nombre de bonnes prédictions : <strong>{{profile_totalPredictionWon}}</strong></p>
                 <p class="stat">Nombre de mauvaises prédictions : <strong>{{profile_totalPredictionLost}}</strong></p>
-                <p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>
+                <!--<p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>-->
 
                 <ul class="menu">
                     <!-- SECTION friendRequest -->

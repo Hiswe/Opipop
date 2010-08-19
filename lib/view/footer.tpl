@@ -1,5 +1,5 @@
 
-        <div class="clear"></div>
+        <div class="clear">&nbsp;</div>
     </div>
 
     <div id="footer">
