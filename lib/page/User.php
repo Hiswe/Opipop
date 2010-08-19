@@ -161,7 +161,7 @@ class Page_User extends Page
         {
             $maxFeelingScore = ($maxFeelingScore < $total) ? $total : $maxFeelingScore;
         }
-        $feelings = array('Personalité', 'Environement', 'Savoir', 'Experience', 'Réflexion');
+        $feelings = array('Personalité', 'Environement', 'Savoir', 'Experience', 'Réflexion', 'Sensibilité');
         $colors   = Conf::get('GRAPH_COLORS');
         $data     = array();
         foreach ($feelings as $id => $label)
@@ -173,7 +173,7 @@ class Page_User extends Page
             ));
             $data[] = array
             (
-                'value' => (($maxFeelingScore ? ($profileFeelings[$id + 1] / $maxFeelingScore) : 0) * 0.95) + 0.05,
+                'value' => (($maxFeelingScore ? (1 - $profileFeelings[$id + 1] / $maxFeelingScore) : 0) * 0.95) + 0.05,
                 'label' => $label,
                 'color' => $colors[$id],
             );

@@ -54,6 +54,7 @@ var Graph =
 
     feeling : function(data)
     {
+        console.log(data);
         var area = 300;
         var size = 280;
 
@@ -67,7 +68,7 @@ var Graph =
             .bottom(area / 2 + 2)
             .innerRadius(20)
             .outerRadius(function(d) Math.sqrt(d.value) * (size /2))
-            .angle(2 * Math.PI / 5)
+            .angle(2 * Math.PI / 6)
             .lineWidth(4)
             .strokeStyle('#ffffff')
             .fillStyle(function(d) d.color);
@@ -78,7 +79,7 @@ var Graph =
             .textAlign("center")
             .textBaseline("middle")
             .font('12px sans-serif')
-            .textStyle('#aaaaaa')
+            .textStyle('#555555')
             .text(function(d) d.label);
 
         vis.render();

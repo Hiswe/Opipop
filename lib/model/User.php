@@ -415,7 +415,7 @@ class Model_User
                 WHERE r.user_id="' . $this->data['id'] . '" AND f.id!="1"
                 GROUP BY f.id
             ');
-            $this->feelings = array('1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0);
+            $this->feelings = array('1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0);
             foreach ($rs['data'] as $item)
             {
                 $this->feelings[$item['id']] = $item['total'];
