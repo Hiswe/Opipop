@@ -3,35 +3,7 @@
             <h4>Personnalité :</h4>
 
             <div id="user_feelings" class="box">
-                <script type="text/javascript+protovis">
-                    var area = 300;
-                    var size = 280;
-
-                    var vis = new pv.Panel()
-                        .width(area)
-                        .height(area);
-
-                    var wedge = vis.add(pv.Wedge)
-                        .data({{feeling_data}})
-                        .left(area / 2 - 2)
-                        .bottom(area / 2 + 2)
-                        .outerRadius(function(d) Math.sqrt(d.value) * (size /2))
-                        .angle(2 * Math.PI / 5)
-                        .lineWidth(4)
-                        .strokeStyle('#ffffff')
-                        .fillStyle(function(d) d.color);
-
-                    wedge.add(pv.Label)
-                        .left(function() 90 * Math.cos(wedge.midAngle()) + (area / 2))
-                        .bottom(function() -90 * Math.sin(wedge.midAngle()) + (area / 2))
-                        .textAlign("center")
-                        .textBaseline("middle")
-                        .font('12px sans-serif')
-                        .textStyle('#aaaaaa')
-                        .text(function(d) d.label);
-
-                    vis.render();
-                </script>
+                <script type="text/javascript+protovis">Graph.feeling({{feeling_data}});</script>
             </div>
         </div>
 

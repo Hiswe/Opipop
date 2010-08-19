@@ -84,7 +84,11 @@ class Page
         return 0;
     }
 
+    public function configureView()
+    {
+        //$this->tpl->assignTemplate('lib/view/header.tpl');
+        //$this->tpl->assignTemplate('lib/view/footer.tpl');
+    }
     public function configureData(){}
-    public function configureView(){}
 }
 

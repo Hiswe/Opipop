@@ -29,14 +29,42 @@
         'VERSION'          => Conf::get('VERSION')
     ));
 
+    // DECTECT IF AJAX
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+    {
+        $ajax = true;
+        $tpl->assignSection('AJAX');
+    }
+    else
+    {
+        $ajax = false;
+        $tpl->assignSection('NOT_AJAX');
+    }
+
     // REMOTES
     if (isset($_GET['remote']))
     {
-        $tpl->assignSection('AJAX');
-        include 'lib/remote/' . $_GET['remote'] . '.php';
-        exit();
+        if ($ajax)
+        {
+            include 'lib/remote/' . $_GET['remote'] . '.php';
+            exit();
+        }
+        else
+        {
+            $page = new Page($tpl);
+            $tpl->assignTemplate('lib/view/header.tpl');
+            $tpl->assignTemplate('lib/view/top.tpl');
+            $tpl->display();
+            $tpl->clearLayout();
+            echo '<div id="remote">';
+            include 'lib/remote/' . $_GET['remote'] . '.php';
+            echo '</div>';
+            $tpl->clearLayout();
+            $tpl->assignTemplate('lib/view/footer.tpl');
+            $tpl->display();
+            exit();
+        }
     }
-    $tpl->assignSection('NOT_AJAX');
 
     // PAGES
     if (isset($_GET['page']))

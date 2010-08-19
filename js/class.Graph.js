@@ -2,95 +2,6 @@ var Graph =
 {
 
     /////////////////////////////
-    // GENDER REPARTITION
-    /////////////////////////////
-
-    gender : function(containerId, gender, data)
-    {
-        var size  = 28 * 5;
-        var paper = Raphael(document.getElementById(containerId), size * 2, size * 2);
-        var item  = [];
-        var d     = 0;
-        var types =
-        [
-            'black_bald',
-            'black_black',
-            'olive_bald',
-            'olive_black',
-            'white_bald',
-            'white_black',
-            'white_blonde',
-            'white_brown',
-            'white_ginger',
-            'white_grey'
-        ];
-        var answer1 = data[0];
-        var answer2 = data[1];
-
-        if (answer1.value == 1)
-        {
-            paper.circle(size, size, size - 12).attr(
-            {
-                'fill'    : answer1.color,
-                'stroke'  : '#ffffff',
-                'opacity' : '0.10'
-            });
-        }
-        else if (answer2.value == 1)
-        {
-            paper.circle(size, size, size - 12).attr(
-            {
-                'fill'    : answer2.color,
-                'stroke'  : '#ffffff',
-                'opacity' : '0.10'
-            });
-        }
-        else
-        {
-            Graph.sector(paper, size, size, size - 12, 90 - (360 * answer1.value), 90,
-            {
-                'fill'         : answer1.color,
-                'stroke'       : '#ffffff',
-                'stroke-width' : '8',
-                'opacity'      : '0.10'
-            });
-            Graph.sector(paper, size, size, size - 12, 90, (360 * answer2.value) + 90,
-            {
-                'fill'         : answer2.color,
-                'stroke'       : '#ffffff',
-                'stroke-width' : '8',
-                'opacity'      : '0.10'
-            });
-        }
-
-        paper.circle(size, size, 56).attr(
-        {
-            'fill'    : '#ffffff',
-            'stroke'  : '#ffffff'
-        });
-
-        for (var x = 0; x < size * 2; x += 28)
-        {
-            for (var y = 0; y < size * 2; y += 28)
-            {
-                d = Math.sqrt(Math.pow(x-size,2) + Math.pow(y-size,2));
-                if (d < size && d > 56)
-                {
-                    if ((Graph.angle(x-size, y-size) + 90)%360 < (360 * answer1.value))
-                    {
-                        item.push(paper.image('media/layout/user/24x24/' + gender + '/blue/' + types[Math.floor(Math.random() * types.length)] + '.png', x - 12, y - 12, 24, 24));
-                    }
-                    else
-                    {
-                        item.push(paper.image('media/layout/user/24x24/' + gender + '/pink/' + types[Math.floor(Math.random() * types.length)] + '.png', x - 12, y - 12, 24, 24));
-                    }
-                }
-            }
-        }
-    },
-
-
-    /////////////////////////////
     // MAP
     /////////////////////////////
 
@@ -134,6 +45,126 @@ var Graph =
                 'stroke-linejoin' : 'round'
             });
         });
+    },
+
+
+    /////////////////////////////
+    // FEELINGS
+    /////////////////////////////
+
+    feeling : function(data)
+    {
+        var area = 300;
+        var size = 280;
+
+        var vis = new pv.Panel()
+            .width(area)
+            .height(area);
+
+        var wedge = vis.add(pv.Wedge)
+            .data(data)
+            .left(area / 2 - 2)
+            .bottom(area / 2 + 2)
+            .innerRadius(20)
+            .outerRadius(function(d) Math.sqrt(d.value) * (size /2))
+            .angle(2 * Math.PI / 5)
+            .lineWidth(4)
+            .strokeStyle('#ffffff')
+            .fillStyle(function(d) d.color);
+
+        wedge.add(pv.Label)
+            .left(function() 90 * Math.cos(wedge.midAngle()) + (area / 2))
+            .bottom(function() -90 * Math.sin(wedge.midAngle()) + (area / 2))
+            .textAlign("center")
+            .textBaseline("middle")
+            .font('12px sans-serif')
+            .textStyle('#aaaaaa')
+            .text(function(d) d.label);
+
+        vis.render();
+    },
+
+
+    /////////////////////////////
+    // GENDER REPARTITION
+    /////////////////////////////
+
+    gender : function(containerId, gender, data)
+    {
+        var vis = new pv.Panel()
+            .canvas(containerId)
+            .width(280)
+            .height(300);
+
+        var bar = vis.add(pv.Bar)
+            .data(data)
+            .bottom(10)
+            .width(90)
+            .height(function(d) d.value * 250)
+            .left(function() this.index * 90 + this.index * 10 + 40)
+            .fillStyle(function(d) d.color);
+
+        var line = vis.add(pv.Line)
+            .data([0, 0])
+            .left(function() this.index * 280)
+            .bottom(4)
+            .strokeStyle('#aaaaaa')
+            .lineWidth(1)
+
+        var types =
+        [
+            'black_bald',
+            'black_black',
+            'olive_bald',
+            'olive_black',
+            'white_bald',
+            'white_black',
+            'white_blonde',
+            'white_brown',
+            'white_ginger',
+            'white_grey'
+        ];
+
+        for (var d = 0; d < data.length; d ++)
+        {
+            for (var i = 0; i < 3; i ++)
+            {
+                vis.add(pv.Image)
+                    .width(24)
+                    .height(24)
+                    .bottom(data[d].value * 250 + 12)
+                    .left(d * 90 + d * 10 + 40 + i * 26 + 6)
+                    .url(ROOT_PATH + 'media/layout/icon24x24/' + gender + '/' + (['blue', 'pink'])[d] + '/' + types[Math.floor(Math.random() * types.length)] + '.png');
+            }
+        }
+
+        vis.render();
+    },
+
+
+    /////////////////////////////
+    // ARCHIVE PREVIEW
+    /////////////////////////////
+
+    archive : function(containerId, data, size)
+    {
+        var vis = new pv.Panel()
+            .canvas(containerId)
+            .width(size)
+            .height(size);
+
+        var wedge = vis.add(pv.Wedge)
+            .data(data)
+            .left(size / 2)
+            .bottom(size / 2)
+            .innerRadius(size / 5)
+            .outerRadius(size / 2)
+            .angle(function(d){{ return d.value * 2 * Math.PI; }})
+            .lineWidth(2)
+            .strokeStyle('white')
+            .fillStyle(function(d){{ return d.color; }});
+
+        vis.render();
     },
 
 

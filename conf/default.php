@@ -42,8 +42,8 @@
     // GRAPH
     $conf['GRAPH_COLORS'] = array
     (
-        '#ff99cc',
-        '#99ccff',
+        '#0099ff',
+        '#ff0099',
         '#ffcccc',
         '#ffffcc',
         '#ccffcc',

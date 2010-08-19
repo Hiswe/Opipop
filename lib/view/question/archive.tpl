@@ -13,25 +13,7 @@
                     <a class="map link button nyroModal" href="{{ROOT_PATH}}remote/question/map?questionId={{question_archive.id}}">National</a>
 
                     <div id="graph{{question_archive.id}}" class="graph">
-                        <script type="text/javascript">
-                            var size = 75;
-
-                            new pv.Panel()
-                                .canvas('graph{{question_archive.id}}')
-                                .width(size)
-                                .height(size)
-                            .add(pv.Wedge)
-                                .data({{question_archive.data}})
-                                .left(size / 2)
-                                .bottom(size / 2)
-                                .innerRadius(size / 5)
-                                .outerRadius(size / 2)
-                                .angle(function(d){{ return d.value * 2 * Math.PI; }})
-                                .lineWidth(2)
-                                .strokeStyle('white')
-                                .fillStyle(function(d){{ return d.color; }})
-                            .root.render();
-                        </script>
+                        <script type="text/javascript">Graph.archive('graph{{question_archive.id}}', {{question_archive.data}}, 75);</script>
                     </div>
 
                     <h2 class="label"><a href="{{ROOT_PATH}}question/{{question_archive.guid}}-{{question_archive.id}}">{{question_archive.label}}</a></h2>

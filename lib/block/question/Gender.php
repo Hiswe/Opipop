@@ -25,7 +25,7 @@ class Block_Question_Gender extends Block
         {
             $dataMen[] = array
             (
-                'value' => Tool::percent($answer->getTotalMale(), $this->question->getTotalMale()) / 100,
+                'value' => (Tool::percent($answer->getTotalMale(), $this->question->getTotalMale()) / 100) * 0.95 + 0.05,
                 'color' => $colors[$key],
             );
         }
@@ -44,7 +44,7 @@ class Block_Question_Gender extends Block
         {
             $dataWomen[] = array
             (
-                'value' => Tool::percent($answer->getTotalFemale(), $this->question->getTotalFemale()) / 100,
+                'value' => (Tool::percent($answer->getTotalFemale(), $this->question->getTotalFemale()) / 100) * 0.95 + 0.05,
                 'color' => $colors[$key],
             );
         }

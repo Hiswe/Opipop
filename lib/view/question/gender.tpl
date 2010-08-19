@@ -5,6 +5,7 @@
 
         <div class="graph">
             <div id="graph_men"></div>
+
             <p>Hommes :</p>
             <ul>
                 <!-- LOOP question_men -->
@@ -23,10 +24,9 @@
             </ul>
         </div>
 
-        <div class="clear"></div>
-
         <script type="text/javascript">Graph.gender('graph_men', 'mal', {{question_men_data}});</script>
         <script type="text/javascript">Graph.gender('graph_women', 'femal', {{question_women_data}});</script>
 
+        <div class="clear"></div>
     </div>
 
