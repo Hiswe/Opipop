@@ -33,12 +33,14 @@ var User =
             action   : action
         };
 
-        if (action == 'remove')
+        if ((action == 'cancel' && !confirm('Êtes vous sur de vouloir annuler cette demande ?'))
+        || (action == 'remove' && !confirm('Êtes vous sur de vouloir retirer cette personne de vos amis ?'))
+        || (action == 'reject' && !confirm('Êtes vous sur de vouloir refuser cette personne ?')))
         {
-            if (!confirm('Êtes vous sur de vouloir retirer cette personne de vos amis ?'))
-            {
-                return;
-            }
+            return;
+        }
+        if (action == 'remove' || action == 'cancel' || action == 'reject')
+        {
             link.parent().parent().addClass('loading');
             link.remove();
         }

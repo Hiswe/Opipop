@@ -40,6 +40,5 @@ RewriteRule ^backoffice/remote/([a-zA-Z0-9_]+)$ backoffice/index.php?remote=$1 [
 
 # USER
 RewriteRule ^([a-zA-Z0-9_]+)$ index.php?page=user&login=$1 [L]
-RewriteRule ^([a-zA-Z0-9_]+)/edit$ index.php?page=user_edit&login=$1 [L]
 RewriteRule ^([a-zA-Z0-9_]+)/confirm$ index.php?page=user_confirm [L,QSA]
 

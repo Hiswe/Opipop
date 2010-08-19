@@ -1,10 +1,17 @@
-#user_colRight
-    width: 65%
-    float: left
-
 #user_colLeft
-    float: left
+    margin: 0 340px 0 0
+
+#user_colRight
+    float: right
+    width: 320px
     margin: 0 0 0 20px
+
+#user_feelings
+    margin: 20px 0
+    padding: 10px
+
+    span
+        border: solid 1px $very_light_grey
 
 #user_card
     margin: 20px 0
@@ -50,6 +57,9 @@
 #user_friends
     margin: 20px 0
 
+    li.noFriends
+        font-size: $font_medium
+
     li.box
         padding: 2px
         margin: 0 0 10px 0
@@ -83,12 +93,14 @@
                 float: right
                 margin: 12px 10px 0 0
 
-        .loading
-            margin: 8px 10px 0 0
-            width: 32px
-            height: 32px
-            float: right
-            background: image-url('icon32x32/ajax-loader.gif')
+#user_card,
+#user_friends
+    .loading
+        margin: 8px 10px 0 0
+        width: 32px
+        height: 32px
+        float: right
+        background: image-url('icon32x32/ajax-loader.gif')
 
 #user_card,
 #user_friends

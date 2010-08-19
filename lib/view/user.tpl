@@ -1,5 +1,41 @@
 
         <div id="user_colRight">
+            <h4>Personnalité :</h4>
+
+            <div id="user_feelings" class="box">
+                <script type="text/javascript+protovis">
+                    var area = 300;
+                    var size = 280;
+
+                    var vis = new pv.Panel()
+                        .width(area)
+                        .height(area);
+
+                    var wedge = vis.add(pv.Wedge)
+                        .data({{feeling_data}})
+                        .left(area / 2 - 2)
+                        .bottom(area / 2 + 2)
+                        .outerRadius(function(d) Math.sqrt(d.value) * (size /2))
+                        .angle(2 * Math.PI / 5)
+                        .lineWidth(4)
+                        .strokeStyle('#ffffff')
+                        .fillStyle(function(d) d.color);
+
+                    wedge.add(pv.Label)
+                        .left(function() 90 * Math.cos(wedge.midAngle()) + (area / 2))
+                        .bottom(function() -90 * Math.sin(wedge.midAngle()) + (area / 2))
+                        .textAlign("center")
+                        .textBaseline("middle")
+                        .font('12px sans-serif')
+                        .textStyle('#aaaaaa')
+                        .text(function(d) d.label);
+
+                    vis.render();
+                </script>
+            </div>
+        </div>
+
+        <div id="user_colLeft">
 
             <h4>Informations :</h4>
 
@@ -13,7 +49,7 @@
                 </ul>
 
                 <p class="stat">Distance par rapport a l'opinion public : <strong>{{profile_global_distance}} mètres</strong></p>
-                <p class="stat">Distance par rapport a vos amis : <strong>{{profile_friend_distance}} mètres</strong></p>
+                <p class="stat">Distance par rapport aux amis : <strong>{{profile_friend_distance}} mètres</strong></p>
                 <p class="stat">Nombre de votes : <strong>{{profile_totalVote}}</strong></p>
                 <p class="stat">Nombre de bonnes prédictions : <strong>{{profile_totalPredictionWon}}</strong></p>
                 <p class="stat">Nombre de mauvaises prédictions : <strong>{{profile_totalPredictionLost}}</strong></p>
@@ -24,16 +60,20 @@
                     <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}">{{friendRequest_message}}</a></li>
                     <!-- END friendRequest -->
                     <!-- SECTION private -->
-                    <li><a class="button" href="{{ROOT_PATH}}{{user_login}}/edit">paramètres</a></li>
+                    <li><a class="button nyroModal" href="{{ROOT_PATH}}remote/user/edit?userId={{user_id}}">paramètres</a></li>
                     <!-- END private -->
                 </ul>
 
-                <div class="clear"></div>
+                <div class="clear_left"></div>
             </div>
 
             <h4>Amis :</h4>
 
             <ul id="user_friends">
+                <!-- SECTION noFriends -->
+                <li class="noFriends">Auncun amis pour l'instant ...</li>
+                <!-- END noFriends -->
+
                 <!-- LOOP request -->
                 <li class="box">
                     <ul class="edit">
@@ -73,61 +113,4 @@
                 <!-- END friend -->
             </ul>
         </div>
-
-        <div id="user_colLeft">
-            <h4>Statistiques :</h4>
-        </div>
-
-        <!-- DONT TOUCH ABOVE I WILL MAKE IT RIGHT LATER :) -->
-
-        <!--
-        <h4>Feelings:</h4>
-        <ul>
-            <li>
-                <ul>
-                    <!-- LOOP feeling -->
-                    <li><strong>{{feeling.label}}:</strong> {{feeling.percent}}%</li>
-                    <!-- END feeling -->
-                </ul>
-            </li>
-        </ul>
-
-        <div id="userFeeling">
-            <script type="text/javascript+protovis">
-                var vis = new pv.Panel()
-                    .width(300)
-                    .height(300);
-
-                var wedge = vis.add(pv.Wedge)
-                    .data({{feeling_data}})
-                    .left(150)
-                    .bottom(150)
-                    .outerRadius(function(d) Math.sqrt(d.value) * 150)
-                    .angle(2 * Math.PI / 5)
-                    .lineWidth(8)
-                    .strokeStyle('white')
-                    .fillStyle(function(d) d.color);
-
-                wedge.add(pv.Label)
-                    .left(function() 45 * Math.cos(wedge.midAngle()) + 150)
-                    .bottom(function() -45 * Math.sin(wedge.midAngle()) + 150)
-                    .text(function(d) d.value)
-                    .textAlign("center")
-                    .textBaseline("middle")
-                    .font('14px sans-serif')
-                    .textStyle('Grey');
-
-                wedge.add(pv.Label)
-                    .left(function() 110 * Math.cos(wedge.midAngle()) + 150)
-                    .bottom(function() -110 * Math.sin(wedge.midAngle()) + 150)
-                    .textAlign("center")
-                    .textBaseline("middle")
-                    .font('10px sans-serif')
-                    .textStyle('Grey')
-                    .text(function(d) d.label);
-
-                vis.render();
-            </script>
-        </div>
-        -->
 

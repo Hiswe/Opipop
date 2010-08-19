@@ -89,7 +89,7 @@ class Page_User extends Page
             'profile_totalPredictionLost' => 0,
             'profile_predictionAccuracy'  => 0,
             'profile_global_distance'     => 0,
-            'profile_firend_distance'     => 0,
+            'profile_friend_distance'     => 0,
         ));
 
         // Get stats on profil's user guesses according to global votes
@@ -152,32 +152,38 @@ class Page_User extends Page
                     'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['goodVotes']) / $profileAFS['votes']) * $totalQuestions),
                 ));
             }
+        }
 
-            // Compute user's feelings
-            $profileFeelings = $profile->getFeelings();
-            $maxFeelingScore = 0;
-            foreach ($profileFeelings as $total)
-            {
-                $maxFeelingScore = ($maxFeelingScore < $total) ? $total : $maxFeelingScore;
-            }
-            $feelings = array('personality', 'surroundings', 'knowledge', 'experience', 'thoughts');
-            //$colors   = Conf::get('GRAPH_COLORS');
-            $data     = array();
-            foreach ($feelings as $id => $label)
-            {
-                $this->tpl->assignLoopVar('feeling', array
-                (
-                    'label'   => $label,
-                    'percent' => round(($maxFeelingScore == 0) ? 0 : ($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
-                ));
-                $data[] = array
-                (
-                    'value' => $profileFeelings[$id + 1] / $maxFeelingScore,
-                    'label' => $label,
-                    //'color' => $colors[$id],
-                );
-            }
-            $this->tpl->assignVar('feeling_data', json_encode($data));
+        // Compute user's feelings
+        $profileFeelings = $profile->getFeelings();
+        $maxFeelingScore = 0;
+        foreach ($profileFeelings as $total)
+        {
+            $maxFeelingScore = ($maxFeelingScore < $total) ? $total : $maxFeelingScore;
+        }
+        $feelings = array('Personalité', 'Environement', 'Savoir', 'Experience', 'Réflexion');
+        $colors   = Conf::get('GRAPH_COLORS');
+        $data     = array();
+        foreach ($feelings as $id => $label)
+        {
+            $this->tpl->assignLoopVar('feeling', array
+            (
+                'label'   => $label,
+                'percent' => round(($maxFeelingScore == 0) ? 0 : ($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
+            ));
+            $data[] = array
+            (
+                'value' => (($maxFeelingScore ? ($profileFeelings[$id + 1] / $maxFeelingScore) : 0) * 0.95) + 0.05,
+                'label' => $label,
+                'color' => $colors[$id],
+            );
+        }
+        $this->tpl->assignVar('feeling_data', json_encode($data));
+
+        // No friends ?
+        if (count($friends) == 0 && (!isset($pendingFriends) || count($pendingFriends) == 0))
+        {
+            $this->tpl->assignSection('noFriends');
         }
     }
 }
