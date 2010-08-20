@@ -57,8 +57,39 @@
         background: $white image-url('distance_friend.png') no-repeat center center
         margin: 10px 0 0 0
 
+#user_proximity
+    margin: 0 0 10px 0
+    padding: 10px 10px 20px 10px
+    position: relative
+
+    .user
+        position: absolute
+        top: 22px
+        right: 12px
+
+    .background
+        background: image-url('proximity_background.png') repeat-x bottom left
+        margin: 0 30px 0 0
+
+    .content
+        position: relative
+        margin: 0 50px 0 0
+        height: 42px
+
+        .avatar
+            border: solid 1px $light_grey
+            padding: 2px
+            background: $white
+            position: absolute
+
+        .percent
+            position: absolute
+            top: 38px
+            font-size: $font_medium
+            color: $grey
+
 #user_card
-    margin: 20px 0
+    margin: 20px 0 10px 0
     padding: 10px
     position: relative
 

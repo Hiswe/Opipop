@@ -8,8 +8,6 @@
                     <p class="linkList">
                         <a href="{{ROOT_PATH}}{{user_login}}">profile</a>
                         <span>|</span>
-                        <a href="{{ROOT_PATH}}{{user_login}}/edit">paramètres</a>
-                        <span>|</span>
                         <a href="{{ROOT_PATH}}logout">déconnexion</a>
                     </p>
                 </div>

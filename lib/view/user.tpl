@@ -54,6 +54,27 @@
                 <div class="clear_left"></div>
             </div>
 
+            <h4>Proximité :</h4>
+
+            <div id="user_proximity" class="box">
+                <h5>Quels amis le connaissent le mieux :</h5>
+                <div class="background">
+                    <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                    <div class="content">
+                        <span class="percent" style="left:0%;">0%</span>
+                        <span class="percent" style="left:25%;">25%</span>
+                        <span class="percent" style="left:50%;">50%</span>
+                        <span class="percent" style="left:75%;">75%</span>
+                        <span class="percent" style="left:100%;">100%</span>
+                        <!-- LOOP friend -->
+                        <!-- LOOP friend.stat -->
+                        <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                        <!-- END friend.stat -->
+                        <!-- END friend -->
+                    </div>
+                </div>
+            </div>
+
             <h4>Amis :</h4>
 
             <ul id="user_friends">
@@ -88,12 +109,12 @@
                     <!-- END private -->
                     <ul class="stat">
                         <!-- LOOP friend.stat -->
-                        <li>précision de prédictions : <strong>{{friend.stat.predictionAccuracy}}%</strong></li>
+                        <li>précision de prédictions : <strong>{{friend.stat.predictionAccuracy_my}}%</strong></li>
                         <!-- END friend.stat -->
                     </ul>
 
                     <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
-                        <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar}}" />
+                        <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar_medium}}" />
                         <strong class="login">{{friend.login}}</strong>
                     </a>
                 </li>

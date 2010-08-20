@@ -147,25 +147,25 @@
         }
 
         // count how many times we passed trough a loop
-        //function getSize ($name, $n){
-            //$levels = explode ('.', $name);
-            //$size = count ($levels);
-            //$key = implode('.', array_slice($levels, 0, $size-$n+1));
+        function getSize ($name, $n){
+            $levels = explode ('.', $name);
+            $size = count ($levels);
+            $key = implode('.', array_slice($levels, 0, $size-$n+1));
 
-            //return ((array_key_exists ($size-$n, $levels))?((array_key_exists ($key, $this->SIZE))?$this->SIZE[$key]:0):0);
-        //}
+            return ((array_key_exists ($size-$n, $levels))?((array_key_exists ($key, $this->SIZE))?$this->SIZE[$key]:0):0);
+        }
 
-        //function sizeReset ($name, $n){
-            //$levels = explode ('.', $name);
-            //$size = count ($levels);
-            //$key = implode('.', array_slice($levels, 0, $size-$n+1));
+        function sizeReset ($name, $n){
+            $levels = explode ('.', $name);
+            $size = count ($levels);
+            $key = implode('.', array_slice($levels, 0, $size-$n+1));
 
-            //($size > $n - 1)?
-                //(array_key_exists ($key, $this->SIZE))?
-                    //$this->SIZE[$key] = 0
-                //:NULL
-            //:NULL;
-        //}
+            ($size > $n - 1)?
+                (array_key_exists ($key, $this->SIZE))?
+                    $this->SIZE[$key] = 0
+                :NULL
+            :NULL;
+        }
 
         // return the name of a loop regarding to how deep we are when parsing tpls
         function loopName ($name){
@@ -377,19 +377,19 @@
             $loop_name = $this->loopName ($name);
             $loop_originalName = $this->getLoopName ($name);
 
-            //if (array_key_exists ($loop_originalName, $this->LOOP_SIZE)){
-                //if ($this->LOOP_SIZE[$loop_originalName] < $this->getSize ($loop_name, 3)){
+            if (array_key_exists ($loop_originalName, $this->LOOP_SIZE)){
+                if ($this->LOOP_SIZE[$loop_originalName] < $this->getSize ($loop_name, 3)){
 
 
-                    //$this->sizeReset ($name, 2);
+                    $this->sizeReset ($name, 2);
 
-                    //$loop_name = $this->loopName ($name);
+                    $loop_name = $this->loopName ($name);
 
                     //~ echo $name.' <b>reset</b><br></br>';
 
                     //~ $this->loop_exec ($name, $content);
-                //}
-            //}
+                }
+            }
 
             if (array_key_exists ($loop_name, $this->LOOP)){
                 preg_match_all ('#{{'.$name.'\.([^\.]*)}}#isU', $content, $variables);

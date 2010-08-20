@@ -196,7 +196,10 @@ class Model_User
                     FROM `user_result` AS `rg`
                     JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
                     JOIN `question` AS `q` ON q.id=rg.question_id
+                    JOIN `category` AS `c` ON c.id=q.question_id
                     WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    AND q.status=1
+                    AND c.status=1
                     GROUP BY q.id
                 )
                 AS d
@@ -236,10 +239,13 @@ class Model_User
                     FROM `user_result` AS `rg`
                     JOIN `user_result` AS `ru` ON ru.user_id="' . $this->data['id'] . '" AND rg.question_id=ru.question_id
                     JOIN `question` AS `q` ON q.id=rg.question_id
+                    JOIN `category` AS `c` ON c.id=q.category_id
                     JOIN `friend` AS f
                         ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=rg.user_id AND f.valided=1)
                         OR (f.user_id_1=rg.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
                     WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    AND q.status=1
+                    AND c.status=1
                     GROUP BY q.id
                 )
                 AS d
@@ -279,7 +285,10 @@ class Model_User
                     FROM `user_result` AS `rg`
                     JOIN `user_guess` AS `gu` ON gu.user_id="' . $this->data['id'] . '" AND rg.question_id=gu.question_id
                     JOIN `question` AS `q` ON q.id=rg.question_id
+                    JOIN `category` AS `c` ON c.id=q.category_id
                     WHERE q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                    AND q.status=1
+                    AND c.status=1
                     GROUP BY q.id
                 )
                 AS d
@@ -313,18 +322,36 @@ class Model_User
                     u.zip,
                     u.email,
                     u.valided,
-                    COUNT(r.answer_id) AS `guesses`,
-                    SUM(IF(r.answer_id=g.answer_id, 1, 0)) AS `goodGuesses`,
-                    SUM(IF(r.answer_id!=g.answer_id, 1, 0)) AS `badGuesses`
+                    /*
+                    r.answer_id AS answer,
+                    g.answer_id AS guess,
+                    r.user_id AS result_user,
+                    g.user_id AS guess_user,
+                    g.friend_id AS guessed_friend
+                    */
+                    SUM(IF(u.id=g.user_id AND g.friend_id="' . $this->data['id'] . '", 1, 0)) AS `his_guesses`,
+                    SUM(IF(u.id=g.user_id AND g.friend_id="' . $this->data['id'] . '" AND r.answer_id=g.answer_id, 1, 0)) AS `his_goodGuesses`,
+                    SUM(IF(u.id=g.user_id AND g.friend_id="' . $this->data['id'] . '" AND r.answer_id!=g.answer_id, 1, 0)) AS `his_badGuesses`,
+                    SUM(IF(g.user_id="' . $this->data['id'] . '" AND r.user_id!=g.user_id, 1, 0)) AS `my_guesses`,
+                    SUM(IF(g.user_id="' . $this->data['id'] . '" AND r.user_id!=g.user_id AND r.answer_id=g.answer_id, 1, 0)) AS `my_goodGuesses`,
+                    SUM(IF(g.user_id="' . $this->data['id'] . '" AND r.user_id!=g.user_id AND r.answer_id!=g.answer_id, 1, 0)) AS `my_badGuesses`
+
                 FROM `user_guess_friend` AS `g`
-                JOIN `user` AS `u` ON g.friend_id=u.id
-                JOIN `user_result` AS `r` ON g.question_id=r.question_id AND r.user_id=g.friend_id
-                JOIN `question` AS `q` ON q.id=g.question_id
+                JOIN `user` AS `u`        ON g.user_id=u.id OR g.friend_id=u.id
+                JOIN `user_result` AS `r` ON g.question_id=r.question_id AND (r.user_id=g.friend_id OR r.user_id="' . $this->data['id'] . '")
+                JOIN `question` AS `q`    ON q.id=g.question_id
+                JOIN `category` AS `c`    ON c.id=q.category_id
                 JOIN `friend` AS f
                     ON (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.friend_id AND f.valided=1)
                     OR (f.user_id_1=g.friend_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
-                WHERE g.user_id="' . $this->data['id'] . '"
+                    OR (f.user_id_1="' . $this->data['id'] . '" AND f.user_id_2=g.user_id AND f.valided=1)
+                    OR (f.user_id_1=g.user_id AND f.user_id_2="' . $this->data['id'] . '" AND f.valided=1)
+
+                WHERE (g.user_id="' . $this->data['id'] . '" OR g.friend_id="' . $this->data['id'] . '")
                 AND q.date < ' . (time() - Conf::get('QUESTION_DURATION') - 3600) . '
+                AND q.status=1
+                AND c.status=1
+
                 GROUP BY u.id
             ');
             $this->guessFriendsStats = array();
@@ -332,9 +359,12 @@ class Model_User
             {
                 $this->guessFriendsStats[] = array
                 (
-                    'guesses'     => $friend['guesses'],
-                    'goodGuesses' => $friend['goodGuesses'],
-                    'badGuesses'  => $friend['badGuesses'],
+                    'his_guesses'     => $friend['his_guesses'],
+                    'his_goodGuesses' => $friend['his_goodGuesses'],
+                    'his_badGuesses'  => $friend['his_badGuesses'],
+                    'my_guesses'      => $friend['my_guesses'],
+                    'my_goodGuesses'  => $friend['my_goodGuesses'],
+                    'my_badGuesses'   => $friend['my_badGuesses'],
                     'user'        => new Model_User($friend['id'], array
                     (
                         'login' => $friend['login'],
@@ -412,7 +442,7 @@ class Model_User
                 FROM `user_result` AS `r`
                 JOIN `question_answer_feeling` AS `j` ON j.question_id=r.question_id AND j.answer_id=r.answer_id
                 JOIN `feeling` AS `f` ON f.id=j.feeling_id
-                WHERE r.user_id="' . $this->data['id'] . '" AND f.id!="1"
+                WHERE r.user_id="' . $this->data['id'] . '" AND f.id!="' . $this->data['id'] . '"
                 GROUP BY f.id
             ');
             $this->feelings = array('1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0);

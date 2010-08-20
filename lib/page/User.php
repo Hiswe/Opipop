@@ -111,9 +111,10 @@ class Page_User extends Page
         {
             $this->tpl->assignLoopVar('friend', array
             (
-                'id'     => $friend->getId(),
-                'login'  => $friend->getLogin(),
-                'avatar' => $friend->getAvatarUri('medium'),
+                'id'            => $friend->getId(),
+                'login'         => $friend->getLogin(),
+                'avatar_medium' => $friend->getAvatarUri('medium'),
+                'avatar_small'  => $friend->getAvatarUri('small'),
             ));
 
             foreach ($profileFriendsStats as $stat)
@@ -123,7 +124,8 @@ class Page_User extends Page
                 {
                     $this->tpl->assignLoopVar('friend.stat', array
                     (
-                        'predictionAccuracy' => round(($stat['guesses'] == 0) ? 0 : ($stat['goodGuesses'] / $stat['guesses']) * 100),
+                        'predictionAccuracy_his' => round(($stat['his_guesses'] == 0) ? 0 : ($stat['his_goodGuesses'] / $stat['his_guesses']) * 100),
+                        'predictionAccuracy_my'  => round(($stat['my_guesses'] == 0) ? 0 : ($stat['my_goodGuesses'] / $stat['my_guesses']) * 100),
                     ));
                 }
             }
