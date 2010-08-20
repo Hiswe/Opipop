@@ -1,7 +1,10 @@
 
         <div class="clear"></div>
 
-        <h4>Sondages en cours :</h4>
+        <h4>
+            <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal" title="informations">informations</a>
+            Sondages en cours :
+        </h4>
 
         <ul id="question_active">
             <!-- LOOP question -->

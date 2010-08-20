@@ -23,17 +23,6 @@ RewriteRule ^submit$ index.php?page=submit [L]
 # LOGOUT
 RewriteRule ^logout$ index.php?remote=logout [L]
 
-# QUESTION
-RewriteRule ^question/[a-zA-Z0-9_-]*-([0-9]+)$ index.php?page=question&id=$1 [L]
-
-# CATEGORY
-#RewriteRule ^category/([a-zA-Z0-9_-]*)/*([0-9]*)$ index.php?page=question_list&guid=$1&p=$2 [L]
-#RewriteRule ^category/([a-zA-Z0-9_-]*)/archives/*([0-9]*)$ index.php?page=question_list&guid=$1&p=$2&archive=1 [L]
-
-# COMMUNITY
-#RewriteRule ^users/*([0-9]*)$ index.php?page=user_list&p=$1 [L]
-#RewriteRule ^users/search/([^/]+)/*([0-9]*)$ index.php?page=user_list&query=$1&p=$2 [L]
-
 # BACKOFFICE
 RewriteRule ^backoffice/?$ backoffice/index.php [L]
 RewriteRule ^backoffice/remote/([a-zA-Z0-9_]+)$ backoffice/index.php?remote=$1 [L,QSA]

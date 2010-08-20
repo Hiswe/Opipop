@@ -1,6 +1,9 @@
 
         <div id="user_colRight">
-            <h4>Statistiques :</h4>
+            <h4>
+                <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal" title="informations">informations</a>
+                Statistiques :
+            </h4>
 
             <div id="user_statistiques" class="box">
                 <h5>Profile :</h5>
@@ -26,7 +29,10 @@
 
         <div id="user_colLeft">
 
-            <h4>Informations :</h4>
+            <h4>
+                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations">informations</a>
+                Informations :
+            </h4>
 
             <div id="user_card" class="box">
                 <img class="avatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
@@ -54,7 +60,10 @@
                 <div class="clear_left"></div>
             </div>
 
-            <h4>Proximité :</h4>
+            <h4>
+                <a href="{{ROOT_PATH}}remote/info?info=user_proximity" class="info_bulle nyroModal" title="informations">informations</a>
+                Proximité :
+            </h4>
 
             <div id="user_proximity" class="box">
                 <h5>Quels amis le connaissent le mieux :</h5>
@@ -75,7 +84,10 @@
                 </div>
             </div>
 
-            <h4>Amis :</h4>
+            <h4>
+                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations">informations</a>
+                Amis :
+            </h4>
 
             <ul id="user_friends">
                 <!-- SECTION noFriends -->

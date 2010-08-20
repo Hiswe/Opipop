@@ -43,6 +43,7 @@ $border_radius: 4px
 @import view/question/gender
 @import view/question/map
 @import view/user
+@import view/info
 
 
 .main_content
@@ -195,10 +196,25 @@ form
     color: $grey
     +box-shadow($light_grey, -1px, 1px, 1px)
 
+.info_bulle
+    text-indent: -9999em
+    float: right
+    display: block
+    background: image-url('icon16x16/information.png') no-repeat
+    width: 16px
+    height: 16px
+    margin: 4px 0 0 0
+
+.info_bulle:hover
+    background: image-url('icon16x16/information-hover.png') no-repeat
+
 
 ///////////////////
 //  NYROMODAL
 ///////////////////
+
+#nyroModalTitle
+    display: none
 
 #nyroModalLoading,
 #nyroModalWrapper

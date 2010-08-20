@@ -1,6 +1,9 @@
 
         <!-- SECTION NOT_AJAX -->
-        <h4>Sondages passés:</h4>
+        <h4>
+            <a href="{{ROOT_PATH}}remote/info?info=question_archive" class="info_bulle nyroModal" title="informations">informations</a>
+            Sondages passés:
+        </h4>
         <!-- END NOT_AJAX -->
 
         <ul id="question_archive">
@@ -16,7 +19,7 @@
                         <script type="text/javascript">Graph.archive('graph{{question_archive.id}}', {{question_archive.data}}, 75);</script>
                     </div>
 
-                    <h2 class="label"><a href="{{ROOT_PATH}}question/{{question_archive.guid}}-{{question_archive.id}}">{{question_archive.label}}</a></h2>
+                    <h2 class="label">{{question_archive.label}}</h2>
 
                     <!-- LOOP question_archive.answer -->
                     <p class="answer key{{question_archive.answer.key}}">{{question_archive.answer.percentFormated}}% {{question_archive.answer.label}}</p>
