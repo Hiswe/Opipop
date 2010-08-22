@@ -4,22 +4,22 @@
             <div class="side1">
                 <script type="text/javascript">var user_id = {{profile_id}};</script>
 
-                <h4>Edit you informations:</h4>
+                <h4>Mes informations:</h4>
 
                 <form method="post" name="user_edit" action="{{ROOT_PATH}}remote/user/edit/submit" onsubmit="return User_edit.submit();" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{profile_id}}" />
                     <input type="hidden" name="login" value="{{profile_login}}" />
 
                     <label>
-                        <em>Gender:</em>
+                        <em>Civilité :</em>
                         <select id="user_edit_gender" name="gender" value="">
-                            <option value="0"{{profile_edit_gender_0}}>Male</option>
-                            <option value="1"{{profile_edit_gender_1}}>Female</option>
+                            <option value="0"{{profile_edit_gender_0}}>Homme</option>
+                            <option value="1"{{profile_edit_gender_1}}>Femme</option>
                         </select>
                     </label>
 
                     <label>
-                        <em>Zip:</em>
+                        <em>Région :</em>
                         <select id="user_edit_zip" name="zip" value="">
                             <option value="1"{{profile_edit_zip_1}}>Alsace</option>
                             <option value="2"{{profile_edit_zip_2}}>Aquitaine</option>
@@ -46,39 +46,42 @@
                         </select>
                     </label>
 
-                    <em>Avatar:</em>
-                    <input type="file" name="avatar" />
+                    <label>
+                        <em>Avatar :</em>
+                        <input type="file" name="avatar" />
+                    </label>
                     <p>
-                        You can upload a JPG, GIF or PNG file<br />
-                        Max size : 450 KB<br />
-                        Max width : 1680 px<br />
-                        Max height : 1680 px
+                        Vous pouvez envoyer un fichier JPG, GIF ou PNG<br />
+                        Taille max : 450 KB<br />
+                        Largeur max : 1680 px<br />
+                        Hauteur max : 1680 px
                     </p>
-                    <input type="submit" name="submit" value="save">
+
+                    <input type="submit" name="submit" value="Enregister" class="button" />
                 </form>
 
                 <script type="text/javascript">User_edit.init();</script>
             </div>
             <div class="side2">
-                <h4>Change your password:</h4>
+                <h4>Changer de mot de passe :</h4>
 
                 <form id="user_password" method="post" name="user_password" action="{{ROOT_PATH}}remote/user_password_submit" onsubmit="return User_password.submit();">
                     <input type="hidden" name="id" value="{{profile_id}}" />
                     <input type="hidden" name="login" value="{{profile_login}}" />
 
                     <label>
-                        <em>Current password:</em>
+                        <em>Mot de passe actuel :</em>
                         <input id="user_password_password_0" type="password" maxlength="128" name="password_1" value="" />
                     </label>
                     <label>
-                        <em>New password:</em>
+                        <em>Nouveau mot de passe :</em>
                         <input id="user_password_password_1" type="password" maxlength="128" name="password_1" value="" />
                     </label>
                     <label>
-                        <em>Confirm new password:</em>
+                        <em>Confirmez le mot de passe :</em>
                         <input id="user_password_password_2" type="password" maxlength="128" name="password_2" value="" />
                     </label>
-                    <input type="submit" name="submit" value="change">
+                    <input type="submit" name="submit" value="Changer" class="button" />
                 </form>
                 <script type="text/javascript">User_password.init();</script>
             </div>

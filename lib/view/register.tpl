@@ -5,35 +5,40 @@
             <p><strong>2</strong> - verifiez vos email</p>
             <p><strong>3</strong> - cliquez sur le lien de validation</p>
             <p>Donnez votre opinion sur les sondages en cours. Des que ceux ci serons terminé vous pourez consulter les resultats nationnaux et ceux de vos amis.</p>
+            <hr></hr>
+            <p>Revenir a l'écran de connection :</p>
+            <a href="{{ROOT_PATH}}remote/login" class="nyroModal button">connectez vous !</a>
         </div>
         <div class="side2">
+            <h4>Nouveau compte :</h4>
+
             <form id="register_form" method="post" name="register" action="javascript:Register.submit();">
                 <label>
-                    <em>Login :</em>
+                    <em>Identifiant :</em>
                     <input id="register_login" type="text" maxlength="32" name="login" value="" />
                 </label>
                 <label>
-                    <em>Password:</em>
+                    <em>Mot de passe :</em>
                     <input id="register_password_1" type="password" maxlength="128" name="password_1" value="" />
                 </label>
                 <label>
-                    <em>Confirm password:</em>
+                    <em>Confirmer le mot de passe :</em>
                     <input id="register_password_2" type="password" maxlength="128" name="password_2" value="" />
                 </label>
                 <label>
-                    <em>Email:</em>
+                    <em>Email :</em>
                     <input id="register_email" type="text" maxlength="320" name="email" value="" />
                 </label>
                 <label>
-                    <em>Gender:</em>
+                    <em>Civilité :</em>
                     <select id="register_gender" name="gender" value="">
-                        <option value="" disabled="disabled">-- SELECT --</option>
-                        <option value="0">Male</option>
-                        <option value="1">Female</option>
+                        <option value="" disabled="disabled">-- SELECTIONEZ --</option>
+                        <option value="0">Homme</option>
+                        <option value="1">Femme</option>
                     </select>
                 </label>
                 <label>
-                    <em>Zip:</em>
+                    <em>Région :</em>
                     <select id="register_zip" name="zip" value="">
                         <option value="0" disabled="disabled">-- SELECT --</option>
                         <option value="1">Alsace</option>
@@ -60,7 +65,7 @@
                         <option value="23">Rhône-Alpes</option>
                     </select>
                 </label>
-                <input type="submit" name="submit" value="register">
+                <input type="submit" name="submit" value="Valider" class="button" />
             </form>
         </div>
     </div>

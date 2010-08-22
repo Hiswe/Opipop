@@ -33,7 +33,7 @@
                             <ul class="group">
                                 <!-- LOOP question.answer.user -->
                                 <li class="user draggable {{question.answer.user.class}}" id="{{question.answer.user.class}}.{{question.id}}.{{question.answer.user.id}}">
-                                    <img class="avatar" src="{{ROOT_PATH}}{{question.answer.user.avatar}}" alt="{{question.answer.user.login}}" />
+                                    <img class="avatar" src="{{ROOT_PATH}}{{question.answer.user.image}}" alt="{{question.answer.user.login}}" />
                                     <span>{{question.answer.user.label}}</span>
                                 </li>
                                 <!-- END question.answer.user -->

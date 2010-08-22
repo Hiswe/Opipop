@@ -71,11 +71,11 @@ class Block_Question_Active extends Block
                 {
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
-                        'class'  => 'vote',
-                        'label'  => 'Mon opinion',
-                        'id'     => $user->getId(),
-                        'login'  => $user->getLogin(),
-                        'avatar' => $user->getAvatarUri('small'),
+                        'class' => 'vote',
+                        'label' => 'Mon opinion',
+                        'id'    => $user->getId(),
+                        'login' => $user->getLogin(),
+                        'image' => $user->getAvatarUri('small'),
                     ));
                     $answerIsEmpty = false;
                 }
@@ -84,11 +84,11 @@ class Block_Question_Active extends Block
                 {
                     $this->tpl->assignLoopVar('question.answer.user', array
                     (
-                        'class'  => 'guess',
-                        'label'  => 'Mon pronostic',
-                        'id'     => $user->getId(),
-                        'login'  => $user->getLogin(),
-                        'avatar' => $user->getAvatarUri('small'),
+                        'class' => 'guess',
+                        'label' => 'Mon pronostic',
+                        'id'    => $user->getId(),
+                        'login' => $user->getLogin(),
+                        'image' => 'media/layout/icon24x24/map_mini.png',
                     ));
                     $answerIsEmpty = false;
                 }

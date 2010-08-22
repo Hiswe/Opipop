@@ -32,7 +32,7 @@ var Login =
     {
         if (data == '1')
         {
-            window.location = ROOT_PATH;
+            window.location = window.location.toString().replace(/(#)/g, '');
         }
         else
         {

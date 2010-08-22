@@ -28,6 +28,7 @@ $font_huge: 24px
 
 $border_size: 2px
 $border_size_small: 1px
+
 $border_radius: 4px
 
 @import compass/css3
@@ -120,10 +121,22 @@ h5
 
 
 ///////////////////
+//  HR
+///////////////////
+
+hr
+    height: 1px
+    background: $light_grey
+    border: none
+    margin: 20px 0
+
+
+///////////////////
 //  FORM
 ///////////////////
 
 form
+
     span
         color: $red
         font-size: $font_small
@@ -141,12 +154,14 @@ form
             display: block
             padding: 0 0 4px 0
 
+    select,
+    input[type=file],
     input[type=text],
     input[type=password]
         display: block
         padding: 4px
-        width: 150px
-        border: 1px solid $grey
+        width: 180px
+        border: 1px solid $light_grey
         font-size: $font_small
         font-weight: bold
         color: $pink
@@ -155,6 +170,11 @@ form
     input[type=text]:focus,
     input[type=password]:focus
         border-color: $pink
+
+    p
+        color: $grey
+        font-size: $font_small
+        margin: 0 0 15px 0
 
 
 ///////////////////
@@ -174,7 +194,7 @@ form
     border: solid $border_size $light_grey
     +linear-gradient(color-stops($white 50%, $very_light_grey))
     +border-radius($border_radius)
-    +box-shadow($light_grey, -1px, 1px, 4px)
+    //+box-shadow($light_grey, -1px, 1px, 4px)
 
 .button
     color: $grey
@@ -182,6 +202,7 @@ form
     padding: 5px 10px
     border: solid $border_size_small $light_grey
     font-weight: bold
+    cursor: pointer
     +border-radius($border_radius)
     +box-shadow($light_grey, -1px, 1px, 1px)
 
@@ -198,15 +219,16 @@ form
 
 .info_bulle
     text-indent: -9999em
-    float: right
+    float: left
     display: block
-    background: image-url('icon16x16/information.png') no-repeat
+    //background: image-url('icon16x16/information.png') no-repeat
+    background: image-url('icon16x16/information-hover.png') no-repeat
     width: 16px
     height: 16px
-    margin: 4px 0 0 0
+    margin: 3px 8px 0 0
 
-.info_bulle:hover
-    background: image-url('icon16x16/information-hover.png') no-repeat
+//.info_bulle:hover
+    //background: image-url('icon16x16/information-hover.png') no-repeat
 
 
 ///////////////////
@@ -218,8 +240,9 @@ form
 
 #nyroModalLoading,
 #nyroModalWrapper
-    +box-shadow(#999999, 5px, 5px, 15px)
+    //+box-shadow(#999999, 5px, 5px, 15px)
     +border-radius(8px)
+    border: solid $light_grey $border_size
     width: 150px
     height: 150px
     background: #fff
