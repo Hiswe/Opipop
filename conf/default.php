@@ -37,6 +37,7 @@
     $conf['PAGE_KEYWORDS']     = utf8_encode('');
     $conf['QUESTION_DURATION'] = 86400 * 7;
     $conf['QUESTION_PER_PAGE'] = 4;
+    $conf['USER_PER_PAGE']     = 8;
     $conf['MAIN_CATEGORY']     = 1;
 
     // GRAPH

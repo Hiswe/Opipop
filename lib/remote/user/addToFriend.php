@@ -23,7 +23,7 @@ class Remote_User_AddToFriend extends Remote
             exit();
         }
 
-        if ($_POST['action'] == 'add')
+        if ($_POST['action'] == 'add' || $_POST['action'] == 'ask')
         {
             $rs_friend = DB::select('
                 SELECT `valided`
@@ -52,6 +52,8 @@ class Remote_User_AddToFriend extends Remote
                 WHERE (`user_id_1`="' . $friendId . '" AND `user_id_2`="' . $userId . '")
                 OR (`user_id_1`="' . $userId . '" AND `user_id_2`="' . $friendId . '")
             ');
+            echo 'reload';
+            exit();
         }
 
         echo json_encode(array

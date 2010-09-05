@@ -649,14 +649,13 @@ class Model_User
 
     public static function search($query = false, $page = false)
     {
-        $from = ((!$page) ? 0 : $page - 1) * Conf::get('QUESTION_PER_PAGE');
-        $max = ($page === false) ? 0 : Conf::get('QUESTION_PER_PAGE');
+        $from = ((!$page) ? 0 : $page - 1) * Conf::get('USER_PER_PAGE');
+        $max = ($page === false) ? 0 : Conf::get('USER_PER_PAGE');
         $query = trim($query);
 
         $rs = DB::select('
             SELECT u.id, u.login, u.valided, u.male, u.email, u.zip
             FROM `user` AS `u`
-            JOIN `user_result` AS `r` ON r.user_id=u.id
             WHERE valided="1" ' . (($query) ? ' AND u.login LIKE(\'' . Tool::getLikeList($query) . '\')' : '') . '
             GROUP BY u.id
             ORDER BY u.register_date DESC

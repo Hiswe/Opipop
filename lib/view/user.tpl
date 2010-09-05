@@ -89,6 +89,17 @@
                 Amis :
             </h4>
 
+            <!-- SECTION private -->
+            <form id="user_search">
+                <label>
+                    <em>Rechercher un amis :</em>
+                    <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
+                </label>
+            </form>
+            <ul id="user_search_result"></ul>
+            <hr></hr>
+            <!-- END private -->
+
             <ul id="user_friends">
                 <!-- SECTION noFriends -->
                 <li class="noFriends">Auncun amis pour l'instant ...</li>

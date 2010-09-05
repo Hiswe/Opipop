@@ -3,6 +3,15 @@ var Form =
 
     emailFilter : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
 
+    noAction : function(event)
+    {
+        if (event)
+        {
+            event.preventDefault();
+        }
+        return false;
+    },
+
     disable : function(form)
     {
         form.find('input[type=submit]').attr('disabled', 'disabled');

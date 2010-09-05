@@ -1,7 +1,79 @@
 var User =
 {
 
-    initFriendList : function()
+    searchTimeout       : 0,
+    previousSearchQuery : '',
+
+    initSearch : function()
+    {
+        $('#user_search').bind('submit', Form.noAction);
+        $('#user_search_query').bind('keydown', User.scheduleSearch);
+        $('#user_search_query').bind('change', User.scheduleSearch);
+    },
+
+    scheduleSearch : function()
+    {
+        clearTimeout(User.searchTimeout);
+        User.searchTimeout = setTimeout(User.search, 500);
+    },
+
+    search : function(event)
+    {
+        var query = Form.getCleanInputValue($('#user_search_query'));
+        if (query.length == 0)
+        {
+            User.cleanSearch();
+            return;
+        }
+        else if (query == User.previousSearchQuery)
+        {
+            return;
+        }
+        User.previousSearchQuery = query;
+
+        var params =
+        {
+            query : query
+        };
+        $.post(ROOT_PATH + 'remote/user/search', params, User.searchCallback);
+    },
+
+    cleanSearch : function()
+    {
+        $('#user_search_result').html('');
+    },
+
+    searchCallback : function(data)
+    {
+        if (data == 'register')
+        {
+            window.location = ROOT_PATH + 'register';
+        }
+
+        User.cleanSearch();
+
+        var i = 0;
+        var container = $('#user_search_result');
+        for (i = 0; i < data.length; i ++)
+        {
+            container.append
+            (
+                '<li class="box">' +
+                    '<ul class="edit">' +
+                        '<li><a href="#" id="friend_' + data[i].id + '" class="button" title="ask">ajouter a mes amis</a></li>' +
+                    '</ul>' +
+                    '<a href="' + ROOT_PATH + data[i].login + '">' +
+                        '<img class="avatar" src=' + ROOT_PATH + data[i].avatar + ' />' +
+                        '<strong class="login">' + data[i].login + '</strong>' +
+                    '</a>' +
+                '</li>'
+            );
+        }
+
+        $('#user_search_result a[title="ask"]').bind('click', User.addToFriend);
+    },
+
+    initFriends : function()
     {
         $(
             '#user_friends a[title="add"],' +
@@ -42,7 +114,6 @@ var User =
         if (action == 'remove' || action == 'cancel' || action == 'reject')
         {
             link.parent().parent().addClass('loading');
-            link.remove();
         }
 
         link.fadeTo(0, 0);
@@ -68,7 +139,11 @@ var User =
 
         var link = $('#friend_' + data.friendId);
 
-        if (data.action == 'add')
+        if (data.action == 'ask')
+        {
+            link.replaceWith('<span class="message">Requette envoyée !</span>');
+        }
+        else if (data.action == 'add')
         {
             link.attr('title', 'cancel');
             link.html('Annuler la demande');
@@ -104,10 +179,10 @@ var User =
             friendId : friendId,
             action   : action
         };
-        $.post(ROOT_PATH + 'remote/user/addToFriend', params, User.addToFriendCallback);
+        $.post(ROOT_PATH + 'remote/user/addToFriend', params, User.requestFriendCallback);
     },
 
-    addToFriendCallback : function(data)
+    requestFriendCallback : function(data)
     {
         if (data == 'register')
         {

@@ -15,6 +15,43 @@
     background: $white
     margin: 0 0 20px 0
 
+#user_search
+    em
+        display: inline
+        margin: 0 5px 0 0
+
+    input
+        display: inline
+
+#user_search_result
+    li.box
+        padding: 5px 2px 5px 5px
+        margin: 0 0 10px 0
+        height: 24px
+        position: relative
+
+        .avatar
+            float: left
+            margin: 0 10px 0 0
+
+        .login
+            float: left
+            font-size: $font_medium
+            margin: 4px 0 0 0
+            +text-shadow($light_grey)
+
+        .edit
+            height: 24px
+            float: right
+
+            li
+                float: right
+                margin: 6px 10px 0 0
+
+        .message
+            color: $grey
+            font-size: $font_small
+
 #user_edit
     width: 620px
 
