@@ -1,9 +1,24 @@
 <?php
 
-$map = new Block_Question_Map($tpl);
-$map->setQuestion(new Model_Question($_GET['questionId']));
-$map->setIsAjax(true);
-$map->configure();
+class Remote_Question_Map extends Remote
+{
+    public $AJAXONLY = false;
 
-echo $map->render();
+    private $block;
+
+    public function configureView()
+    {
+        if ($this->block)
+        {
+            $this->block->assignTemplate();
+        }
+    }
+
+    public function configureData()
+    {
+        $this->block = new Block_Question_Map();
+        $this->bock->setQuestion(new Model_Question($_GET['questionId']));
+        $this->block->configure();
+    }
+}
 

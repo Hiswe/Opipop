@@ -1,25 +1,33 @@
 <?php
 
-    // Select the user corresponding to the this login and password
-    $rs = DB::select
-    ('
-        SELECT `id`,`login`, `key`
-        FROM `user`
-        WHERE `login`="' . $_POST['login'] . '" AND `password`="' . md5($_POST['password']) . '" AND `valided`=1
-    ');
+class Remote_Login_Submit extends Remote
+{
+    public $AJAXONLY = true;
 
-    // If there is none do nothing
-    if ($rs['total'] == 0)
+    public function configureData()
     {
-        echo '0';
-    }
-    // Else log this user
-    else
-    {
-        $user = $rs['data'][0];
+        // Select the user corresponding to the this login and password
+        $rs = DB::select
+        ('
+            SELECT `id`,`login`, `key`
+            FROM `user`
+            WHERE `login`="' . $_POST['login'] . '" AND `password`="' . md5($_POST['password']) . '" AND `valided`=1
+        ');
 
-        Model_User::login((int)$user['id']);
+        // If there is none do nothing
+        if ($rs['total'] == 0)
+        {
+            echo '0';
+        }
+        // Else log this user
+        else
+        {
+            $user = $rs['data'][0];
 
-        echo '1';
+            Model_User::login((int)$user['id']);
+
+            echo '1';
+        }
     }
+}
 

@@ -2,7 +2,7 @@
 
 class Block_Question_Archive extends Block
 {
-    protected $_TEMPLATE = 'lib/view/question/archive.tpl';
+    protected $template = 'lib/view/question/archive.tpl';
 
     private $page = 0;
 
@@ -48,7 +48,7 @@ class Block_Question_Archive extends Block
             }
 
             // Assign question infos
-            $this->tpl->assignLoopVar('question_archive', array
+            Globals::$tpl->assignLoopVar('question_archive', array
             (
                 'id'    => $question->getId(),
                 'label' => $question->getLabel(),
@@ -60,7 +60,7 @@ class Block_Question_Archive extends Block
             // Assign answers infos
             foreach ($answers as $key => $answer)
             {
-                $this->tpl->assignLoopVar('question_archive.answer', array
+                Globals::$tpl->assignLoopVar('question_archive.answer', array
                 (
                     'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
                     'label'           => $answer->getLabel(),

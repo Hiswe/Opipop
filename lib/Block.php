@@ -2,21 +2,11 @@
 
 class Block
 {
-    protected $_TEMPLATE = '';
+    protected $template = '';
+    protected $isAjax   = true;
 
-    protected $tpl;
-    protected $isAjax;
-
-    public function BlocK($tpl = null)
+    public function BlocK()
     {
-        if (isset($tpl))
-        {
-            $this->tpl = $tpl;
-        }
-        else
-        {
-            $this->tpl = new Template();
-        }
         $this->isAjax = false;
     }
 
@@ -30,10 +20,12 @@ class Block
         return $this->isAjax;
     }
 
-    public function render()
+    public function assignTemplate()
     {
-        $this->tpl->assignTemplate($this->_TEMPLATE);
-        return $this->tpl->display(true);
+        if (!empty($this->template))
+        {
+            Globals::$tpl->assignTemplate($this->template);
+        }
     }
 
     public function configure(){}

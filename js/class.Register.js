@@ -41,9 +41,9 @@ var Register =
 
         if (value.length != 0)
         {
-            if (value.match(/([^a-zA-Z0-9_])/g))
+            if (value.match(/([^a-zA-Z0-9_-])/g))
             {
-                Form.setError($('#register_login'), 'username must contain only alpha or digit characters or underscores');
+                Form.setError($('#register_login'), 'votre identifiant ne doit contenir que des lettres des chiffres ou des tirés');
             }
             else
             {
@@ -68,7 +68,7 @@ var Register =
         }
         else if (data == '0')
         {
-            Form.setError($('#register_login'), 'this user name is already in use');
+            Form.setError($('#register_login'), 'cet identifiant est déjà utilisé');
         }
     },
 
@@ -107,7 +107,7 @@ var Register =
         }
         else if (data == '0')
         {
-            Form.setError($('#register_email'), 'this email is already in use');
+            Form.setError($('#register_email'), 'cet email est déjà utilisé');
         }
     },
 
@@ -124,7 +124,7 @@ var Register =
         }
         else if (input_1_value.length < 6)
         {
-            Form.setError($('#register_password_1'), 'password must be at least 6 character long');
+            Form.setError($('#register_password_1'), 'le mot de passe doit contenir au moins 6 charatecters');
         }
         else
         {
@@ -132,7 +132,7 @@ var Register =
 
             if (input_1_value.length != 0 && input_2_value.length != 0 && input_1_value != input_2_value)
             {
-                Form.setError($('#register_password_1'), 'error confirming passord');
+                Form.setError($('#register_password_1'), 'erreur en confirmant le mot de passe');
             }
             else
             {
@@ -153,7 +153,7 @@ var Register =
 
         if (login.length == 0 || email.length == 0 || password.length == 0 || zip.length == 0 || gender.length == 0)
         {
-            alert('You must fill all the form\'s field to register !');
+            alert('Vous devez remplir tous les champs du formulaire pour créer un compte !');
             Form.enable($('#register_form'));
             return;
         }
@@ -173,16 +173,7 @@ var Register =
 
     submitCallback : function(data)
     {
-        if (data == '0')
-        {
-            alert('Error while registerging, this login is not allowed !');
-            Form.clean('#register_login');
-            Form.enable($('register'));
-        }
-        else
-        {
-            //window.location = ROOT_PATH + 'login/confirm';
-        }
+        //window.location = ROOT_PATH + 'login/confirm';
     }
 
 };

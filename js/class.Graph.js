@@ -67,20 +67,20 @@ var Graph =
             .left(area / 2 - 2)
             .bottom(area / 2 + 2)
             .innerRadius(20)
-            .outerRadius(function(d) Math.sqrt(d.value) * (size /2))
+            .outerRadius(function(d){ return Math.sqrt(d.value) * (size /2); })
             .angle(2 * Math.PI / 6)
             .lineWidth(4)
             .strokeStyle('#ffffff')
-            .fillStyle(function(d) d.color);
+            .fillStyle(function(d){ return d.color; });
 
         wedge.add(pv.Label)
-            .left(function() 90 * Math.cos(wedge.midAngle()) + (area / 2))
-            .bottom(function() -90 * Math.sin(wedge.midAngle()) + (area / 2))
+            .left(function(){ return 90 * Math.cos(wedge.midAngle()) + (area / 2); })
+            .bottom(function(){ return -90 * Math.sin(wedge.midAngle()) + (area / 2); })
             .textAlign("center")
             .textBaseline("middle")
             .font('12px sans-serif')
             .textStyle('#555555')
-            .text(function(d) d.label);
+            .text(function(d){ return d.label; });
 
         vis.render();
     },
@@ -101,13 +101,13 @@ var Graph =
             .data(data)
             .bottom(10)
             .width(90)
-            .height(function(d) d.value * 250)
-            .left(function() this.index * 90 + this.index * 10 + 40)
-            .fillStyle(function(d) d.color);
+            .height(function(d){ return d.value * 250; })
+            .left(function(){ return this.index * 90 + this.index * 10 + 40; })
+            .fillStyle(function(d){ return d.color; });
 
         var line = vis.add(pv.Line)
             .data([0, 0])
-            .left(function() this.index * 280)
+            .left(function(){ return this.index * 280; })
             .bottom(4)
             .strokeStyle('#aaaaaa')
             .lineWidth(1)
@@ -160,10 +160,10 @@ var Graph =
             .bottom(size / 2)
             .innerRadius(size / 5)
             .outerRadius(size / 2)
-            .angle(function(d){{ return d.value * 2 * Math.PI; }})
+            .angle(function(d){ return d.value * 2 * Math.PI; })
             .lineWidth(2)
             .strokeStyle('white')
-            .fillStyle(function(d){{ return d.color; }});
+            .fillStyle(function(d){ return d.color; });
 
         vis.render();
     },

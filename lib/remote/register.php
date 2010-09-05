@@ -1,8 +1,23 @@
 <?php
 
-$register = new Block_Register($tpl);
-$register->setIsAjax(true);
-$register->configure();
+class Remote_Register extends Remote
+{
+    public $AJAXONLY = false;
 
-echo $register->render();
+    private $block;
+
+    public function configureView()
+    {
+        if ($this->block)
+        {
+            $this->block->assignTemplate();
+        }
+    }
+
+    public function configureData()
+    {
+        $this->block = new Block_Register();
+        $this->block->configure();
+    }
+}
 

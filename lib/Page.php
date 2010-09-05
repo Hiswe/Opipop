@@ -2,17 +2,15 @@
 
 class Page
 {
-    protected $tpl;
     protected $params;
 
-    public function Page($tpl)
+    public function Page()
     {
-        $this->tpl = $tpl;
         $this->gatherParameterFromRequest();
 
         if (Conf::get('PROD'))
         {
-            $this->tpl->assignSection('prod_environement');
+            Globals::$tpl->assignSection('prod_environement');
         }
         else
         {
@@ -49,7 +47,7 @@ class Page
             }
             foreach ($files as $file)
             {
-                $this->tpl->assignLoopVar('dev_script_list', array
+                Globals::$tpl->assignLoopVar('dev_script_list', array
                 (
                     'file' => 'js/' . $file,
                 ));
@@ -84,11 +82,7 @@ class Page
         return 0;
     }
 
-    public function configureView()
-    {
-        //$this->tpl->assignTemplate('lib/view/header.tpl');
-        //$this->tpl->assignTemplate('lib/view/footer.tpl');
-    }
+    public function configureView(){}
     public function configureData(){}
 }
 

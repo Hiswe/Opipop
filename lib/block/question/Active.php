@@ -2,7 +2,7 @@
 
 class Block_Question_Active extends Block
 {
-    protected $_TEMPLATE = 'lib/view/question/active.tpl';
+    protected $template = 'lib/view/question/active.tpl';
 
     private $page = 0;
 
@@ -29,7 +29,7 @@ class Block_Question_Active extends Block
         // Loop through all questions
         foreach ($questions as $question)
         {
-            $this->tpl->assignLoopVar('question', array
+            Globals::$tpl->assignLoopVar('question', array
             (
                 'id'               => $question->getId(),
                 'label'            => $question->getLabel(),
@@ -61,7 +61,7 @@ class Block_Question_Active extends Block
             {
                 $answerIsEmpty = true;
 
-                $this->tpl->assignLoopVar('question.answer', array
+                Globals::$tpl->assignLoopVar('question.answer', array
                 (
                     'id'    => $answer->getId(),
                     'label' => $answer->getLabel(),
@@ -69,7 +69,7 @@ class Block_Question_Active extends Block
 
                 if ($user && $userVote && $answer->getId() == $userVote->getId())
                 {
-                    $this->tpl->assignLoopVar('question.answer.user', array
+                    Globals::$tpl->assignLoopVar('question.answer.user', array
                     (
                         'class' => 'vote',
                         'label' => 'Mon opinion',
@@ -82,7 +82,7 @@ class Block_Question_Active extends Block
 
                 if ($user && $userGuess && $answer->getId() == $userGuess->getAnswer()->getId())
                 {
-                    $this->tpl->assignLoopVar('question.answer.user', array
+                    Globals::$tpl->assignLoopVar('question.answer.user', array
                     (
                         'class' => 'guess',
                         'label' => 'Mon pronostic',
@@ -99,7 +99,7 @@ class Block_Question_Active extends Block
                     {
                         if ($answer->getId() == $guess->getAnswer()->getId())
                         {
-                            $this->tpl->assignLoopVar('question.answer.friend', array
+                            Globals::$tpl->assignLoopVar('question.answer.friend', array
                             (
                                 'class'  => 'friend',
                                 'userId' => $user->getId(),
@@ -115,7 +115,7 @@ class Block_Question_Active extends Block
 
                 if ($answerIsEmpty)
                 {
-                    $this->tpl->assignLoopVar('question.answer.message', array
+                    Globals::$tpl->assignLoopVar('question.answer.message', array
                     (
                         'label' => 'Vide ...'
                     ));
@@ -126,7 +126,7 @@ class Block_Question_Active extends Block
 
             if ($user && !$userVote)
             {
-                $this->tpl->assignLoopVar('question.pendingUser', array
+                Globals::$tpl->assignLoopVar('question.pendingUser', array
                 (
                     'class'  => 'vote',
                     'label'  => 'Mon vote',
@@ -139,7 +139,7 @@ class Block_Question_Active extends Block
 
             if ($user && !$userGuess)
             {
-                $this->tpl->assignLoopVar('question.pendingUser', array
+                Globals::$tpl->assignLoopVar('question.pendingUser', array
                 (
                     'class'  => 'guess',
                     'label'  => 'Mon opinion',
@@ -157,7 +157,7 @@ class Block_Question_Active extends Block
                 {
                     if (!in_array($friend->getId(), $friendsVotedId))
                     {
-                        $this->tpl->assignLoopVar('question.pendingFriend', array
+                        Globals::$tpl->assignLoopVar('question.pendingFriend', array
                         (
                             'class'  => 'friend',
                             'userId' => $user->getId(),
@@ -172,7 +172,7 @@ class Block_Question_Active extends Block
 
             if ($pendingIsEmpty)
             {
-                $this->tpl->assignLoopVar('question.message', array
+                Globals::$tpl->assignLoopVar('question.message', array
                 (
                     'label' => 'Vide ...'
                 ));

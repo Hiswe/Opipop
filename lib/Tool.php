@@ -2,6 +2,16 @@
 
 class Tool
 {
+    static function path2class($path, $prefix = null)
+    {
+        $class = ($prefix) ? $prefix . '_' : '';
+        foreach (explode('/', $path) as $part)
+        {
+            $class .= ucfirst($part) . '_';
+        }
+        return substr($class, 0, -1);
+    }
+
     static function print_array($array)
     {
         echo '<pre>';

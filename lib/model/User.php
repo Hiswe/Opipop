@@ -647,10 +647,11 @@ class Model_User
         return 'media/avatar/' . $size . '/0.jpg';
     }
 
-    public static function search($page = false, $query = false)
+    public static function search($query = false, $page = false)
     {
         $from = ((!$page) ? 0 : $page - 1) * Conf::get('QUESTION_PER_PAGE');
         $max = ($page === false) ? 0 : Conf::get('QUESTION_PER_PAGE');
+        $query = trim($query);
 
         $rs = DB::select('
             SELECT u.id, u.login, u.valided, u.male, u.email, u.zip
@@ -730,6 +731,18 @@ class Model_User
             'login' => $user->getLogin(),
         );
         setCookie(Conf::get('SITE_NAME') . '_login', $user->getId() . '-' . $user->getKey(), time() + 86400 * 8, '/');
+    }
+
+    public static function logout($id)
+    {
+        if (isset($_SESSION['user']))
+        {
+            if (Tool::isOk($_COOKIE[Conf::get('SITE_NAME') . '_login']))
+            {
+                setcookie (Conf::get('SITE_NAME') . '_login', '', time() - 3600, '/');
+            }
+            unset($_SESSION['user']);
+        }
     }
 }
 

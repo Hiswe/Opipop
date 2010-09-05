@@ -4,16 +4,16 @@ class Page_Submit extends Page
 {
     public function configureView()
     {
-        $this->tpl->assignTemplate('lib/view/header.tpl');
-        $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/submit.tpl');
-        $this->tpl->assignTemplate('lib/view/footer.tpl');
+        Globals::$tpl->assignTemplate('lib/view/header.tpl');
+        Globals::$tpl->assignTemplate('lib/view/top.tpl');
+        Globals::$tpl->assignTemplate('lib/view/submit.tpl');
+        Globals::$tpl->assignTemplate('lib/view/footer.tpl');
     }
 
     public function configureData()
     {
         //Configure top block
-        $top = new Block_Top($this->tpl);
+        $top = new Block_Top($tpl);
         $top->configure();
     }
 }

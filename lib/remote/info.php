@@ -1,9 +1,24 @@
 <?php
 
-$info = new Block_Info($tpl);
-$info->setInfo($_GET['info']);
-$info->setIsAjax(true);
-$info->configure();
+class Remote_Info extends Remote
+{
+    public $AJAXONLY = false;
 
-echo $info->render();
+    private $block;
+
+    public function configureView()
+    {
+        if ($this->block)
+        {
+            $this->block->assignTemplate();
+        }
+    }
+
+    public function configureData()
+    {
+        $this->block = new Block_Info();
+        $this->block->setInfo($_GET['info']);
+        $this->block->configure();
+    }
+}
 

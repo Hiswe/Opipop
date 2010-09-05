@@ -2,7 +2,7 @@
 
 class Block_Question_Gender extends Block
 {
-    protected $_TEMPLATE = 'lib/view/question/gender.tpl';
+    protected $template = 'lib/view/question/gender.tpl';
 
     private $question = null;
 
@@ -31,7 +31,7 @@ class Block_Question_Gender extends Block
         }
         foreach ($answers as $key => $answer)
         {
-            $this->tpl->assignLoopVar('question_men', array
+            Globals::$tpl->assignLoopVar('question_men', array
             (
                 'key'     => $key,
                 'label'   => $answer->getLabel(),
@@ -50,7 +50,7 @@ class Block_Question_Gender extends Block
         }
         foreach ($answers as $key => $answer)
         {
-            $this->tpl->assignLoopVar('question_women', array
+            Globals::$tpl->assignLoopVar('question_women', array
             (
                 'key'     => $key,
                 'label'   => $answer->getLabel(),
@@ -58,9 +58,9 @@ class Block_Question_Gender extends Block
             ));
         }
 
-        $this->tpl->assignVar('question_men_data', json_encode($dataMen));
-        $this->tpl->assignVar('question_women_data', json_encode($dataWomen));
-        $this->tpl->assignVar('question_label', $this->question->getLabel());
+        Globals::$tpl->assignVar('question_men_data', json_encode($dataMen));
+        Globals::$tpl->assignVar('question_women_data', json_encode($dataWomen));
+        Globals::$tpl->assignVar('question_label', $this->question->getLabel());
     }
 }
 

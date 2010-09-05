@@ -18,10 +18,21 @@
         include Conf::get('ROOT_DIR') . 'lib/' . str_replace('_', '/', $className) . '.php';
     }
 
+class Globals
+{
+    static $tpl;
+
+    static function init()
+    {
+        self::$tpl = new Template();
+    }
+}
+
+Globals::init();
+
     // TEMPLATE ENGINE
-    $tpl = new Template();
-    $tpl->cacheTimeCoef = Conf::get('CACHE_TIMECOEF');
-    $tpl->assignVar (array(
+    Globals::$tpl->cacheTimeCoef = Conf::get('CACHE_TIMECOEF');
+    Globals::$tpl->assignVar (array(
         'PAGE_TITLE'       => Conf::get('PAGE_TITLE'),
         'PAGE_DESCRIPTION' => Conf::get('PAGE_DESCRIPTION'),
         'PAGE_KEYWORDS'    => Conf::get('PAGE_KEYWORDS'),
@@ -33,37 +44,47 @@
     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
     {
         $ajax = true;
-        $tpl->assignSection('AJAX');
+        Globals::$tpl->assignSection('AJAX');
     }
     else
     {
         $ajax = false;
-        $tpl->assignSection('NOT_AJAX');
+        Globals::$tpl->assignSection('NOT_AJAX');
     }
 
     // REMOTES
     if (isset($_GET['remote']))
     {
+        $className = Tool::path2class($_GET['remote'], 'Remote');
+        $remote    = new $className();
         if ($ajax)
         {
-            include 'lib/remote/' . $_GET['remote'] . '.php';
-            exit();
+            $remote->configureData();
+
+            if ($remote->AJAXONLY == false)
+            {
+                $remote->configureView();
+                Globals::$tpl->display();
+            }
         }
         else
         {
-            $page = new Page($tpl);
-            $tpl->assignTemplate('lib/view/header.tpl');
-            $tpl->assignTemplate('lib/view/top.tpl');
-            $tpl->display();
-            $tpl->clearLayout();
-            echo '<div id="remote">';
-            include 'lib/remote/' . $_GET['remote'] . '.php';
-            echo '</div>';
-            $tpl->clearLayout();
-            $tpl->assignTemplate('lib/view/footer.tpl');
-            $tpl->display();
-            exit();
+            if ($remote->AJAXONLY == false)
+            {
+                $page = new Page();
+                Globals::$tpl->assignTemplate('lib/view/header.tpl');
+                Globals::$tpl->assignTemplate('lib/view/top.tpl');
+                $remote->configureData();
+                $remote->configureView();
+                Globals::$tpl->assignTemplate('lib/view/footer.tpl');
+                Globals::$tpl->display();
+            }
+            else
+            {
+                // TODO 400
+            }
         }
+        exit();
     }
 
     // PAGES
@@ -72,43 +93,43 @@
         switch ($_GET['page'])
         {
             case 'homepage':
-                $page = new Page_Homepage($tpl);
+                $page = new Page_Homepage();
                 break;
 
             case 'register':
-                $page = new Page_Register($tpl);
+                $page = new Page_Register();
                 break;
 
             case 'logout':
-                $page = new Page_Logout($tpl);
+                $page = new Page_Logout();
                 break;
 
             case 'question':
-                $page = new Page_Question($tpl);
+                $page = new Page_Question();
                 break;
 
             case 'user':
-                $page = new Page_User($tpl);
+                $page = new Page_User();
                 break;
 
             case 'user_edit':
-                $page = new Page_User_Edit($tpl);
+                $page = new Page_User_Edit();
                 break;
 
             case 'user_confirm':
-                $page = new Page_User_Confirm($tpl);
+                $page = new Page_User_Confirm();
                 break;
 
             case 'submit':
-                $page = new Page_Submit($tpl);
+                $page = new Page_Submit();
                 break;
 
             default :
-                $page = new Page($tpl);
+                $page = new Page();
         }
         $page->configureData();
         $page->configureView();
 
-        $tpl->display();
+        Globals::$tpl->display();
     }
 

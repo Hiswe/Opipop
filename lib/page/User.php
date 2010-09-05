@@ -4,21 +4,21 @@ class Page_User extends Page
 {
     public function configureView()
     {
-        $this->tpl->assignTemplate('lib/view/header.tpl');
-        $this->tpl->assignTemplate('lib/view/top.tpl');
-        $this->tpl->assignTemplate('lib/view/user.tpl');
-        $this->tpl->assignTemplate('lib/view/footer.tpl');
+        Globals::$tpl->assignTemplate('lib/view/header.tpl');
+        Globals::$tpl->assignTemplate('lib/view/top.tpl');
+        Globals::$tpl->assignTemplate('lib/view/user.tpl');
+        Globals::$tpl->assignTemplate('lib/view/footer.tpl');
     }
 
     public function configureData()
     {
         // Configure top block
-        $top = new Block_Top($this->tpl);
+        $top = new Block_Top();
         $top->configure();
 
         $profile = new Model_User($_GET['login']);
 
-        $this->tpl->assignVar(array
+        Globals::$tpl->assignVar(array
         (
             'profile_id'     => $profile->getId(),
             'profile_login'  => $profile->getLogin(),
@@ -37,7 +37,7 @@ class Page_User extends Page
             // If I'm on my profile
             if ($user->getId() == $profile->getId())
             {
-                $this->tpl->assignSection('private');
+                Globals::$tpl->assignSection('private');
 
                 // Get pending friend requests
                 $pendingFriends = $user->getPendingFriends();
@@ -45,7 +45,7 @@ class Page_User extends Page
                 // Assign friends infos
                 foreach ($pendingFriends as $friend)
                 {
-                    $this->tpl->assignLoopVar('request', array
+                    Globals::$tpl->assignLoopVar('request', array
                     (
                         'id'     => $friend->getId(),
                         'login'  => $friend->getLogin(),
@@ -55,7 +55,7 @@ class Page_User extends Page
             }
             else
             {
-                $this->tpl->assignSection('friendRequest');
+                Globals::$tpl->assignSection('friendRequest');
 
                 // Look if I'm friend with this profile's user
                 switch ($profile->getFriendStatus($user))
@@ -73,7 +73,7 @@ class Page_User extends Page
                         $friendAction  = 'remove';
                         break;
                 }
-                $this->tpl->assignVar(array
+                Globals::$tpl->assignVar(array
                 (
                     'friendRequest_message' => $friendMessage,
                     'friendRequest_action'  => $friendAction,
@@ -83,7 +83,7 @@ class Page_User extends Page
 
         $profileTotalVotes = $profile->getTotalVotes();
 
-        $this->tpl->assignVar(array
+        Globals::$tpl->assignVar(array
         (
             'profile_totalVote'           => $profileTotalVotes,
             'profile_totalPredictionWon'  => 0,
@@ -97,7 +97,7 @@ class Page_User extends Page
         $profileGGS = $profile->getGuessGlobalStats();
         if ($profileGGS['guesses'] != 0)
         {
-            $this->tpl->assignVar(array
+            Globals::$tpl->assignVar(array
             (
                 'profile_totalPredictionWon'  => $profileGGS['goodGuesses'],
                 'profile_totalPredictionLost' => $profileGGS['badGuesses'],
@@ -109,7 +109,7 @@ class Page_User extends Page
         $friends = $profile->getFriends();
         foreach ($friends as $friend)
         {
-            $this->tpl->assignLoopVar('friend', array
+            Globals::$tpl->assignLoopVar('friend', array
             (
                 'id'            => $friend->getId(),
                 'login'         => $friend->getLogin(),
@@ -122,7 +122,7 @@ class Page_User extends Page
                 // Get stats on profil's user gusses
                 if ($friend->getId() == $stat['user']->getId())
                 {
-                    $this->tpl->assignLoopVar('friend.stat', array
+                    Globals::$tpl->assignLoopVar('friend.stat', array
                     (
                         'predictionAccuracy_his' => round(($stat['his_guesses'] == 0) ? 0 : ($stat['his_goodGuesses'] / $stat['his_guesses']) * 100),
                         'predictionAccuracy_my'  => round(($stat['my_guesses'] == 0) ? 0 : ($stat['my_goodGuesses'] / $stat['my_guesses']) * 100),
@@ -140,7 +140,7 @@ class Page_User extends Page
             $profileAGS = $profile->getAnswerGlobalStats();
             if ($profileAGS['votes'] != 0)
             {
-                $this->tpl->assignVar(array
+                Globals::$tpl->assignVar(array
                 (
                     'profile_global_distance' => round((($profileAGS['votes'] - $profileAGS['goodVotes']) / $profileAGS['votes']) * $totalQuestions),
                 ));
@@ -150,7 +150,7 @@ class Page_User extends Page
             $profileAFS = $profile->getAnswerFriendStats();
             if ($profileAFS['votes'] != 0)
             {
-                $this->tpl->assignVar(array
+                Globals::$tpl->assignVar(array
                 (
                     'profile_friend_distance' => round((($profileAFS['votes'] - $profileAFS['goodVotes']) / $profileAFS['votes']) * $totalQuestions),
                 ));
@@ -169,7 +169,7 @@ class Page_User extends Page
         $data     = array();
         foreach ($feelings as $id => $label)
         {
-            $this->tpl->assignLoopVar('feeling', array
+            Globals::$tpl->assignLoopVar('feeling', array
             (
                 'label'   => $label,
                 'percent' => round(($maxFeelingScore == 0) ? 0 : ($profileFeelings[$id + 1] / $maxFeelingScore) * 100),
@@ -181,12 +181,12 @@ class Page_User extends Page
                 'color' => $colors[$id],
             );
         }
-        $this->tpl->assignVar('feeling_data', json_encode($data));
+        Globals::$tpl->assignVar('feeling_data', json_encode($data));
 
         // No friends ?
         if (count($friends) == 0 && (!isset($pendingFriends) || count($pendingFriends) == 0))
         {
-            $this->tpl->assignSection('noFriends');
+            Globals::$tpl->assignSection('noFriends');
         }
     }
 }

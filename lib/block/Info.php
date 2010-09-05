@@ -2,7 +2,7 @@
 
 class Block_Info extends Block
 {
-    protected $_TEMPLATE = '';
+    protected $template = '';
 
     private $info = null;
 
@@ -13,7 +13,7 @@ class Block_Info extends Block
 
     public function configure()
     {
-        $this->_TEMPLATE = 'lib/view/info/' . $this->info . '.tpl';
+        $this->TEMPLATE = 'lib/view/info/' . $this->info . '.tpl';
     }
 }
 

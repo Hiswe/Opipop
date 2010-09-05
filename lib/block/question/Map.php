@@ -2,7 +2,7 @@
 
 class Block_Question_Map extends Block
 {
-    protected $_TEMPLATE = 'lib/view/question/map.tpl';
+    protected $template = 'lib/view/question/map.tpl';
 
     private $question = null;
 
@@ -76,7 +76,7 @@ class Block_Question_Map extends Block
             $values[] = $v;
         }
 
-        $this->tpl->assignVar(array(
+        Globals::$tpl->assignVar(array(
             'map_regionColors' => json_encode($colors),
             'map_regionValues' => json_encode($values),
             'question_label'   => $this->question->getLabel(),
@@ -87,7 +87,7 @@ class Block_Question_Map extends Block
 
         foreach ($answers as $key => $answer)
         {
-            $this->tpl->assignLoopVar('answer', array
+            Globals::$tpl->assignLoopVar('answer', array
             (
                 'key'     => $key,
                 'label'   => $answer->getLabel(),

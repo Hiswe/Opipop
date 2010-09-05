@@ -60,13 +60,12 @@ $border_radius: 4px
     position: absolute
     +linear-gradient(color-stops(#6699CC 0px, #c2e4f6 60px, #DBECF5 120px, rgba(255, 255, 255, 0) 250px))
 
-#remote
-    div.modal
-        background: $white
-        position: relative
-        margin: 0 auto
-        padding: 10px
-        +border-radius($border_radius)
+div.modal
+    background: $white
+    position: relative
+    margin: 0 auto
+    padding: 10px
+    +border-radius($border_radius)
 
 
 ///////////////////
@@ -257,6 +256,7 @@ form
         right: 5px
         display: block
         content: ""
+        z-index: 10
 
     .nyroModalClose:hover
         background: image-url("icon32x32/close_button-hover.png")

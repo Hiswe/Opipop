@@ -1,9 +1,24 @@
 <?php
 
-$edit = new Block_User_Edit($tpl);
-$edit->setUser(new Model_User($_GET['userId']));
-$edit->setIsAjax(true);
-$edit->configure();
+class Remote_User_Edit extends Remote
+{
+    public $AJAXONLY = false;
 
-echo $edit->render();
+    private $block;
+
+    public function configureView()
+    {
+        if ($this->block)
+        {
+            $this->block->assignTemplate();
+        }
+    }
+
+    public function configureData()
+    {
+        $this->block = new Block_User_Edit();
+        $this->block->setUser(new Model_User($_GET['userId']));
+        $this->block->configure();
+    }
+}
 

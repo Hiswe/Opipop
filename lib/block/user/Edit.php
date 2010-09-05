@@ -2,7 +2,7 @@
 
 class Block_User_Edit extends Block
 {
-    protected $_TEMPLATE = 'lib/view/user/edit.tpl';
+    protected $template = 'lib/view/user/edit.tpl';
 
     private $user = null;
 
@@ -19,8 +19,8 @@ class Block_User_Edit extends Block
             // TODO : 500
         }
 
-        $this->tpl->assignSection('private');
-        $this->tpl->assignVar(array
+        Globals::$tpl->assignSection('private');
+        Globals::$tpl->assignVar(array
         (
             'profile_id'     => $user->getId(),
             'profile_login'  => $user->getLogin(),

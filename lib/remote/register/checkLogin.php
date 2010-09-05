@@ -1,21 +1,29 @@
 <?php
 
-    $forbidenLogins = array('remote', 'backoffice', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
+class Remote_Register_CheckLogin extends Remote
+{
+    public $AJAXONLY = true;
 
-    if (in_array($_POST['login'], $forbidenLogins))
+    public function configureData()
     {
-        echo '0';
-    }
-    else
-    {
-        // Look if this login exists
-        $rs = DB::select
-        ('
-            SELECT `id`
-            FROM `user`
-            WHERE `login`="' . $_POST['login'] . '" AND `valided`=1
-        ');
+        $forbidenLogins = array('remote', 'backoffice', 'opipop', 'login', 'logout', 'register', 'category', 'poll', 'users', 'infos');
 
-        echo ($rs['total'] != 0) ? 0 : 1;
+        if (in_array($_POST['login'], $forbidenLogins))
+        {
+            echo '0';
+        }
+        else
+        {
+            // Look if this login exists
+            $rs = DB::select
+            ('
+                SELECT `id`
+                FROM `user`
+                WHERE `login`="' . $_POST['login'] . '" AND `valided`=1
+            ');
+
+            echo ($rs['total'] != 0) ? 0 : 1;
+        }
     }
+}
 

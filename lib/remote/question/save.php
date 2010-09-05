@@ -1,84 +1,91 @@
 <?php
 
-    header("Cache-Control: no-cache");
+class Remote_Question_Save extends Remote
+{
+    public $AJAXONLY = true;
 
-    if (!($user = Model_User::getLoggedUser()))
+    public function configureData()
     {
-        $_SESSION['warning'] = 'You need to be logged to vote';
-        echo 'register';
-        exit();
-    }
+        header("Cache-Control: no-cache");
 
-    if (Tool::isOk($_POST['question']))
-    {
-        $question = new Model_Question($_POST['question']);
-
-        if (isset($_POST['answer']))
+        if (!($user = Model_User::getLoggedUser()))
         {
-            if ($_POST['answer'] == 0)
-            {
-                if (Tool::isOk($_POST['vote']) && $_POST['vote'] == $user->getId())
-                {
-                    // vote
-                    $user->removeVote($question);
-                }
-                else if (Tool::isOk($_POST['guess']) && $_POST['guess'] == $user->getId())
-                {
-                    // guess
-                    $user->removeGuess($question);
-                }
-                else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
-                {
-                    // guess for friend
-                    $user->removeGuessAboutFriend($question, new Model_User($_POST['friend']));
-                }
-            }
-            else
-            {
-                $answer = new Model_Answer($_POST['answer']);
+            $_SESSION['warning'] = 'You need to be logged to vote';
+            echo 'register';
+            exit();
+        }
 
-                if (Tool::isOk($_POST['vote']) && $_POST['vote'] == $user->getId())
+        if (Tool::isOk($_POST['question']))
+        {
+            $question = new Model_Question($_POST['question']);
+
+            if (isset($_POST['answer']))
+            {
+                if ($_POST['answer'] == 0)
                 {
-                    // vote
-                    $userAnswer = $user->getAnswer($question);
-                    if (!$userAnswer)
+                    if (Tool::isOk($_POST['vote']) && $_POST['vote'] == $user->getId())
                     {
-                        $user->vote($question, $answer);
+                        // vote
+                        $user->removeVote($question);
                     }
-                    else if ($userAnswer->getId() != $answer->getId())
+                    else if (Tool::isOk($_POST['guess']) && $_POST['guess'] == $user->getId())
                     {
-                        $user->updateVote($question, $answer);
+                        // guess
+                        $user->removeGuess($question);
+                    }
+                    else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
+                    {
+                        // guess for friend
+                        $user->removeGuessAboutFriend($question, new Model_User($_POST['friend']));
                     }
                 }
-                else if (Tool::isOk($_POST['guess']) && $_POST['guess'] == $user->getId())
+                else
                 {
-                    // guess
-                    $userGuess = $user->getGuess($question);
-                    if (!$userGuess)
+                    $answer = new Model_Answer($_POST['answer']);
+
+                    if (Tool::isOk($_POST['vote']) && $_POST['vote'] == $user->getId())
                     {
-                        $user->guess($question, $answer);
+                        // vote
+                        $userAnswer = $user->getAnswer($question);
+                        if (!$userAnswer)
+                        {
+                            $user->vote($question, $answer);
+                        }
+                        else if ($userAnswer->getId() != $answer->getId())
+                        {
+                            $user->updateVote($question, $answer);
+                        }
                     }
-                    else if ($userGuess->getAnswer()->getId() != $answer->getId())
+                    else if (Tool::isOk($_POST['guess']) && $_POST['guess'] == $user->getId())
                     {
-                        $user->updateGuess($question, $answer);
+                        // guess
+                        $userGuess = $user->getGuess($question);
+                        if (!$userGuess)
+                        {
+                            $user->guess($question, $answer);
+                        }
+                        else if ($userGuess->getAnswer()->getId() != $answer->getId())
+                        {
+                            $user->updateGuess($question, $answer);
+                        }
                     }
-                }
-                else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
-                {
-                    // guess for friend
-                    $friend    = new Model_User($_POST['friend']);
-                    $userGuess = $user->getGuessAboutFriend($question, $friend);
-                    if (!$userGuess)
+                    else if (Tool::isOk($_POST['user']) && Tool::isOk($_POST['friend']) && $_POST['user'] == $user->getId())
                     {
-                        $user->guessAboutFriend($question, $friend, $answer);
-                    }
-                    else if ($userGuess->getAnswer()->getId() != $answer->getId())
-                    {
-                        $user->updateGuessAboutFriend($question, $friend, $answer);
+                        // guess for friend
+                        $friend    = new Model_User($_POST['friend']);
+                        $userGuess = $user->getGuessAboutFriend($question, $friend);
+                        if (!$userGuess)
+                        {
+                            $user->guessAboutFriend($question, $friend, $answer);
+                        }
+                        else if ($userGuess->getAnswer()->getId() != $answer->getId())
+                        {
+                            $user->updateGuessAboutFriend($question, $friend, $answer);
+                        }
                     }
                 }
             }
         }
     }
-
+}
 
