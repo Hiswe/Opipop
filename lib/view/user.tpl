@@ -1,7 +1,7 @@
 
         <div id="user_colRight">
             <h4>
-                <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal iconInfo" title="informations">informations</a>
+                <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal icon iconInfo" title="informations">informations</a>
                 Statistiques
             </h4>
 
@@ -30,7 +30,7 @@
         <div id="user_colLeft">
 
             <h4>
-                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal iconInfo" title="informations">informations</a>
+                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal icon iconInfo" title="informations">informations</a>
                 Informations
             </h4>
 
@@ -50,7 +50,7 @@
 
                 <ul class="menu">
                     <!-- SECTION friendRequest -->
-                    <li><a href="#" id="friend_{{profile_id}}" class="button {{friendRequest_icon}}" title="{{friendRequest_action}}">{{friendRequest_message}}</a></li>
+                    <li><a href="#" id="friend_{{profile_id}}" class="button icon {{friendRequest_icon}}" title="{{friendRequest_action}}">{{friendRequest_message}}</a></li>
                     <!-- END friendRequest -->
                 </ul>
 
@@ -58,7 +58,7 @@
             </div>
 
             <h4>
-                <a href="{{ROOT_PATH}}remote/info?info=user_proximity" class="info_bulle nyroModal iconInfo" title="informations">informations</a>
+                <a href="{{ROOT_PATH}}remote/info?info=user_proximity" class="info_bulle nyroModal icon iconInfo" title="informations">informations</a>
                 Proximité
             </h4>
 
@@ -82,7 +82,7 @@
             </div>
 
             <h4>
-                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal iconInfo" title="informations">informations</a>
+                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal icon iconInfo" title="informations">informations</a>
                 Amis
             </h4>
 
@@ -105,8 +105,8 @@
                 <!-- LOOP request -->
                 <li class="box">
                     <ul class="edit">
-                        <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button iconAdd" title="accept">accept</a></li>
-                        <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button iconRemove" title="reject">reject</a></li>
+                        <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button icon iconAdd" title="accept">accept</a></li>
+                        <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button icon iconRemove" title="reject">reject</a></li>
                     </ul>
 
                     <ul class="stat">
@@ -124,7 +124,7 @@
                 <li class="box">
                     <!-- SECTION private -->
                     <ul class="edit">
-                        <li><a href="#" id="friend_{{friend.id}}" class="button iconRemove" title="remove">effacer</a></li>
+                        <li><a href="#" id="friend_{{friend.id}}" class="button icon iconRemove" title="remove">effacer</a></li>
                     </ul>
                     <!-- END private -->
                     <ul class="stat">
