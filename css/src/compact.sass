@@ -192,13 +192,15 @@ form
     background-color: transparent
     overflow: hidden
     text-indent: -999em
-    
+    margin: 0 3px
+        
 // 48x48 icon    
 .iconGender,
 .iconMap
     width: 48px
     height: 48px
     background-image: image-url('icon48x48/imageMap48x48.png')
+    vertical-align: middle !important
 
 .iconGender
     background-position: 0 0
@@ -235,9 +237,11 @@ a:active
     width: 16px
     height: 16px
     background-image: image-url('icon16x16/imageMap16x16.png')
+    vertical-align: middle
 
 .iconAdd
     background-position: 0 0
+    vertical-align: text-bottom
 
 a:hover 
     .iconAdd,
@@ -251,6 +255,7 @@ a:active
 
 .iconRemove
     background-position: 0 -16px
+    vertical-align: text-bottom    
 
 a:hover 
     .iconRemove,
@@ -301,11 +306,9 @@ a:active
     font-weight: bold
     cursor: pointer
     color: $power_blue
+    +linear-gradient(color-stops($white, $light_grey))
     +border-radius($border_radius)
     +box-shadow($light_grey, -1px, 1px, 1px)
-    
-    .icon
-        vertical-align: middle
 
 .button:hover
     text-decoration: none
@@ -324,19 +327,8 @@ a:active
     color: $grey
     +box-shadow($light_grey, -1px, 1px, 1px)
 
-.info_bulle
-    text-indent: -9999em
-    float: left
-    display: block
-    //background: image-url('icon16x16/information.png') no-repeat
-    background: image-url('icon16x16/information-hover.png') no-repeat
-    width: 16px
-    height: 16px
-    margin: 3px 8px 0 0
-
-//.info_bulle:hover
-    //background: image-url('icon16x16/information-hover.png') no-repeat
-
+.info_bulle:hover
+    text-decoration: none
 
 ///////////////////
 //  NYROMODAL
