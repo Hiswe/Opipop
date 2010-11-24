@@ -1,4 +1,5 @@
-
+<div id="activeContainer">
+    <div id="active" class="horizontalCenter">
         <div class="clear"></div>
 
         <h4>
@@ -76,5 +77,6 @@
 
             </li>
             <!-- END question -->
-        </ul>
-
+        </ul>        
+    </div>
+</div>

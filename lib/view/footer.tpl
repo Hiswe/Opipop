@@ -1,8 +1,8 @@
 
         <div class="clear">&nbsp;</div>
     </div>
-
-    <div id="footer">
+<div id="footerContainer">
+    <div id="footer" class="horizontalCenter">
         <div class="main_content">
             <ul>
                 <li><a href="{{ROOT_PATH}}submit">Proposer un sondage</a></li>
@@ -15,6 +15,6 @@
             <p>2010 © Opipop</p>
         </div>
     </div>
-
+</div>
 </body>
 </html>

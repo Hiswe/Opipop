@@ -1,4 +1,5 @@
-
+<div id="archiveContainer">
+    <div id="archive" class="horizontalCenter">
         <!-- SECTION NOT_AJAX -->
         <h4>
             <a href="{{ROOT_PATH}}remote/info?info=question_archive" class="info_bulle nyroModal" title="informations">informations</a>
@@ -39,4 +40,5 @@
         <!-- SECTION AJAX -->
         <script type="text/javascript">$('#question_archive a.nyroModal').nyroModal();</script>
         <!-- END AJAX -->
-
+    </div>
+</div>    

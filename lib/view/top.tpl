@@ -1,5 +1,5 @@
-
-        <div id="top">
+<div id="topContainer">
+        <div id="top" class="horizontalCenter">
             <!-- SECTION logged -->
             <div class="userBox box">
                 <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{ROOT_PATH}}{{user_avatarUri}}" /></a>
@@ -29,4 +29,4 @@
             <p class="message warning">{{warning}}</p>
             <!-- END warning -->
         </div>
-
+</div>

@@ -1,4 +1,5 @@
-
+<div id="userContainer">
+    <div id="user" class="horizontalCenter">
         <div id="user_colRight">
             <h4>
                 <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal" title="informations">informations</a>
@@ -144,4 +145,5 @@
                 <!-- END friend -->
             </ul>
         </div>
-
+    </div>
+</div>

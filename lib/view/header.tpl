@@ -19,8 +19,5 @@
     <link rel="stylesheet" type="text/css" href="{{ROOT_PATH}}css/stylesheets/compact.css?{{VERSION}}">
 </head>
 <body>
-
-    <div id="background"></div>
-
     <div class="main_content">
 
