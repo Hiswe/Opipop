@@ -223,7 +223,55 @@ a:active
     .iconMap,
     .iconMap:active
         background-position: -96px -48px
+        
+// 16x16 icon
 
+// 48x48 icon    
+.iconAdd,
+.iconRemove,
+.iconInfo
+    width: 16px
+    height: 16px
+    background-image: image-url('icon16x16/imageMap16x16.png')
+
+.iconAdd
+    background-position: 0 0
+
+a:hover 
+    .iconAdd,
+    .iconAdd:hover
+        background-position: -16px 0
+        
+a:active 
+    .iconAdd,
+    .iconAdd:active
+        background-position: -32px 0
+
+.iconRemove
+    background-position: 0 -16px
+
+a:hover 
+    .iconRemove,
+    .iconRemove:hover
+        background-position: -16px -16px
+
+a:active 
+    .iconRemove,
+    .iconRemove:active
+        background-position: -32px -16px
+        
+.iconInfo
+    background-position: 0 -32px
+
+    a:hover 
+        .iconInfo,
+        .iconInfo:hover
+            background-position: -16px -32px
+
+    a:active 
+        .iconInfo,
+        .iconInfo:active
+            background-position: -32px -32px
 ///////////////////
 //  UTILS
 ///////////////////
