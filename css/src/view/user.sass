@@ -24,7 +24,7 @@
         display: inline
 
 #user_search_result
-    li.box
+    li
         padding: 5px 2px 5px 5px
         margin: 0 0 10px 0
         height: 24px
@@ -172,11 +172,12 @@
     li.noFriends
         font-size: $font_medium
 
-    li.box
+    li
         padding: 2px
         margin: 0 0 10px 0
         height: 50px
         position: relative
+        border-top: 1px solid $light_grey
 
         .avatar
             float: left
@@ -193,6 +194,9 @@
             top: 25px
             font-size: $font_small
             color: $grey
+            
+            li
+                border: none
 
             strong
                 font-weight: bold
@@ -204,6 +208,9 @@
             li
                 float: right
                 margin: 12px 10px 0 0
+                
+    li:first-child
+        border: none
 
 #user_card,
 #user_friends

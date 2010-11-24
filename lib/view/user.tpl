@@ -100,13 +100,13 @@
             <hr></hr>
             <!-- END private -->
 
-            <ul id="user_friends">
+            <ul id="user_friends" class="box">
                 <!-- SECTION noFriends -->
                 <li class="noFriends">Auncun amis pour l'instant ...</li>
                 <!-- END noFriends -->
 
                 <!-- LOOP request -->
-                <li class="box">
+                <li>
                     <ul class="edit">
                         <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button" title="accept">accept</a></li>
                         <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button" title="reject">reject</a></li>
@@ -124,7 +124,7 @@
                 <!-- END request -->
 
                 <!-- LOOP friend -->
-                <li class="box">
+                <li>
                     <!-- SECTION private -->
                     <ul class="edit">
                         <li><a href="#" id="friend_{{friend.id}}" class="button" title="remove">effacer</a></li>

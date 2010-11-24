@@ -1,4 +1,4 @@
-$powerBlue: #0066DF
+$power_blue: #0066DF
 
 $dark_grey: #AAA  
 
@@ -90,7 +90,7 @@ body
 
 a,
 a *
-    color: $powerBlue
+    color: $power_blue
     text-decoration: none
     img
         border: none
@@ -165,7 +165,7 @@ form
         display: block
         padding: 4px
         width: 180px
-        border: 1px solid $light_grey
+        border: 1px solid $grey
         font-size: $font_small
         font-weight: bold
         color: $pink
@@ -203,8 +203,10 @@ form
     background: $white
     padding: 5px 10px
     border: solid $border_size_small $grey
+    outline: none !important
     font-weight: bold
     cursor: pointer
+    color: $power_blue
     +border-radius($border_radius)
     +box-shadow($light_grey, -1px, 1px, 1px)
 
