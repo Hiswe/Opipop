@@ -6,7 +6,7 @@
                 <div class="info">
                     <a href="{{ROOT_PATH}}{{user_login}}" class="name"><span>{{user_login}}</span></a>
                     <p class="linkList">
-                        <a href="{{ROOT_PATH}}{{user_login}}">profile</a>
+                        <a class="nyroModal" href="{{ROOT_PATH}}remote/user/edit?userId={{user_id}}">paramètres</a>
                         <span>|</span>
                         <a href="{{ROOT_PATH}}logout">déconnexion</a>
                     </p>
