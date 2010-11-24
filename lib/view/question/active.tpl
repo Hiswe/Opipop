@@ -3,7 +3,7 @@
         <div class="clear"></div>
 
         <h4>
-            <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal icon iconInfo" title="informations">informations</a>
+            <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
             Sondages en cours
         </h4>
 
