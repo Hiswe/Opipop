@@ -52,9 +52,6 @@
                     <!-- SECTION friendRequest -->
                     <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}">{{friendRequest_message}}</a></li>
                     <!-- END friendRequest -->
-                    <!-- SECTION private -->
-                    <li><a class="button nyroModal" href="{{ROOT_PATH}}remote/user/edit?userId={{user_id}}">paramètres</a></li>
-                    <!-- END private -->
                 </ul>
 
                 <div class="clear_left"></div>
