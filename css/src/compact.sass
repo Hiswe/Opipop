@@ -185,6 +185,44 @@ form
 .firstBackground,
 .secondBackground
     background: #ffffff image-url('background_texture.gif')
+    
+.icon
+    display: inline-block
+    background-repeat: no-repeat
+    background-color: transparent
+    
+// 48x48 icon    
+.iconGender,
+.iconMap
+    width: 48px
+    height: 48px
+    background-image: image-url('icon48x48/imageMap48x48.png')
+
+.iconGender
+    background-position: 0 0
+
+a:hover 
+    .iconGender,
+    .iconGender:hover
+        background-position: -48px 0
+        
+a:active 
+    .iconGender,
+    .iconGender:active
+        background-position: -96px 0
+    
+.iconMap
+    background-position: 0 -48px
+    
+a:hover 
+    .iconMap,
+    .iconMap:hover
+        background-position: -48px -48px
+            
+a:active 
+    .iconMap,
+    .iconMap:active
+        background-position: -96px -48px
 
 ///////////////////
 //  UTILS
@@ -215,6 +253,9 @@ form
     color: $power_blue
     +border-radius($border_radius)
     +box-shadow($light_grey, -1px, 1px, 1px)
+    
+    .icon
+        vertical-align: middle
 
 .button:hover
     text-decoration: none
