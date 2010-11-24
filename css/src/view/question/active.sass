@@ -48,14 +48,15 @@
 
             .user,
             .friend
-                padding: 2px
+                padding: 2px 2px 2px 15px
+                background: $white image-url('grippy.png') 2px 1px repeat-y
                 float: left
                 display: block
-                margin: 4px 4px
+                margin: 4px
                 cursor: move
                 font-size: $font_medium
-                background: $white
-                border: solid $border_size_small $light_grey
+                color: $power_blue
+                border: solid $border_size_small $grey
                 +border-radius($border_radius)
                 +box-shadow($light_grey, -1px, 1px, 1px)
 
@@ -65,10 +66,18 @@
                 span
                     float: left
                     margin: 5px
+                    
+            .user:hover,
+            .friend:hover
+                border-color: $pink
+                color: $pink
 
             .ui-draggable-dragging,
             .ui-draggable-dragging
-                +box-shadow($grey, -2px, 2px, 6px)
+                +box-shadow($dark_grey, -2px, 2px, 6px)
+                cursor: grabbing
+                cursor: -moz-grabbing
+                cursor: -webkit-grabbing
 
         .ui-droppable.active
             background: $very_light_yellow
