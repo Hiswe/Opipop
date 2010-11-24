@@ -7,6 +7,7 @@
         margin: 0 0 15px 0
         height: 75px
         position: relative
+        border-top: 1px solid $light_grey
 
         h2
             +text-shadow($light_grey)
@@ -55,6 +56,9 @@
             background-image: image-url('icon48x48/map_mini-inactive.png')
         .map:hover
             background-image: image-url('icon48x48/map_mini.png')
+            
+    .question:first-child
+        border: none
 
 #question_archive_navigation
     height: 40px

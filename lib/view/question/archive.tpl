@@ -6,9 +6,9 @@
         </h4>
         <!-- END NOT_AJAX -->
 
-        <ul id="question_archive">
+        <ul id="question_archive" class="box">
             <!-- LOOP question_archive -->
-            <li class="question box">
+            <li class="question">
                 <div class="content">
                     <!--<p class="info">Terminé {{question_archive.time}}</p>-->
 
