@@ -1,7 +1,7 @@
 
             <div id="login" class="modal">
                 <div class="side1">
-                    <h4>Connection :</h4>
+                    <h4>Connection</h4>
 
                     <form id="login_form" method="post" name="login" action="javascript:Login.submit();">
                         <label>
