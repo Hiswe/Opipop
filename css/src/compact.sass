@@ -1,5 +1,5 @@
 $pink: #ff0099
-$blue: #0099ff
+$blue: #6699CC
 $red: #ff9999
 $green: #99ff99
 $yellow: #ffff99
@@ -55,10 +55,11 @@ $border_radius: 4px
     position: relative
 
 #background
-    height: 250px
+    height: 95px
     width: 100%
     position: absolute
-    +linear-gradient(color-stops(#6699CC 0px, #c2e4f6 60px, #DBECF5 120px, rgba(255, 255, 255, 0) 250px))
+    +linear-gradient(color-stops(#B3DBEF 0px, $blue 95px))
+    //background: $light_blue
 
 div.modal
     background: $white
@@ -208,8 +209,11 @@ form
 .button:hover
     text-decoration: none
     color: $black
-    //border-color: $light_yellow
     +box-shadow($grey, -1px, 1px, 1px)
+    
+.button:active
+    +box-shadow(none)
+    +apply-transform(translate(0, 1px))
 
 .button.disable
     opacity: 0.5
