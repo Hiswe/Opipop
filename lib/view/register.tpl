@@ -10,7 +10,7 @@
             <a href="{{ROOT_PATH}}remote/login" class="nyroModal button">connectez vous !</a>
         </div>
         <div class="side2">
-            <h4>Nouveau compte :</h4>
+            <h4>Nouveau compte</h4>
 
             <form id="register_form" method="post" name="register" action="javascript:Register.submit();">
                 <label>

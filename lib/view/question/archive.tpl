@@ -2,7 +2,7 @@
         <!-- SECTION NOT_AJAX -->
         <h4>
             <a href="{{ROOT_PATH}}remote/info?info=question_archive" class="info_bulle nyroModal" title="informations">informations</a>
-            Sondages passés:
+            Sondages passés
         </h4>
         <!-- END NOT_AJAX -->
 

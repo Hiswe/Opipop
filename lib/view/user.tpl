@@ -2,7 +2,7 @@
         <div id="user_colRight">
             <h4>
                 <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal" title="informations">informations</a>
-                Statistiques :
+                Statistiques
             </h4>
 
             <div id="user_statistiques" class="box">
@@ -31,7 +31,7 @@
 
             <h4>
                 <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations">informations</a>
-                Informations :
+                Informations
             </h4>
 
             <div id="user_card" class="box">
@@ -59,7 +59,7 @@
 
             <h4>
                 <a href="{{ROOT_PATH}}remote/info?info=user_proximity" class="info_bulle nyroModal" title="informations">informations</a>
-                Proximité :
+                Proximité
             </h4>
 
             <div id="user_proximity" class="box">
@@ -83,7 +83,7 @@
 
             <h4>
                 <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations">informations</a>
-                Amis :
+                Amis
             </h4>
 
             <!-- SECTION private -->

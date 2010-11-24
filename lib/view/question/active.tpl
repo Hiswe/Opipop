@@ -3,7 +3,7 @@
 
         <h4>
             <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal" title="informations">informations</a>
-            Sondages en cours :
+            Sondages en cours
         </h4>
 
         <ul id="question_active">
