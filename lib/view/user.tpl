@@ -1,4 +1,4 @@
-<div id="userContainer">
+<div id="userContainer" class="firstBackground">
     <div id="user" class="horizontalCenter">
         <div id="user_colRight">
             <h4>
@@ -142,5 +142,6 @@
                 <!-- END friend -->
             </ul>
         </div>
+        <div class="clear"></div>
     </div>
 </div>

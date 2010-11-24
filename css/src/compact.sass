@@ -73,7 +73,7 @@ div.modal
 ///////////////////
 
 body
-    background: #ffffff image-url('background_texture.gif')
+    background: $blue
     font-family: tahoma, Arial, sans-serif
     font-size: 10px
     color: $black
@@ -178,6 +178,13 @@ form
         font-size: $font_small
         margin: 0 0 15px 0
 
+///////////////////
+//  COMMON
+///////////////////
+
+.firstBackground,
+.secondBackground
+    background: #ffffff image-url('background_texture.gif')
 
 ///////////////////
 //  UTILS
@@ -185,6 +192,7 @@ form
 
 .clear
     clear: both
+    height: 0
 
 .clear_left
     clear: left

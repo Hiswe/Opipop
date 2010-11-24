@@ -1,4 +1,4 @@
-<div id="archiveContainer">
+<div id="archiveContainer" class="secondBackground">
     <div id="archive" class="horizontalCenter">
         <!-- SECTION NOT_AJAX -->
         <h4>

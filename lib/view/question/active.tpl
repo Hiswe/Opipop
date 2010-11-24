@@ -1,4 +1,4 @@
-<div id="activeContainer">
+<div id="activeContainer" class="firstBackground">
     <div id="active" class="horizontalCenter">
         <div class="clear"></div>
 
