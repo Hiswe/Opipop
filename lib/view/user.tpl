@@ -40,22 +40,16 @@
                     <div class="distance">{{profile_friend_distance}}m</div>
                     <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
                 </div>
-            </div>
-            <div class="clear"></div>  
-            <ul class="menu">
-                <!-- SECTION friendRequest -->
-                <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}"><i class="icon {{friendRequest_icon}}"></i>{{friendRequest_message}}</a></li>
-                <!-- END friendRequest -->
-            </ul>                                                        
-            <h5>Quels amis le connaissent le mieux</h5>
+            </div>                                                              
             <div id="user_proximity">
+                <h5>Quels amis le connaissent le mieux</h5>
                 <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
                 <div class="content">
-                    <span class="percent" style="left:0%;">0%</span>
-                    <span class="percent" style="left:25%;">25%</span>
-                    <span class="percent" style="left:50%;">50%</span>
-                    <span class="percent" style="left:75%;">75%</span>
-                    <span class="percent" style="left:100%;">100%</span>
+                    <div class="percent position0"><span>0%</span></div>
+                    <div class="percent position25"><span>25%</span></div>
+                    <div class="percent position50"><span>50%</span></div>
+                    <div class="percent position75"><span>75%</span></div>
+                    <div class="percent position100"><span>100%</span></div>
                 <!-- LOOP friend -->
                     <!-- LOOP friend.stat -->
                     <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />

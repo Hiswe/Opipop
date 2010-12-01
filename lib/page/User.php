@@ -53,36 +53,6 @@ class Page_User extends Page
                     ));
                 }
             }
-            else
-            {
-                Globals::$tpl->assignSection('friendRequest');
-
-                // Look if I'm friend with this profile's user
-                switch ($profile->getFriendStatus($user))
-                {
-                    case Model_User::FRIEND_STATUS_NONE :
-                        $friendMessage = 'Ajouter a mes amis';
-                        $friendAction  = 'add';
-                        $friendIcon    = 'iconAdd';
-                        break;
-                    case Model_User::FRIEND_STATUS_PENDING :
-                        $friendMessage = 'Annuler la demande';
-                        $friendAction  = 'cancel';
-                        $friendIcon    = 'iconRemove';
-                        break;
-                    case Model_User::FRIEND_STATUS_VALIDED :
-                        $friendMessage = 'Effacer de mes amis';
-                        $friendAction  = 'remove';
-                        $friendIcon    = 'iconRemove';
-                        break;
-                }
-                Globals::$tpl->assignVar(array
-                (
-                    'friendRequest_message' => $friendMessage,
-                    'friendRequest_action'  => $friendAction,
-                    'friendRequest_icon'    => $friendIcon,
-                ));
-            }
         }
 
         $profileTotalVotes = $profile->getTotalVotes();

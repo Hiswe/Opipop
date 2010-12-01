@@ -42,6 +42,10 @@
         font-size: $font_very_huge
         color: $black
         +text-shadow($light_grey)
+        
+    h5
+        color: $black
+        font-size: $font_big        
 
     .info
         margin: 5px 0 20px 0
@@ -74,10 +78,6 @@
     margin: 0 10px 0 0
     padding-top: 10px
     
-    h5
-        color: $black
-        font-size: $font_big
-    
     .country,
     .friend
         float: left
@@ -102,7 +102,57 @@
     .friend 
         .distance
             background: image-url('distance_friend.png') no-repeat center top
+    
+#user_proximity
+    margin: 0 0 10px 0
+    padding: 25px 10px 20px
+    position: relative  
+
+    .user
+        position: absolute
+        top: 55px
+        right: 12px        
+
+    .content
+        position: relative        
+        margin: 35px 65px 0 0
+        padding-bottom: 20px
+        border-top: 1px solid $dark_grey         
+
+        .avatar
+            border: solid 1px $light_grey
+            padding: 2px
+            background: $white
+            position: absolute
+            top: -31px
             
+        .percent
+            position: absolute
+            top: 0
+            font-size: $font_medium
+            color: $grey
+            height: 5px
+            border-left: 1px solid $dark_grey
+            
+            span
+                position: absolute
+                top: 5px
+                left: -12px
+        
+        .position0
+            left: 0
+            span
+                left: -6px            
+        .position25
+            left: 25%
+        .position50
+            left: 50%
+        .position75
+            left: 75%
+        .position100  
+            right: 0
+            span
+                left: -17px
             
 #friend_header
     height: 60px
@@ -173,35 +223,6 @@
 
     h4
         padding: 0 0 10px 0
-
-#user_proximity
-    margin: 0 0 10px 0
-    padding: 10px 10px 20px 10px
-    position: relative
-    background: image-url('proximity_background.png') repeat-x bottom left
-    margin: 0 30px 0 0
-
-    .user
-        position: absolute
-        top: 22px
-        right: lm12px        
-
-    .content
-        position: relative
-        margin: 0 50px 0 0
-        height: 42px
-
-        .avatar
-            border: solid 1px $light_grey
-            padding: 2px
-            background: $white
-            position: absolute
-
-        .percent
-            position: absolute
-            top: 38px
-            font-size: $font_medium
-            color: $grey
 
 #user_friends
     margin: 20px 0 0
