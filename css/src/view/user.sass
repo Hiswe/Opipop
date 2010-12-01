@@ -4,11 +4,6 @@
 #user_statistiques
     padding: 10px
 
-#user_feelings
-    border: solid 1px $very_light_grey
-    background: $white
-    margin: 0 0 20px 0
-
 #user_search
     em
         display: inline
@@ -16,6 +11,99 @@
 
     input
         display: inline
+        
+#userAvatar
+    border: 1px solid $grey
+    float: left
+    margin: 0 10px 0 0
+    +box-shadow($grey, 1px, 1px, 4px)
+    +transform(1, -5deg, -12px, -10px, 0deg, 0deg)
+
+#user_feelings
+    float: right
+    
+#user_card
+    margin: 20px 0 10px 0
+    padding: 10px
+    position: relative
+
+    .menu
+        position: absolute
+        right: 10px
+        bottom: 10px
+
+        li
+            display: inline
+            margin: 0 0 0 5px
+
+            a
+                display: block
+                font-size: $font_small        
+
+    h1
+        font-size: $font_very_huge
+        color: $black
+        +text-shadow($light_grey)
+
+    .info
+        margin: 5px 0 20px 0
+        font-size: $font_small
+        color: $grey    
+    
+#profileInfo
+    margin: 15px
+
+    dl
+        margin: 7px
+
+        dt,
+        dd
+            text-align: left
+            display: inline            
+
+        dt
+            padding-bottom: 4px
+            font-size: $font_small
+            color: $dark_grey
+
+        dd
+            font-weight: bold
+            font-size: $font_medium 
+
+#distance
+    clear: left
+    overflow: hidden
+    margin: 0 10px 0 0
+    padding-top: 10px
+    
+    h5
+        color: $black
+        font-size: $font_big
+    
+    .country,
+    .friend
+        float: left
+        position: relative
+        width: 50%
+
+        .distance
+            padding: 20px 0 30px
+            text-align: center
+            font-size: $font_medium
+
+        .user
+            position: absolute
+            top: 35px
+            left: 50%
+            padding-left: 45px
+            
+    .country 
+        .distance
+            background: image-url('distance_country.png') no-repeat center top
+        
+    .friend 
+        .distance
+            background: image-url('distance_friend.png') no-repeat center top
 
 #user_search_result
     li
@@ -64,43 +152,17 @@
     h4
         padding: 0 0 10px 0
 
-#user_distance
-    .country,
-    .friend
-        position: relative
-        border: solid 1px $very_light_grey
-        padding: 10px
-        height: 64px
-
-        .distance
-            text-align: center
-            font-size: $font_big
-
-        .user
-            position: absolute
-            top: 15px
-            right: 35px
-
-    .country
-        background: $white image-url('distance_country.png') no-repeat center center
-        margin: 10px 0 20px 0
-    .friend
-        background: $white image-url('distance_friend.png') no-repeat center center
-        margin: 10px 0 0 0
-
 #user_proximity
     margin: 0 0 10px 0
     padding: 10px 10px 20px 10px
     position: relative
+    background: image-url('proximity_background.png') repeat-x bottom left
+    margin: 0 30px 0 0
 
     .user
         position: absolute
         top: 22px
-        right: 12px
-
-    .background
-        background: image-url('proximity_background.png') repeat-x bottom left
-        margin: 0 30px 0 0
+        right: lm12px        
 
     .content
         position: relative
@@ -118,46 +180,6 @@
             top: 38px
             font-size: $font_medium
             color: $grey
-
-#user_card
-    margin: 20px 0 10px 0
-    padding: 10px
-    position: relative
-
-    .menu
-        position: absolute
-        right: 10px
-        bottom: 10px
-
-        li
-            display: inline
-            margin: 0 0 0 5px
-
-            a
-                display: block
-                font-size: $font_small
-
-    .avatar
-        float: left
-        margin: 0 10px 0 0
-
-    h1
-        font-size: $font_huge
-        color: $black
-        +text-shadow($light_grey)
-
-    .info
-        margin: 5px 0 20px 0
-        font-size: $font_small
-        color: $grey
-
-    .stat
-        margin: 5px 0
-        font-size: $font_medium
-        color: $grey
-
-        strong
-            font-weight: bold
 
 #user_friends
     margin: 20px 0 0

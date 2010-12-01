@@ -1,84 +1,73 @@
 <div id="userContainer" class="firstBackground">
     <div id="user" class="horizontalCenter">
+        <h4>
+            Informations
+            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
 
-            <h4>
-                Statistiques
-                <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
-
-            <div id="user_statistiques" class="box">
-                <h5>Profile :</h5>
-                <div id="user_feelings"></div>
-
-                <div id="user_distance">
-                    <h5>Distance avec l'opinion national :</h5>
-                    <div class="country">
-                        <div class="distance">{{profile_global_distance}}m</div>
-                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-                    </div>
-
-                    <h5>Distance avec l'opinion des amis :</h5>
-                    <div class="friend">
-                        <div class="distance">{{profile_friend_distance}}m</div>
-                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-                    </div>
-                </div>
-            </div>
-
+        <div id="user_card" class="box">
+            <div id="user_feelings"></div>
             <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
- 
-
-
-            <h4>
-                Informations
-                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
-
-            <div id="user_card" class="box">
-                <img class="avatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
-
-                <h1>{{profile_login}}</h1>
-
-                <ul class="info">
-                    <li>{{profile_gender}} - {{profile_region}}</li>
-                </ul>
-
-                <p class="stat">Nombre de votes : <strong>{{profile_totalVote}}</strong></p>
-                <p class="stat">Nombre de bonnes prédictions : <strong>{{profile_totalPredictionWon}}</strong></p>
-                <p class="stat">Nombre de mauvaises prédictions : <strong>{{profile_totalPredictionLost}}</strong></p>
-                <p class="stat">Précision des prédictions : <strong>{{profile_predictionAccuracy}}%</strong></p>
-
-                <ul class="menu">
-                    <!-- SECTION friendRequest -->
-                    <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}"><i class="icon {{friendRequest_icon}}"></i>{{friendRequest_message}}</a></li>
-                    <!-- END friendRequest -->
-                </ul>
-
-                <div class="clear_left"></div>
+            <img id="userAvatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />            
+            <h1>{{profile_login}}</h1>
+            <div id="profileInfo">
+                <dl>
+                    <dt>Votes : </dt>
+                    <dd>{{profile_totalVote}}</dd>
+                </dl>
+                <dl>
+                    <dt>Bonnes prédictions : </dt>
+                    <dd>{{profile_totalPredictionWon}}</dd>
+                </dl>
+                <dl>
+                    <dt>Mauvaises prédictions : </dt>
+                    <dd>{{profile_totalPredictionLost}}</dd>
+                </dl>
+                <dl>
+                    <dt>Précision des prédictions : </dt>
+                    <dd>{{profile_predictionAccuracy}}%</dd>
+                </dl>
             </div>
-
-            <h4>
-                Proximité
-                <a href="{{ROOT_PATH}}remote/info?info=user_proximity" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
-
-            <div id="user_proximity" class="box">
-                <h5>Quels amis le connaissent le mieux :</h5>
-                <div class="background">
+            <div id="distance">
+                <div class="country">
+                    <h5>Distance avec l'opinion national</h5>
+                    <div class="distance">{{profile_global_distance}}m</div>
                     <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-                    <div class="content">
-                        <span class="percent" style="left:0%;">0%</span>
-                        <span class="percent" style="left:25%;">25%</span>
-                        <span class="percent" style="left:50%;">50%</span>
-                        <span class="percent" style="left:75%;">75%</span>
-                        <span class="percent" style="left:100%;">100%</span>
-                        <!-- LOOP friend -->
-                        <!-- LOOP friend.stat -->
-                        <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
-                        <!-- END friend.stat -->
-                        <!-- END friend -->
-                    </div>
                 </div>
+
+                <div class="friend">
+                    <h5>Distance avec l'opinion des amis</h5>
+                    <div class="distance">{{profile_friend_distance}}m</div>
+                    <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                </div>
+            </div>
+            <div class="clear"></div>  
+            <ul class="menu">
+                <!-- SECTION friendRequest -->
+                <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}"><i class="icon {{friendRequest_icon}}"></i>{{friendRequest_message}}</a></li>
+                <!-- END friendRequest -->
+            </ul>                                                        
+                    <h5>Quels amis le connaissent le mieux</h5>
+                    <div id="user_proximity">
+                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                        <div class="content">
+                            <span class="percent" style="left:0%;">0%</span>
+                            <span class="percent" style="left:25%;">25%</span>
+                            <span class="percent" style="left:50%;">50%</span>
+                            <span class="percent" style="left:75%;">75%</span>
+                            <span class="percent" style="left:100%;">100%</span>
+                            <!-- LOOP friend -->
+                            <!-- LOOP friend.stat -->
+                            <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                            <!-- END friend.stat -->
+                            <!-- END friend -->
+                        </div>
+                    </div>
+
+                       
+
+
+
             </div>
         <div class="clear"></div>
     </div>

@@ -54,8 +54,8 @@ var Graph =
 
     feeling : function(containerId, data)
     {
-        var area = 300;
-        var size = 280;
+        var area = 250;
+        var size = 240;
 
         var vis = new pv.Panel()
             .canvas(containerId)
