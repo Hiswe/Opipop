@@ -19,5 +19,5 @@
     <link rel="stylesheet" type="text/css" href="{{ROOT_PATH}}css/stylesheets/compact.css?{{VERSION}}">
 </head>
 <body>
-    <div class="main_content">
+    <div id="mainContent">
 

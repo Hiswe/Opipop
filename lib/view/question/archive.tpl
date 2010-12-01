@@ -1,6 +1,6 @@
+<!-- SECTION NOT_AJAX -->
 <div id="archiveContainer" class="secondBackground">
     <div id="archive" class="horizontalCenter">
-        <!-- SECTION NOT_AJAX -->
         <h4>
             Sondages passés
             <a href="{{ROOT_PATH}}remote/info?info=question_archive" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
@@ -32,15 +32,15 @@
             <!-- END question_archive -->
         </ul>
 
+        <!-- SECTION AJAX -->
+        <script type="text/javascript">$('#question_archive a.nyroModal').nyroModal();</script>
+        <!-- END AJAX -->
+
         <!-- SECTION NOT_AJAX -->
         <div id="question_archive_navigation">
             <a href="{{ROOT_PATH}}" id="previousQuestionButton" class="button disable">&lt;&lt; précédent</a>
             <a href="{{ROOT_PATH}}" id="nextQuestionButton" class="button">suivant &gt;&gt;</a>
         </div>
-        <!-- END NOT_AJAX -->
-
-        <!-- SECTION AJAX -->
-        <script type="text/javascript">$('#question_archive a.nyroModal').nyroModal();</script>
-        <!-- END AJAX -->
     </div>
 </div>
+<!-- END NOT_AJAX -->

@@ -24,7 +24,7 @@ class Block_Question_Archive extends Block
         // Get questions
         $questions = $category->getQuestions($this->page);
 
-        if ($this->isAjax() && $category->getTotalQuestions() <= ($this->page + 1) * Conf::get('QUESTION_PER_PAGE'))
+        if ($category->getTotalQuestions() <= ($this->page + 1) * Conf::get('QUESTION_PER_PAGE'))
         {
             header('X-JSON: (Question.setEndReached())');
         }

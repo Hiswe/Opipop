@@ -52,14 +52,16 @@ $border_radius_big: 10px
 @import view/info
 
 
-.main_content
+#mainContent
     position: relative
+    border-bottom: solid 1px $dark_grey
 
 .horizontalCenter
     max-width: 1050px
     min-width: 880px
     margin: 0 auto
     padding: 0 20px
+    overflow: hidden
 
 div.modal
     background: $white
@@ -185,6 +187,7 @@ form
 
 .firstBackground,
 .secondBackground
+    border: solid 2px $light_grey
     background: #ffffff image-url('background_texture.gif')
 
 .icon
