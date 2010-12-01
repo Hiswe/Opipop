@@ -1,6 +1,6 @@
 #userContainer
     padding: 0 0 20px
-    
+
 #user_colLeft
     margin: 0 350px 0 0
 
@@ -17,10 +17,24 @@
     background: $white
     margin: 0 0 20px 0
 
+#friend_header
+    height: 60px
+
+    h4
+        float: left
+
 #user_search
-    em
-        display: inline
-        margin: 0 5px 0 0
+    float: left
+    margin: 20px 0 0 20px
+    position: relative
+
+    .overlay
+        font-size: $font_small
+        font-weight: bold
+        color: $grey
+        position: absolute
+        top: 6px
+        left: 7px
 
     input
         display: inline
@@ -194,7 +208,7 @@
             top: 25px
             font-size: $font_small
             color: $grey
-            
+
             li
                 border: none
 
@@ -210,10 +224,10 @@
             li
                 float: right
                 margin: 12px 10px 0 0
-                
+
     li:first-child
         border: none
-    
+
     li:hover
         .edit
             display: block

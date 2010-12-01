@@ -82,18 +82,22 @@
                 </div>
             </div>
 
-            <h4>
-                Amis
-                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
+            <div id="friend_header">
+                <h4>
+                    Amis
+                    <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+                </h4>
+                <!-- SECTION private -->
+                <form id="user_search">
+                    <label>
+                        <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
+                    </label>
+                    <div class="overlay">Rechercher un amis ...</div>
+                </form>
+                <!-- END private -->
+            </div>
 
             <!-- SECTION private -->
-            <form id="user_search">
-                <label>
-                    <em>Rechercher un amis :</em>
-                    <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
-                </label>
-            </form>
             <ul id="user_search_result"></ul>
             <hr></hr>
             <!-- END private -->
