@@ -58,7 +58,7 @@ $border_radius: 3px
     max-width: 1050px
     min-width: 880px
     margin: 0 auto
-    padding: 0 20px
+    padding: 10px 20px 20px
 
 div.modal
     background: $white
@@ -182,9 +182,12 @@ form
 //  COMMON
 ///////////////////
 
-.firstBackground,
-.secondBackground
+.firstBackground
     background: #ffffff image-url('background_texture.gif')
+    
+.secondBackground
+    background: #EEE image-url('background_texture.png')
+    +linear-gradient(color-stops($grey, $light_grey 1%, $light_grey), top, image-url('background_texture.png'))    
     
 .icon
     display: inline-block

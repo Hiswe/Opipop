@@ -1,6 +1,6 @@
 <div id="userContainer" class="firstBackground">
     <div id="user" class="horizontalCenter">
-        <div id="user_colRight">
+
             <h4>
                 Statistiques
                 <a href="{{ROOT_PATH}}remote/info?info=user_statistiques" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
@@ -26,9 +26,8 @@
             </div>
 
             <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
-        </div>
+ 
 
-        <div id="user_colLeft">
 
             <h4>
                 Informations
@@ -81,67 +80,69 @@
                     </div>
                 </div>
             </div>
-
-            <h4>
-                Amis
-                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
-
-            <!-- SECTION private -->
-            <form id="user_search">
-                <label>
-                    <em>Rechercher un amis :</em>
-                    <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
-                </label>
-            </form>
-            <ul id="user_search_result"></ul>
-            <hr></hr>
-            <!-- END private -->
-
-            <ul id="user_friends" class="box">
-                <!-- SECTION noFriends -->
-                <li class="noFriends">Auncun amis pour l'instant ...</li>
-                <!-- END noFriends -->
-
-                <!-- LOOP request -->
-                <li>
-                    <ul class="edit">
-                        <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button" title="accept"><i class="icon iconAdd"></i>accept</a></li>
-                        <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button" title="reject"><i class="icon iconRemove"></i>reject</a></li>
-                    </ul>
-
-                    <ul class="stat">
-                        <li>Cette personne veux rentrer dans vos amis ...</li>
-                    </ul>
-
-                    <a href="{{ROOT_PATH}}{{request.login}}" title="{{request.login}}">
-                        <img class="avatar" src="{{ROOT_PATH}}{{request.avatar}}" alt="{{request.login}}" />
-                        <strong class="login">{{request.login}}</strong>
-                    </a>
-                </li>
-                <!-- END request -->
-
-                <!-- LOOP friend -->
-                <li>
-                    <!-- SECTION private -->
-                    <ul class="edit">
-                        <li><a href="#" id="friend_{{friend.id}}" class="button" title="remove"><i class="icon iconRemove"></i>effacer</a></li>
-                    </ul>
-                    <!-- END private -->
-                    <ul class="stat">
-                        <!-- LOOP friend.stat -->
-                        <li>précision de prédictions : <strong>{{friend.stat.predictionAccuracy_my}}%</strong></li>
-                        <!-- END friend.stat -->
-                    </ul>
-
-                    <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
-                        <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar_medium}}" />
-                        <strong class="login">{{friend.login}}</strong>
-                    </a>
-                </li>
-                <!-- END friend -->
-            </ul>
-        </div>
         <div class="clear"></div>
+    </div>
+</div>
+<div id="friendContainer" class="secondBackground">
+    <div id="friend" class="horizontalCenter">
+        <h4>
+            Amis
+            <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
+
+        <!-- SECTION private -->
+        <form id="user_search">
+            <label>
+                <em>Rechercher un amis :</em>
+                <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
+            </label>
+        </form>
+        <ul id="user_search_result"></ul>
+        <hr></hr>
+        <!-- END private -->
+
+        <ul id="user_friends" class="box">
+            <!-- SECTION noFriends -->
+            <li class="noFriends">Auncun amis pour l'instant ...</li>
+            <!-- END noFriends -->
+
+            <!-- LOOP request -->
+            <li>
+                <ul class="edit">
+                    <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button" title="accept"><i class="icon iconAdd"></i>accept</a></li>
+                    <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button" title="reject"><i class="icon iconRemove"></i>reject</a></li>
+                </ul>
+
+                <ul class="stat">
+                    <li>Cette personne veux rentrer dans vos amis ...</li>
+                </ul>
+
+                <a href="{{ROOT_PATH}}{{request.login}}" title="{{request.login}}">
+                    <img class="avatar" src="{{ROOT_PATH}}{{request.avatar}}" alt="{{request.login}}" />
+                    <strong class="login">{{request.login}}</strong>
+                </a>
+            </li>
+            <!-- END request -->
+
+            <!-- LOOP friend -->
+            <li>
+                <!-- SECTION private -->
+                <ul class="edit">
+                    <li><a href="#" id="friend_{{friend.id}}" class="button" title="remove"><i class="icon iconRemove"></i>effacer</a></li>
+                </ul>
+                <!-- END private -->
+                <ul class="stat">
+                    <!-- LOOP friend.stat -->
+                    <li>précision de prédictions : <strong>{{friend.stat.predictionAccuracy_my}}%</strong></li>
+                    <!-- END friend.stat -->
+                </ul>
+
+                <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
+                    <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar_medium}}" />
+                    <strong class="login">{{friend.login}}</strong>
+                </a>
+            </li>
+            <!-- END friend -->
+        </ul>
     </div>
 </div>
