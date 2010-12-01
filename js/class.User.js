@@ -3,22 +3,43 @@ var User =
 
     searchTimeout       : 0,
     previousSearchQuery : '',
+    searchCleared       : false,
 
     initSearch : function()
     {
         $('#user_search').bind('submit', Form.noAction);
-        $('#user_search_query').bind('keydown', User.scheduleSearch);
-        $('#user_search_query').bind('change', User.scheduleSearch);
+        $('#user_search_query').bind(
+        {
+            'keydown' : User.scheduleSearch,
+            'change'  : User.scheduleSearch
+        });
+        $('#user_search .overlay').bind('click', User.searchOverlayClickCallback);
+    },
+
+    searchOverlayClickCallback : function()
+    {
+        console.log(1);
+        $('#user_search_query').get(0).focus();
     },
 
     scheduleSearch : function()
     {
         clearTimeout(User.searchTimeout);
         User.searchTimeout = setTimeout(User.search, 500);
+        $('#user_search .overlay').hide();
     },
 
     search : function(event)
     {
+        if ($('#user_search_query').val() == '')
+        {
+            $('#user_search .overlay').stop(true, true).fadeIn(1000);
+        }
+        else
+        {
+            $('#user_search .overlay').hide();
+        }
+
         var query = Form.getCleanInputValue($('#user_search_query'));
         if (query.length == 0)
         {

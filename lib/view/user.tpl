@@ -47,49 +47,46 @@
                 <li><a href="#" id="friend_{{profile_id}}" class="button" title="{{friendRequest_action}}"><i class="icon {{friendRequest_icon}}"></i>{{friendRequest_message}}</a></li>
                 <!-- END friendRequest -->
             </ul>                                                        
-                    <h5>Quels amis le connaissent le mieux</h5>
-                    <div id="user_proximity">
-                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-                        <div class="content">
-                            <span class="percent" style="left:0%;">0%</span>
-                            <span class="percent" style="left:25%;">25%</span>
-                            <span class="percent" style="left:50%;">50%</span>
-                            <span class="percent" style="left:75%;">75%</span>
-                            <span class="percent" style="left:100%;">100%</span>
-                            <!-- LOOP friend -->
-                            <!-- LOOP friend.stat -->
-                            <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
-                            <!-- END friend.stat -->
-                            <!-- END friend -->
-                        </div>
-                    </div>
-
-                       
-
-
-
+            <h5>Quels amis le connaissent le mieux</h5>
+            <div id="user_proximity">
+                <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                <div class="content">
+                    <span class="percent" style="left:0%;">0%</span>
+                    <span class="percent" style="left:25%;">25%</span>
+                    <span class="percent" style="left:50%;">50%</span>
+                    <span class="percent" style="left:75%;">75%</span>
+                    <span class="percent" style="left:100%;">100%</span>
+                <!-- LOOP friend -->
+                    <!-- LOOP friend.stat -->
+                    <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                    <!-- END friend.stat -->
+                <!-- END friend -->
+                </div>
             </div>
         <div class="clear"></div>
     </div>
 </div>
 <div id="friendContainer" class="secondBackground">
     <div id="friend" class="horizontalCenter">
-        <h4>
-            Amis
-            <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-        </h4>
+        <div id="friend_header">
+            <h4>
+                Amis
+                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+            </h4>
+            <!-- SECTION private -->
+            <form id="user_search">
+                <label>
+                    <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
+                </label>
+                <div class="overlay">Rechercher un amis ...</div>
+            </form>
+            <!-- END private -->
+        </div>
 
         <!-- SECTION private -->
-        <form id="user_search">
-            <label>
-                <em>Rechercher un amis :</em>
-                <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
-            </label>
-        </form>
         <ul id="user_search_result"></ul>
         <hr></hr>
         <!-- END private -->
-
         <ul id="user_friends" class="box">
             <!-- SECTION noFriends -->
             <li class="noFriends">Auncun amis pour l'instant ...</li>

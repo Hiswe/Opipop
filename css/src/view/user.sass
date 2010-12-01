@@ -4,14 +4,12 @@
 #user_statistiques
     padding: 10px
 
-#user_search
-    em
-        display: inline
-        margin: 0 5px 0 0
 
-    input
-        display: inline
-        
+#user_feelings
+    border: solid 1px $very_light_grey
+    background: $white
+    margin: 0 0 20px 0
+
 #userAvatar
     border: 1px solid $grey
     float: left
@@ -104,6 +102,30 @@
     .friend 
         .distance
             background: image-url('distance_friend.png') no-repeat center top
+            
+            
+#friend_header
+    height: 60px
+
+    h4
+        float: left
+
+    #user_search
+        float: left
+        margin: 20px 0 0 20px
+        position: relative
+
+        .overlay
+            font-size: $font_small
+            font-weight: bold
+            color: $grey
+            position: absolute
+            top: 6px
+            left: 7px
+
+    input
+        display: inline
+            
 
 #user_search_result
     li
@@ -128,7 +150,7 @@
 
             li
                 float: right
-                margin: 6px 10px 0 0
+                margin: 2px 5px 0 0
 
         .message
             color: $grey
@@ -188,7 +210,7 @@
         font-size: $font_medium
 
     li
-        padding: 7px 2px
+        padding: 7px 10px
         height: 50px
         position: relative
         border-top: 1px solid $light_grey
@@ -208,7 +230,7 @@
             top: 25px
             font-size: $font_small
             color: $grey
-            
+
             li
                 border: none
 
@@ -222,12 +244,15 @@
             float: right
 
             li
+                border: none
                 float: right
-                margin: 12px 10px 0 0
-                
+                margin: 8px 0 0 0
+                padding: 7px 5px
+                height: auto
+
     li:first-child
         border: none
-    
+
     li:hover
         .edit
             display: block

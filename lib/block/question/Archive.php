@@ -62,7 +62,7 @@ class Block_Question_Archive extends Block
             {
                 Globals::$tpl->assignLoopVar('question_archive.answer', array
                 (
-                    'percentFormated' => number_format($answer->getPercent(), 1, ',', ' '),
+                    'percentFormated' => round($answer->getPercent()),
                     'label'           => $answer->getLabel(),
                     'key'             => $key,
                 ));

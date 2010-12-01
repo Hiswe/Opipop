@@ -1,6 +1,6 @@
 $power_blue: #0066DF
 
-$dark_grey: #AAA  
+$dark_grey: #AAA
 
 $pink: #ff0099
 $blue: #6699CC
@@ -20,7 +20,7 @@ $light_yellow: #ffffcc
 
 $very_light_pink: #ffccff
 $very_light_blue: #ccffff
-$very_light_grey: #F0F0F0
+$very_light_grey: #F9F9F9
 $very_light_green: #f0fff0
 $very_light_yellow: #fffff0
 $very_light_red: #fff0f0
@@ -35,6 +35,7 @@ $border_size: 2px
 $border_size_small: 1px
 
 $border_radius: 3px
+$border_radius_big: 10px
 
 @import compass/css3
 @import compass/reset
@@ -189,7 +190,7 @@ form
 .secondBackground
     background: #EEE image-url('background_texture.png')
     +linear-gradient(color-stops($grey, $light_grey 1%, $light_grey), top, image-url('background_texture.png'))    
-    
+
 .icon
     display: inline-block
     background-repeat: no-repeat
@@ -197,8 +198,8 @@ form
     overflow: hidden
     text-indent: -999em
     margin: 0 3px
-        
-// 48x48 icon    
+
+// 48x48 icon
 .iconGender,
 .iconMap
     width: 48px
@@ -209,32 +210,32 @@ form
 .iconGender
     background-position: 0 0
 
-a:hover 
+a:hover
     .iconGender,
     .iconGender:hover
         background-position: -48px 0
-        
-a:active 
+
+a:active
     .iconGender,
     .iconGender:active
         background-position: -96px 0
-    
+
 .iconMap
     background-position: 0 -48px
-    
-a:hover 
+
+a:hover
     .iconMap,
     .iconMap:hover
         background-position: -48px -48px
-            
-a:active 
+
+a:active
     .iconMap,
     .iconMap:active
         background-position: -96px -48px
-        
+
 // 16x16 icon
 
-// 48x48 icon    
+// 48x48 icon
 .iconAdd,
 .iconRemove,
 .iconInfo
@@ -247,39 +248,39 @@ a:active
     background-position: 0 0
     vertical-align: text-bottom
 
-a:hover 
+a:hover
     .iconAdd,
     .iconAdd:hover
         background-position: -16px 0
-        
-a:active 
+
+a:active
     .iconAdd,
     .iconAdd:active
         background-position: -32px 0
 
 .iconRemove
     background-position: 0 -16px
-    vertical-align: text-bottom    
+    vertical-align: text-bottom
 
-a:hover 
+a:hover
     .iconRemove,
     .iconRemove:hover
         background-position: -16px -16px
 
-a:active 
+a:active
     .iconRemove,
     .iconRemove:active
         background-position: -32px -16px
-        
+
 .iconInfo
     background-position: 0 -32px
 
-    a:hover 
+    a:hover
         .iconInfo,
         .iconInfo:hover
             background-position: -16px -32px
 
-    a:active 
+    a:active
         .iconInfo,
         .iconInfo:active
             background-position: -32px -32px
@@ -319,14 +320,17 @@ a:active
     border-color: $pink
     color: $pink
     +box-shadow($grey, -1px, 1px, 1px)
-    
+
 .button:active
     border-color: $dark_grey
     color: $black
     +box-shadow(none)
     +apply-transform(translate(0, 1px))
 
-.button.disable
+
+.button.disable,
+.button.disable:hover
+    border-color: $grey
     opacity: 0.5
     color: $grey
     +box-shadow($light_grey, -1px, 1px, 1px)
@@ -364,4 +368,3 @@ a:active
 
     .nyroModalClose:hover
         background: image-url("icon32x32/close_button-hover.png")
-
