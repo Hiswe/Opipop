@@ -3,8 +3,8 @@
         <div class="clear"></div>
 
         <h4>
-            <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
             Sondages en cours
+            <a href="{{ROOT_PATH}}remote/info?info=question_active" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
         </h4>
 
         <ul id="question_active">
@@ -77,6 +77,6 @@
 
             </li>
             <!-- END question -->
-        </ul>        
+        </ul>
     </div>
 </div>
