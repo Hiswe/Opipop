@@ -18,17 +18,17 @@
         include Conf::get('ROOT_DIR') . 'lib/' . str_replace('_', '/', $className) . '.php';
     }
 
-class Globals
-{
-    static $tpl;
-
-    static function init()
+    class Globals
     {
-        self::$tpl = new Template();
-    }
-}
+        static $tpl;
 
-Globals::init();
+        static function init()
+        {
+            self::$tpl = new Template();
+        }
+    }
+
+    Globals::init();
 
     // TEMPLATE ENGINE
     Globals::$tpl->cacheTimeCoef = Conf::get('CACHE_TIMECOEF');
@@ -121,7 +121,31 @@ Globals::init();
                 break;
 
             case 'submit':
-                $page = new Page_Submit();
+                $page = new Page_Info_Submit();
+                break;
+
+            case 'a-propos':
+                $page = new Page_Info_About();
+                break;
+
+            case 'faq':
+                $page = new Page_Info_Faq();
+                break;
+
+            case 'contact':
+                $page = new Page_Info_Contact();
+                break;
+
+            case 'mentions-legales':
+                $page = new Page_Info_Legals();
+                break;
+
+            case 'conditions-utilisation':
+                $page = new Page_Info_Use();
+                break;
+
+            case 'credits':
+                $page = new Page_Info_Credits();
                 break;
 
             default :

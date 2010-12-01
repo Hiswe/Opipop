@@ -175,7 +175,7 @@ var Question =
 
         $('#question_archive').replaceWith(data);
         $('#question_archive').fadeTo(0, 0);
-        $('#question_archive').fadeTo(800, 1);
+        $('#question_archive').fadeTo(300, 1);
 
         if ($('#question_archive li').length == 0)
         {
