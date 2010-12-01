@@ -14,7 +14,9 @@
                     <!--<p class="info">Terminé {{question_archive.time}}</p>-->
 
                     <a class="gender link button nyroModal" href="{{ROOT_PATH}}remote/question/gender?questionId={{question_archive.id}}"><i class="icon iconGender"></i>Répartition H/F</a>
+                    <!-- SECTION v2 -->
                     <a class="map link button nyroModal" href="{{ROOT_PATH}}remote/question/map?questionId={{question_archive.id}}"><i class="icon iconMap"></i>National</a>
+                    <!-- END v2 -->
 
                     <div id="graph{{question_archive.id}}" class="graph">
                         <script type="text/javascript">Graph.archive('graph{{question_archive.id}}', {{question_archive.data}}, 75);</script>

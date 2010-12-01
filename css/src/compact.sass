@@ -34,6 +34,7 @@ $border_size: 2px
 $border_size_small: 1px
 
 $border_radius: 3px
+$border_radius_big: 10px
 
 @import compass/css3
 @import compass/reset
@@ -322,7 +323,10 @@ a:active
     +box-shadow(none)
     +apply-transform(translate(0, 1px))
 
-.button.disable
+
+.button.disable,
+.button.disable:hover
+    border-color: $grey
     opacity: 0.5
     color: $grey
     +box-shadow($light_grey, -1px, 1px, 1px)

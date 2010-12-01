@@ -3,13 +3,14 @@
     +linear-gradient(color-stops($grey, $light_grey 1%, $light_grey), top, image-url('background_texture.png'))
 
 #question_archive
+    +border-radius($border_radius_big)
     margin: 20px 0
 
     .question
         color: $grey
-        padding: 6px 6px 6px 8px
-        margin: 0 0 15px 0
         height: 75px
+        padding: 10px 10px 5px 10px
+        margin: 5px 0
         position: relative
         border-top: 1px solid $light_grey
 
@@ -45,10 +46,10 @@
         .link
             float: right
             padding: 5px
-            margin: 12px 0 0 10px
+            margin: 7px 0 0 10px
             position: relative
             font-size: $font_small
-            
+
     .question:first-child
         border: none
 
