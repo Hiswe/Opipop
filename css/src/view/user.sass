@@ -1,76 +1,50 @@
 #userContainer
     padding: 0 0 20px
 
-#user_statistiques
-    padding: 10px
-
 #user_feelings
-    border: solid 1px $very_light_grey
     background: $white
-    margin: 0 0 20px 0
-
-#userAvatar
-    border: 1px solid $grey
-    float: left
-    margin: 0 10px 0 0
-    +box-shadow($grey, 1px, 1px, 4px)
-    +transform(1, -5deg, -12px, -10px, 0deg, 0deg)
-
-
-#user_feelings
     float: right
 
 #user_card
     margin: 20px 0 10px 0
     padding: 10px
-    position: relative
+    float: left
 
-    .menu
-        position: absolute
-        right: 10px
-        bottom: 10px
-
-        li
-            display: inline
-            margin: 0 0 0 5px
-
-            a
-                display: block
-                font-size: $font_small
-
-    h1
-        font-size: $font_very_huge
-        color: $black
-        +text-shadow($light_grey)
-
-    h5
-        color: $black
-        font-size: $font_big
+    .avatar
+        border: 1px solid $grey
+        float: left
+        +box-shadow($dark_grey, 1px, 1px, 4px)
+        +transform(1, -5deg, -12px, -10px, 0deg, 0deg)
 
     .info
-        margin: 5px 0 20px 0
-        font-size: $font_small
-        color: $grey
+        float: left
 
-#profileInfo
-    margin: 15px
+        h1
+            font-size: $font_very_huge
+            color: $black
+            +text-shadow($grey)
+            margin: 0 0 15px 15px
 
-    dl
-        margin: 7px
+        .col_right
+            float: right
 
-        dt,
-        dd
-            text-align: left
-            display: inline
+        .col_left
+            float: left
+            margin: 0 20px 0 0
 
-        dt
-            padding-bottom: 4px
-            font-size: $font_small
-            color: $dark_grey
+        ul
+            margin: 0 0 15px 5px
 
-        dd
-            font-weight: bold
-            font-size: $font_medium
+            li
+                color: $pink
+                font-weight: bold
+                font-size: $font_medium
+                margin: 5px 0 0 10px
+
+                span
+                    font-weight: normal
+                    color: $blue
+                    font-size: $font_medium
 
 #distance
     clear: left
