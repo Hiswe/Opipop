@@ -18,17 +18,6 @@
                 <h1>{{profile_login}}</h1>
 
                 <div class="col_right">
-                    <ul class="personal">
-                        <li><span>Sexe :</span> H</li>
-                        <li><span>Région :</span> lalala</li>
-                    </ul>
-                </div>
-
-                <div class="col_left">
-                    <ul class="votes">
-                        <li><span>Votes :</span> {{profile_totalVote}}</li>
-                    </ul>
-
                     <ul class="predictions">
                         <li><span>Détail des prédictions : </span>
                         <ul>
@@ -38,25 +27,39 @@
                         </ul>
                     </ul>
                 </div>
+
+                <div class="col_left">
+                    <ul class="personal">
+                        <li><span>Sexe :</span> H</li>
+                        <li><span>Région :</span> lalala</li>
+                    </ul>
+
+                    <ul class="votes">
+                        <li><span>Votes :</span> {{profile_totalVote}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="distance">
+                <h5>Distance avec l'opinion national et l'opinion des amis :</h5>
+                <div class="content">
+                    <img class="icon_country" src="{{ROOT_PATH}}media/layout/distance_country.png" />
+                    <img class="icon_friend" src="{{ROOT_PATH}}media/layout/distance_friend.png" />
+                    <div class="distance_global value">{{profile_global_distance}}m</div>
+                    <div class="distance_friend value">{{profile_friend_distance}}m</div>
+                    <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                </div>
             </div>
         </div>
 
-        <div id="distance">
-            <div class="country">
-                <h5>Distance avec l'opinion national</h5>
-                <div class="distance">{{profile_global_distance}}m</div>
-                <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-            </div>
+        <div class="clear"></div>
 
-            <div class="friend">
-                <h5>Distance avec l'opinion des amis</h5>
-                <div class="distance">{{profile_friend_distance}}m</div>
-                <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-            </div>
-        </div>
+        <h4>
+            Quels amis le connaissent le mieux
+            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
 
         <div id="user_proximity">
-            <h5>Quels amis le connaissent le mieux</h5>
             <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
             <div class="content">
                 <div class="percent position0"><span>0%</span></div>

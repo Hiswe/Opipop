@@ -1,20 +1,17 @@
-#userContainer
-    padding: 0 0 20px
-
 #user_feelings
     background: $white
     float: right
 
 #user_card
-    margin: 20px 0 10px 0
-    padding: 10px
+    margin: 10px 0 10px 0
+    padding: 10px 20px 0 10px
     float: left
 
     .avatar
+        margin: 0 10px 0 0
         border: 1px solid $grey
         float: left
         +box-shadow($dark_grey, 1px, 1px, 4px)
-        +transform(1, -5deg, -12px, -10px, 0deg, 0deg)
 
     .info
         float: left
@@ -30,7 +27,7 @@
 
         .col_left
             float: left
-            margin: 0 20px 0 0
+            margin: 0 35px 0 0
 
         ul
             margin: 0 0 15px 5px
@@ -46,40 +43,55 @@
                     color: $blue
                     font-size: $font_medium
 
-#distance
-    clear: left
-    overflow: hidden
-    margin: 0 10px 0 0
-    padding-top: 10px
+    .distance
+        clear: both
+        margin: 0 10px
+        padding: 20px 0 10px 0
 
-    .country,
-    .friend
-        float: left
-        position: relative
-        width: 50%
+        .content
+            position: relative
+            height: 70px
 
-        .distance
-            padding: 20px 0 30px
-            text-align: center
-            font-size: $font_medium
+            .user
+                position: absolute
+                left: 50%
+                top: 15px
+                margin-left: -24px
 
-        .user
-            position: absolute
-            top: 35px
-            left: 50%
-            padding-left: 45px
+            .icon_country
+                position: absolute
+                left: 0
+                top: 0
 
-    .country
-        .distance
-            background: image-url('distance_country.png') no-repeat center top
+            .icon_friend
+                position: absolute
+                right: 0
+                top: 0
 
-    .friend
-        .distance
-            background: image-url('distance_friend.png') no-repeat center top
+            .distance_global
+                position: absolute
+                right: 75%
+                top: 20px
+                margin-right: -62px
+
+            .distance_friend
+                position: absolute
+                left: 75%
+                top: 20px
+                margin-left: -62px
+
+            .value
+                height: 40px
+                width: 66px
+                text-align: center
+                background: image-url('distance_arrow.png') no-repeat center bottom
+                font-size: $font_big
+                font_weight: bold
+                color: $dark_grey
+
 
 #user_proximity
-    margin: 0 0 10px 0
-    padding: 25px 10px 20px
+    padding: 20px 10px
     position: relative
 
     .user
