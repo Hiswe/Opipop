@@ -6,76 +6,83 @@
             <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
         </h4>
 
-        <div id="user_feelings"></div>
-        <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
+        <div class="box">
 
-        <div id="user_card" class="box">
-            <div class="avatar">
-                <img src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
-            </div>
+            <div id="user_feelings"></div>
+            <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
 
-            <div class="info">
-                <h1>{{profile_login}}</h1>
+            <div id="user_card">
+                <div class="top">
+                    <div class="avatar">
+                        <img src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
+                    </div>
 
-                <div class="col_right">
-                    <ul class="predictions">
-                        <li><span>Détail des prédictions : </span>
-                        <ul>
-                            <li><span>Bonnes :</span> {{profile_totalPredictionWon}}</li>
-                            <li><span>Mauvaises :</span> {{profile_totalPredictionLost}}</li>
-                            <li><span>Précision :</span> {{profile_predictionAccuracy}}%</li>
-                        </ul>
-                    </ul>
+                    <div class="info">
+                        <h1>{{profile_login}}</h1>
+
+                        <div class="col_right">
+                            <ul class="personal">
+                                <li><span>Sexe :</span> H</li>
+                                <li><span>Région :</span> lalala</li>
+                            </ul>
+                        </div>
+
+                        <div class="col_left">
+                            <ul class="votes">
+                                <li><span>Votes :</span> {{profile_totalVote}}</li>
+                            </ul>
+                            <ul class="predictions">
+                                <li><span>Détail des prédictions : </span>
+                                <ul>
+                                    <li><span>Bonnes :</span> {{profile_totalPredictionWon}}</li>
+                                    <li><span>Mauvaises :</span> {{profile_totalPredictionLost}}</li>
+                                    <li><span>Précision :</span> {{profile_predictionAccuracy}}%</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
                 </div>
 
-                <div class="col_left">
-                    <ul class="personal">
-                        <li><span>Sexe :</span> H</li>
-                        <li><span>Région :</span> lalala</li>
-                    </ul>
-
-                    <ul class="votes">
-                        <li><span>Votes :</span> {{profile_totalVote}}</li>
-                    </ul>
+                <div class="distance">
+                    <h5>Distance avec l'opinion national et l'opinion des amis :</h5>
+                    <div class="content">
+                        <img class="icon_country" src="{{ROOT_PATH}}media/layout/distance_country.png" />
+                        <img class="icon_friend" src="{{ROOT_PATH}}media/layout/distance_friend.png" />
+                        <div class="distance_global value">{{profile_global_distance}}m</div>
+                        <div class="distance_friend value">{{profile_friend_distance}}m</div>
+                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                    </div>
                 </div>
             </div>
 
-            <div class="distance">
-                <h5>Distance avec l'opinion national et l'opinion des amis :</h5>
+            <div class="clear"></div>
+
+            <h4>
+                Quels amis le connaissent le mieux
+                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+            </h4>
+
+            <div id="user_proximity">
+                <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
                 <div class="content">
-                    <img class="icon_country" src="{{ROOT_PATH}}media/layout/distance_country.png" />
-                    <img class="icon_friend" src="{{ROOT_PATH}}media/layout/distance_friend.png" />
-                    <div class="distance_global value">{{profile_global_distance}}m</div>
-                    <div class="distance_friend value">{{profile_friend_distance}}m</div>
-                    <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                    <div class="percent position0"><span>0%</span></div>
+                    <div class="percent position25"><span>25%</span></div>
+                    <div class="percent position50"><span>50%</span></div>
+                    <div class="percent position75"><span>75%</span></div>
+                    <div class="percent position100"><span>100%</span></div>
+                    <!-- LOOP friend -->
+                    <!-- LOOP friend.stat -->
+                    <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                    <!-- END friend.stat -->
+                    <!-- END friend -->
                 </div>
             </div>
-        </div>
 
         <div class="clear"></div>
 
-        <h4>
-            Quels amis le connaissent le mieux
-            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-        </h4>
-
-        <div id="user_proximity">
-            <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
-            <div class="content">
-                <div class="percent position0"><span>0%</span></div>
-                <div class="percent position25"><span>25%</span></div>
-                <div class="percent position50"><span>50%</span></div>
-                <div class="percent position75"><span>75%</span></div>
-                <div class="percent position100"><span>100%</span></div>
-                <!-- LOOP friend -->
-                <!-- LOOP friend.stat -->
-                <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
-                <!-- END friend.stat -->
-                <!-- END friend -->
-            </div>
-        </div>
-
-    <div class="clear"></div>
+    </div>
 
 </div>
 
