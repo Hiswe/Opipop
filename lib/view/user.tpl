@@ -8,7 +8,7 @@
         <div id="user_card" class="box">
             <div id="user_feelings"></div>
             <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
-            <img id="userAvatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />            
+            <img id="userAvatar" src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
             <h1>{{profile_login}}</h1>
             <div id="profileInfo">
                 <dl>
@@ -40,7 +40,7 @@
                     <div class="distance">{{profile_friend_distance}}m</div>
                     <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
                 </div>
-            </div>                                                              
+            </div>
             <div id="user_proximity">
                 <h5>Quels amis le connaissent le mieux</h5>
                 <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
