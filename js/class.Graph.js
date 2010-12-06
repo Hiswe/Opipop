@@ -56,7 +56,7 @@ var Graph =
     {
         var width  = 420;
         var height = 260;
-        var size   = 180;
+        var size   = 220;
 
         var n = 0;
 
@@ -70,7 +70,7 @@ var Graph =
             .left(width / 2)
             .bottom((height - 25) / 2)
             .innerRadius(20)
-            .outerRadius(function(d){ return Math.sqrt(d.value) * (size / 2); })
+            .outerRadius(function(d){ return Math.sqrt(d.value) * (size / 2) + 5; })
             .angle(2 * Math.PI / 6)
             .lineWidth(4)
             .strokeStyle('#ffffff')
@@ -89,8 +89,8 @@ var Graph =
             .data(data)
             .left(width / 2)
             .bottom((height - 25) / 2)
-            .innerRadius(function(d){ return Math.sqrt(d.value) * (size / 2) + 5; })
-            .outerRadius(function(){ return size / 2 + 45; })
+            .innerRadius(function(d){ return Math.sqrt(d.value) * (size / 2) + 10; })
+            .outerRadius(function(){ return size / 2 + 25; })
             .startAngle(function(){ return (2 * Math.PI / 6) * (this.index - 1); })
             .angle(0)
             .lineWidth(1)
@@ -102,7 +102,7 @@ var Graph =
             .data(pv.range(0, 3))
             .bottom(function(d){ return height * (d / 2) - (25 * (d / 2));})
             .left(10)
-            .right(function(d){ return (width / 2 + size / 2 + 45) - (Math.abs(d - 1) * 67); })
+            .right(function(d){ return (width / 2 + size / 2 + 25) - (Math.abs(d - 1) * 67); })
             .strokeStyle('#EEEEEE');
 
         vis.add(pv.Rule)
@@ -110,7 +110,7 @@ var Graph =
             .data(pv.range(0, 3))
             .bottom(function(d){ return height * (d / 2) - (25 * (d / 2));})
             .right(10)
-            .left(function(d){ return (width / 2 + size / 2 + 45) - (Math.abs(d - 1) * 67); })
+            .left(function(d){ return (width / 2 + size / 2 + 25) - (Math.abs(d - 1) * 67); })
             .strokeStyle('#EEEEEE');
 
         vis.render();
