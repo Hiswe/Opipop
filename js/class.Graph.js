@@ -54,33 +54,64 @@ var Graph =
 
     feeling : function(containerId, data)
     {
-        var area = 250;
-        var size = 240;
+        var width  = 420;
+        var height = 260;
+        var size   = 180;
+
+        var n = 0;
 
         var vis = new pv.Panel()
             .canvas(containerId)
-            .width(area)
-            .height(area);
+            .width(width)
+            .height(height);
 
         var wedge = vis.add(pv.Wedge)
             .data(data)
-            .left(area / 2 - 2)
-            .bottom(area / 2 + 2)
+            .left(width / 2)
+            .bottom((height - 25) / 2)
             .innerRadius(20)
-            .outerRadius(function(d){ return Math.sqrt(d.value) * (size /2); })
+            .outerRadius(function(d){ return Math.sqrt(d.value) * (size / 2); })
             .angle(2 * Math.PI / 6)
             .lineWidth(4)
             .strokeStyle('#ffffff')
             .fillStyle(function(d){ return d.color; });
 
         wedge.add(pv.Label)
-            .left(function(){ return 90 * Math.cos(wedge.midAngle()) + (area / 2); })
-            .bottom(function(){ return -90 * Math.sin(wedge.midAngle()) + (area / 2); })
-            .textAlign("center")
+            .left(function(){ return wedge.midAngle() > Math.PI / 2 ? 0 : width; })
+            .bottom(function(){ return Math.sin(wedge.midAngle()).toFixed(1) * (height / 2) + (height / 2) })
+            .textAlign(function(){ return wedge.midAngle() > Math.PI / 2 ? "left" : "right"; })
             .textBaseline("middle")
-            .font('12px sans-serif')
+            .font('14px sans-serif')
             .textStyle('#555555')
             .text(function(d){ return d.label; });
+
+        vis.add(pv.Wedge)
+            .data(data)
+            .left(width / 2)
+            .bottom((height - 25) / 2)
+            .innerRadius(function(d){ return Math.sqrt(d.value) * (size / 2) + 5; })
+            .outerRadius(function(){ return size / 2 + 45; })
+            .startAngle(function(){ return (2 * Math.PI / 6) * (this.index - 1); })
+            .angle(0)
+            .lineWidth(1)
+            .strokeStyle('#DDDDDD')
+            .fillStyle('');
+
+        vis.add(pv.Rule)
+            .lineWidth(function(d) { return (d % 2) * 1 + 1; })
+            .data(pv.range(0, 3))
+            .bottom(function(d){ return height * (d / 2) - (25 * (d / 2));})
+            .left(10)
+            .right(function(d){ return (width / 2 + size / 2 + 45) - (Math.abs(d - 1) * 67); })
+            .strokeStyle('#EEEEEE');
+
+        vis.add(pv.Rule)
+            .lineWidth(function(d) { return (d % 2) * 1 + 1; })
+            .data(pv.range(0, 3))
+            .bottom(function(d){ return height * (d / 2) - (25 * (d / 2));})
+            .right(10)
+            .left(function(d){ return (width / 2 + size / 2 + 45) - (Math.abs(d - 1) * 67); })
+            .strokeStyle('#EEEEEE');
 
         vis.render();
     },
