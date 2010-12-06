@@ -1,10 +1,11 @@
 #user_feelings
-    margin: 20px 30px 0 0
+    margin: 10px 10px 0 0
+    padding: 20px
     background: $white
     float: right
 
 #user_card
-    margin: 10px 0 10px 0
+    margin: 10px 0 0 0
     float: left
     border: solid $border_size_big $light_grey
     background: $white
@@ -101,54 +102,68 @@
 
 
 #user_proximity
-    padding: 20px 10px
-    position: relative
-
-    .user
-        position: absolute
-        top: 55px
-        right: 12px
 
     .content
         position: relative
-        margin: 35px 65px 0 0
-        padding-bottom: 20px
-        border-top: 1px solid $dark_grey
+        height: 75px
+        margin: 10px 30px
+
+        .rule
+            +linear-gradient(color-stops($pink 20%, $blue 60%), left)
+            +border-radius($border_radius_big)
+            height: 10px
+            width: 100%
+            top: 40px
+            position: absolute
 
         .avatar
-            border: solid 1px $light_grey
-            padding: 2px
-            background: $white
+            padding: 1px
             position: absolute
-            top: -31px
+            margin-left: -14px
+            top: 0
+
+            img
+                +border-radius($border_radius)
+                border: solid 4px $light_grey
+
+            span
+                border-top: 6px solid $light_grey
+                border-left: 6px solid $white
+                border-right: 6px solid $white
+                height: 0
+                width: 0
+                display: block
+                margin: 0 0 0 10px
 
         .percent
             position: absolute
-            top: 0
+            top: 60px
             font-size: $font_medium
+            font-weight: bold
             color: $grey
-            height: 5px
-            border-left: 1px solid $dark_grey
-
-            span
-                position: absolute
-                top: 5px
-                left: -12px
+            width: 50px
+            text-align: center
 
         .position0
             left: 0
-            span
-                left: -6px
+            margin-left: -25px
+            color: #E7579A
         .position25
             left: 25%
+            margin-left: -25px
+            color: #FF4DAD
         .position50
             left: 50%
+            margin-left: -25px
+            color: #C948BC
         .position75
-            left: 75%
+            right: 25%
+            margin-right: -25px
+            color: #566EB3
         .position100
             right: 0
-            span
-                left: -17px
+            margin-right: -25px
+            color: #42ABE1
 
 #friend_header
     height: 60px
