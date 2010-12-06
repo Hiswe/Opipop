@@ -106,7 +106,6 @@
 
         <!-- SECTION private -->
         <ul id="user_search_result"></ul>
-        <hr></hr>
         <!-- END private -->
         <ul id="user_friends" class="box">
             <!-- SECTION noFriends -->
