@@ -59,25 +59,34 @@
 
             <div class="clear"></div>
 
-            <h4>
-                Quels amis le connaissent le mieux
-                <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
+        </div>
+
+        <h4>
+            Quels amis le connaissent le mieux
+            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
+
+        <div class="box">
 
             <div id="user_proximity">
-                <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+
                 <div class="content">
-                    <div class="percent position0"><span>0%</span></div>
-                    <div class="percent position25"><span>25%</span></div>
-                    <div class="percent position50"><span>50%</span></div>
-                    <div class="percent position75"><span>75%</span></div>
-                    <div class="percent position100"><span>100%</span></div>
+                    <div class="rule"></div>
+                    <div class="percent position0">0%</div>
+                    <div class="percent position25">25%</div>
+                    <div class="percent position50">50%</div>
+                    <div class="percent position75">75%</div>
+                    <div class="percent position100">100%</div>
                     <!-- LOOP friend -->
                     <!-- LOOP friend.stat -->
-                    <img class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};" title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                    <div  class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};">
+                        <img title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                        <span></span>
+                    </div>
                     <!-- END friend.stat -->
                     <!-- END friend -->
                 </div>
+
             </div>
 
         <div class="clear"></div>
