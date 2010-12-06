@@ -14,14 +14,13 @@
     +box-shadow($grey, 1px, 1px, 4px)
 
     .top
-        padding: 10px 20px 0 10px
+        padding: 0 20px 0 
         background: $very_light_blue
         border-bottom: solid 1px $grey
 
         .avatar
-            margin: 0 10px 0 0
-            border: 1px solid $grey
-            border-width: 1px 1px 0 1px
+            margin: 0 0 0 0
+            border: none
             float: left
 
         .info
@@ -31,7 +30,7 @@
                 font-size: $font_very_huge
                 color: $black
                 +text-shadow($grey)
-                margin: 0 0 15px 15px
+                margin: 5px 0 0px 15px
 
             .col_right
                 float: right
@@ -166,11 +165,10 @@
             color: #42ABE1
 
 #friend_header
-
-
+    h4, #user_search
+        display: inline-block
 
     #user_search
-        float: left
         margin: 20px 0 0 20px
         position: relative
 
