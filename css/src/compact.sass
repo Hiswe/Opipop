@@ -56,7 +56,6 @@ $border_radius_big: 10px
 
 #mainContent
     position: relative
-    border-bottom: solid 1px $dark_grey
 
 .horizontalCenter
     max-width: 1050px
@@ -190,8 +189,7 @@ form
     background: #ffffff image-url('background_texture.gif')
 
 .secondBackground
-    background: #EEE image-url('background_texture.png')
-    +linear-gradient(color-stops($grey, $light_grey 1%, $light_grey), top, image-url('background_texture.png'))
+    background: $light_grey image-url('background_texture.png')
 
 .icon
     display: inline-block
