@@ -2,6 +2,24 @@
 
 class Tool
 {
+    static function requireAuth()
+    {
+        if((!$_SERVER['PHP_AUTH_USER'] || !$_SERVER['PHP_AUTH_USER']) && preg_match('/Basic\s+(.*)$/i', $_SERVER['REMOTE_USER'], $matches))
+        {
+                list($name, $password)    = explode(':', base64_decode($matches[1]));
+                $_SERVER['PHP_AUTH_USER'] = strip_tags($name);
+                $_SERVER['PHP_AUTH_PW']   = strip_tags($password);
+        }
+
+        if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) || $_SERVER['PHP_AUTH_USER'] != Conf::get('AUTH_USER') || $_SERVER['PHP_AUTH_PW'] != Conf::get('AUTH_PASSWORD'))
+        {
+            header('WWW-Authenticate: Basic realm="My Realm"');
+            header('HTTP/1.0 401 Unauthorized');
+            echo 'Restricted area';
+            exit;
+        }
+    }
+
     static function path2class($path, $prefix = null)
     {
         $class = ($prefix) ? $prefix . '_' : '';
@@ -352,16 +370,16 @@ class Tool
         {
             case 'JPG':
             case 'PEG':
-                imageJpeg($dest_img, $dest, 100);
+                imageJpeg($dest_img, $dest, 90);
                 break;
             case 'GIF':
-                imageGif($dest_img, $dest, 100);
+                imageGif($dest_img, $dest, 90);
                 break;
             case 'PNG':
-                imagePng($dest_img, $dest, 100);
+                imagePng($dest_img, $dest, 90);
                 break;
             case 'BMP':
-                imageWBmp($dest_img, $dest, 100);
+                imageWBmp($dest_img, $dest, 90);
                 break;
         }
 

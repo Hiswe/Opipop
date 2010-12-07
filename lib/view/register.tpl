@@ -7,7 +7,7 @@
             <p>Donnez votre opinion sur les sondages en cours. Des que ceux ci serons terminé vous pourez consulter les resultats nationnaux et ceux de vos amis.</p>
             <hr></hr>
             <p>Revenir a l'écran de connection :</p>
-            <a href="{{ROOT_PATH}}remote/login" class="nyroModal button">connectez vous !</a>
+            <a href="#{ROOT_PATH}remote/login" class="nyroModal button">connectez vous !</a>
         </div>
         <div class="side2">
             <h4>Nouveau compte</h4>

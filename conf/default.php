@@ -23,6 +23,11 @@
     // ENV
     $conf['PROD'] = false;
 
+    // AUTH
+    $conf['AUTH_ENABLED']  = false;
+    $conf['AUTH_USER']     = '';
+    $conf['AUTH_PASSWORD'] = '';
+
     // EMAIL
     $conf['ADMIN_EMAIL'] = '';
 

@@ -1,5 +1,7 @@
 <?php
 
+    define('START_TIME', microtime(true));
+
     // CONF
     include 'conf/default.php';
     include 'conf/local.php';
@@ -15,9 +17,23 @@
     // AUTOLOADER
     function __autoload($className)
     {
-        include Conf::get('ROOT_DIR') . 'lib/' . str_replace('_', '/', $className) . '.php';
+        $classPath = explode('_', $className);
+        $file = 'lib';
+        foreach ($classPath as $key => $segment)
+        {
+            if ($key == count($classPath) - 1)
+            {
+                $file .= '/' . $segment;
+            }
+            else
+            {
+                $file .= '/' . lcfirst($segment);
+            }
+        }
+        include Conf::get('ROOT_DIR') . $file . '.php';
     }
 
+    // GLOBALS
     class Globals
     {
         static $tpl;
@@ -27,8 +43,20 @@
             self::$tpl = new Template();
         }
     }
-
     Globals::init();
+
+    // STATS
+    function addStatsHeaders()
+    {
+        header('X-MySQL_Stats: ' . number_format(DB::$totalQueryTime, 3) . ' sc (nb ' . DB::$totalQuery . ')');
+        header('X-PHP_Stats: ' . number_format(microtime(true) - START_TIME, 3) . ' sc (tpl ' . number_format(Globals::$tpl->execTime, 3) . 'sc)');
+    }
+
+    // AUTH
+    if (Conf::get('AUTH_ENABLED'))
+    {
+        Tool::requireAuth();
+    }
 
     // TEMPLATE ENGINE
     Globals::$tpl->cacheTimeCoef = Conf::get('CACHE_TIMECOEF');
@@ -65,6 +93,8 @@
             if ($remote->AJAXONLY == false)
             {
                 $remote->configureView();
+                Globals::$tpl->compute();
+                addStatsHeaders();
                 Globals::$tpl->display();
             }
         }
@@ -78,6 +108,8 @@
                 $remote->configureData();
                 $remote->configureView();
                 Globals::$tpl->assignTemplate('lib/view/footer.tpl');
+                Globals::$tpl->compute();
+                addStatsHeaders();
                 Globals::$tpl->display();
             }
             else
@@ -155,6 +187,14 @@
         $page->configureData();
         $page->configureView();
 
+        Globals::$tpl->compute();
+        addStatsHeaders();
         Globals::$tpl->display();
     }
+    else
+    {
+        // TODO 404
+    }
+
+    DB::close();
 

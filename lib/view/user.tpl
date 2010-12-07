@@ -4,16 +4,16 @@
         <div class="box">
 
             <div id="user_feelings"></div>
-            <script type="text/javascript+protovis">Graph.feeling('user_feelings', {{feeling_data}});</script>
+            <script type="text/javascript+protovis">Graph.feeling('user_feelings', #{feeling_data});</script>
 
             <div id="user_card">
                 <div class="top">
                     <div class="avatar">
-                        <img src="{{profile_avatar}}" alt="{{profile_login}}" />
+                        <img src="#{profile_avatar}" alt="#{profile_login}" />
                     </div>
 
                     <div class="info">
-                        <h1>{{profile_login}}</h1>
+                        <h1>#{profile_login}</h1>
 
                         <div class="col_right">
                             <ul class="personal">
@@ -24,14 +24,14 @@
 
                         <div class="col_left">
                             <ul class="votes">
-                                <li><span>Votes :</span> {{profile_totalVote}}</li>
+                                <li><span>Votes :</span> #{profile_totalVote}</li>
                             </ul>
                             <ul class="predictions">
                                 <li><span>Détail des prédictions : </span>
                                 <ul>
-                                    <li><span>Bonnes :</span> {{profile_totalPredictionWon}}</li>
-                                    <li><span>Mauvaises :</span> {{profile_totalPredictionLost}}</li>
-                                    <li><span>Précision :</span> {{profile_predictionAccuracy}}%</li>
+                                    <li><span>Bonnes :</span> #{profile_totalPredictionWon}</li>
+                                    <li><span>Mauvaises :</span> #{profile_totalPredictionLost}</li>
+                                    <li><span>Précision :</span> #{profile_predictionAccuracy}%</li>
                                 </ul>
                             </ul>
                         </div>
@@ -43,11 +43,11 @@
                 <div class="distance">
                     <h5>Distance avec l'opinion national et l'opinion des amis :</h5>
                     <div class="content">
-                        <img class="icon_country" src="{{ROOT_PATH}}media/layout/distance_country.png" />
-                        <img class="icon_friend" src="{{ROOT_PATH}}media/layout/distance_friend.png" />
-                        <div class="distance_global value">{{profile_global_distance}}m</div>
-                        <div class="distance_friend value">{{profile_friend_distance}}m</div>
-                        <img class="user" src="{{ROOT_PATH}}media/layout/icon48x48/{{profile_sex}}/blue/white_brown.png" />
+                        <img class="icon_country" src="#{ROOT_PATH}media/layout/distance_country.png" />
+                        <img class="icon_friend" src="#{ROOT_PATH}media/layout/distance_friend.png" />
+                        <div class="distance_global value">#{profile_global_distance}m</div>
+                        <div class="distance_friend value">#{profile_friend_distance}m</div>
+                        <img class="user" src="#{ROOT_PATH}media/layout/icon48x48/#{profile_sex}/blue/white_brown.png" />
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
                     <div class="percent position100">100%</div>
                     <!-- LOOP friend -->
                     <!-- LOOP friend.stat -->
-                    <div  class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};">
-                        <img title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{friend.avatar_small}}" />
+                    <div  class="avatar" style="left:#{friend.stat.predictionAccuracy_his}%;z-index:#{friend.stat.predictionAccuracy_his};">
+                        <img title="#{friend.login} (#{friend.stat.predictionAccuracy_his}%)" src="#{friend.avatar_small}" />
                         <span></span>
                     </div>
                     <!-- END friend.stat -->
@@ -87,7 +87,7 @@
         <div id="friend_header">
             <h4>
                 Amis
-                <a href="{{ROOT_PATH}}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+                <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
             </h4>
             <!-- SECTION private -->
             <form id="user_search">
@@ -110,17 +110,17 @@
             <!-- LOOP request -->
             <li>
                 <ul class="edit">
-                    <li id="request_{{request.id}}"><a href="#" id="accept_{{request.id}}" class="button" title="accept"><i class="icon iconAdd"></i>accept</a></li>
-                    <li id="request_{{request.id}}"><a href="#" id="reject_{{request.id}}" class="button" title="reject"><i class="icon iconRemove"></i>reject</a></li>
+                    <li id="request_#{request.id}"><a href="#" id="accept_#{request.id}" class="button" title="accept"><i class="icon iconAdd"></i>accept</a></li>
+                    <li id="request_#{request.id}"><a href="#" id="reject_#{request.id}" class="button" title="reject"><i class="icon iconRemove"></i>reject</a></li>
                 </ul>
 
                 <ul class="stat">
                     <li>Cette personne veux rentrer dans vos amis ...</li>
                 </ul>
 
-                <a href="{{ROOT_PATH}}{{request.login}}" title="{{request.login}}">
-                    <img class="avatar" src="{{request.avatar}}" alt="{{request.login}}" />
-                    <strong class="login">{{request.login}}</strong>
+                <a href="#{ROOT_PATH}#{request.login}" title="#{request.login}">
+                    <img class="avatar" src="#{request.avatar}" alt="#{request.login}" />
+                    <strong class="login">#{request.login}</strong>
                 </a>
             </li>
             <!-- END request -->
@@ -129,18 +129,18 @@
             <li>
                 <!-- SECTION private -->
                 <ul class="edit">
-                    <li><a href="#" id="friend_{{friend.id}}" class="button" title="remove"><i class="icon iconRemove"></i>effacer</a></li>
+                    <li><a href="#" id="friend_#{friend.id}" class="button" title="remove"><i class="icon iconRemove"></i>effacer</a></li>
                 </ul>
                 <!-- END private -->
                 <ul class="stat">
                     <!-- LOOP friend.stat -->
-                    <li>précision de prédictions : <strong>{{friend.stat.predictionAccuracy_my}}%</strong></li>
+                    <li>précision de prédictions : <strong>#{friend.stat.predictionAccuracy_my}%</strong></li>
                     <!-- END friend.stat -->
                 </ul>
 
-                <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
-                    <img class="avatar" src="{{friend.avatar_medium}}" />
-                    <strong class="login">{{friend.login}}</strong>
+                <a href="#{ROOT_PATH}#{friend.login}" title="#{friend.login}">
+                    <img class="avatar" src="#{friend.avatar_medium}" />
+                    <strong class="login">#{friend.login}</strong>
                 </a>
             </li>
             <!-- END friend -->
