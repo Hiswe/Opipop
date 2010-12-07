@@ -190,7 +190,7 @@ class Model_Question
         return (($this->stats['total'] - $this->stats['total_male']) / $this->stats['total']) * 100;
     }
 
-    public function getImageUri($type)
+    public function getImageURL($type)
     {
         switch ($type)
         {
@@ -198,11 +198,11 @@ class Model_Question
                 $size = Conf::get('QUESTION_MEDIUM_SIZE');
                 break;
         }
-        if (file_exists(Conf::get('ROOT_DIR'). 'media/question/' . $size . '/' . $this->data['id'] . '.jpg'))
+        if (file_exists(Conf::get('MEDIA_DIR'). 'question/' . $size . '/' . $this->data['id'] . '.jpg'))
         {
-            return 'media/question/' . $size . '/' . $this->data['id'] . '.jpg';
+            return Conf::get('MEDIA_PATH') . 'question/' . $size . '/' . $this->data['id'] . '.jpg';
         }
-        return 'media/question/' . $size . '/0.jpg';
+        return Conf::get('MEDIA_PATH') . 'question/' . $size . '/0.jpg';
     }
 
     static public function getTotalQuestions()

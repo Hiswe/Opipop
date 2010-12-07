@@ -12,7 +12,7 @@ class Block_Top extends Block
             (
                 'user_login'     => $user->getLogin(),
                 'user_id'        => $user->getId(),
-                'user_avatarUri' => $user->getAvatarUri('medium'),
+                'user_avatarURL' => $user->getAvatarURL('medium'),
             ));
             Globals::$tpl->assignSection('logged');
         }
