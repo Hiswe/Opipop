@@ -8,8 +8,12 @@
 
         <div class="box" id="user_info">
 
-            <div id="user_feelings"></div>
-            <script type="text/javascript+protovis">Graph.feeling('user_feelings', #{feeling_data});</script>
+
+            <div id="user_feelings">
+                <h5>Diagramme de l'être:</h5>
+                <div id="user_feelings_graph"></div>
+            </div>
+            <script type="text/javascript+protovis">Graph.feeling('user_feelings_graph', #{feeling_data});</script>
 
             <div id="user_card">
                 <div class="top">
@@ -60,6 +64,8 @@
             <div class="clear"></div>
 
             <div id="user_proximity">
+
+                <h5>Distance psychique des amis :</h5>
 
                 <div class="content">
                     <div class="rule"></div>

@@ -14,6 +14,7 @@ var User =
             'change'  : User.scheduleSearch
         });
         $('#user_search .overlay').bind('click', User.searchOverlayClickCallback);
+        $('#user_search_query').val('');
     },
 
     searchOverlayClickCallback : function()
