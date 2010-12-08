@@ -84,7 +84,7 @@ var User =
                         '<li><a href="#" id="friend_' + data[i].id + '" class="button" title="ask">ajouter a mes amis</a></li>' +
                     '</ul>' +
                     '<a href="' + ROOT_PATH + data[i].login + '">' +
-                        '<img class="avatar" src=' + ROOT_PATH + data[i].avatar + ' />' +
+                        '<img class="avatar" src=' + data[i].avatar + ' />' +
                         '<strong class="login">' + data[i].login + '</strong>' +
                     '</a>' +
                 '</li>'

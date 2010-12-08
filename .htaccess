@@ -7,9 +7,10 @@ SetEnv REGISTER_GLOBALS 0
 
 RewriteEngine on
 
-#RewriteCond %{HTTP_HOST} ^.*aaaaaaaaaaa\.org [NC]
-#RewriteCond %{HTTP_HOST} !^www\.aaaaaaaaaaa.org [NC]
-#RewriteRule ^(.*)  http://www.aaaaaaaaaaa.org/$1 [L,R]
+RewriteCond %{HTTP_HOST} ^.*opipop\.fr [NC]
+RewriteCond %{HTTP_HOST} !^www\.opipop.fr [NC]
+RewriteCond %{HTTP_HOST} !^preprod\.opipop.fr [NC]
+RewriteRule ^(.*)  http://www.opipop.fr/$1 [L,R]
 
 #HOME
 RewriteRule ^/?$ index.php?page=homepage [L]
