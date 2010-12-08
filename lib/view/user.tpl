@@ -1,7 +1,12 @@
 <div id="userContainer" class="firstBackground">
     <div id="user" class="horizontalCenter">
 
-        <div class="box">
+        <h4>
+            Info
+            <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
+
+        <div class="box" id="user_info">
 
             <div id="user_feelings"></div>
             <script type="text/javascript+protovis">Graph.feeling('user_feelings', #{feeling_data});</script>
@@ -82,22 +87,20 @@
 </div>
 
 <div id="friendContainer" class="secondBackground">
-
     <div id="friend" class="horizontalCenter">
-        <div id="friend_header">
-            <h4>
-                Amis
-                <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-            </h4>
-            <!-- SECTION private -->
-            <form id="user_search">
-                <label>
-                    <input id="user_search_query" type="text" maxlength="32" name="query" value="" />
-                </label>
-                <div class="overlay">Rechercher un amis ...</div>
-            </form>
-            <!-- END private -->
-        </div>
+
+        <h4>
+            Amis
+            <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+        </h4>
+
+        <!-- SECTION private -->
+        <form id="user_search">
+            <label><input id="user_search_query" type="text" maxlength="32" name="query" value="" /></label>
+            <div class="overlay">Rechercher un amis ...</div>
+        </form>
+        <div class="clear"></div>
+        <!-- END private -->
 
         <!-- SECTION private -->
         <ul id="user_search_result"></ul>
@@ -108,13 +111,13 @@
             <!-- END noFriends -->
 
             <!-- LOOP request -->
-            <li>
+            <li class="friend">
                 <ul class="edit">
                     <li id="request_#{request.id}"><a href="#" id="accept_#{request.id}" class="button" title="accept"><i class="icon iconAdd"></i>accept</a></li>
                     <li id="request_#{request.id}"><a href="#" id="reject_#{request.id}" class="button" title="reject"><i class="icon iconRemove"></i>reject</a></li>
                 </ul>
 
-                <ul class="stat">
+                <ul class="notice">
                     <li>Cette personne veux rentrer dans vos amis ...</li>
                 </ul>
 
@@ -126,7 +129,7 @@
             <!-- END request -->
 
             <!-- LOOP friend -->
-            <li>
+            <li class="friend">
                 <!-- SECTION private -->
                 <ul class="edit">
                     <li><a href="#" id="friend_#{friend.id}" class="button" title="remove"><i class="icon iconRemove"></i>effacer</a></li>
