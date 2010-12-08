@@ -1,5 +1,4 @@
 <?php
-
     define('START_TIME', microtime(true));
 
     // CONF
@@ -29,7 +28,7 @@
             {
                 $file .= '/' . lcfirst($segment);
             }
-        }
+        }        
         include Conf::get('ROOT_DIR') . $file . '.php';
     }
 
@@ -119,7 +118,6 @@
         }
         exit();
     }
-
     // PAGES
     if (isset($_GET['page']))
     {
