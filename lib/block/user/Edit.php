@@ -26,7 +26,6 @@ class Block_User_Edit extends Block
             'profile_login'  => $user->getLogin(),
             'profile_male'   => $user->getGender(),
             'profile_zip'    => $user->getZip(),
-            'profile_avatar' => $user->getAvatarUri('large'),
 
             'profile_edit_zip_' . $user->getZip()     => ' selected="selected"',
             'profile_edit_gender_' . $user->getGender() => ' selected="selected"',
