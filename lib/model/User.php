@@ -624,7 +624,7 @@ class Model_User
         return $names[$this->data['zip']];
     }
 
-    public function getAvatarUri($type)
+    public function getAvatarURL($type)
     {
         switch ($type)
         {
@@ -640,11 +640,11 @@ class Model_User
                 $size = Conf::get('AVATAR_LARGE_SIZE');
                 break;
         }
-        if (file_exists(Conf::get('ROOT_DIR'). 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
+        if (file_exists(Conf::get('MEDIA_DIR'). 'avatar/' . $size . '/' . $this->data['id'] . '.jpg'))
         {
-            return 'media/avatar/' . $size . '/' . $this->data['id'] . '.jpg';
+            return Conf::get('MEDIA_PATH') . 'avatar/' . $size . '/' . $this->data['id'] . '.jpg';
         }
-        return 'media/avatar/' . $size . '/0.jpg';
+        return Conf::get('MEDIA_PATH') . 'avatar/' . $size . '/0.jpg';
     }
 
     public static function search($query = false, $page = false)

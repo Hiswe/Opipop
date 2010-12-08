@@ -23,7 +23,7 @@ class Page_User extends Page
             'profile_id'     => $profile->getId(),
             'profile_login'  => $profile->getLogin(),
             'profile_sex'    => $profile->getGender(false),
-            'profile_avatar' => $profile->getAvatarUri('large'),
+            'profile_avatar' => $profile->getAvatarURL('large'),
             'profile_region' => $profile->getZipName(),
             'profile_gender' => $profile->getGender(),
         ));
@@ -49,7 +49,7 @@ class Page_User extends Page
                     (
                         'id'     => $friend->getId(),
                         'login'  => $friend->getLogin(),
-                        'avatar' => $friend->getAvatarUri('medium'),
+                        'avatar' => $friend->getAvatarURL('medium'),
                     ));
                 }
             }
@@ -87,8 +87,8 @@ class Page_User extends Page
             (
                 'id'            => $friend->getId(),
                 'login'         => $friend->getLogin(),
-                'avatar_medium' => $friend->getAvatarUri('medium'),
-                'avatar_small'  => $friend->getAvatarUri('small'),
+                'avatar_medium' => $friend->getAvatarURL('medium'),
+                'avatar_small'  => $friend->getAvatarURL('small'),
             ));
 
             foreach ($profileFriendsStats as $stat)

@@ -4,11 +4,13 @@
     $conf['VERSION'] = 000001;
 
     // LOCATION
-    $conf['ROOT_PATH'] = 'http://localhost/sondage/';
-    $conf['ROOT_DIR']  = '/Users/USER_NAME/Sites/sondage/';
+    $conf['ROOT_PATH']  = 'http://localhost/opipop/';
+    $conf['ROOT_DIR']   = '/Users/USER_NAME/Sites/opipop/';
+    $conf['MEDIA_PATH'] = 'http://localhost/opipop/media/';
+    $conf['MEDIA_DIR']  = '/Users/USER_NAME/Sites/opipop/media/';
 
     // DATABASE
-    $conf['DB_NAME']     = 'sondage';
+    $conf['DB_NAME']     = 'opipop';
     $conf['DB_HOST']     = 'localhost';
     $conf['DB_USER']     = 'root';
     $conf['DB_PASS']     = '';

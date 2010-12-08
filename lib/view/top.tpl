@@ -2,7 +2,7 @@
         <div id="top" class="horizontalCenter">
             <!-- SECTION logged -->
             <div class="userBox box">
-                <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{ROOT_PATH}}{{user_avatarUri}}" /></a>
+                <a href="{{ROOT_PATH}}{{user_login}}" class="avatar"><img src="{{user_avatarURL}}" /></a>
                 <div class="info">
                     <a href="{{ROOT_PATH}}{{user_login}}" class="name"><span>{{user_login}}</span></a>
                     <p class="linkList">

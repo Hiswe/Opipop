@@ -9,7 +9,7 @@
             <div id="user_card">
                 <div class="top">
                     <div class="avatar">
-                        <img src="{{ROOT_PATH}}{{profile_avatar}}" alt="{{profile_login}}" />
+                        <img src="{{profile_avatar}}" alt="{{profile_login}}" />
                     </div>
 
                     <div class="info">
@@ -66,7 +66,7 @@
                     <!-- LOOP friend -->
                     <!-- LOOP friend.stat -->
                     <div  class="avatar" style="left:{{friend.stat.predictionAccuracy_his}}%;z-index:{{friend.stat.predictionAccuracy_his}};">
-                        <img title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{ROOT_PATH}}{{friend.avatar_small}}" />
+                        <img title="{{friend.login}} ({{friend.stat.predictionAccuracy_his}}%)" src="{{friend.avatar_small}}" />
                         <span></span>
                     </div>
                     <!-- END friend.stat -->
@@ -119,7 +119,7 @@
                 </ul>
 
                 <a href="{{ROOT_PATH}}{{request.login}}" title="{{request.login}}">
-                    <img class="avatar" src="{{ROOT_PATH}}{{request.avatar}}" alt="{{request.login}}" />
+                    <img class="avatar" src="{{request.avatar}}" alt="{{request.login}}" />
                     <strong class="login">{{request.login}}</strong>
                 </a>
             </li>
@@ -139,7 +139,7 @@
                 </ul>
 
                 <a href="{{ROOT_PATH}}{{friend.login}}" title="{{friend.login}}">
-                    <img class="avatar" src="{{ROOT_PATH}}{{friend.avatar_medium}}" />
+                    <img class="avatar" src="{{friend.avatar_medium}}" />
                     <strong class="login">{{friend.login}}</strong>
                 </a>
             </li>

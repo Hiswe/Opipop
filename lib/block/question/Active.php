@@ -33,7 +33,7 @@ class Block_Question_Active extends Block
             (
                 'id'               => $question->getId(),
                 'label'            => $question->getLabel(),
-                'image'            => $question->getImageUri('medium'),
+                'image'            => $question->getImageURL('medium'),
                 'label_urlencoded' => urlencode($question->getLabel()),
                 'guid'             => Tool::makeGuid($question->getLabel()),
                 'time'             => Tool::timeWarp($question->getEndDate()),
@@ -75,7 +75,7 @@ class Block_Question_Active extends Block
                         'label' => 'Mon opinion',
                         'id'    => $user->getId(),
                         'login' => $user->getLogin(),
-                        'image' => $user->getAvatarUri('small'),
+                        'image' => $user->getAvatarURL('small'),
                     ));
                     $answerIsEmpty = false;
                 }
@@ -105,7 +105,7 @@ class Block_Question_Active extends Block
                                 'userId' => $user->getId(),
                                 'id'     => $guess->getUser()->getId(),
                                 'login'  => $guess->getUser()->getLogin(),
-                                'avatar' => $guess->getUser()->getAvatarUri('small'),
+                                'avatar' => $guess->getUser()->getAvatarURL('small'),
                             ));
                             $answerIsEmpty    = false;
                             $friendsVotedId[] = $guess->getUser()->getId();
@@ -132,7 +132,7 @@ class Block_Question_Active extends Block
                     'label'  => 'Mon vote',
                     'id'     => $user->getId(),
                     'login'  => $user->getLogin(),
-                    'avatar' => $user->getAvatarUri('small'),
+                    'avatar' => $user->getAvatarURL('small'),
                 ));
                 $pendingIsEmpty = false;
             }
@@ -145,7 +145,7 @@ class Block_Question_Active extends Block
                     'label'  => 'Mon opinion',
                     'id'     => $user->getId(),
                     'login'  => $user->getLogin(),
-                    'avatar' => $user->getAvatarUri('small'),
+                    'avatar' => $user->getAvatarURL('small'),
                 ));
                 $pendingIsEmpty = false;
             }
@@ -163,7 +163,7 @@ class Block_Question_Active extends Block
                             'userId' => $user->getId(),
                             'id'     => $friend->getId(),
                             'login'  => $friend->getLogin(),
-                            'avatar' => $friend->getAvatarUri('small'),
+                            'avatar' => $friend->getAvatarURL('small'),
                         ));
                         $pendingIsEmpty = false;
                     }

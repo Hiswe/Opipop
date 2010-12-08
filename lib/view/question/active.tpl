@@ -12,7 +12,7 @@
             <li class="question box" id="{{question.id}}">
 
                 <dt class="preview">
-                    <img src="{{ROOT_PATH}}{{question.image}}" alt="{{question.label}}" />
+                    <img src="{{question.image}}" alt="{{question.label}}" />
                     <p>fin du sondage dans {{question.time}}</p>
                 </dt>
 
@@ -34,13 +34,13 @@
                             <ul class="group">
                                 <!-- LOOP question.answer.user -->
                                 <li class="user draggable {{question.answer.user.class}}" id="{{question.answer.user.class}}.{{question.id}}.{{question.answer.user.id}}">
-                                    <img class="avatar" src="{{ROOT_PATH}}{{question.answer.user.image}}" alt="{{question.answer.user.login}}" />
+                                    <img class="avatar" src="{{question.answer.user.image}}" alt="{{question.answer.user.login}}" />
                                     <span>{{question.answer.user.label}}</span>
                                 </li>
                                 <!-- END question.answer.user -->
                                 <!-- LOOP question.answer.friend -->
                                 <li class="friend draggable {{question.answer.friend.class}}" id="friend.{{question.id}}.{{question.answer.friend.userId}}.{{question.answer.friend.id}}">
-                                    <img class="avatar" src="{{ROOT_PATH}}{{question.answer.friend.avatar}}" alt="{{question.answer.friend.login}}" />
+                                    <img class="avatar" src="{{question.answer.friend.avatar}}" alt="{{question.answer.friend.login}}" />
                                     <span>{{question.answer.friend.login}}</span>
                                 </li>
                                 <!-- END question.answer.friend -->
@@ -56,13 +56,13 @@
                         <ul class="group">
                             <!-- LOOP question.pendingUser -->
                             <li class="user draggable {{question.pendingUser.class}}" id="{{question.pendingUser.class}}.{{question.id}}.{{question.pendingUser.id}}">
-                                <img class="avatar" src="{{ROOT_PATH}}{{question.pendingUser.avatar}}" alt="{{question.pendingUser.login}}" />
+                                <img class="avatar" src="{{question.pendingUser.avatar}}" alt="{{question.pendingUser.login}}" />
                                 <span>{{question.pendingUser.label}}</span>
                             </li>
                             <!-- END question.pendingUser -->
                             <!-- LOOP question.pendingFriend -->
                             <li class="friend draggable {{question.pendingFriend.class}}" id="friend.{{question.id}}.{{question.pendingFriend.userId}}.{{question.pendingFriend.id}}">
-                                <img class="avatar" src="{{ROOT_PATH}}{{question.pendingFriend.avatar}}" alt="{{question.pendingFriend.login}}" />
+                                <img class="avatar" src="{{question.pendingFriend.avatar}}" alt="{{question.pendingFriend.login}}" />
                                 <span>{{question.pendingFriend.login}}</span>
                             </li>
                             <!-- END question.pendingFriend -->

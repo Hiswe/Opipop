@@ -28,7 +28,10 @@
 
     <title>Backoffice</title>
 
-    <script language="javascript" type="text/javascript">var ROOT_PATH = '<?php echo Conf::get('ROOT_PATH'); ?>';</script>
+    <script language="javascript" type="text/javascript">
+        var ROOT_PATH  = '<?php echo Conf::get('ROOT_PATH'); ?>';
+        var MEDIA_PATH = '<?php echo Conf::get('MEDIA_PATH'); ?>';
+    </script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/lib/prototype.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/lib/swfupload.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo Conf::get('ROOT_PATH'); ?>backoffice/js/main.js"></script>

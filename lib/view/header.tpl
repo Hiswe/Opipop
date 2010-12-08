@@ -5,7 +5,10 @@
 
     <title>{{PAGE_TITLE}}</title>
 
-    <script language="javascript" type="text/javascript">var ROOT_PATH = '{{ROOT_PATH}}';</script>
+    <script language="javascript" type="text/javascript">
+        var ROOT_PATH  = '{{ROOT_PATH}}';
+        var MEDIA_PATH = '{{MEDIA_PATH}}';
+    </script>
 
     <!-- section prod_environement -->
     <script language="javascript" type="text/javascript" src="{{ROOT_PATH}}js/_prod/lib.js?{{VERSION}}"></script>
