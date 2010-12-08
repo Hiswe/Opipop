@@ -3,7 +3,7 @@
     <div id="archive" class="horizontalCenter">
         <h4>
             Sondages passés
-            <a href="#{ROOT_PATH}remote/info?info=question_archive" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+            <a href="#{ROOT_PATH}remote/help?info=question_archive" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
         </h4>
         <!-- END NOT_AJAX -->
 

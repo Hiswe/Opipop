@@ -1,6 +1,6 @@
 <?php
 
-class Remote_Info extends Remote
+class Remote_Help extends Remote
 {
     public $AJAXONLY = false;
 
@@ -16,7 +16,7 @@ class Remote_Info extends Remote
 
     public function configureData()
     {
-        $this->block = new Block_Info();
+        $this->block = new Block_Help();
         $this->block->setInfo($_GET['info']);
         $this->block->configure();
     }

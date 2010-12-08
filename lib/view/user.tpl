@@ -3,7 +3,7 @@
 
         <h4>
             Info
-            <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+            <a href="#{ROOT_PATH}remote/help?info=user_info" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
         </h4>
 
         <div class="box" id="user_info">
@@ -97,7 +97,7 @@
 
         <h4>
             Amis
-            <a href="#{ROOT_PATH}remote/info?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
+            <a href="#{ROOT_PATH}remote/help?info=user_friends" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
         </h4>
 
         <!-- SECTION private -->
