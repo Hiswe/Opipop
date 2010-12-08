@@ -1,11 +1,6 @@
 <div id="userContainer" class="firstBackground">
     <div id="user" class="horizontalCenter">
 
-        <h4>
-            Informations
-            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-        </h4>
-
         <div class="box">
 
             <div id="user_feelings"></div>
@@ -58,15 +53,6 @@
             </div>
 
             <div class="clear"></div>
-
-        </div>
-
-        <h4>
-            Quels amis le connaissent le mieux
-            <a href="{{ROOT_PATH}}remote/info?info=user_information" class="info_bulle nyroModal" title="informations"><i class="icon iconInfo">informations</i></a>
-        </h4>
-
-        <div class="box">
 
             <div id="user_proximity">
 
