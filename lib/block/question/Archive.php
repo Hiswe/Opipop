@@ -18,7 +18,7 @@ class Block_Question_Archive extends Block
         $category->setIsArchive(true);
         if ($category->getTotalQuestions() == 0)
         {
-            exit();
+            return;
         }
 
         // Get questions

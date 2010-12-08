@@ -1,5 +1,5 @@
-#user
-    padding: 30px 0
+#user_info
+    margin: 20px 0
 
 #user_feelings
     margin: 10px 10px 0 0
@@ -165,22 +165,17 @@
             margin-right: -25px
             color: #42ABE1
 
-#friend_header
+#user_search
+    float: left
+    position: relative
 
-
-
-    #user_search
-        float: left
-        margin: 20px 0 0 20px
-        position: relative
-
-        .overlay
-            font-size: $font_small
-            font-weight: bold
-            color: $grey
-            position: absolute
-            top: 6px
-            left: 7px
+    .overlay
+        font-size: $font_small
+        font-weight: bold
+        color: $grey
+        position: absolute
+        top: 6px
+        left: 7px
 
     input
         display: inline
@@ -239,7 +234,7 @@
     li.noFriends
         font-size: $font_medium
 
-    li
+    li.friend
         padding: 7px 10px
         height: 50px
         position: relative
@@ -254,15 +249,19 @@
             font-size: $font_medium
             +text-shadow($light_grey)
 
+        .notice
+            position: absolute
+            left: 70px
+            top: 35px
+            font-size: $font_medium
+            color: $pink
+
         .stat
             position: absolute
-            left: 63px
-            top: 25px
+            left: 70px
+            top: 35px
             font-size: $font_small
             color: $grey
-
-            li
-                border: none
 
             strong
                 font-weight: bold
@@ -287,11 +286,10 @@
         .edit
             display: block
 
-#user_card,
-#user_friends
     .loading
         margin: 8px 10px 0 0
         width: 32px
         height: 32px
         float: right
         background: image-url('icon32x32/ajax-loader.gif') no-repeat
+

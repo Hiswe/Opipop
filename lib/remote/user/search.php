@@ -30,7 +30,7 @@ class Remote_User_Search extends Remote
                     (
                         'id'     => $user->getId(),
                         'login'  => $user->getLogin(),
-                        'avatar' => $user->getAvatarUri('small'),
+                        'avatar' => $user->getAvatarURL('small'),
                     );
                 }
             }
