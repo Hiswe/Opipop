@@ -3,7 +3,7 @@
     class Template
     {
         // store the list of all tpl files name and cache time
-        var $TEMPLATE, $SECTION, $LOOP, $VARIABLE,    $CONTENT, $SIZE, $LATEST_INCLUDE, $LOOP_SIZE;
+        var $TEMPLATE, $SECTION, $LOOP, $VARIABLE, $CONTENT, $SIZE, $LATEST_INCLUDE, $LOOP_SIZE;
 
         // CONF (could be changed from outside)
         var $cacheFolder, $cacheTimeCoef, $renderCompress, $execTime, $cacheKeyList;
@@ -210,9 +210,23 @@
 
         // compute all templates
         function display ($return = false){
+            if (!$this->CONTENT)
+            {
+                $this->compute();
+            }
+
+            if ($return){
+                return $this->CONTENT;
+            }else{
+                echo $this->CONTENT;
+            }
+        }
+
+        function compute()
+        {
             //print_r($this->SIZE);
             //print_r($this->LOOP);
-            $this->execTime = (float) array_sum (explode (' ', microtime ()));
+            $this->execTime = microtime(true);
 
             $this->SIZE = array ();
 
@@ -246,13 +260,7 @@
                 }
             }
 
-            $this->execTime = (float) array_sum (explode (' ', microtime ())) - $this->execTime;
-
-            if ($return){
-                return $this->CONTENT;
-            }else{
-                echo $this->CONTENT;
-            }
+            $this->execTime = microtime(true) - $this->execTime;
         }
 
         // save or update a tpl's cache file
@@ -392,7 +400,7 @@
             }
 
             if (array_key_exists ($loop_name, $this->LOOP)){
-                preg_match_all ('#{{'.$name.'\.([^\.]*)}}#isU', $content, $variables);
+                preg_match_all ('/#{'.$name.'\.([^\.]*)}/isU', $content, $variables);
                 $variables = array_unique ($variables[1]);
 
                 reset ($this->LOOP[$loop_name]);
@@ -406,8 +414,8 @@
 
                     while (list ($key_var, $var) = each ($variables)){
                         (array_key_exists ($var, $this->LOOP[$loop_name][$key_row]))?
-                            $block = strtr ($block, array ('{{'.$name.'.'.$var.'}}' => $this->LOOP[$loop_name][$key_row][$var])):
-                            $block = strtr ($block, array ('{{'.$name.'.'.$var.'}}' => ''));
+                            $block = strtr ($block, array ('#{'.$name.'.'.$var.'}' => $this->LOOP[$loop_name][$key_row][$var])):
+                            $block = strtr ($block, array ('#{'.$name.'.'.$var.'}' => ''));
                     }
 
                     $result .= $this->loop_render ($this->include_render ($block));
@@ -419,10 +427,10 @@
 
         // look for all variables
         function variable_render ($code){
-            preg_match_all ('#{{([^\.]*)}}#isU', $code, $variables);
+            preg_match_all ('/#{([^\.]*)}/isU', $code, $variables);
 
             while (list ($key, $item) = each ($variables[1])){
-                $code = strtr ($code, array ('{{'.$item.'}}' => $this->variable_exec ($item)));
+                $code = strtr ($code, array ('#{'.$item.'}' => $this->variable_exec ($item)));
             }
 
             return $code;
